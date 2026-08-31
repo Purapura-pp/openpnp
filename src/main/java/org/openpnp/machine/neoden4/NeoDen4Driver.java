@@ -307,14 +307,19 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
         for (int i = 0; i < length; i++) {
             b[i] = (byte) (read(false) & 0xff);
         }
-        int checksum = read(false);
-        // TODO STOPSHIP verify checksum
+        int receivedChecksum = read(false) & 0xff;
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < b.length; i++) {
             sb.append(String.format("%02x", b[i] & 0xff));
         }
-        sb.append(String.format("%02x", checksum & 0xff));
+        sb.append(String.format("%02x", receivedChecksum));
         Logger.trace("< " + sb.toString());
+        int expectedChecksum = checksum(b) & 0xff;
+        if (receivedChecksum != expectedChecksum) {
+            throw new IOException(String.format(
+                    "Checksum mismatch on %d byte response: expected %02x but received %02x.",
+                    length, expectedChecksum, receivedChecksum));
+        }
         return b;
     }
 
