@@ -64,6 +64,7 @@ import org.openpnp.gui.components.IssuePanel;
 import org.openpnp.gui.support.ActionGroup;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.MultisortTableHeaderCellRenderer;
+import org.openpnp.gui.tablemodel.SolutionsTableModel;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Solutions;
@@ -83,6 +84,7 @@ public class IssuesAndSolutionsPanel extends JPanel {
     final private Configuration configuration;
     final private MainFrame frame;
     private Solutions solutions;
+    private SolutionsTableModel solutionsTableModel;
     private ReferenceMachine machine;
     private IssuePanel issuePanel;
 
@@ -199,10 +201,16 @@ public class IssuesAndSolutionsPanel extends JPanel {
             public void configurationComplete(Configuration configuration) throws Exception {
                 machine = (ReferenceMachine)configuration.getMachine();
                 solutions = machine.getSolutions();
+                solutionsTableModel = new SolutionsTableModel(solutions);
                 initDataBindings();
 
-                tableSorter = new TableRowSorter<>(solutions);
-                table = new AutoSelectTextTable(solutions) {
+                // Solutions asks for a rescan rather than calling this panel, so that changing the
+                // milestone does not have to know a GUI exists.
+                solutions.addPropertyChangeListener("rescanRequested",
+                        e -> SwingUtilities.invokeLater(() -> findIssuesAndSolutions()));
+
+                tableSorter = new TableRowSorter<>(solutionsTableModel);
+                table = new AutoSelectTextTable(solutionsTableModel) {
                     @Override
                     public String getToolTipText(MouseEvent e) {
 
@@ -212,7 +220,7 @@ public class IssuesAndSolutionsPanel extends JPanel {
 
                         if (row >= 0) {
                             row = table.convertRowIndexToModel(row);
-                            String tip = solutions.getToolTipAt(row, col);
+                            String tip = solutionsTableModel.getToolTipAt(row, col);
                             if (tip != null) {
                                 return tip;
                             }
@@ -223,7 +231,7 @@ public class IssuesAndSolutionsPanel extends JPanel {
                 };
                 table.setRowSorter(tableSorter);
                 table.getTableHeader().setDefaultRenderer(new MultisortTableHeaderCellRenderer());
-                Solutions.applyTableUi(table);
+                SolutionsTableModel.applyTableUi(table);
                 table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                 table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
@@ -242,7 +250,7 @@ public class IssuesAndSolutionsPanel extends JPanel {
                 table.getColumnModel().getColumn(4).setPreferredWidth(50);
                 JScrollPane scrollPane = new JScrollPane(table);
                 splitPane.setLeftComponent(scrollPane);
-                solutions.addTableModelListener(new TableModelListener() {
+                solutionsTableModel.addTableModelListener(new TableModelListener() {
 
                     @Override
                     public void tableChanged(TableModelEvent e) {

@@ -37,6 +37,11 @@ import org.openpnp.spi.HeadMountable;
 public class NullMotionPlanner extends AbstractMotionPlanner {
 
     @Override
+    public boolean isPlaceholder() {
+        return true;
+    }
+
+    @Override
     protected void optimizeExecutionPlan(List<Motion> executionPlan,
             CompletionType completionType) {
         // The NullMotionPLanner does nothing to the motion execution plan.

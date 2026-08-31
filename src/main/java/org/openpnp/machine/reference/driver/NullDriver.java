@@ -55,6 +55,10 @@ import org.simpleframework.xml.Attribute;
  */
 public class NullDriver extends AbstractDriver {
 
+    @Override
+    public boolean isPlaceholder() {
+        return true;
+    }
 
     @Attribute(required = false)
     private double feedRateMmPerMinute = 5000;

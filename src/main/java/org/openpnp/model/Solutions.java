@@ -33,18 +33,9 @@ import java.util.Set;
 
 import javax.swing.Action;
 import javax.swing.Icon;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.openpnp.Translations;
-import org.openpnp.gui.MainFrame;
-import org.openpnp.gui.components.AutoSelectTextTable;
-import org.openpnp.gui.support.Icons;
-import org.openpnp.machine.reference.driver.NullDriver;
-import org.openpnp.machine.reference.driver.NullMotionPlanner;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.ControllerAxis;
@@ -57,7 +48,16 @@ import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 
-public class Solutions extends AbstractTableModel {
+/**
+ * The machine's setup advice: the issues found on it, the solution offered for each, and the
+ * milestone the user is working towards.
+ * <p>
+ * This used to be a Swing table model, which is why it sits in the model package but was shaped by
+ * the view. The table lives in SolutionsTableModel now; what remains here reports through property
+ * changes and leaves presentation, including which icon stands in for a subject that has none, to
+ * whoever is showing it.
+ */
+public class Solutions {
 
     @ElementList(required = false)
     private Set<String> dismissedSolutions = new HashSet<>();
@@ -137,11 +137,6 @@ public class Solutions extends AbstractTableModel {
         @Override
         public void setName(String name) {}
 
-        @Override
-        public Icon getSubjectIcon() {
-            return Icons.solutions;
-        }
-
         public String getDescription() {
             return description;
         }
@@ -190,15 +185,15 @@ public class Solutions extends AbstractTableModel {
                 return (this.getClass().getSimpleName());
             }
         }
+        /**
+         * @return The icon that identifies this subject, or null if it has none of its own. The
+         * view substitutes a generic one rather than the model naming a GUI resource.
+         */
         public default Icon getSubjectIcon() {
-            Icon icon = null;
             if (this instanceof PropertySheetHolder) {
-                icon = ((PropertySheetHolder)this).getPropertySheetHolderIcon();
+                return ((PropertySheetHolder)this).getPropertySheetHolderIcon();
             }
-            if (icon == null) {
-                icon = Icons.solutions;
-            }
-            return icon;
+            return null;
         }
     }
 
@@ -265,7 +260,8 @@ public class Solutions extends AbstractTableModel {
         Solved(new Color(157, 255, 168)),
         Dismissed(new Color(220, 220, 220));
 
-        private Color color;
+        /** Read by the table renderer, which no longer lives in this package. */
+        final public Color color;
 
         State(Color color) {
             this.color = color;
@@ -273,11 +269,8 @@ public class Solutions extends AbstractTableModel {
     }
 
     public boolean confirm(String message, boolean warning) {
-        int result = JOptionPane.showConfirmDialog(MainFrame.get(),
-                message, warning ? "Warning" : "Question", 
-                        JOptionPane.YES_NO_OPTION, 
-                        warning ? JOptionPane.WARNING_MESSAGE : JOptionPane.QUESTION_MESSAGE);
-        return (result == JOptionPane.YES_OPTION);
+        return Configuration.get().getUserInteraction()
+                .confirm(warning ? "Warning" : "Question", message); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static abstract class Issue extends AbstractModelObject {
@@ -621,8 +614,11 @@ public class Solutions extends AbstractTableModel {
                     }
                     if (ok) {
                         super.setState(state);
+                        // Changing the milestone changes which issues apply, so a rescan is
+                        // needed. Requesting it rather than calling the tab keeps this out of
+                        // the GUI; whoever is showing the issues listens for it.
                         setTargetMilestone((Milestone) getChoice());
-                        MainFrame.get().getIssuesAndSolutionsTab().findIssuesAndSolutions();
+                        propertyChangeSupport.firePropertyChange("rescanRequested", false, true);
                     }
                 }
                 else {
@@ -642,7 +638,7 @@ public class Solutions extends AbstractTableModel {
                                                 XmlSerialize.escapeXml(targetMilestone.getDescription()),
                                                 targetMilestone.getNext().getName(),
                                                 XmlSerialize.escapeXml(targetMilestone.getNext().getDescription())),
-                                        Icons.milestone)),
+                                        null)),
                         (targetMilestone.getPrevious() == null ? null :
                                 new Solutions.Issue.Choice(targetMilestone.getPrevious(),
                                         String.format(Translations.getString(
@@ -650,7 +646,7 @@ public class Solutions extends AbstractTableModel {
                                                 ), targetMilestone.getPrevious().getName(),
                                                 targetMilestone.getPrevious().getName(),
                                                 XmlSerialize.escapeXml(targetMilestone.getPrevious().getDescription())),
-                                        Icons.milestone)),
+                                        null)),
                 };
             }
         });
@@ -711,8 +707,7 @@ public class Solutions extends AbstractTableModel {
                 if (issue.getState() == Solutions.State.Dismissed) {
                     setSolutionsIssueDismissed(issue, true);
                 }
-                int row = getIssues().indexOf(issue);
-                fireTableRowsUpdated(row, row);
+                propertyChangeSupport.firePropertyChange("issue", null, issue);
             });
         }
         // Sort by state (initially only Open and Dismissed possible) and place Fundamentals first.
@@ -730,125 +725,14 @@ public class Solutions extends AbstractTableModel {
                 }
             }
         });
-        //Object oldValue = this.issues; 
+        List<Issue> oldValue = this.issues;
         this.issues = pendingIssues;
         pendingIssues = null;
-        fireTableDataChanged();
-        //firePropertyChange("issues", oldValue, this.issues);
-    }
-
-    private String[] columnNames = new String[] {
-            Translations.getString("Solutions.Model.ColumnName.subject"), //$NON-NLS-1$
-            Translations.getString("Solutions.Model.ColumnName.severity"), //$NON-NLS-1$
-            Translations.getString("Solutions.Model.ColumnName.issue"), //$NON-NLS-1$
-            Translations.getString("Solutions.Model.ColumnName.solution"), //$NON-NLS-1$
-            Translations.getString("Solutions.Model.ColumnName.state")}; //$NON-NLS-1$
-    private Class[] columnTypes = new Class[] {Subject.class, Severity.class, String.class, String.class, State.class};
-
-    @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount() {
-        return issues.size();
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return columnTypes[columnIndex];
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
+        propertyChangeSupport.firePropertyChange("issues", oldValue, this.issues);
     }
 
     public Issue getIssue(int index) {
         return issues.get(index);
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        Issue issue = getIssue(rowIndex); 
-        switch (columnIndex) {
-            case 0:
-                return issue.getSubject();
-            case 1:
-                return issue.getSeverity();
-            case 2:
-                return issue.getIssue();
-            case 3:
-                return issue.getSolution();
-            case 4:
-                return issue.getState();
-            default:
-                return null;
-        }
-    }
-    public String getToolTipAt(int rowIndex, int columnIndex) {
-        Issue issue = getIssue(rowIndex); 
-        switch (columnIndex) {
-            case 2:
-                return issue.getIssue();
-            case 3:
-                return issue.getSolution();
-        }
-        return null;
-    }
-
-    static protected class SubjectRenderer extends DefaultTableCellRenderer {
-        public void setValue(Object value) {
-            if (value == null) {
-                return;
-            }
-            Subject subject = (Subject) value; 
-            setText(subject.getSubjectText());
-        }
-    }
-
-    static protected class SeverityRenderer extends DefaultTableCellRenderer {
-        public void setValue(Object value) {
-            if (value == null) {
-                return;
-            }
-            Severity severity = (Severity) value; 
-            setForeground(Color.black);
-            setBackground(severity.color);
-            setText(severity.toString());
-            setBorder(new LineBorder(getBackground()));
-        }
-    }
-
-    static protected class StateRenderer extends DefaultTableCellRenderer {
-        public void setValue(Object value) {
-            if (value == null) {
-                return;
-            }
-            State state = (State) value; 
-            setForeground(Color.black);
-            setBackground(state.color);
-            setText(state.toString());
-            setBorder(new LineBorder(getBackground()));
-        }
-    }
-
-    public static void applyTableUi(AutoSelectTextTable table) {
-        table.setDefaultRenderer(Solutions.Subject.class, new Solutions.SubjectRenderer());
-        table.setDefaultRenderer(Solutions.Severity.class, new Solutions.SeverityRenderer());
-        table.setDefaultRenderer(Solutions.State.class, new Solutions.StateRenderer());
-        //JComboBox statesComboBox = new JComboBox(Solutions.State.values());
-        //table.setDefaultEditor(Solutions.State.class, new DefaultCellEditor(statesComboBox));
     }
 
     @Deprecated
@@ -859,10 +743,10 @@ public class Solutions extends AbstractTableModel {
     @Deprecated
     private void migrateLevel() {
         // Migration of an older configuration, try reconstructing the level. This is only a very crude heuristic.
-        if (getMachine().getDrivers().isEmpty() || getMachine().getDrivers().get(0) instanceof NullDriver) {
+        if (getMachine().getDrivers().isEmpty() || getMachine().getDrivers().get(0).isPlaceholder()) {
             targetMilestone = Milestone.Welcome;
         }
-        else if (getMachine().getMotionPlanner() instanceof NullMotionPlanner) {
+        else if (getMachine().getMotionPlanner().isPlaceholder()) {
             targetMilestone = Milestone.Calibration;
             try {
                 for (Camera camera : new Camera[] {

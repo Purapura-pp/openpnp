@@ -34,6 +34,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -62,6 +63,7 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
 import org.openpnp.Translations;
+import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.model.Length;
@@ -86,6 +88,25 @@ import com.jgoodies.forms.layout.Sizes;
 public class IssuePanel extends JPanel {
     private static final int SLIDER_MAX = 10000;
     private static final int MAX_MULTIPLE_CHOICE = 10;
+
+    /**
+     * Solutions reports that a subject has no icon of its own rather than naming a GUI resource,
+     * so the generic one is chosen here.
+     */
+    private static Icon iconFor(Solutions.Subject subject) {
+        Icon icon = subject.getSubjectIcon();
+        return icon != null ? icon : Icons.solutions;
+    }
+
+    /** Likewise for a choice; only the milestone choices come through without an icon. */
+    private static Icon iconFor(Solutions.Issue.Choice choice) {
+        Icon icon = choice.getIcon();
+        if (icon != null) {
+            return icon;
+        }
+        return choice.getValue() instanceof Solutions.Milestone ? Icons.milestone : null;
+    }
+
     final Solutions.Issue issue;
     final ReferenceMachine machine;
     private JScrollPane scrollPane;
@@ -476,7 +497,7 @@ public class IssuePanel extends JPanel {
 
                 JLabel lblMultiChoice = new JLabel(choice.getDescription());
                 panelMultiChoice.add(lblMultiChoice, "1, 1");
-                lblMultiChoice.setIcon(choice.getIcon());
+                lblMultiChoice.setIcon(iconFor(choice));
                 lblMultiChoice.setIconTextGap(20);
                 setClipboardHandler(lblMultiChoice);
                 lblMultiChoice.addMouseListener(new MouseListener() {
@@ -608,7 +629,7 @@ public class IssuePanel extends JPanel {
         //      autoBinding.bind();
         // So bind it statically, it is final anyway. 
         subjectText.setText(issue.getSubject().getSubjectText());
-        subjectText.setIcon(issue.getSubject().getSubjectIcon());
+        subjectText.setIcon(iconFor(issue.getSubject()));
 
         BeanProperty<Issue, String> issueBeanProperty_1 = BeanProperty.create("issue");
         BeanProperty<JTextArea, String> jLabelBeanProperty = BeanProperty.create("text");

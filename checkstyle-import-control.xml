@@ -35,21 +35,14 @@
           them needs the SPI to express the "vision settings root" concept first.
         -->
         <allow pkg="org.openpnp.machine.reference.vision"/>
-        <!-- Solutions.migrateLevel() recognises an unconfigured machine by these two classes. -->
-        <allow class="org.openpnp.machine.reference.driver.NullDriver"/>
-        <allow class="org.openpnp.machine.reference.driver.NullMotionPlanner"/>
         <disallow pkg="org.openpnp.machine"/>
 
         <!--
           Remaining model -> gui edges. Most of them exist because model objects reach into
           MainFrame for the currently open job, which is a model concept stored in the GUI.
         -->
-        <allow class="org.openpnp.gui.MainFrame"/>
-        <allow class="org.openpnp.gui.components.AutoSelectTextTable"/>
         <allow class="org.openpnp.gui.components.ThemeInfo"/>
         <allow class="org.openpnp.gui.components.ThemeSettingsPanel"/>
-        <allow class="org.openpnp.gui.support.Icons"/>
-        <allow class="org.openpnp.gui.support.MessageBoxes"/>
         <!-- As in spi, exposing a configuration Wizard is intended and stays. -->
         <allow class="org.openpnp.gui.support.Wizard"/>
         <disallow pkg="org.openpnp.gui"/>

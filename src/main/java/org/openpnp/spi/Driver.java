@@ -322,4 +322,13 @@ import org.openpnp.spi.MotionPlanner.CompletionType;
      * @return
      */
     Length getMinimumRate(int order);
+
+    /**
+     * @return true if this is a stand-in rather than a driver for real hardware, i.e. what a
+     * machine has before the user has configured anything. Setup advice keys off this to tell an
+     * untouched machine from a configured one.
+     */
+    default boolean isPlaceholder() {
+        return false;
+    }
 }

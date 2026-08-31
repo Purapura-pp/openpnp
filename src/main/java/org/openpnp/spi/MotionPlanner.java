@@ -239,4 +239,13 @@ public interface MotionPlanner extends PropertySheetHolder, Solutions.Subject {
      * precision for computations, interpolation, and decimal encoding in textual form (e.g. G-code).
      */
     double getMinimumSpeed();
+
+    /**
+     * @return true if this is a stand-in rather than a planner that actually plans motion, i.e.
+     * what a machine has before the user has configured anything. Setup advice keys off this to
+     * tell an untouched machine from a configured one.
+     */
+    default boolean isPlaceholder() {
+        return false;
+    }
 }
