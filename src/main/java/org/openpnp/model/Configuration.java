@@ -43,14 +43,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.prefs.Preferences;
 
-import javax.swing.JOptionPane;
-
 import org.apache.commons.io.FileUtils;
 import org.openpnp.ConfigurationListener;
-import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.ThemeInfo;
 import org.openpnp.gui.components.ThemeSettingsPanel;
-import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.model.Abstract2DLocatable.Side;
 import org.openpnp.scripting.Scripting;
 import org.openpnp.spi.Machine;
@@ -119,6 +115,7 @@ public class Configuration extends AbstractModelObject {
     private LinkedHashMap<String, AbstractVisionSettings> visionSettings = new LinkedHashMap<>();
     private Machine machine;
     private Job job;
+    private UserInteraction userInteraction = UserInteraction.nonInteractive();
     private LinkedHashMap<File, Panel> panels = new LinkedHashMap<>();
     private LinkedHashMap<File, Board> boards = new LinkedHashMap<>();
     private boolean loaded;
@@ -1042,27 +1039,25 @@ public class Configuration extends AbstractModelObject {
 
     private void confirmSaveOfModified(PlacementsHolder<?> placementsHolder) {
         if (placementsHolder.isDirty()) {
-            int result = JOptionPane.showConfirmDialog(MainFrame.get(),
-                    "Do you want to save your changes to " + placementsHolder.getFile().getName() + "?" //$NON-NLS-1$ //$NON-NLS-2$
-                            + "\n" + "If you don't save, your changes will be lost.", //$NON-NLS-1$ //$NON-NLS-2$
-                    "Save " + placementsHolder.getFile().getName() + "?", //$NON-NLS-1$ //$NON-NLS-2$
-                    JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                try {
-                    if (placementsHolder instanceof Board) {
-                        saveBoard((Board) placementsHolder);
-                    }
-                    else if (placementsHolder instanceof Panel) {
-                        savePanel((Panel)placementsHolder);
-                    }
-                    else {
-                        throw new UnsupportedOperationException("Instance type " + placementsHolder.getClass() + " not supported.");
-                    }
+            String name = placementsHolder.getFile().getName();
+            if (!userInteraction.confirm("Save " + name + "?", //$NON-NLS-1$ //$NON-NLS-2$
+                    "Do you want to save your changes to " + name + "?" //$NON-NLS-1$ //$NON-NLS-2$
+                            + "\n" + "If you don't save, your changes will be lost.")) { //$NON-NLS-1$ //$NON-NLS-2$
+                return;
+            }
+            try {
+                if (placementsHolder instanceof Board) {
+                    saveBoard((Board) placementsHolder);
                 }
-                catch (Exception e) {
-                    MessageBoxes.errorBox(MainFrame.get(), "Save Error", //$NON-NLS-1$
-                            e.getMessage());
+                else if (placementsHolder instanceof Panel) {
+                    savePanel((Panel)placementsHolder);
                 }
+                else {
+                    throw new UnsupportedOperationException("Instance type " + placementsHolder.getClass() + " not supported.");
+                }
+            }
+            catch (Exception e) {
+                userInteraction.reportError("Save Error", e.getMessage()); //$NON-NLS-1$
             }
         }
     }
@@ -1109,6 +1104,22 @@ public class Configuration extends AbstractModelObject {
      */
     public Job getJob() {
         return job;
+    }
+
+    /**
+     * How the configuration asks the user to confirm something or reports a failure it has already
+     * handled. Defaults to the non-interactive implementation; the GUI installs a Swing one while
+     * starting up.
+     * 
+     * @return
+     */
+    public UserInteraction getUserInteraction() {
+        return userInteraction;
+    }
+
+    public void setUserInteraction(UserInteraction userInteraction) {
+        this.userInteraction =
+                (userInteraction == null ? UserInteraction.nonInteractive() : userInteraction);
     }
 
     public void setJob(Job job) {
