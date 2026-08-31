@@ -11,6 +11,7 @@ import org.openpnp.gui.support.Wizard;
 import org.openpnp.spi.JobProcessor;
 import org.openpnp.spi.PropertySheetHolder;
 import org.openpnp.spi.Signaler;
+import org.pmw.tinylog.Logger;
 
 public abstract class AbstractJobProcessor implements JobProcessor {
 
@@ -74,7 +75,7 @@ public abstract class AbstractJobProcessor implements JobProcessor {
                 listener.textStatus(String.format(format, params));
             }
             catch (Exception e) {
-
+                Logger.warn(e, "Text status listener {} failed.", listener);
             }
         }
     }

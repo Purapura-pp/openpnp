@@ -23,6 +23,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.openpnp.gui.tablemodel.PlacementsHolderLocationsTableModel;
 import org.openpnp.model.PlacementsHolderLocation.PlacementsTransformStatus;
+import org.pmw.tinylog.Logger;
 
 import java.awt.*;
 
@@ -73,7 +74,8 @@ public class MonospacedFontWithAffineStatusTableCellRenderer extends DefaultTabl
             }
         }
         catch (Exception ex) {
-            //do nothing
+            //Rendering path, keep this quiet: the row just gets the plain background.
+            Logger.trace(ex, "Failed to determine the placements transform status of row {}.", row);
         }
         setForeground(foreground);
         setBackground(background);

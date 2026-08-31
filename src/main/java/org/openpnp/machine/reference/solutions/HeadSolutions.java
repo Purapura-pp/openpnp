@@ -80,6 +80,7 @@ public class HeadSolutions implements Solutions.Subject {
             isDefaultHead = (head.getMachine().getDefaultHead() == head); 
         }
         catch (Exception e) {
+            // Ignore missing camera, the head solutions are simply skipped.
         }
         if (camera != null) {
 
@@ -531,6 +532,7 @@ public class HeadSolutions implements Solutions.Subject {
                 return ((AbstractAxis) axis).getCoordinateAxes(machine).getAxis(axis.getType());
             }
             catch (Exception e) {
+                // Expected when the axis is not (yet) mapped to a raw coordinate axis, null is the answer.
             }
         }
         return null;

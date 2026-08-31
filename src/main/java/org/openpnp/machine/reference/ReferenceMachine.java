@@ -555,7 +555,7 @@ public class ReferenceMachine extends AbstractMachine {
                 driver.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.warn(e, "Failed to close driver {}.", driver.getName());
             }
         }
         for (Camera camera : getCameras()) {
@@ -563,7 +563,7 @@ public class ReferenceMachine extends AbstractMachine {
                 camera.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.warn(e, "Failed to close camera {}.", camera.getName());
             }
         }
         for (Head head : getHeads()) {
@@ -572,7 +572,7 @@ public class ReferenceMachine extends AbstractMachine {
                     camera.close();
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.warn(e, "Failed to close camera {} of head {}.", camera.getName(), head.getName());
                 }
             }
         }

@@ -66,14 +66,16 @@ public class WizardUtils {
                     catch (InstantiationException | IllegalAccessException | 
                             InvocationTargetException | NoSuchMethodException | SecurityException e) {
                         //These shouldn't happen - report immediately and exit
-                        e.printStackTrace();
+                        Logger.error(e, "Failed to construct wizard {}.",
+                                wizardToConstruct.getSimpleName());
                         return ret;
                     }
                 }
             }
             Logger.error("Wizard could not be constructed with the specified parameters");
             if (savedException != null) {
-                savedException.printStackTrace();
+                Logger.error(savedException, "Last constructor attempt for wizard {} failed.",
+                        wizardToConstruct.getSimpleName());
             }
             return ret;
         }

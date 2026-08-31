@@ -102,7 +102,7 @@ public class GcodeServer extends Thread {
             serverSocket.close();
         }
         catch (Exception e) {
-
+            Logger.debug(e, "Could not close the Gcode server socket on port {}.", getListenerPort());
         }
     }
 
@@ -113,6 +113,7 @@ public class GcodeServer extends Thread {
                 new Worker(socket).start();
             }
             catch (Exception e) {
+                Logger.debug(e, "Gcode server on port {} could not accept a connection.", getListenerPort());
             }
         }
         Logger.debug("Socket port "+getListenerPort()+" bye-bye.");
@@ -228,16 +229,19 @@ public class GcodeServer extends Thread {
                 input.close();
             }
             catch (Exception e) {
+                Logger.debug(e, "Could not close the Gcode worker input stream.");
             }
             try {
                 output.close();
             }
             catch (Exception e) {
+                Logger.debug(e, "Could not close the Gcode worker output stream.");
             }
             try {
                 socket.close();
             }
             catch (Exception e) {
+                Logger.debug(e, "Could not close the Gcode worker socket.");
             }
             Logger.debug("Worker port "+getListenerPort()+" bye-bye.");
         }

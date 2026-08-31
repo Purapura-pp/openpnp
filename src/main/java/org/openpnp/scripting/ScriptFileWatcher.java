@@ -3,6 +3,7 @@ package org.openpnp.scripting;
 import org.apache.commons.io.FileUtils;
 import org.openpnp.Translations;
 import org.openpnp.util.UiUtils;
+import org.pmw.tinylog.Logger;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -68,7 +69,7 @@ public class ScriptFileWatcher {
                         file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.warn(e, "Could not copy the example script {}.", name);
             }
         }
     }
@@ -149,7 +150,7 @@ public class ScriptFileWatcher {
                         synchronizeMenu(menu, scripting.getScriptsDirectory());
                     }
                     catch (Exception e) {
-                        e.printStackTrace();
+                        Logger.debug(e, "Could not process a script directory change event.");
                     }
                 }
             });
@@ -157,7 +158,7 @@ public class ScriptFileWatcher {
             thread.start();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Could not set up the script file watcher, changes to scripts will not be picked up automatically.");
         }
     }
 
@@ -167,7 +168,7 @@ public class ScriptFileWatcher {
                     StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.warn(e, "Could not watch the script directory {} for changes.", directory);
         }
     }
 

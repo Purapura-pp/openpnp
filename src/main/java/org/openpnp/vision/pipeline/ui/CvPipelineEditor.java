@@ -189,7 +189,7 @@ public class CvPipelineEditor extends JPanel {
             originalVersion = pipeline.toXmlString();
         }
         catch (Exception e1) {
-            // Do nothing
+            Logger.warn(e1, "Failed to snapshot the pipeline, edits cannot be detected or undone.");
         }
         
         setLayout(new BorderLayout(0, 0));
@@ -247,7 +247,7 @@ public class CvPipelineEditor extends JPanel {
             pipeline.fromXmlString(originalVersion);
         }
         catch (Exception e) {
-            // Do nothing
+            Logger.error(e, "Failed to restore the pipeline, the edits were not undone.");
         }
     }
     

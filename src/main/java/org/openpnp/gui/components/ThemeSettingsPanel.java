@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 import org.openpnp.Translations;
 import org.openpnp.gui.support.FlexibleColor;
 import org.openpnp.model.Configuration;
+import org.pmw.tinylog.Logger;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -334,6 +335,8 @@ public class ThemeSettingsPanel extends JPanel {
                 try {
                     UIManager.setLookAndFeel(themeInfo.lafClassName);
                 } catch (Exception ignore) {
+                    Logger.error(ignore, "Failed to apply look and feel {}, keeping the current one.",
+                            themeInfo.lafClassName);
                 }
             }
         } else if (themeInfo.themeFile != null) {
@@ -345,6 +348,8 @@ public class ThemeSettingsPanel extends JPanel {
                     FlatLaf.install(IntelliJTheme.createLaf(new FileInputStream(themeInfo.themeFile)));
                 }
             } catch (Exception ignore) {
+                Logger.error(ignore, "Failed to apply theme file {}, keeping the current one.",
+                        themeInfo.themeFile);
             }
         } else if (themeInfo.resourceName != null) {
             FlatAnimatedLafChange.showSnapshot();

@@ -318,7 +318,7 @@ public class OpenCvUtils {
                 ImageIO.write(img, "PNG", file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Could not save the debug image for {}.{}.", implementationClass.getSimpleName(), function);
             }
         }
     }

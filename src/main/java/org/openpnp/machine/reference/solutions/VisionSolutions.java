@@ -246,6 +246,7 @@ public class VisionSolutions implements Solutions.Subject {
                         defaultNozzle = head.getDefaultNozzle();
                     }
                     catch (Exception e1) {
+                        // Ignore missing nozzle.
                     }
                     if (defaultCamera != null) {
                         for (Camera camera : head.getCameras()) {
@@ -277,6 +278,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
             }
             catch (Exception e1) {
+                // Ignore missing head, camera or nozzle, the up-looking camera solutions are simply skipped.
             }
             if (defaultHead != null && defaultCamera != null && defaultNozzle  != null) {
                 for (Camera camera : machine.getCameras()) {
@@ -398,6 +400,7 @@ public class VisionSolutions implements Solutions.Subject {
                                                     Logger.debug("Next best feature diameter auto-detected at "+featureDiameter+"px");
                                                 }
                                                 catch (Exception e1) {
+                                                    Logger.debug(e1, "Failed to preview the auto-detected feature diameter on camera {}.", camera.getName());
                                                 }
                                             }
                                             finally {

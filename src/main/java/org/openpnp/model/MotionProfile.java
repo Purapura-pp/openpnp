@@ -2488,11 +2488,11 @@ solve(eq, t)            # Solve for t
                 System.out.println(file.toURI());
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Logger.error(e, "Could not write the solver diagnostics to {}.", file);
             }            
         }
         catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e, "Could not create a temporary file for the solver diagnostics.");
         }            
         // Restore
         computeProfile(vSolved, vEffEntry, vEffExit, tMin);

@@ -40,6 +40,7 @@ import org.openpnp.gui.support.CameraItem;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.base.AbstractCamera;
+import org.pmw.tinylog.Logger;
 
 /**
  * Shows a square grid of cameras or a blown up image from a single camera.
@@ -89,7 +90,7 @@ public class CameraPanel extends JPanel {
                             prefs.flush();
                         }
                         catch (Exception e) {
-                            e.printStackTrace();
+                            Logger.warn(e, "Failed to store the selected camera view preference.");
                         }
                     });           		
             	});

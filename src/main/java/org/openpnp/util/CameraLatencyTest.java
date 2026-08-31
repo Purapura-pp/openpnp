@@ -15,6 +15,7 @@ import org.openpnp.capture.CaptureFormat;
 import org.openpnp.capture.CaptureProperty;
 import org.openpnp.capture.CaptureStream;
 import org.openpnp.capture.OpenPnpCapture;
+import org.pmw.tinylog.Logger;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -113,7 +114,7 @@ public class CameraLatencyTest extends Frame implements Runnable {
                 repaint();
             }
             catch (Exception e) {
-                
+                Logger.debug(e, "Could not capture a frame for the latency test.");
             }
         }
     }
@@ -145,6 +146,7 @@ public class CameraLatencyTest extends Frame implements Runnable {
             flashCount = 6;
         }
         catch (Exception e) {
+            // No readable QR code in this frame, the previously measured latency stays on display.
         }
         
         g.setColor(Color.black);
@@ -167,7 +169,7 @@ public class CameraLatencyTest extends Frame implements Runnable {
             g.drawImage(qrCode, 20, 120, null);
         }
         catch (Exception e) {
-
+            Logger.debug(e, "Could not render the QR code for the latency test.");
         }
     }
 

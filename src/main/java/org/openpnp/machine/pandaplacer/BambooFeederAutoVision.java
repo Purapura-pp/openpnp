@@ -130,11 +130,13 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
                     feedActuator = machine.getActuatorByName(feedActuatorName);
                 }
                 catch (Exception e) {
+                    Logger.debug(e, "Feeder {} could not resolve its feed actuator {}.", getName(), feedActuatorName);
                 }
                 try {
                   postPickActuator = machine.getActuatorByName(postPickActuatorName);
                 }
                 catch (Exception e) {
+                    Logger.debug(e, "Feeder {} could not resolve its post pick actuator {}.", getName(), postPickActuatorName);
                 }
                 // Listen to the machine become unhomed to invalidate feeder calibration.
                 // Note that home()  first switches the machine isHomed() state off, then on again,

@@ -31,6 +31,7 @@ import org.openpnp.model.BoardPad.Type;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.Location;
+import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
 public class PadsTableModel extends AbstractTableModel {
@@ -113,6 +114,8 @@ public class PadsTableModel extends AbstractTableModel {
         }
         catch (Exception e) {
             // TODO: dialog, bad input
+            Logger.warn(e, "Failed to apply the edit of column {}, the value was discarded.",
+                    getColumnName(columnIndex));
         }
     }
 

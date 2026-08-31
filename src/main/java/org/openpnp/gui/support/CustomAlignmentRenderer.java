@@ -54,7 +54,8 @@ public class CustomAlignmentRenderer<T extends TableCellRenderer> extends Defaul
             ((JLabel) component).setHorizontalAlignment(alignment);
         }
         catch (ClassCastException ex) {
-            //do nothing
+            //Expected for wrapped renderers that are not JLabels, they simply keep their own
+            //alignment.
         }
         return component;
     }

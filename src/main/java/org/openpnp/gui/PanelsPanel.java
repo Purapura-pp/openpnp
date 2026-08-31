@@ -72,6 +72,7 @@ import org.openpnp.model.PanelLocation;
 import org.openpnp.model.Placement;
 import org.openpnp.model.Configuration.TablesLinked;
 import org.openpnp.model.Configuration;
+import org.pmw.tinylog.Logger;
 import com.google.common.eventbus.Subscribe;
 
 @SuppressWarnings("serial")
@@ -171,8 +172,7 @@ public class PanelsPanel extends JPanel {
                                 panelDefinitionPanel.setPanel(null);
                             }
                             catch (IOException e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
+                                Logger.error(e1, "Failed to clear the panel definition view.");
                             }
                             if (updateLinkedTables) {
                                 Configuration.get().getBus()
@@ -186,8 +186,8 @@ public class PanelsPanel extends JPanel {
                                 panelDefinitionPanel.setPanel((Panel) selections.get(0));
                             }
                             catch (IOException e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
+                                Logger.error(e1, "Failed to show the definition of panel {}.",
+                                        selections.get(0).getName());
                             }
                             if (updateLinkedTables) {
                                 Configuration.get().getBus()
@@ -201,8 +201,7 @@ public class PanelsPanel extends JPanel {
                                 panelDefinitionPanel.setPanel(null);
                             }
                             catch (IOException e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
+                                Logger.error(e1, "Failed to clear the panel definition view.");
                             }
                             if (updateLinkedTables) {
                                 Configuration.get().getBus()
@@ -400,7 +399,7 @@ public class PanelsPanel extends JPanel {
                 selectPanel(panel);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to create new panel.");
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelsPanel.Action.AddPanel.NewPanel.ErrorMessage"), //$NON-NLS-1$
                         e.getMessage());
@@ -437,7 +436,7 @@ public class PanelsPanel extends JPanel {
                 selectPanel(panel);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing panel {}.", fileDialog.getFile());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelsPanel.Action.AddPanel.ExistingPanel.ErrorMessage"), //$NON-NLS-1$
                         e.getMessage());
@@ -520,7 +519,7 @@ public class PanelsPanel extends JPanel {
                 selectPanel(newPanel);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to copy panel {}.", panelToCopy.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelsPanel.Action.CopyPanel.ErrorMessage"),  //$NON-NLS-1$
                         e.getMessage());

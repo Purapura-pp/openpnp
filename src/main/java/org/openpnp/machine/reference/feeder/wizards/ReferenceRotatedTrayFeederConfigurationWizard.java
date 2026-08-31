@@ -54,6 +54,7 @@ import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.model.Part;
 import org.openpnp.util.Utils2D;
+import org.pmw.tinylog.Logger;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -363,7 +364,7 @@ public class ReferenceRotatedTrayFeederConfigurationWizard extends AbstractConfi
                 illustrationicon = new ImageIcon(ImageIO.read(stream));
 
             } catch (IOException e1) {
-                e1.printStackTrace();
+                Logger.warn(e1, "Failed to load the rotated tray feeder illustration.");
             }
             JLabel illustationlabel = new JLabel();
             illustationlabel.setIcon(illustrationicon);

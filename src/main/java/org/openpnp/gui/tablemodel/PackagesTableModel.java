@@ -29,6 +29,7 @@ import org.openpnp.model.BottomVisionSettings;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.FiducialVisionSettings;
 import org.openpnp.model.Package;
+import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
 public class PackagesTableModel extends AbstractObjectTableModel implements PropertyChangeListener {
@@ -103,6 +104,8 @@ public class PackagesTableModel extends AbstractObjectTableModel implements Prop
         }
         catch (Exception e) {
             // TODO: dialog, bad input
+            Logger.warn(e, "Failed to apply the edit of column {}, the value was discarded.",
+                    getColumnName(columnIndex));
         }
     }
 

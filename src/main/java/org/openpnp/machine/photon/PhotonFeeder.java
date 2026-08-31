@@ -257,7 +257,7 @@ public class PhotonFeeder extends ReferenceFeeder {
         try {
             machine.addActuator(actuator);
         } catch (Exception exception) {
-            exception.printStackTrace(); // TODO Probably need to log this, figure out why it can happen first
+            Logger.error(exception, "Failed to add the default Photon data actuator {} to the machine.", ACTUATOR_DATA_NAME);
         }
         return actuator;
     }

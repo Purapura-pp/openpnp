@@ -294,7 +294,7 @@ public class Utils2D {
             tx = tx.createInverse();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Could not invert the placement transform of {}, the uninverted transform is used instead.", bl.getFileName());
         }
         
         double angleSign = 1.0;

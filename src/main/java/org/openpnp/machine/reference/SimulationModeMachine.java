@@ -410,6 +410,7 @@ public class SimulationModeMachine extends ReferenceMachine {
                     Thread.sleep(5);
                 }
                 catch (InterruptedException e) {
+                    Logger.debug(e, "Interrupted while simulating the actuation of {}.", actuator.getName());
                 }
             }
         }

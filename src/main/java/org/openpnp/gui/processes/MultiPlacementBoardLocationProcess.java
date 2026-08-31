@@ -321,8 +321,7 @@ public class MultiPlacementBoardLocationProcess {
             boardLocation.setLocalToGlobalTransform(tx);
         }
         catch (NoninvertibleTransformException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Logger.error(e, "Failed to set the placement transform of {}.", boardLocation.getUniqueId());
         }
         
         // Compute the compensated board location
@@ -346,8 +345,8 @@ public class MultiPlacementBoardLocationProcess {
                 boardLocation.setLocalToGlobalTransform(tx);
             }
             catch (NoninvertibleTransformException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Logger.error(e, "Failed to re-apply the placement transform of {}.",
+                        boardLocation.getUniqueId());
             }
         }
         

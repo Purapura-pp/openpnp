@@ -24,6 +24,7 @@ import org.openpnp.spi.Camera;
 import org.openpnp.util.VisionUtils;
 import org.openpnp.vision.FluentCv.ColorSpace;
 import org.openpnp.vision.pipeline.ui.PipelinePropertySheetTable;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 /**
@@ -116,6 +117,8 @@ public abstract class CvStage {
                 return a.description();
             }
             catch (Exception e) {
+                // Expected for every class in the hierarchy that does not declare the field or
+                // does not annotate it, the loop simply continues with the super class.
             }
             // Also look in super classes.
             cls = cls.getSuperclass();
@@ -140,6 +143,8 @@ public abstract class CvStage {
                 }
             }
             catch (SecurityException e) {
+                Logger.trace(e, "Cannot inspect the fields of {}, its properties are not sequenced.",
+                        cls.getName());
             }
             // Also look in super classes.
             cls = cls.getSuperclass();
@@ -203,6 +208,8 @@ public abstract class CvStage {
                         pd.setWriteMethod(null);
                     }
                     catch (IntrospectionException e) {
+                        Logger.debug(e, "Failed to make the caller controlled property {} read only.",
+                                propertyName);
                     }
                     description = "<strong color=\"red\">Controlled by pipeline caller: "+propertyName+"="+overrideProperty+"</strong>"
                             + "<br/><br/>"

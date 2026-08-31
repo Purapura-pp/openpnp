@@ -75,6 +75,7 @@ import org.openpnp.model.Solutions.Issue.LengthProperty;
 import org.openpnp.model.Solutions.Issue.MultiLineTextProperty;
 import org.openpnp.model.Solutions.Issue.StringProperty;
 import org.openpnp.util.UiUtils;
+import org.pmw.tinylog.Logger;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -576,7 +577,9 @@ public class IssuePanel extends JPanel {
                         try {
                             Thread.sleep(300);
                         }
-                        catch (InterruptedException e1) {}
+                        catch (InterruptedException e1) {
+                            Logger.debug(e1, "Interrupted while flashing the copied issue text.");
+                        }
                         lbl.setEnabled(!lbl.isEnabled());
                     });
                 }

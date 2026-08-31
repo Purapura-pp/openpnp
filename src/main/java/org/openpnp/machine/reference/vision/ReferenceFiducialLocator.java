@@ -808,6 +808,7 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
             visionSettings.getPipeline().setProperty("camera", getVisionCamera());
         }
         catch (Exception e) {
+            Logger.debug(e, "No vision camera available to preset on the fiducial vision pipeline.");
         }
         return new FiducialVisionSettingsConfigurationWizard(visionSettings, partSettingsHolder);
     }
@@ -927,7 +928,7 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
                     Logger.warn("Part "+partId+" FiducialVisionSettings with no part.");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to migrate the fiducial vision settings of part {}.", partId);
             }
         });
 

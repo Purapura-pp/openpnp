@@ -144,6 +144,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                         defaultNozzle = head.getDefaultNozzle();
                     }
                     catch (Exception e1) {
+                        // Ignore missing nozzle.
                     }
                     if (defaultCamera != null) {
                         for (Camera camera : head.getCameras()) {
@@ -169,6 +170,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                 defaultNozzle = head.getDefaultNozzle();
             }
             catch (Exception e1) {
+                // Ignore missing camera or nozzle, the up-looking camera solutions are simply skipped.
             }
             if (defaultCamera != null && defaultNozzle  != null) {
                 for (Camera camera : machine.getCameras()) {
@@ -1311,6 +1313,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                         issue.setState(State.Open);
                     }
                     catch (Exception e) {
+                        Logger.warn(e, "Failed to reopen the issue after the calibration of camera {} was canceled.", camera.getName());
                     }
                     MainFrame.get()
                              .getIssuesAndSolutionsTab()

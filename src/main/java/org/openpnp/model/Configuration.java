@@ -239,6 +239,7 @@ public class Configuration extends AbstractModelObject {
                 ThemeInfo theme = (ThemeInfo) in.readObject();
                 return theme;
             } catch (IOException | ClassNotFoundException ignore) {
+                // The stored preference was written by an incompatible version, fall back to the default theme.
             }
         }
         return null;
@@ -250,7 +251,8 @@ public class Configuration extends AbstractModelObject {
             out.writeObject(theme);
             out.flush();
             prefs.putByteArray(PREF_THEME_INFO, bos.toByteArray());
-        } catch (IOException ignore) {
+        } catch (IOException e) {
+            Logger.warn(e, "Could not store the theme preference, it will not be restored on the next start.");
         }
     }
 
@@ -261,6 +263,7 @@ public class Configuration extends AbstractModelObject {
                 ThemeSettingsPanel.FontSize fontSize = (ThemeSettingsPanel.FontSize) in.readObject();
                 return fontSize;
             } catch (IOException | ClassNotFoundException ignore) {
+                // The stored preference was written by an incompatible version, fall back to the default font size.
             }
         }
         return null;
@@ -272,7 +275,8 @@ public class Configuration extends AbstractModelObject {
             out.writeObject(fontSize);
             out.flush();
             prefs.putByteArray(PREF_THEME_FONT_SIZE, bos.toByteArray());
-        } catch (IOException ignore) {
+        } catch (IOException e) {
+            Logger.warn(e, "Could not store the font size preference, it will not be restored on the next start.");
         }
     }
 
@@ -283,6 +287,7 @@ public class Configuration extends AbstractModelObject {
                 Boolean alternateRows = (Boolean) in.readObject();
                 return alternateRows;
             } catch (IOException | ClassNotFoundException ignore) {
+                // The stored preference was written by an incompatible version, fall back to the default.
             }
         }
         return null;
@@ -294,7 +299,8 @@ public class Configuration extends AbstractModelObject {
             out.writeObject(alternateRows);
             out.flush();
             prefs.putByteArray(PREF_THEME_ALTERNATE_ROWS, bos.toByteArray());
-        } catch (IOException ignore) {
+        } catch (IOException e) {
+            Logger.warn(e, "Could not store the alternate rows preference, it will not be restored on the next start.");
         }
     }
 
@@ -955,8 +961,7 @@ public class Configuration extends AbstractModelObject {
                 Logger.error("Could not load board " + boardFile.getCanonicalPath() + ", file is missing.");
             }
             catch(Exception e) {
-                Logger.error("Could not load board " + boardFile.getCanonicalPath() + ", file may be corrupt.");
-                e.printStackTrace();
+                Logger.error(e, "Could not load board {}, file may be corrupt.", boardFile.getCanonicalPath());
             }
         }
     }
@@ -993,8 +998,7 @@ public class Configuration extends AbstractModelObject {
                 Logger.error("Could not load panel " + panelFile.getCanonicalPath() + ", file is missing.");
             }
             catch(Exception e) {
-                Logger.error("Could not load panel " + panelFile.getCanonicalPath() + ", file may be corrupt.");
-                e.printStackTrace();
+                Logger.error(e, "Could not load panel {}, file may be corrupt.", panelFile.getCanonicalPath());
             }
         }
     }
@@ -1124,8 +1128,7 @@ public class Configuration extends AbstractModelObject {
                 configuration.resolveBoard(job, rootBoardLocation);
             }
             catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Logger.error(e, "Could not resolve root board {} while converting the legacy panel definition.", rootBoardLocation.getFileName());
             }
             
             //Now create a file for the new panel, we'll just use the job's file name except 

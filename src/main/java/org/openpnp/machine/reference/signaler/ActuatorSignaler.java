@@ -8,6 +8,7 @@ import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.base.AbstractJobProcessor;
 import org.openpnp.spi.base.AbstractSignaler;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.core.Persist;
 
@@ -50,7 +51,7 @@ public class ActuatorSignaler extends AbstractSignaler {
             try {
             	actuator.actuate(newState);                  // then set new state
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.warn(e, "Signaler failed to actuate {} to {}.", actuator.getName(), newState);
             }
     	}
     }

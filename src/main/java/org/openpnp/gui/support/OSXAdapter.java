@@ -52,6 +52,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import org.pmw.tinylog.Logger;
+
 public class OSXAdapter implements InvocationHandler {
 
     protected Object targetObject;
@@ -113,7 +115,7 @@ public class OSXAdapter implements InvocationHandler {
                         this.targetMethod.invoke(this.targetObject, new Object[] {filename});
                     }
                     catch (Exception ex) {
-
+                        Logger.error(ex, "Failed to handle the file opened from the Finder.");
                     }
                 }
                 return true;
@@ -199,8 +201,7 @@ public class OSXAdapter implements InvocationHandler {
                 setHandledMethod.invoke(event, new Object[] {Boolean.valueOf(handled)});
             }
             catch (Exception ex) {
-                System.err.println("OSXAdapter was unable to handle an ApplicationEvent: " + event);
-                ex.printStackTrace();
+                Logger.error(ex, "OSXAdapter was unable to handle an ApplicationEvent: {}.", event);
             }
         }
     }

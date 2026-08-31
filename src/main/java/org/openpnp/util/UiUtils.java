@@ -180,7 +180,7 @@ public class UiUtils {
                     SwingUtilities.invokeLater(() -> onSuccess.accept(result));
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.error(e, "Could not dispatch the success handler of a machine task to the UI thread.");
                 }
             }
 
@@ -190,7 +190,7 @@ public class UiUtils {
                     SwingUtilities.invokeLater(() -> onFailure.accept(t));
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.error(e, "Could not dispatch the failure handler of a machine task to the UI thread.");
                 }
             }
         }, ignoreEnabled);

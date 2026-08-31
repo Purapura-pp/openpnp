@@ -330,7 +330,8 @@ public class CameraView extends JComponent implements CameraListener {
             renderingQuality = RenderingQuality.valueOf(prefs.get(getQualityRenderingPrefKey(), RenderingQuality.Low.toString()));
         }
         catch (Exception e) {
-            // ignore errors
+            // Expected when the preference is missing or holds a name from another version,
+            // the field keeps its default value.
         }
         // turn on capture for the new camera
         if (this.camera != null) {
@@ -358,7 +359,7 @@ public class CameraView extends JComponent implements CameraListener {
             prefs.flush();
         }
         catch (Exception e) {
-
+            Logger.warn(e, "Failed to store the default reticle preference.");
         }
     }
 

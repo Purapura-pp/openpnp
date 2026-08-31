@@ -177,6 +177,7 @@ public class VisionCompositing extends AbstractModelObject{
             return VisionUtils.getBottomVisionCamera();
         }
         catch (Exception e) {
+            Logger.debug(e, "No bottom vision camera available for vision compositing.");
         }
         return null;
     }

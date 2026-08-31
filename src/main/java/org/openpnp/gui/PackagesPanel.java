@@ -254,6 +254,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
                     cameraView.removeReticle(PackageVisionWizard.class.getName());
                 }
                 catch (Exception e1) {
+                    Logger.debug(e1, "Failed to remove the package vision reticle from the camera view.");
                 }
             }
         });

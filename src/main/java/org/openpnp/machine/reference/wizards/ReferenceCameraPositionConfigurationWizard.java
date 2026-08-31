@@ -229,7 +229,7 @@ public class ReferenceCameraPositionConfigurationWizard extends AbstractConfigur
             }
         }
         catch (Exception e) {
-
+            // Expected under WindowBuilder, where the camera is not attached to a machine yet.
         }
     }
 

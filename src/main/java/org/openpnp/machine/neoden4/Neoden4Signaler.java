@@ -79,7 +79,7 @@ public class Neoden4Signaler extends AbstractSignaler implements Runnable {
 				}
 			} 
 			catch (Exception e) {
-				e.printStackTrace();
+				Logger.warn(e, "Signaler {} failed to signal.", getName());
 			}
 		}
 

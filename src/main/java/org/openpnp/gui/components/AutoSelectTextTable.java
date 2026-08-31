@@ -328,6 +328,8 @@ public class AutoSelectTextTable extends JTable {
                 model.moveColumn(index, newIndex);
             }
             catch (IllegalArgumentException e) {
+                // Expected for names that are not present, see the contract above: an unknown
+                // (or null) name leaves that column where it is.
             }
         }
     }

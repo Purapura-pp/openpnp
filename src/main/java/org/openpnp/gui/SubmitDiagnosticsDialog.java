@@ -225,7 +225,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
             screenShot = new Robot().createScreenCapture(MainFrame.get().getBounds());
         }
         catch (Exception e) {
-
+            Logger.warn(e, "Failed to grab a screenshot, diagnostics will be submitted without one.");
         }
     }
 
@@ -353,7 +353,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
                     setVisible(false);
                 }
                 catch (Exception e1) {
-                    e1.printStackTrace();
+                    Logger.error(e1, "Failed to submit the diagnostics package.");
                     MessageBoxes.errorBox(MainFrame.get(), "Submit Failed", e1);
                     okButton.setEnabled(true);
                 }
@@ -375,7 +375,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
                 }
             }
             catch (Exception e) {
-
+                Logger.debug(e, "Interrupted while waiting for the diagnostics submission to stop.");
             }
             setVisible(false);
         }

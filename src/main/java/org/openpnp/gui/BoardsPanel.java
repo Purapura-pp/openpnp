@@ -68,6 +68,7 @@ import org.openpnp.gui.tablemodel.PlacementsHolderTableModel;
 import org.openpnp.model.Board;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Configuration.TablesLinked;
+import org.pmw.tinylog.Logger;
 import com.google.common.eventbus.Subscribe;
 
 @SuppressWarnings("serial")
@@ -362,7 +363,7 @@ public class BoardsPanel extends JPanel {
                 selectBoard(board);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to create new board.");
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("BoardsPanel.Action.AddBoard.NewBoard.ErrorMessage"), e.getMessage()); //$NON-NLS-1$
             }
@@ -399,7 +400,7 @@ public class BoardsPanel extends JPanel {
                 selectBoard(board);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing board {}.", fileDialog.getFile());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("BoardsPanel.Action.AddBoard.ExistingBoard.ErrorMessage"), //$NON-NLS-1$
                         e.getMessage());
@@ -487,7 +488,7 @@ public class BoardsPanel extends JPanel {
                 selectBoard(newBoard);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to copy board {}.", boardToCopy.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("BoardsPanel.Action.CopyBoard.ErrorMessage"), //$NON-NLS-1$
                         e.getMessage());

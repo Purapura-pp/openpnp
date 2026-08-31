@@ -11,6 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
 
+import org.pmw.tinylog.Logger;
+
 /**
  * Handles drag & drop row reordering
  * 
@@ -67,7 +69,7 @@ public class TableRowTransferHandler extends TransferHandler {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to reorder the dragged row to position {}.", index);
         }
         return false;
     }

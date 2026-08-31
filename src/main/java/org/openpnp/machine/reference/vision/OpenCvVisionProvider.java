@@ -192,7 +192,7 @@ public class OpenCvVisionProvider implements VisionProvider {
                 OpenCvUtils.saveDebugImage(OpenCvVisionProvider.class, "locateTemplateMatches", "debug", roiImage);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Failed to save the template match debug image.");
             }
         }
     }

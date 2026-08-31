@@ -97,6 +97,7 @@ import org.openpnp.model.PanelLocation;
 import org.openpnp.model.Part;
 import org.openpnp.model.Placement;
 import org.openpnp.model.PlacementsHolder;
+import org.pmw.tinylog.Logger;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -718,7 +719,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 Helpers.selectObjectTableRow(childrenTable, newBoardLocation);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add a new board to panel {}.", panel.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelDefinition.Children.Add.NewBoard.SaveError"), //$NON-NLS-1$
                         e.getMessage());
@@ -749,7 +750,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 Helpers.selectObjectTableRow(childrenTable, newBoardLocation);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing board {} to panel {}.", file, panel.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelDefinition.Children.Add.ExistingBoard.LoadError"), //$NON-NLS-1$
                         e.getMessage());
@@ -807,7 +808,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 Helpers.selectObjectTableRow(childrenTable, newPanelLocation);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add a new sub-panel to panel {}.", panel.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelDefinition.Children.Add.NewPanel.SaveError"), //$NON-NLS-1$
                         e.getMessage());
@@ -838,7 +839,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 Helpers.selectObjectTableRow(childrenTable, newPanelLocation);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing sub-panel {} to panel {}.", file, panel.getName());
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelDefinition.Children.Add.ExistingPanel.LoadError"), //$NON-NLS-1$
                         e.getMessage());
@@ -1000,7 +1001,8 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                             PanelDefinitionPanel.this));
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to replace the selected children of panel {} with {}.",
+                        panel.getName(), file);
                 MessageBoxes.errorBox(frame, 
                         Translations.getString("PanelDefinition.Children.Replace.LoadError"), //$NON-NLS-1$
                         e.getMessage());

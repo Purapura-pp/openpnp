@@ -22,6 +22,7 @@ import org.openpnp.spi.CameraBatchOperation;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.VisionProvider;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -216,7 +217,7 @@ public abstract class AbstractCamera extends AbstractHeadMountable implements Ca
             cameraLocation = getApproximativeLocation(cameraLocation, cameraLocation, LocationOption.ReplaceVirtual);
         }
         catch (Exception e1) {
-            e1.printStackTrace();
+            Logger.error(e1, "Could not determine the physical location of camera {}, the virtual axes were not replaced.", getName());
         }
         return cameraLocation;
     }

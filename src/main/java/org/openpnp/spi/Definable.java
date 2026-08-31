@@ -26,6 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.pmw.tinylog.Logger;
 
 /**
  * An interface used to indicate a one-way relationship of one object (the definition) to one or
@@ -114,16 +115,13 @@ public interface Definable<T> extends PropertyChangeListener {
                     }
                 }
                 catch (IllegalAccessException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Logger.error(e, "Could not propagate property {} from the definition to {}.", evt.getPropertyName(), this);
                 }
                 catch (InvocationTargetException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Logger.error(e, "Could not propagate property {} from the definition to {}.", evt.getPropertyName(), this);
                 }
                 catch (NoSuchMethodException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Logger.error(e, "Could not propagate property {} from the definition to {}.", evt.getPropertyName(), this);
                 }
             }
         }

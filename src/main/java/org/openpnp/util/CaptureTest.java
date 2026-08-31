@@ -13,6 +13,7 @@ import org.openpnp.capture.CaptureFormat;
 import org.openpnp.capture.CaptureProperty;
 import org.openpnp.capture.CaptureStream;
 import org.openpnp.capture.OpenPnpCapture;
+import org.pmw.tinylog.Logger;
 
 public class CaptureTest extends JPanel implements Runnable {
     CaptureStream stream = null;
@@ -31,7 +32,7 @@ public class CaptureTest extends JPanel implements Runnable {
                 Thread.sleep(1000 / 10);
             }
             catch (Exception e) {
-                
+                Logger.debug(e, "Interrupted while waiting for the next capture repaint.");
             }
         }
     }
@@ -44,7 +45,7 @@ public class CaptureTest extends JPanel implements Runnable {
                 g.drawImage(image,  0,  0,  null);
             }
             catch (Exception e) {
-                
+                Logger.debug(e, "Could not capture a frame for the capture test.");
             }
         }
     }

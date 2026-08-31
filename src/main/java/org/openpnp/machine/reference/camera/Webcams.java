@@ -28,6 +28,7 @@ import java.util.List;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.camera.wizards.WebcamConfigurationWizard;
 import org.openpnp.spi.PropertySheetHolder;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 import com.github.sarxos.webcam.Webcam;
@@ -95,7 +96,7 @@ public class Webcams extends ReferenceCamera implements Runnable, WebcamImageTra
                 webcam.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Failed to close the previous webcam of camera {}.", getName());
             }
             webcam = null;
         }
@@ -120,7 +121,7 @@ public class Webcams extends ReferenceCamera implements Runnable, WebcamImageTra
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to open webcam device {} for camera {}.", deviceId, getName());
             return;
         }
 

@@ -422,7 +422,8 @@ public class CvPipeline implements AutoCloseable {
                 return toXmlString().equals(((CvPipeline) other).toXmlString());
             }
             catch (Exception e) {
-                //ignore
+                //A pipeline that cannot be serialized cannot be compared either, so fall through
+                //to the not-equal result below.
             }
         }
         return false;

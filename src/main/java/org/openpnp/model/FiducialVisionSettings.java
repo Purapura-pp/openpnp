@@ -3,6 +3,7 @@ package org.openpnp.model;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.vision.ReferenceFiducialLocator.PartSettings;
 import org.openpnp.machine.reference.vision.wizards.FiducialVisionSettingsConfigurationWizard;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -93,6 +94,7 @@ public class FiducialVisionSettings extends AbstractVisionSettings {
             setPipeline(another.getPipeline().clone());
         }
         catch (CloneNotSupportedException e) {
+            Logger.error(e, "Could not copy the pipeline from vision settings {}, the current pipeline was kept.", another.getName());
         }
         Configuration.get().fireVisionSettingsChanged();
     }

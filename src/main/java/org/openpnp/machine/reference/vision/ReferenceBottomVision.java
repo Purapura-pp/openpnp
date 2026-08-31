@@ -910,7 +910,7 @@ public class ReferenceBottomVision extends AbstractPartAlignment {
                     Logger.warn("Part "+partId+" BottomVisionSettings with no part.");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to migrate the bottom vision settings of part {}.", partId);
             }
         });
 

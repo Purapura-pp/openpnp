@@ -359,6 +359,7 @@ public class GcodeAsyncDriver extends GcodeDriver {
                 Thread.sleep(10);
             }
             catch (InterruptedException e) {
+                Logger.debug(e, "{} interrupted while waiting for empty command queue.", getName());
             }
         }
         Logger.warn("{} timeout while waiting for empty command queue.", getName());

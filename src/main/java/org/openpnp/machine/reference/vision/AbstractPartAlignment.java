@@ -12,6 +12,7 @@ import org.openpnp.model.PartSettingsHolder;
 import org.openpnp.model.PartSettingsRoot;
 import org.openpnp.spi.PartAlignment;
 import org.openpnp.util.VisionUtils;
+import org.pmw.tinylog.Logger;
 
 public abstract class AbstractPartAlignment extends AbstractPartSettingsHolder implements PartSettingsRoot, PartAlignment {
 
@@ -95,6 +96,7 @@ public abstract class AbstractPartAlignment extends AbstractPartSettingsHolder i
             visionSettings.getPipeline().setProperty("camera", VisionUtils.getBottomVisionCamera());
         }
         catch (Exception e) {
+            Logger.debug(e, "No bottom vision camera available to preset on the bottom vision pipeline.");
         }
         return new BottomVisionSettingsConfigurationWizard(visionSettings, partSettingsHolder);
     }

@@ -126,7 +126,7 @@ public class GstreamerCamera extends ReferenceCamera {
             Pipeline.linkMany(bin, videosink);
             pipe.play();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to build the GStreamer pipeline {}.", gstPipeString);
             return;
         }
 
@@ -161,6 +161,7 @@ public class GstreamerCamera extends ReferenceCamera {
             try {
                 close();
             } catch (Exception e) {
+                Logger.debug(e, "Failed to close camera {} before changing its pipeline.", getName());
             }
         }
         gstPipeString = newPipeString;

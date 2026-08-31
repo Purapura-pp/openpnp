@@ -666,7 +666,7 @@ public abstract class AbstractSettlingCamera extends AbstractCamera {
                     Thread.sleep(getSettleTimeMs());
                 }
                 catch (Exception e) {
-
+                    Logger.debug(e, "Interrupted while settling camera {}.", getName());
                 }
                 return capture();
             }

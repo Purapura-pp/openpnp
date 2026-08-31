@@ -139,7 +139,7 @@ public class OpenCvCamera extends ReferenceCamera implements Runnable {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to open OpenCV device {} for camera {}.", deviceIndex, getName());
             return;
         }
 

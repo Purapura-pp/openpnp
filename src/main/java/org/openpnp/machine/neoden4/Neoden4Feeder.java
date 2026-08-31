@@ -119,7 +119,7 @@ public class Neoden4Feeder extends ReferenceFeeder {
                 Logger.debug("final visionOffsets " + visionOffset);
                 Logger.debug("Modified pickLocation {}", getPickLocation());	
         	} catch (Exception e) {
-        		
+        		Logger.warn(e, "Vision offsets could not be determined for feeder {}, feeding without them.", getName());
 			}
         }
 
@@ -256,8 +256,7 @@ public class Neoden4Feeder extends ReferenceFeeder {
 	        return new Location(unitsPerPixel.getUnits(), offsetX, offsetY, 0, 0);
 		}
         catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			throw new Exception("Vision offset detection failed for feeder " + getName() + ".", e);
 		}
     }
 

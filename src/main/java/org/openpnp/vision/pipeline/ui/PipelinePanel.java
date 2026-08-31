@@ -42,6 +42,7 @@ import org.openpnp.util.UiUtils;
 import org.openpnp.util.VisionUtils;
 import org.openpnp.vision.pipeline.CvPipeline;
 import org.openpnp.vision.pipeline.CvStage;
+import org.pmw.tinylog.Logger;
 
 import com.l2fprod.common.propertysheet.Property;
 import com.l2fprod.common.propertysheet.PropertySheetPanel;
@@ -183,6 +184,7 @@ public class PipelinePanel extends JPanel {
             }
         }
         catch (Exception e) {
+            Logger.debug(e, "Could not target the pipeline camera when focusing the editor.");
         }
     }
 
@@ -219,7 +221,7 @@ public class PipelinePanel extends JPanel {
                 stage.customizePropertySheet(pipelinePropertySheetTable, editor.getPipeline());
             }
             catch (Exception ex) {
-                ex.printStackTrace();
+                Logger.error(ex, "Failed to show the properties of stage {}.", stage.getName());
             }
         }
     }
@@ -235,7 +237,7 @@ public class PipelinePanel extends JPanel {
                 descriptionTa.setCaretPosition(0);
             }
             catch (Exception ex) {
-                ex.printStackTrace();
+                Logger.debug(ex, "Failed to show the description of stage {}.", stage.getName());
             }
         }
     }

@@ -196,6 +196,8 @@ public class LogPanel extends JPanel {
         try {
             level = Level.valueOf(prefs.get(PREF_LOG_LEVEL, PREF_LOG_LEVEL_DEF));
         } catch (Exception ignored) {
+            // Expected for the legacy int based values described above, level stays null and
+            // the default is applied right below.
         }
         if (level == null) {
             level = Level.INFO;

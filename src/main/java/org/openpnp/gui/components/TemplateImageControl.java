@@ -40,6 +40,7 @@ import org.openpnp.gui.MainFrame;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.vision.TemplateImage;
+import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
 public class TemplateImageControl extends JComponent implements MouseMotionListener, MouseListener {  
@@ -138,6 +139,7 @@ public class TemplateImageControl extends JComponent implements MouseMotionListe
                 image = templateImage.getImage();
             }
             catch (Exception e) {
+                Logger.trace(e, "Failed to decode the template image, showing the placeholder instead.");
             }
         }
         return image;

@@ -175,6 +175,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
                     }
                 }
                 catch (Exception e) {
+                    Logger.debug(e, "Could not clone the manual nozzle tip change location from another nozzle.");
                 }
             }
             if (isManualNozzleTipChangeLocationUndefined()) {

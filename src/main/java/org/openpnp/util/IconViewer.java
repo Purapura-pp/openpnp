@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.openpnp.gui.support.SvgIcon;
+import org.pmw.tinylog.Logger;
 
 public class IconViewer extends JFrame {
     private JTextField textField;
@@ -69,7 +70,7 @@ public class IconViewer extends JFrame {
                                 labels.add(label);
                             }
                             catch (Exception e1) {
-                                
+                                Logger.debug(e1, "Could not load the icon {}, it is skipped.", file);
                             }
                         }
                     }
@@ -77,7 +78,7 @@ public class IconViewer extends JFrame {
                     iconsPanel.repaint();
                 }
                 catch (Exception e1) {
-                    
+                    Logger.error(e1, "Could not list the icons in {}.", textField.getText());
                 }
             }
         });

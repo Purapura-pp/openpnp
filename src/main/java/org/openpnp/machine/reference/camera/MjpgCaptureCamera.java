@@ -35,6 +35,7 @@ import org.openpnp.machine.reference.camera.wizards.MjpgCaptureCameraWizard;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.PropertySheetHolder;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 
@@ -125,7 +126,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
                 mjpgStream.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Failed to close the previous MJPG stream at {}.", mjpgURL);
             }
             mjpgStream = null;
         }
@@ -140,10 +141,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
             lineBuilder = new StringWriter(256);
         }
         catch (Exception e) {
-            System.err.println("Unknown error communicating with MJPG stream at " + mjpgURL + ": "
-                    + e.toString());
-            e.printStackTrace();
-            throw e;
+            throw new Exception("Could not open the MJPG stream at " + mjpgURL + ".", e);
         }
 
         super.open();
@@ -177,8 +175,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
                 next_byte = mjpgStream.read();
             }
             catch (IOException e) {
-                System.err.println("IOException reading from MJPG stream: " + e.toString());
-                e.printStackTrace();
+                Logger.error(e, "Failed to read the frame header from MJPG stream at {}.", mjpgURL);
                 return null;
             }
 
@@ -216,9 +213,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
             }
         }
         catch (IOException e) {
-            System.err.println(
-                    "Incomplete header in MJPG stream: " + mjpgURL + "\r\n" + e.toString());
-            e.printStackTrace();
+            Logger.error(e, "Incomplete header in MJPG stream at {}.", mjpgURL);
             return null;
         }
 
@@ -245,7 +240,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to read the JPG frame from MJPG stream at {}.", mjpgURL);
         }
 
         if (got_image) {
@@ -255,9 +250,7 @@ public class MjpgCaptureCamera extends ReferenceCamera {
                 frame = ImageIO.read(jpg_stream);
             }
             catch (IOException e) {
-                System.err.println(
-                        "Invalid JPG frame in MJPG steram: " + mjpgURL + "\r\n" + e.toString());
-                e.printStackTrace();
+                Logger.error(e, "Invalid JPG frame in MJPG stream at {}.", mjpgURL);
             }
 
             return frame;

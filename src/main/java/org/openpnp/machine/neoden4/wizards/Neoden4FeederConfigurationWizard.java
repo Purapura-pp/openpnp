@@ -42,6 +42,7 @@ import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
 import org.openpnp.util.UiUtils;
 import org.openpnp.util.VisionUtils;
+import org.pmw.tinylog.Logger;
 import org.python.modules.thread.thread;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -393,8 +394,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 									try {
 										cam.capture();
 									} catch (Exception e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
+										Logger.warn(e1, "Failed to refresh camera {} after feeding.", cam.getName());
 									}
 								}
 							});

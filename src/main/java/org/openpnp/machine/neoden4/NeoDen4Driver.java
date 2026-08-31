@@ -274,6 +274,7 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
             }
         }
         catch (TimeoutException e) {
+            // Expected: the timeout is how we detect that the input buffer has been drained.
         }
     }
 

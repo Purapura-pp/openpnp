@@ -53,7 +53,7 @@ public final class Neoden4CameraHandler implements Neoden4CameraDriver {
 			instance.img_set_lt(5, (short) 0, (short) 0);
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Logger.debug(e, "Interrupted while initializing the Neoden4 cameras.");
 		}
 	}
 

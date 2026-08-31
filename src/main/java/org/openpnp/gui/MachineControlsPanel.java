@@ -173,6 +173,7 @@ public class MachineControlsPanel extends JPanel {
             camera = head.getDefaultCamera();
         }
         catch (Exception e) {
+            Logger.debug(e, "No default camera available, tool actions are enabled without it.");
         }
         boolean enabled = Configuration.get().getMachine().isEnabled();
         homeAction.setEnabled(enabled);
@@ -491,6 +492,7 @@ public class MachineControlsPanel extends JPanel {
                 lastSelectedNonCamera = getSelectedTool().getHead().getDefaultNozzle();
             }
             catch (Exception e) {
+                Logger.debug(e, "No default nozzle available to fall back to.");
             }
         }
         return lastSelectedNonCamera;

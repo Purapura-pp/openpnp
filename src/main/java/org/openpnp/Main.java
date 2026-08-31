@@ -63,6 +63,7 @@ public class Main {
             version = FileUtils.readFileToString(new File("VERSION.txt"));
         }
         catch (Exception e) {
+            // VERSION.txt is only present in packaged builds, the "n/a" fallback below is used otherwise.
         }
 
         if (version==null) {
@@ -144,10 +145,10 @@ public class Main {
             c = cc.toClass();
         }
         catch (NotFoundException ex) {
-            ex.printStackTrace();
+            Logger.error(ex, "Could not patch beansbinding, wizards may load slowly.");
         }
         catch (CannotCompileException ex) {
-            ex.printStackTrace();
+            Logger.error(ex, "Could not patch beansbinding, wizards may load slowly.");
         }
     }
 
@@ -199,7 +200,7 @@ public class Main {
                     configuration.getScripting().on("Startup", null);
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.error(e, "Could not start the OpenPnP user interface.");
                 }
             }
         });

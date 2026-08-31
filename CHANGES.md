@@ -7,6 +7,10 @@ a complete change list, only those that may directly interest or affect users.
 
 * The ScriptRun vision pipeline stage now only runs scripts located inside the OpenPnP scripts directory. Pipelines are routinely shared and pasted between users, and the stage previously ran whatever script path the pipeline named - including one on a network share - with no confirmation, and did so unattended once the pipeline was assigned to a feeder. If you use ScriptRun, move your script into the scripts directory and update the stage's file setting. A path relative to the scripts directory is now also accepted.
 
+## Bug Fixes
+
+* Errors that were previously printed to the console, or discarded entirely, are now reported through the log with the context needed to act on them. Where an exception really is expected, the reason is recorded in the code instead.
+
 # Version 2.6
 
 ## New Features

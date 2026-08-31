@@ -26,6 +26,7 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.pmw.tinylog.Logger;
 
 
 /**
@@ -62,7 +63,7 @@ public class SvgIcon implements Icon {
             generateBufferedImage(new TranscoderInput(url.toString()), width, height);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to render SVG icon {}.", url);
         }
     }
 

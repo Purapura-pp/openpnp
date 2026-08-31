@@ -847,6 +847,8 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                     }
                 }
                 catch (Exception e) {
+                    // Only planning here, a missing feeder is reported when the placement is actually picked.
+                    Logger.debug(e, "No feeder found for placement {} while planning the pick order.", p.getPlacement().getId());
                 }
             }
 
@@ -2464,8 +2466,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 }
                 catch (Exception e) {
                     // ignore exceptions
-                    Logger.error("Suppressing error from getPartAlignmentLocation for part "+part);
-                    e.printStackTrace();
+                    Logger.error(e, "Suppressing error from getPartAlignmentLocation for part {}.", part);
                     location = null;
                 }
             }

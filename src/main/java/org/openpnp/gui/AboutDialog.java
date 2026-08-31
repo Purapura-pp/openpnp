@@ -40,6 +40,7 @@ import javax.swing.border.EmptyBorder;
 import org.apache.commons.io.FileUtils;
 import org.openpnp.Main;
 import org.openpnp.gui.components.MarkupTextPane;
+import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
 public class AboutDialog extends JDialog {
@@ -58,6 +59,7 @@ public class AboutDialog extends JDialog {
             releaseNotes.setUri(new URI(Main.getSourceUri()+"CHANGES.md"));
         }
         catch (Exception e) {
+            Logger.warn(e, "Failed to load CHANGES.md, release notes will be empty.");
         }
         try {
             String s = FileUtils.readFileToString(new File("SPONSORS.md"));
@@ -65,6 +67,7 @@ public class AboutDialog extends JDialog {
             credits.setUri(new URI(Main.getSourceUri()+"SPONSORS.md"));
         }
         catch (Exception e) {
+            Logger.warn(e, "Failed to load SPONSORS.md, credits will be empty.");
         }
     }
 

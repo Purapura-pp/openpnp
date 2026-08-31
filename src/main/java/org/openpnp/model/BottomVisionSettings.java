@@ -8,6 +8,7 @@ import org.openpnp.machine.reference.vision.ReferenceBottomVision.PartSettings;
 import org.openpnp.machine.reference.vision.ReferenceBottomVision.PartSizeCheckMethod;
 import org.openpnp.machine.reference.vision.ReferenceBottomVision.PreRotateUsage;
 import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -134,6 +135,7 @@ public class BottomVisionSettings extends AbstractVisionSettings {
             setPipeline(another.getPipeline().clone());
         }
         catch (CloneNotSupportedException e) {
+            Logger.error(e, "Could not copy the pipeline from vision settings {}, the current pipeline was kept.", another.getName());
         }
         setPipelineParameterAssignments(another.getPipelineParameterAssignments());
         setPreRotateUsage(another.getPreRotateUsage());

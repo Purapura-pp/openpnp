@@ -320,7 +320,8 @@ public class PlacementsHolderLocationsTableModel extends AbstractObjectTableMode
         }
         catch (Exception e) {
             // TODO: dialog, bad input
-            e.printStackTrace();
+            Logger.warn(e, "Failed to apply the edit of column {}, the value was discarded.",
+                    getColumnName(columnIndex));
         }
     }
 

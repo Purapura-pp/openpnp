@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import org.openpnp.vision.pipeline.CvPipeline;
 import org.openpnp.vision.pipeline.CvStage;
 import org.openpnp.vision.pipeline.stages.ImageRead;
+import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
 public class StandaloneEditor extends JFrame {
@@ -133,7 +134,7 @@ public class StandaloneEditor extends JFrame {
                 editor.getPipeline().fromXmlString(defaultPipeline);
             }
             catch (Exception e) {
-                System.out.println("Previously saved pipeline failed to load: " + e.getMessage());
+                Logger.warn(e, "Previously saved pipeline failed to load.");
             }
         }
         
@@ -146,7 +147,7 @@ public class StandaloneEditor extends JFrame {
                             editor.getPipeline().toXmlString());
                 }
                 catch (Exception e) {
-                    
+                    Logger.error(e, "Failed to store the pipeline, the edits will be lost.");
                 }
                 System.exit(0);
             }

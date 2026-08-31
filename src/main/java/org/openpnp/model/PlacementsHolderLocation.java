@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import org.openpnp.gui.MainFrame;
 import org.openpnp.util.Utils2D;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.core.Commit;
 
@@ -194,8 +195,7 @@ public abstract class PlacementsHolderLocation<T extends PlacementsHolderLocatio
                 setFileName(placementsHolder.getFile().getCanonicalPath());
             }
             catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Logger.warn(e, "Could not resolve the canonical path of {}, the file name of this location was left unchanged.", placementsHolder.getFile());
             }
         }
         firePropertyChange("placementsHolder", oldValue, placementsHolder);

@@ -55,7 +55,7 @@ public class ResultsPanel extends JPanel {
             robot = new Robot();
         }
         catch (Exception e) {
-            
+            Logger.warn(e, "Failed to create the Robot, screen colour picking will be unavailable.");
         }
 
         JSplitPane splitPane = new JSplitPane();

@@ -228,7 +228,7 @@ public class OpenCvCameraConfigurationWizard extends AbstractConfigurationWizard
             value = Double.valueOf(text);
         }
         catch (Exception e) {
-            
+            // Expected while the user is still typing: a null value simply removes the property.
         }
         setPropertyValue((OpenCvCaptureProperty) propertyCb.getSelectedItem(), value);
         OpenCvCapturePropertyValue pv = getPropertyValue((OpenCvCaptureProperty) propertyCb.getSelectedItem());

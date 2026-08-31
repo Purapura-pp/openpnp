@@ -425,6 +425,8 @@ public class BoardPlacementsPanel extends JPanel {
             filters.add(searchFilter);
         }
         catch (PatternSyntaxException e) {
+            // Expected while the user is still typing a partial regex, just leave the search
+            // filter out until the pattern becomes valid again.
         }
         
         tableSorter.setRowFilter(RowFilter.andFilter(filters));

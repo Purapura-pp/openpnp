@@ -707,7 +707,7 @@ public class JobPanel extends JPanel {
                 return true;
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to save job to {}.", getJob().getFile());
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.SaveJob.Error.ErrorBox.Title"), e.toString()); //$NON-NLS-1$
                 return false;
@@ -869,7 +869,7 @@ public class JobPanel extends JPanel {
                 loadJobExec(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to open job {}.", fileDialog.getFile());
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.Open.ErrorBox.Title"), e.getMessage()); //$NON-NLS-1$
             }
@@ -1064,7 +1064,7 @@ public class JobPanel extends JPanel {
                 jobProcessor.abort();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to abort the job cleanly.");
             }
             setState(State.Stopped);
         });
@@ -1218,7 +1218,7 @@ public class JobPanel extends JPanel {
                 addBoard(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add a new board to the job.");
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.AddNewBoard.Error.ErrorBox.Title"), e.getMessage()); //$NON-NLS-1$
             }
@@ -1247,7 +1247,7 @@ public class JobPanel extends JPanel {
                 addBoard(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing board {} to the job.", file);
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.AddBoard.ExistingBoard.Error.ErrorBox.Title"),  //$NON-NLS-1$
                         e.getMessage());
@@ -1302,7 +1302,7 @@ public class JobPanel extends JPanel {
                 addPanel(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add a new panel to the job.");
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.AddBoard.NewPanel.Error.ErrorBox.Title"), //$NON-NLS-1$
                         e.getMessage());
@@ -1332,7 +1332,7 @@ public class JobPanel extends JPanel {
                 addPanel(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to add existing panel {} to the job.", file);
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.AddBoard.ExistingPanel.Error.ErrorBox.Title"),  //$NON-NLS-1$
                         e.getMessage());
@@ -1719,7 +1719,7 @@ public class JobPanel extends JPanel {
                 loadJobExec(file);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e, "Failed to open recent job {}.", file);
                 MessageBoxes.errorBox(mainFrame, 
                         Translations.getString("JobPanel.Action.Job.RecentJobs.ErrorBox.Title"), e.getMessage()); //$NON-NLS-1$
             }

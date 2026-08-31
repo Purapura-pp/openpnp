@@ -75,6 +75,7 @@ import org.openpnp.util.SimpleGraph;
 import org.openpnp.util.SimpleGraph.DataRow;
 import org.openpnp.util.UiUtils;
 import org.openpnp.vision.pipeline.ui.MatView;
+import org.pmw.tinylog.Logger;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -1276,7 +1277,7 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
                 errorImage.release();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.warn(e, "Failed to render the calibration model error image for camera {}.", referenceCamera.getName());
             }
         }
     }

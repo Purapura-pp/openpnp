@@ -64,6 +64,7 @@ import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Package;
 import org.openpnp.spi.Camera;
 import org.openpnp.util.UiUtils;
+import org.pmw.tinylog.Logger;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -259,7 +260,7 @@ public class PackageVisionWizard extends AbstractConfigurationWizard {
             for (Camera camera : Configuration.get().getMachine().getCameras()) { showReticleCamera(camera); }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to show the footprint reticle in the camera views.");
         }
     }
 

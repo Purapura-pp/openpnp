@@ -15,6 +15,7 @@ import org.openpnp.spi.PartAlignment;
 import org.openpnp.spi.VisionSettings;
 import org.openpnp.util.XmlSerialize;
 import org.openpnp.vision.pipeline.CvPipeline;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;
@@ -279,6 +280,7 @@ public abstract class AbstractVisionSettings extends AbstractModelObject impleme
             serOut.write(partSettings, sw);
         }
         catch (Exception e) {
+            Logger.warn(e, "Could not serialize {}, its settings fingerprint will be incomplete.", partSettings);
         }
         String serialized = sw.toString();
         if (partSettings instanceof AbstractVisionSettings) {

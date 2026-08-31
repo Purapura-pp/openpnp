@@ -1283,7 +1283,7 @@ public abstract class ReferenceCamera extends AbstractBroadcastingCamera impleme
                     ReferenceCamera.this.close();
                 }
                 catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.warn(e, "Failed to close camera {} while deleting it.", getName());
                 }
             }
         }

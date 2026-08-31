@@ -762,6 +762,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
                 return (camera.getFocusProvider() != null);
             }
             catch (Exception e) {
+                // Expected on machines without a bottom vision camera: the capability is simply unavailable.
             }
             return false;
         }

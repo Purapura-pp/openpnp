@@ -26,6 +26,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 public abstract class CvAbstractParameterStage extends CvStage {
@@ -165,6 +166,8 @@ public abstract class CvAbstractParameterStage extends CvStage {
             }
             catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
                     | IntrospectionException e) {
+                Logger.warn(e, "Failed to reset property {} of stage {} to its default.",
+                        propertyName, stageName);
             }
         }
     }

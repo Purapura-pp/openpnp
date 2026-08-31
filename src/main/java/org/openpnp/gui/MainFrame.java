@@ -830,7 +830,8 @@ public class MainFrame extends JFrame {
 	            configurationLoaded = true;    
 	        }
 	        catch (Exception e) {
-	            e.printStackTrace();
+	            Logger.error(e, "Failed to load the configuration from {}.", //$NON-NLS-1$
+	                    configuration.getConfigurationDirectory());
 	            if (!MessageBoxes.errorBoxWithRetry(this, "Configuration Load Error", //$NON-NLS-1$
 	                    "There was a problem loading the configuration. The reason was:<br/><br/>" //$NON-NLS-1$
 	                            + e.getMessage() + "<br/><br/>" //$NON-NLS-1$
@@ -1105,7 +1106,7 @@ public class MainFrame extends JFrame {
             Preferences.userRoot().flush();
         }
         catch (Exception e) {
-
+            Logger.warn(e, "Failed to flush user preferences while shutting down."); //$NON-NLS-1$
         }
 
         // Save the configuration
@@ -1132,14 +1133,14 @@ public class MainFrame extends JFrame {
             configuration.getMachine().setEnabled(false);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to disable the machine while shutting down."); //$NON-NLS-1$
         }
         // Attempt to stop the machine on quit
         try {
             configuration.getMachine().close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to close the machine while shutting down."); //$NON-NLS-1$
         }
         Logger.info("Shutdown complete, exiting."); //$NON-NLS-1$
         System.exit(0);
@@ -1386,7 +1387,7 @@ public class MainFrame extends JFrame {
                 undoManager.undo();
             }
             catch (Exception e) {
-                
+                Logger.debug(e, "Nothing was undone."); //$NON-NLS-1$
             }
         }
     };
@@ -1404,7 +1405,7 @@ public class MainFrame extends JFrame {
                 undoManager.redo();
             }
             catch (Exception e) {
-                
+                Logger.debug(e, "Nothing was redone."); //$NON-NLS-1$
             }
         }
     };

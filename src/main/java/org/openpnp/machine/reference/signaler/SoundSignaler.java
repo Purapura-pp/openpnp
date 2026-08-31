@@ -11,6 +11,7 @@ import org.openpnp.machine.reference.signaler.wizards.SoundSignalerConfiguration
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.base.AbstractJobProcessor;
 import org.openpnp.spi.base.AbstractSignaler;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 /**
@@ -46,7 +47,7 @@ public class SoundSignaler extends AbstractSignaler {
             clip.start(); 
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.warn(e, "Failed to play the sound {}.", filename);
         }
     }
 

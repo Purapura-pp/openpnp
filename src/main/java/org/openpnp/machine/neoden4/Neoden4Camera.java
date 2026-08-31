@@ -90,7 +90,7 @@ public class Neoden4Camera extends ReferenceCamera {
 			Logger.debug(String.format("internalCapture() done in: %d", System.currentTimeMillis() - tStart));
 			return imgRGB;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e, "Failed to capture image from Neoden4 camera {}.", cameraId);
 			return null;
 		}
 	}
@@ -104,7 +104,7 @@ public class Neoden4Camera extends ReferenceCamera {
 			setCameraGain(lastGain);
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Logger.debug(e, "Interrupted while resetting Neoden4 camera {}.", cameraId);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Neoden4Camera extends ReferenceCamera {
 			Thread.sleep(10);
 			Neoden4CameraHandler.getInstance().img_reset(cameraId);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Logger.debug(e, "Interrupted while sending reset to Neoden4 camera {}.", cameraId);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class Neoden4Camera extends ReferenceCamera {
 			Neoden4CameraHandler.getInstance().img_set_exp(cameraId, (short) exposure);
 			lastExposure = exposure;
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Logger.debug(e, "Interrupted while setting exposure {} on Neoden4 camera {}.", exposure, cameraId);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class Neoden4Camera extends ReferenceCamera {
 			Neoden4CameraHandler.getInstance().img_set_gain(cameraId, (short) gain);
 			lastGain = gain;
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Logger.debug(e, "Interrupted while setting gain {} on Neoden4 camera {}.", gain, cameraId);
 		}
 	}
 

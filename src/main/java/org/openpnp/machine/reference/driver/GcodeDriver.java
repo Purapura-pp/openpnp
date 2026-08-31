@@ -523,7 +523,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
             }
         }
         catch (Exception e) {
-
+            // Expected: the read timeout is how we detect that no more startup messages are pending.
         }
 
         // Disable the driver

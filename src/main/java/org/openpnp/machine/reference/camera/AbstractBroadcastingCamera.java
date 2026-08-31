@@ -270,6 +270,7 @@ public abstract class AbstractBroadcastingCamera extends AbstractSettlingCamera 
                 thread.join(200);
             }
             catch (Exception e) {
+                Logger.debug(e, "Interrupted while waiting for the capture thread of camera {} to stop.", getName());
             }
         }
         thread = null;
@@ -344,7 +345,7 @@ public abstract class AbstractBroadcastingCamera extends AbstractSettlingCamera 
                 }
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Camera {} failed to broadcast a captured frame.", getName());
             }
             try {
                 synchronized(captureNotifier) {

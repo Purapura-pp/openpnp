@@ -29,6 +29,7 @@ import org.openpnp.model.Configuration;
 import org.openpnp.model.Footprint;
 import org.openpnp.model.Footprint.Pad;
 import org.openpnp.model.Length;
+import org.pmw.tinylog.Logger;
 
 public class FootprintTableModel extends AbstractTableModel {
     private String[] columnNames =
@@ -123,6 +124,8 @@ public class FootprintTableModel extends AbstractTableModel {
         }
         catch (Exception e) {
             // TODO: dialog, bad input
+            Logger.warn(e, "Failed to apply the edit of column {}, the value was discarded.",
+                    getColumnName(columnIndex));
         }
     }
 

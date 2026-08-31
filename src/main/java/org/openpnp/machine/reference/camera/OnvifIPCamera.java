@@ -41,6 +41,7 @@ import org.onvif.ver10.schema.VideoResolution;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.camera.wizards.OnvifIPCameraConfigurationWizard;
 import org.openpnp.spi.PropertySheetHolder;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
 import de.onvif.soap.OnvifDevice;
@@ -93,7 +94,7 @@ public class OnvifIPCamera extends ReferenceCamera implements Runnable {
             return resizeImage(ImageIO.read(snapshotURI));
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to capture a snapshot from IP camera at {}.", hostIP);
             return null;
         }
     }
@@ -186,25 +187,21 @@ public class OnvifIPCamera extends ReferenceCamera implements Runnable {
                     System.out.println("Snapshot URI: " + snapshotURI.toString());
                 }
                 catch (ConnectException e) {
-                    System.err.println("Could not connect to IP camera at " + hostIP + ": " + e.toString());
-                    e.printStackTrace();
+                    Logger.error(e, "Could not connect to IP camera at {}.", hostIP);
                 }
                 catch (SOAPException e) {
-                    System.err.println("Error communicating with IP camera at " + hostIP + ": " + e.toString());
-                    e.printStackTrace();
+                    Logger.error(e, "Error communicating with IP camera at {}.", hostIP);
                 }
                 catch (MalformedURLException e) {
-                    System.err.println("Malformed URL for IP camera at " + hostIP + ": " + e.toString());
-                    e.printStackTrace();
+                    Logger.error(e, "Malformed URL for IP camera at {}.", hostIP);
                 }
                 catch (Exception e) {
-                    System.err.println("Unknown error initializing IP camera at " + hostIP + ": " + e.toString());
-                    e.printStackTrace();
+                    Logger.error(e, "Unknown error initializing IP camera at {}.", hostIP);
                 }
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to open IP camera at {}.", hostIP);
             return;
         }
         
@@ -269,18 +266,15 @@ public class OnvifIPCamera extends ReferenceCamera implements Runnable {
             return jpegResolutions;
         }
         catch (ConnectException e) {
-            System.err.println("Could not connect to IP camera at " + hostIP + ": " + e.toString());
-            e.printStackTrace();
+            Logger.error(e, "Could not connect to IP camera at {} to query supported resolutions.", hostIP);
             return null;
         }
         catch (SOAPException e) {
-            System.err.println("Error communicating with IP camera at " + hostIP + ": " + e.toString());
-            e.printStackTrace();
+            Logger.error(e, "Error communicating with IP camera at {} to query supported resolutions.", hostIP);
             return null;
         }
         catch (Exception e) {
-            System.err.println("Unknown error communicating with IP camera at " + hostIP + ": " + e.toString());
-            e.printStackTrace();
+            Logger.error(e, "Unknown error querying supported resolutions from IP camera at {}.", hostIP);
             return null;
         }
     }

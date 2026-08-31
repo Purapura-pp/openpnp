@@ -145,7 +145,7 @@ public class OpenPnpCaptureCamera extends ReferenceCamera implements Runnable {
                 stream.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Failed to close the previous stream of camera {}.", getName());
             }
             stream = null;
         }
@@ -204,7 +204,7 @@ public class OpenPnpCaptureCamera extends ReferenceCamera implements Runnable {
             setPropertiesStream(stream);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e, "Failed to open the capture stream of camera {}.", getName());
             return;
         }
 
@@ -299,7 +299,7 @@ public class OpenPnpCaptureCamera extends ReferenceCamera implements Runnable {
                 stream.close();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Logger.debug(e, "Failed to close the stream of camera {}.", getName());
             }
             stream = null;
         }
@@ -528,6 +528,7 @@ public class OpenPnpCaptureCamera extends ReferenceCamera implements Runnable {
                 firePropertyChange("auto", null, auto);
             }
             catch (Exception e) {
+                Logger.debug(e, "Failed to set auto mode of property {} on camera {}.", property, camera.getName());
             }
         }
 
@@ -538,6 +539,7 @@ public class OpenPnpCaptureCamera extends ReferenceCamera implements Runnable {
                 firePropertyChange("value", null, value);
             }
             catch (Exception e) {
+                Logger.debug(e, "Failed to set property {} to {} on camera {}.", property, value, camera.getName());
             }
         }
 

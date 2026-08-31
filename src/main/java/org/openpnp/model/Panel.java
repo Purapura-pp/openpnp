@@ -28,6 +28,7 @@ import java.util.List;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.util.IdentifiableList;
 import org.openpnp.util.Pair;
+import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -277,8 +278,7 @@ public class Panel extends PlacementsHolder<Panel> implements PropertyChangeList
                         Configuration.get().resolveBoard(MainFrame.get().getJobTab().getJob(), (BoardLocation) child);
                     }
                     catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        Logger.error(e, "Could not resolve board {} of panel {}.", child.getFileName(), getName());
                     }
                 }
             }
@@ -289,8 +289,7 @@ public class Panel extends PlacementsHolder<Panel> implements PropertyChangeList
                         Configuration.get().resolvePanel(MainFrame.get().getJobTab().getJob(), (PanelLocation) child);
                     }
                     catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        Logger.error(e, "Could not resolve sub panel {} of panel {}.", child.getFileName(), getName());
                     }
                 }
             }

@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import org.openpnp.model.MotionProfile.ProfileOption;
 import org.openpnp.util.XmlSerialize;
+import org.pmw.tinylog.Logger;
 
 public abstract class AbstractMotionPath implements Iterable<MotionProfile []> {
     final double approximation = 0.75; // 0.75
@@ -597,11 +598,11 @@ public abstract class AbstractMotionPath implements Iterable<MotionProfile []> {
                 System.out.println(file.toURI());
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Logger.error(e, "Could not write the motion path diagnostics to {}.", file);
             }            
         }
         catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e, "Could not create a temporary file for the motion path diagnostics.");
         }            
     }
 

@@ -286,11 +286,13 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
                     actuator = head.getActuatorByName(actuatorName);
                 }
                 catch (Exception e) {
+                    Logger.debug(e, "Feeder {} could not resolve its actuator {}.", getName(), actuatorName);
                 }
                 try {
                     actuator2 = head.getActuatorByName(peelOffActuatorName);
                 }
                 catch (Exception e) {
+                    Logger.debug(e, "Feeder {} could not resolve its peel off actuator {}.", getName(), peelOffActuatorName);
                 }
                 // Listen to the machine become unhomed to invalidate feeder calibration.
                 // Note that home()  first switches the machine isHomed() state off, then on again, 
