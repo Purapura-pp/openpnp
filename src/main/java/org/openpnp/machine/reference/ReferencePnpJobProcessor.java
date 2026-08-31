@@ -158,9 +158,15 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
 
     protected Head head;
 
-    protected static Locator pickLocator;
-    protected static Locator alignLocator;
-    protected static Locator placeLocator;
+    /**
+     * Created once here rather than per job run. They used to be assigned from the PreFlight step,
+     * which meant a static field was being rewritten by an instance method: with more than one job
+     * processor around, the last one to run PreFlight would decide which locators every other one
+     * used. The locators hold no state, so a single shared instance of each is correct.
+     */
+    protected static final Locator pickLocator = new PickLocator();
+    protected static final Locator alignLocator = new AlignLocator();
+    protected static final Locator placeLocator = new PlaceLocator();
     
     protected List<JobPlacement> jobPlacements = new ArrayList<>();
 
@@ -272,10 +278,6 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             catch (Exception e) {
                 throw new JobProcessorException(machine, e);
             }
-            pickLocator  = new PickLocator();
-            alignLocator = new AlignLocator();
-            placeLocator = new PlaceLocator();
-
             previousPlacePlanStartLocation = previousPickPlanStartLocation = new Location(LengthUnit.Millimeters);
             
             checkSetupErrors();
@@ -2027,7 +2029,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         }
     }
      
-    private Location getPlacementLocation(PlannedPlacement plannedPlacement) {
+    private static Location getPlacementLocation(PlannedPlacement plannedPlacement) {
         final JobPlacement jobPlacement = plannedPlacement.jobPlacement;
         final Placement placement = jobPlacement.getPlacement();
         final BoardLocation boardLocation = plannedPlacement.jobPlacement.getBoardLocation();
@@ -2392,7 +2394,13 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
      * is always correct, but the angle only if the nozzle rotation mode was applied
      * before.
      */
-    protected abstract class Locator implements TravellingSalesman.Locator<PlannedPlacement> {
+    /**
+     * Locators answer where the head will be for a given placement, from the placement and the
+     * nozzle alone. They hold no state of their own and read none from the job processor, which is
+     * what lets the single instances below be shared - including with the planner, which is
+     * configured from machine.xml and so has to be a static class.
+     */
+    protected abstract static class Locator implements TravellingSalesman.Locator<PlannedPlacement> {
         /**
          * This method is called to query the approximate location of the head for a given placement.
          * The location is in the reference system of the head in order to compare it with others
@@ -2433,7 +2441,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         }
     }
     
-    private class PickLocator extends Locator {
+    private static class PickLocator extends Locator {
         public Location getLocation(JobPlacement jobPlacement, Nozzle nozzle) {
             Location location;
             return convertToHeadLocation(nozzle, jobPlacement.getPlannedPickLocation());
@@ -2444,7 +2452,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         }
     }
     
-    private class AlignLocator extends Locator {
+    private static class AlignLocator extends Locator {
         public Location getLocation(JobPlacement jobPlacement, Nozzle nozzle) {
             Location location;
             final Placement placement = jobPlacement.getPlacement();
@@ -2479,7 +2487,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         }
     }
     
-    private class PlaceLocator extends Locator {
+    private static class PlaceLocator extends Locator {
         // this version returns an approximative location without bottom vision - used for N+1 nozzle optimization
         public Location getLocation(JobPlacement jobPlacement, Nozzle nozzle) {
             final Placement placement = jobPlacement.getPlacement();
