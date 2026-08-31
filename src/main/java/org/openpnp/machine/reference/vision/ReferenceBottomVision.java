@@ -20,6 +20,7 @@ import org.openpnp.machine.reference.ReferenceNozzleTipCalibration.BackgroundCal
 import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
 import org.openpnp.machine.reference.vision.wizards.ReferenceBottomVisionConfigurationWizard;
 import org.openpnp.model.AbstractModelObject;
+import org.openpnp.model.AbstractPartSettingsHolder;
 import org.openpnp.model.AbstractVisionSettings;
 import org.openpnp.model.BoardLocation;
 import org.openpnp.model.BottomVisionSettings;

@@ -1,4 +1,4 @@
-package org.openpnp.machine.reference.vision;
+package org.openpnp.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,15 +6,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.openpnp.ConfigurationListener;
-import org.openpnp.model.AbstractModelObject;
-import org.openpnp.model.AbstractVisionSettings;
-import org.openpnp.model.BottomVisionSettings;
-import org.openpnp.model.Configuration;
-import org.openpnp.model.FiducialVisionSettings;
-import org.openpnp.model.Package;
-import org.openpnp.model.Part;
-import org.openpnp.model.PartSettingsHolder;
-import org.openpnp.model.PartSettingsRoot;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.core.Persist;
 
@@ -87,7 +78,7 @@ public abstract class AbstractPartSettingsHolder extends AbstractModelObject imp
     protected List<PartSettingsHolder> getSpecializedIn(PartSettingsRoot rootHolder, Function<PartSettingsHolder, AbstractVisionSettings> propertyGetter) {
         List<PartSettingsHolder> list = new ArrayList<>();
         Configuration configuration = Configuration.get();
-        if (configuration != null) {
+        if (rootHolder != null && configuration != null) {
             for (Package pkg : configuration.getPackages()) {
                 if (propertyGetter.apply(pkg) != null 
                         && rootHolder.getParentHolder(pkg) == this) {
@@ -108,14 +99,14 @@ public abstract class AbstractPartSettingsHolder extends AbstractModelObject imp
 
     @Override 
     public List<PartSettingsHolder> getSpecializedBottomVisionIn() {
-        AbstractPartAlignment align = AbstractPartAlignment.getPartAlignment(this, true);
-        return getSpecializedIn(align, (h) -> h.getBottomVisionSettings());
+        return getSpecializedIn(PartSettingsRoot.getBottomVisionRoot(true),
+                (h) -> h.getBottomVisionSettings());
     }
 
     @Override 
     public List<PartSettingsHolder> getSpecializedFiducialVisionIn() {
-        ReferenceFiducialLocator fiducialLocator = ReferenceFiducialLocator.getDefault();
-        return getSpecializedIn(fiducialLocator, (h) -> h.getFiducialVisionSettings());
+        return getSpecializedIn(PartSettingsRoot.getFiducialVisionRoot(),
+                (h) -> h.getFiducialVisionSettings());
     }
 
     @Override 
@@ -157,7 +148,7 @@ public abstract class AbstractPartSettingsHolder extends AbstractModelObject imp
             if (holder instanceof Part) {
                 return 2;
             }
-            else if (holder instanceof org.openpnp.model.Package) {
+            else if (holder instanceof Package) {
                 return 1;
             }
             else {

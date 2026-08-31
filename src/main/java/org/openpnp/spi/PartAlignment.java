@@ -8,6 +8,7 @@ import org.openpnp.model.Location;
 import org.openpnp.model.Named;
 import org.openpnp.model.Part;
 import org.openpnp.model.PartSettingsHolder;
+import org.openpnp.model.PartSettingsRoot;
 import org.openpnp.model.Placement;
 import org.openpnp.model.Solutions;
 
@@ -16,7 +17,7 @@ import org.openpnp.model.Solutions;
  * is an implementation of this interface, but other implementations could include laser
  * alignment or pit alignment.  
  */
-public interface PartAlignment extends PartSettingsHolder, Named, Solutions.Subject, PropertySheetHolder {
+public interface PartAlignment extends PartSettingsRoot, Named, Solutions.Subject, PropertySheetHolder {
 
     public class PartAlignmentOffset
     {

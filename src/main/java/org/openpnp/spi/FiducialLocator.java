@@ -8,6 +8,7 @@ import org.openpnp.model.PlacementsHolderLocation;
 import org.openpnp.model.Location;
 import org.openpnp.model.Part;
 import org.openpnp.model.PartSettingsHolder;
+import org.openpnp.model.PartSettingsRoot;
 
 
 /**
@@ -15,7 +16,7 @@ import org.openpnp.model.PartSettingsHolder;
  * primarily implemented by the ReferenceFidicualLocator but is provided so that future expansion
  * can occur without requiring configuration changes.
  */
-public interface FiducialLocator extends PropertySheetHolder {
+public interface FiducialLocator extends PartSettingsRoot, PropertySheetHolder {
     public Location locateAllPlacementsHolder(List<PlacementsHolderLocation<?>> placementsHolderLocations, Location endLocation) 
             throws Exception;
 

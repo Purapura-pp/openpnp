@@ -5,8 +5,8 @@ import javax.swing.Icon;
 
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
+import org.openpnp.model.AbstractPartSettingsHolder;
 import org.openpnp.model.BottomVisionSettings;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 import org.openpnp.model.PartSettingsHolder;
 import org.openpnp.model.PartSettingsRoot;
@@ -58,18 +58,13 @@ public abstract class AbstractPartAlignment extends AbstractPartSettingsHolder i
     }
 
     public static AbstractPartAlignment getPartAlignment(PartSettingsHolder partSettingsHolder, boolean allowDisabled) {
-        // Search for enabled first, then fall back to disabled, if allowed.
-        for (boolean allowDisabledPass : (allowDisabled ? new boolean [] { false, true } : new boolean [] { false })) {
-            for (PartAlignment partAlignment : Configuration.get().getMachine().getPartAlignments()) {
-                if (partAlignment.isEnabled() || allowDisabledPass) {
-                    // TODO: if there are ever multiple Alignment<->VisionSettings classes, they would have to be matched up here. 
-                    if (partAlignment instanceof AbstractPartAlignment) {
-                        return (AbstractPartAlignment) partAlignment;
-                    }
-                }
-            }
-        }
-        return null;
+        // The enabled first, then disabled search lives on PartSettingsRoot, so that a settings
+        // holder can reach its root without going through this class. ReferenceBottomVision is the
+        // only PartAlignment there is, so narrowing after the search cannot pick differently.
+        // TODO: if there are ever multiple Alignment<->VisionSettings classes, they would have to be matched up here.
+        PartAlignment partAlignment = PartSettingsRoot.getBottomVisionRoot(allowDisabled);
+        return (partAlignment instanceof AbstractPartAlignment
+                ? (AbstractPartAlignment) partAlignment : null);
     }
 
     public static AbstractPartAlignment getPartAlignment(PartSettingsHolder partSettingsHolder) {

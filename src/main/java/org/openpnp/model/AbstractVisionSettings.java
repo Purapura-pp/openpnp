@@ -8,8 +8,7 @@ import java.util.function.Function;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jdesktop.beansbinding.Converter;
-import org.openpnp.machine.reference.vision.AbstractPartSettingsHolder;
-import org.openpnp.machine.reference.vision.ReferenceFiducialLocator;
+import org.openpnp.spi.FiducialLocator;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.PartAlignment;
 import org.openpnp.spi.VisionSettings;
@@ -188,8 +187,8 @@ public abstract class AbstractVisionSettings extends AbstractModelObject impleme
                         list.add(partAlignment);
                     }
                 }
-                ReferenceFiducialLocator fiducialLocator = ReferenceFiducialLocator.getDefault();
-                if (propertyGetter.apply(fiducialLocator) == this) {
+                FiducialLocator fiducialLocator = machine.getFiducialLocator();
+                if (fiducialLocator != null && propertyGetter.apply(fiducialLocator) == this) {
                     list.add(fiducialLocator);
                 }
             }

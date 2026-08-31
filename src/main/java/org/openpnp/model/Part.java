@@ -20,7 +20,6 @@
 package org.openpnp.model;
 
 import org.openpnp.ConfigurationListener;
-import org.openpnp.machine.reference.vision.AbstractPartSettingsHolder;
 import org.openpnp.spi.Feeder;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.core.Persist;
