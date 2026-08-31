@@ -187,22 +187,43 @@ public class KicadPosImporterTest {
     }
 
     /**
-     * The mirroring above keys off the layer name in the file rather than the side argument, and
-     * it matches the lower case "bottom" that older KiCad versions wrote. Current versions write
-     * "B.Cu" instead, which does not match, so those files are imported unmirrored. This test
-     * pins the present behaviour rather than endorsing it - see the layer handling in
-     * KicadPosImporter#parseFile.
+     * Releases around 2014 wrote the copper layer name in the side column instead of "bottom" -
+     * the sample export in this repository is one of those - and some export scripts still do.
+     * Those files must be mirrored the same way.
      */
     @Test
-    public void modernBottomLayerNameIsNotRecognisedAsBottom() throws Exception {
+    public void copperLayerNameCountsAsBottomToo() throws Exception {
         File file = posFile("C1  100u  Cap:c  10.0000  20.0000  45.0  B.Cu");
 
         List<Placement> placements =
                 KicadPosImporter.parseFile(file, Side.Bottom, true, true, false);
 
         Placement c1 = placements.get(0);
-        assertEquals(10.0, c1.getLocation().getX(), DELTA);
-        assertEquals(45.0, c1.getLocation().getRotation(), DELTA);
+        assertEquals(-10.0, c1.getLocation().getX(), DELTA);
+        assertEquals(135.0, c1.getLocation().getRotation(), DELTA);
+    }
+
+    @Test
+    public void theSideColumnIsMatchedRegardlessOfCase() throws Exception {
+        File mixedCase = posFile("C1  100u  Cap:c  10.0000  20.0000  45.0  Bottom");
+        File upperCopper = posFile("C1  100u  Cap:c  10.0000  20.0000  45.0  B.CU");
+
+        assertEquals(-10.0, KicadPosImporter.parseFile(mixedCase, Side.Bottom, true, true, false)
+                .get(0).getLocation().getX(), DELTA);
+        assertEquals(-10.0, KicadPosImporter.parseFile(upperCopper, Side.Bottom, true, true, false)
+                .get(0).getLocation().getX(), DELTA);
+    }
+
+    /** The front side must not be mirrored under either spelling. */
+    @Test
+    public void frontSideIsNeverMirrored() throws Exception {
+        File named = posFile("C1  100u  Cap:c  10.0000  20.0000  45.0  top");
+        File copper = posFile("C1  100u  Cap:c  10.0000  20.0000  45.0  F.Cu");
+
+        assertEquals(10.0, KicadPosImporter.parseFile(named, Side.Top, true, true, false)
+                .get(0).getLocation().getX(), DELTA);
+        assertEquals(10.0, KicadPosImporter.parseFile(copper, Side.Top, true, true, false)
+                .get(0).getLocation().getX(), DELTA);
     }
 
     /** KiCad can emit -0.0, which should reach the model as a plain zero. */

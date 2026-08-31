@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -110,7 +111,14 @@ public class KicadPosImporter implements BoardImporter {
             double placementRotation = Double.parseDouble(matcher.group(6));
             String placementLayer = matcher.group(7);
 
-            if (placementLayer.contains("bottom")) { //$NON-NLS-1$
+            /*
+             * Current KiCad writes the side as "top" or "bottom", which is what this used to test
+             * for. Releases around 2014 wrote the copper layer name instead - the sample export in
+             * this repository is one of those - and some export scripts still do. Those files were
+             * imported unmirrored, which put every part on the bottom side in the wrong place.
+             */
+            String layerName = placementLayer.trim().toLowerCase(Locale.ROOT);
+            if (layerName.contains("bottom") || layerName.equals("b.cu")) { //$NON-NLS-1$ //$NON-NLS-2$
             	/* With the board origin set to the lower left, KiCad exports the position
             	 * for the bottom parts with negative X position. The negative number is the distance from the
             	 * 'right border' if the board is turned around with the original origin now on the right lower side.
