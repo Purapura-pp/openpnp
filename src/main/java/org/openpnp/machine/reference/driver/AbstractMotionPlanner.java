@@ -332,8 +332,24 @@ public abstract class AbstractMotionPlanner extends AbstractModelObject implemen
         }
     }
 
+    /**
+     * Note this is deliberately not synchronized, unlike the rest of the planner. It performs
+     * interlock actuations and can wait for the machine to physically come to a standstill, so
+     * holding the monitor here would block getMomentaryMotion() and stall the camera view for as
+     * long as the move takes.
+     * <p>
+     * What makes the shared state safe instead is that every move originates from the single
+     * machine task thread. That was an unwritten rule; the check below makes a violation visible
+     * during testing rather than as an inexplicably corrupted motion plan on a real machine.
+     */
     @Override
     public void moveTo(HeadMountable hm, AxesLocation axesLocation, double speed, MotionOption... options) throws Exception {
+        if (!getMachine().isTask(Thread.currentThread()) && getMachine().isBusy()) {
+            Logger.warn("moveTo() called from {} while the machine task thread is running. "
+                    + "Motion planning is only thread safe when all moves come from the machine "
+                    + "task thread, i.e. from inside machine.submit() or machine.execute().",
+                    Thread.currentThread().getName());
+        }
         int optionFlags = Motion.optionFlags(options);
 
         if (speed <= 0) {

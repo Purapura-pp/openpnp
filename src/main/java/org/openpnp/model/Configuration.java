@@ -399,10 +399,13 @@ public class Configuration extends AbstractModelObject {
     }
 
     public void addListener(ConfigurationListener listener) {
-        listeners.add(listener);
         if (loaded) {
-            // Call the configurationLoaded method if the configuration has
-            // already been loaded when the listener is added
+            // The configuration is loaded once per session, so a listener registered afterwards
+            // receives its callbacks here and can never be called again. Retaining it would pin
+            // its owner - typically a feeder, axis or camera the user just created - inside this
+            // singleton for the rest of the session, including after the user deletes it again.
+            // Listeners registered while loading are retained, since they are the ones the load
+            // notifies when it completes.
             if(!listenersLocked) {
                 // Call these methods immediately
                 try {
@@ -418,7 +421,9 @@ public class Configuration extends AbstractModelObject {
                 // Listeners are locked; we are making a batch change. Dont call them yet
                 pendingListeners.add(listener);
             }
+            return;
         }
+        listeners.add(listener);
     }
 
     public void lockListeners() {
@@ -445,6 +450,10 @@ public class Configuration extends AbstractModelObject {
     }
 
     public synchronized void load() throws Exception {
+        // A load that failed part way through leaves this set. A retry has to look like a first
+        // load again, otherwise the objects it creates would register as post-load listeners and
+        // miss the notifications at the end of this method.
+        loaded = false;
         boolean forceSave = false;
         boolean overrideUserConfig = Boolean.getBoolean("overrideUserConfig");
 

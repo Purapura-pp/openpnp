@@ -673,13 +673,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
         else {
             // Otherwise, submit a machine task and wait for its completion.
             try {
-                long t1 = System.currentTimeMillis() + busyTimeout;
-                while (isBusy()) {
-                    if (System.currentTimeMillis() >= t1) {
-                        throw new TimeoutException("Machine still busy after timeout expired, task rejected.");
-                    }
-                    Thread.yield();
-                }
+                awaitIdle(busyTimeout);
                 Future<T> future = submit(callable, null, false);
                 if (executeTimeout < 0) {
                     // no timeout
@@ -698,12 +692,33 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
         }
     }
 
+    /**
+     * Block until no machine task is running, or the timeout expires. Waiting on the monitor
+     * rather than spinning on Thread.yield() matters because a caller can be made to wait for
+     * seconds, which used to burn a core for the whole time.
+     */
+    protected synchronized void awaitIdle(long busyTimeout)
+            throws TimeoutException, InterruptedException {
+        long deadline = System.currentTimeMillis() + busyTimeout;
+        while (isBusy()) {
+            long remaining = deadline - System.currentTimeMillis();
+            if (remaining <= 0) {
+                throw new TimeoutException(
+                        "Machine still busy after timeout expired, task rejected.");
+            }
+            wait(remaining);
+        }
+    }
+
     protected Thread getTaskThread() {
         return taskThread;
     }
 
-    protected void setTaskThread(Thread taskThread) {
+    protected synchronized void setTaskThread(Thread taskThread) {
         this.taskThread = taskThread;
+        // Wake anyone in awaitIdle(). Only the transition to null actually releases them, but
+        // the wait loop re-checks isBusy() so a spurious wake up is harmless.
+        notifyAll();
     }
 
     @Override

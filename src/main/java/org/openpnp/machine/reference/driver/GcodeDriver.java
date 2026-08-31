@@ -28,7 +28,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -330,6 +332,14 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
      */
     protected final AtomicReference<Line> errorResponse = new AtomicReference<>();
     private boolean motionPending;
+
+    /**
+     * Response regexes come from the configuration and are matched against every single line the
+     * controller sends, so compiling them per line is pure overhead at high baud rates. Caching
+     * by the regex text means an edited regex simply misses the cache, so there is nothing to
+     * invalidate.
+     */
+    private final Map<String, Pattern> patternCache = new ConcurrentHashMap<>();
 
     private PrintWriter gcodeLogger;
 
@@ -1076,9 +1086,14 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         }
     }
 
+    protected Pattern getPattern(String regex) {
+        return patternCache.computeIfAbsent(regex, Pattern::compile);
+    }
+
     private boolean containsMatch(List<Line> responses, String regex) {
+        Pattern pattern = getPattern(regex);
         for (Line response : responses) {
-            if (response.line.matches(regex)) {
+            if (pattern.matcher(response.line).matches()) {
                 return true;
             }
         }
@@ -1157,7 +1172,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
                 throw new Exception(String.format("Actuator \"%s\" read error: No matching responses found.", actuator.getName()));
             });
 
-            Pattern pattern = Pattern.compile(regex);
+            Pattern pattern = getPattern(regex);
             for (Line line : responses) {
                 Matcher matcher = pattern.matcher(line.getLine());
                 if (matcher.matches()) {
@@ -1360,7 +1375,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         if (responses == null) {
             return null;   
         }
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = getPattern(regex);
         for (Line line : responses) {
             Matcher matcher = pattern.matcher(line.getLine());
             if (matcher.matches()) {
@@ -1556,11 +1571,11 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
      */
     protected void processResponse(Line line) {
         String regex = getCommand(null, CommandType.COMMAND_CONFIRM_REGEX);
-        if (regex != null && line.getLine().matches(regex)) {
+        if (regex != null && getPattern(regex).matcher(line.getLine()).matches()) {
             receivedConfirmationsQueue.add(line);
         }
         regex = getCommand(null, CommandType.COMMAND_ERROR_REGEX);
-        if (regex != null && line.getLine().matches(regex)) {
+        if (regex != null && getPattern(regex).matcher(line.getLine()).matches()) {
             errorResponse.set(line);
         }
         processPositionReport(line);
@@ -1572,15 +1587,13 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
             return false;
         }
 
-        if (!line.getLine().matches(regex)) {
+        Matcher matcher = getPattern(regex).matcher(line.getLine());
+        if (!matcher.matches()) {
             return false;
         }
 
         Logger.trace("Position report: {}", line);
         ReferenceMachine machine = ((ReferenceMachine) Configuration.get().getMachine());
-        Matcher matcher =
-                Pattern.compile(regex).matcher(line.getLine());
-        matcher.matches();
         AxesLocation position = AxesLocation.zero;
         for (ControllerAxis axis : new AxesLocation(machine).getAxes(this)) {
             try {

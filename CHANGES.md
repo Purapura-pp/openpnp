@@ -10,6 +10,7 @@ a complete change list, only those that may directly interest or affect users.
 ## Bug Fixes
 
 * Errors that were previously printed to the console, or discarded entirely, are now reported through the log with the context needed to act on them. Where an exception really is expected, the reason is recorded in the code instead.
+* A vision pipeline now stops at the stage where a machine level error occurred, such as a failed image capture or actuation. Previously it ran all the remaining stages first, which produced a cascade of misleading follow-on errors before reporting the real one.
 
 # Version 2.6
 

@@ -335,6 +335,13 @@ public class CvPipeline implements AutoCloseable {
             }
 
             results.put(stage, new Result(image, colorSpace, model, processingTimeNs, stage));
+
+            if (terminalException != null) {
+                // The machine itself failed, so the remaining stages could only work on stale
+                // data. Stop here, but only after storing this stage's result above, so the
+                // editor can still show where the pipeline broke.
+                break;
+            }
         }
         if (terminalException != null) {
             throw (terminalException);
@@ -365,9 +372,31 @@ public class CvPipeline implements AutoCloseable {
             if (result.image != null) {
                 result.image.release();
             }
+            releaseModel(result.model);
         }
         workingModel = null;
         results.clear();
+    }
+
+    /**
+     * Release the native OpenCV objects a stage may have returned as its model, the most common
+     * case being the MatOfPoint list from FindContours. They are not reachable through
+     * Result.image, so they would otherwise be freed only when the OpenCV finalizer happens to
+     * run - and the JVM heap that drives garbage collection cannot see the native memory they
+     * hold, so nothing creates pressure to run it.
+     * <p>
+     * Stages routinely pass the same native objects on to their own result, so the same object is
+     * reached more than once here. That is safe because releasing a Mat twice is a no-op.
+     */
+    private void releaseModel(Object model) {
+        if (model instanceof Mat) {
+            ((Mat) model).release();
+        }
+        else if (model instanceof Iterable) {
+            for (Object element : (Iterable<?>) model) {
+                releaseModel(element);
+            }
+        }
     }
     
     @Override
