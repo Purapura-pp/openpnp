@@ -73,8 +73,19 @@ public class KicadPosImporter implements BoardImporter {
     static List<Placement> parseFile(File file, Side side, boolean assignParts,  boolean createMissingParts, 
     		boolean useOnlyValueAsPartId)
             throws Exception {
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+        // Closed by the try even when parsing throws part way through. It used to be closed only
+        // on the happy path, and the handle left open locks the file on Windows, so a rejected
+        // export cannot be corrected and imported again without restarting OpenPnP.
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+            return parsePlacements(reader, side, assignParts, createMissingParts,
+                    useOnlyValueAsPartId);
+        }
+    }
+
+    private static List<Placement> parsePlacements(BufferedReader reader, Side side,
+            boolean assignParts, boolean createMissingParts, boolean useOnlyValueAsPartId)
+            throws Exception {
         ArrayList<Placement> placements = new ArrayList<>();
         String line;
 
@@ -165,7 +176,6 @@ public class KicadPosImporter implements BoardImporter {
             placement.setSide(side);
             placements.add(placement);
         }
-        reader.close();
         return placements;
     }
 }

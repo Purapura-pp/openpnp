@@ -74,7 +74,12 @@ public class Rs274xParser {
      */
     public List<BoardPad> parseSolderPastePads(File file) throws Exception {
         Logger.info("Parsing " + file);
-        return parseSolderPastePads(new FileReader(file));
+        // The Reader overload does not close what it is handed, since a caller passing a
+        // StringReader still owns it. This one opened the file and so has to close it, otherwise
+        // a Gerber that fails to parse stays locked on Windows until OpenPnP is restarted.
+        try (FileReader reader = new FileReader(file)) {
+            return parseSolderPastePads(reader);
+        }
     }
 
     /**

@@ -38,10 +38,19 @@ public class EagleLoader {
     public Schematic schematic;
 
     public EagleLoader(File file) throws Exception {
-        this(new FileInputStream(file));
+        // The unmarshaller does not close what it is handed, and this constructor is the one that
+        // opened the stream. Left open, the handle locks the board file on Windows for the rest of
+        // the session, so a file that failed to load could not be corrected and tried again.
+        try (InputStream in = new FileInputStream(file)) {
+            load(in);
+        }
     }
 
     public EagleLoader(InputStream in) throws Exception {
+        load(in);
+    }
+
+    private void load(InputStream in) throws Exception {
 
         String packageName = "org.openpnp.model.eagle.xml";
 
