@@ -65,33 +65,42 @@ public class Add extends CvStage {
         if (secondStageName == null || secondStageName.trim().isEmpty()) {
             return null;
         }
-        // TODO STOPSHIP memory?
         Mat first = pipeline.getExpectedResult(firstStageName).image;
         Mat second = pipeline.getExpectedResult(secondStageName).image;
 
-				if(this.firstScalar < 0){
-					throw new Exception("firstScalar < 0!");
-				}
+        if (this.firstScalar < 0) {
+            throw new Exception("firstScalar < 0!");
+        }
 
-        Mat f = first.clone();
-				if(this.firstScalar != 1.0){
-					Core.multiply(first, new Scalar(this.firstScalar), f);
-				}
+        // A scale of one needs no copy at all: add and subtract leave their inputs alone, and a
+        // scale writes over the whole destination, so cloning the input first only ever copied an
+        // image that was about to be overwritten or was never going to be written to. The inputs
+        // belong to the stages that produced them, so only a scaled image is ours to release.
+        Mat f = first;
+        if (this.firstScalar != 1.0) {
+            f = new Mat();
+            Core.multiply(first, new Scalar(this.firstScalar), f);
+        }
 
-        Mat s = second.clone();
-				if(this.secondScalar != 1.0){
-					Core.multiply(second, new Scalar(Math.abs(this.secondScalar)), s);
-				}
-        
+        Mat s = second;
+        if (this.secondScalar != 1.0) {
+            s = new Mat();
+            Core.multiply(second, new Scalar(Math.abs(this.secondScalar)), s);
+        }
+
         Mat out = new Mat();
-				if(this.secondScalar > 0){
-	        Core.add(f, s, out);
-				}
-				else{
-	        Core.subtract(f, s, out);
-				}
-				f.release();
-				s.release();
+        if (this.secondScalar > 0) {
+            Core.add(f, s, out);
+        }
+        else {
+            Core.subtract(f, s, out);
+        }
+        if (f != first) {
+            f.release();
+        }
+        if (s != second) {
+            s.release();
+        }
 
         return new Result(out);
     }
