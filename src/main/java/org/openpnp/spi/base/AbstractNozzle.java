@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.swing.Icon;
 
 import org.openpnp.gui.support.Icons;
-import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -17,6 +16,7 @@ import org.openpnp.model.Location;
 import org.openpnp.model.Part;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.ControllerAxis;
 import org.openpnp.spi.CoordinateAxis;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.Nozzle;
@@ -159,8 +159,8 @@ public abstract class AbstractNozzle extends AbstractHeadMountable implements No
         double limit1 = 180;
         CoordinateAxis coordinateAxis = getAxisRotation().getCoordinateAxes(getMachine())
                 .getAxis(Axis.Type.Rotation);
-        if (coordinateAxis instanceof ReferenceControllerAxis) {
-            ReferenceControllerAxis refAxis = (ReferenceControllerAxis) coordinateAxis;
+        if (coordinateAxis instanceof ControllerAxis) {
+            ControllerAxis refAxis = (ControllerAxis) coordinateAxis;
             if (refAxis.isLimitRotation()) {
                 // Lower limit.
                 AxesLocation axesLimitLow = getMappedAxes(getMachine())

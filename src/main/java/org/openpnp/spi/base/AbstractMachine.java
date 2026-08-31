@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 import javax.swing.Icon;
 
-import org.openpnp.machine.reference.axis.ReferenceLinearTransformAxis;
 import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -31,6 +30,7 @@ import org.openpnp.spi.Driver;
 import org.openpnp.spi.Feeder;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
+import org.openpnp.spi.LinearTransformAxis;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.MachineListener;
 import org.openpnp.spi.MotionPlanner.CompletionType;
@@ -158,8 +158,8 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
             }
             // Look for linear transforms on top-
             for (Axis axis : getAxes()) {
-                if (axis instanceof ReferenceLinearTransformAxis 
-                        && ((ReferenceLinearTransformAxis)axis).getPrimaryInputAxis() == defaultAxis) {
+                if (axis instanceof LinearTransformAxis 
+                        && ((LinearTransformAxis)axis).getPrimaryInputAxis() == defaultAxis) {
                     defaultAxis = (AbstractAxis) axis;
                     break;
                 }

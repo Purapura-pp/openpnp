@@ -31,6 +31,7 @@ import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.spi.Axis;
+import org.openpnp.spi.LinearTransformAxis;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.Locatable.LocationOption;
 import org.openpnp.spi.base.AbstractAxis;
@@ -47,7 +48,7 @@ import org.simpleframework.xml.Element;
  * encountered will therefore do the job for the combined group. 
  *
  */
-public class ReferenceLinearTransformAxis extends AbstractTransformedAxis {
+public class ReferenceLinearTransformAxis extends AbstractTransformedAxis implements LinearTransformAxis {
     // The input axes of the transformation. Any of these can be null. 
     private AbstractAxis inputAxisX;
     private AbstractAxis inputAxisY;
@@ -89,6 +90,7 @@ public class ReferenceLinearTransformAxis extends AbstractTransformedAxis {
         });
     }
 
+    @Override
     public AbstractAxis getPrimaryInputAxis() {
         switch (type) {
             case X:

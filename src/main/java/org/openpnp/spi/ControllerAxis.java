@@ -75,4 +75,40 @@ public interface ControllerAxis extends LinearInputAxis, CoordinateAxis {
      */
     boolean isRotationalOnController();
 
+    /**
+     * @return Whether the rotation of this axis is limited to the soft limits rather than being
+     * free to wrap around. Only meaningful on rotational axes.
+     */
+    boolean isLimitRotation();
+
+    boolean isSoftLimitLowEnabled();
+
+    /**
+     * @return The lowest coordinate the axis may be commanded to, if isSoftLimitLowEnabled().
+     */
+    Length getSoftLimitLow();
+
+    boolean isSoftLimitHighEnabled();
+
+    /**
+     * @return The highest coordinate the axis may be commanded to, if isSoftLimitHighEnabled().
+     */
+    Length getSoftLimitHigh();
+
+    boolean isSafeZoneLowEnabled();
+
+    /**
+     * @return The lower bound of the zone in which the axis is considered safe to traverse, if
+     * isSafeZoneLowEnabled().
+     */
+    Length getSafeZoneLow();
+
+    boolean isSafeZoneHighEnabled();
+
+    /**
+     * @return The upper bound of the zone in which the axis is considered safe to traverse, if
+     * isSafeZoneHighEnabled().
+     */
+    Length getSafeZoneHigh();
+
 }

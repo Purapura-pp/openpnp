@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.openpnp.ConfigurationListener;
-import org.openpnp.machine.reference.ReferenceMachine;
-import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
-import org.openpnp.machine.reference.axis.ReferenceVirtualAxis;
 import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
@@ -21,6 +18,7 @@ import org.openpnp.spi.CoordinateAxis;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.MotionPlanner.CompletionType;
+import org.openpnp.spi.VirtualAxis;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
@@ -150,7 +148,7 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
     }
 
 
-    protected Length rawToHeadMountableZ(ReferenceControllerAxis rawAxis, Length z) {
+    protected Length rawToHeadMountableZ(ControllerAxis rawAxis, Length z) {
         // Get the raw location, and put z in it.
         AxesLocation rawLocation = getMappedAxes(getMachine())
                 .put(new AxesLocation(rawAxis, z));
@@ -178,8 +176,8 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
         Length safeZLow = null;
         Length safeZHigh = null;
         CoordinateAxis coordAxis = getCoordinateAxisZ();
-        if (coordAxis instanceof ReferenceControllerAxis) {
-            ReferenceControllerAxis rawAxis = (ReferenceControllerAxis) coordAxis; 
+        if (coordAxis instanceof ControllerAxis) {
+            ControllerAxis rawAxis = (ControllerAxis) coordAxis; 
             if (rawAxis.isSafeZoneLowEnabled()) {
                 // We have a lower Safe Z Zone limit.
                 Length z = rawAxis.getSafeZoneLow();
@@ -289,9 +287,9 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
     @Override
     public void waitForCompletion(CompletionType completionType) throws Exception {
         Machine machine = getMachine();
-        if (machine.isEnabled() && machine instanceof ReferenceMachine) {
-            ((ReferenceMachine) machine)
-                .getMotionPlanner().waitForCompletion(getHead() == null ? null : this, completionType);
+        if (machine.isEnabled()) {
+            machine.getMotionPlanner()
+                .waitForCompletion(getHead() == null ? null : this, completionType);
         }
     }
 
@@ -299,14 +297,13 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
     public void delay(int milliseconds, HeadMountable... hms) throws Exception {
         if (milliseconds > 0) {
              Machine machine = getMachine();
-            if (machine.isEnabled() && machine instanceof ReferenceMachine) {
+            if (machine.isEnabled()) {
                 // if this actuator has an associated head, add it to the list of
                 // head mountables to respect when executing the delay.
                 if (getHead() != null) {
                     hms = ArrayUtils.add(hms, this);
                 }
-                ((ReferenceMachine) machine)
-                    .getMotionPlanner().delay(milliseconds, hms);
+                machine.getMotionPlanner().delay(milliseconds, hms);
             }
         }
     }
@@ -428,14 +425,14 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
                             .put(new AxesLocation(rawAxis, currentRawLocation.getCoordinate(rawAxis)));
                 }
             }
-            else if ((axis instanceof ReferenceVirtualAxis) 
+            else if ((axis instanceof VirtualAxis) 
                 && (oplist.contains(LocationOption.ReplaceVirtual))) {
                 // Replace the virtual axis coordinate with zero
                 desiredRawLocation = desiredRawLocation
                         .put(new AxesLocation(axis, new Length(0.0, LengthUnit.Millimeters)));
             }
-            if (axis instanceof ReferenceControllerAxis) {
-                ReferenceControllerAxis rawAxis = (ReferenceControllerAxis) axis;
+            if (axis instanceof ControllerAxis) {
+                ControllerAxis rawAxis = (ControllerAxis) axis;
                 if (oplist.contains(LocationOption.ApplySoftLimits)) {
                     double softLimitLow = rawAxis.getSoftLimitLow().convertToUnits(AxesLocation.getUnits()).getValue();
                     double softLimitHigh = rawAxis.getSoftLimitHigh().convertToUnits(AxesLocation.getUnits()).getValue();
@@ -470,8 +467,8 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
             return getMachine().getMotionPlanner().isValidLocation(this, axesLocation);
     }
 
-    protected ReferenceMachine getMachine() {
-        return (ReferenceMachine) Configuration.get().getMachine();
+    protected AbstractMachine getMachine() {
+        return (AbstractMachine) Configuration.get().getMachine();
     }
 
 }
