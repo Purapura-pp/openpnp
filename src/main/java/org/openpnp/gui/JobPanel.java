@@ -564,6 +564,12 @@ public class JobPanel extends JPanel {
         return job;
     }
 
+    /**
+     * The only place the open job is set. It publishes the job to Configuration as well, so that
+     * model objects can find it without reaching back into the GUI through MainFrame - a reach
+     * that is null in a headless run. The field below stays because this panel wires listeners to
+     * the job it is showing; both are written here and nowhere else.
+     */
     public void setJob(Job job) {
         if (this.job != null) {
             this.job.removePropertyChangeListener("dirty", titlePropertyChangeListener); //$NON-NLS-1$
@@ -571,6 +577,7 @@ public class JobPanel extends JPanel {
             this.job.getRootPanelLocation().getPanel().removeAllChildren();
         }
         this.job = job;
+        Configuration.get().setJob(job);
         jobTableModel.setJob(job);
         job.addPropertyChangeListener("dirty", titlePropertyChangeListener); //$NON-NLS-1$
         job.addPropertyChangeListener("file", titlePropertyChangeListener); //$NON-NLS-1$

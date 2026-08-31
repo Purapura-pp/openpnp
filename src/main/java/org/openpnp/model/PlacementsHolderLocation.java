@@ -23,7 +23,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.io.IOException;
 
-import org.openpnp.gui.MainFrame;
 import org.openpnp.util.Utils2D;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
@@ -114,8 +113,8 @@ public abstract class PlacementsHolderLocation<T extends PlacementsHolderLocatio
      */
     @Override
     public void dispose() {
-        if (isDescendantOfJob()) {
-            Job job = MainFrame.get().getJobTab().getJob();
+        Job job = Configuration.get().getJob();
+        if (job != null && isDescendantOfJob()) {
             removePropertyChangeListener(job);
             placementsHolder.removePropertyChangeListener(job);
         }
@@ -128,7 +127,13 @@ public abstract class PlacementsHolderLocation<T extends PlacementsHolderLocatio
      * @return true if this PlacementsHolderLocation is a descendant of the job
      */
     public boolean isDescendantOfJob() {
-        PanelLocation jobRoot = MainFrame.get().getJobTab().getJob().getRootPanelLocation();
+        Job job = Configuration.get().getJob();
+        if (job == null) {
+            // No job is open, so nothing can be a descendant of one. This is the normal state
+            // when the model is used without the GUI.
+            return false;
+        }
+        PanelLocation jobRoot = job.getRootPanelLocation();
         PanelLocation ancestor = parent;
         while (ancestor != null) {
             if (ancestor == jobRoot) {

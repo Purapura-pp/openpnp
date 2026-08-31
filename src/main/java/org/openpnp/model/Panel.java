@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.openpnp.gui.MainFrame;
 import org.openpnp.util.IdentifiableList;
 import org.openpnp.util.Pair;
 import org.pmw.tinylog.Logger;
@@ -271,11 +270,17 @@ public class Panel extends PlacementsHolder<Panel> implements PropertyChangeList
                     + "children from a Panel definition - use addChild or removeChild instead.");
         }
         if (child != null) {
+            // Only a panel that is part of the open job needs its children resolved against that
+            // job. With no job open there is nothing to resolve against, which is the normal state
+            // when the model is used without the GUI.
+            Job job = Configuration.get().getJob();
+            boolean memberOfOpenJob = job != null
+                    && job.getRootPanelLocation().getPanel().isMember(this);
             if (child instanceof BoardLocation) {
                 child = new BoardLocation((BoardLocation) child.getDefinition());
-                if (MainFrame.get().getJobTab().getJob().getRootPanelLocation().getPanel().isMember(this)) {
+                if (memberOfOpenJob) {
                     try {
-                        Configuration.get().resolveBoard(MainFrame.get().getJobTab().getJob(), (BoardLocation) child);
+                        Configuration.get().resolveBoard(job, (BoardLocation) child);
                     }
                     catch (Exception e) {
                         Logger.error(e, "Could not resolve board {} of panel {}.", child.getFileName(), getName());
@@ -284,9 +289,9 @@ public class Panel extends PlacementsHolder<Panel> implements PropertyChangeList
             }
             else if (child instanceof PanelLocation) {
                 child = new PanelLocation((PanelLocation) child.getDefinition());
-                if (MainFrame.get().getJobTab().getJob().getRootPanelLocation().getPanel().isMember(this)) {
+                if (memberOfOpenJob) {
                     try {
-                        Configuration.get().resolvePanel(MainFrame.get().getJobTab().getJob(), (PanelLocation) child);
+                        Configuration.get().resolvePanel(job, (PanelLocation) child);
                     }
                     catch (Exception e) {
                         Logger.error(e, "Could not resolve sub panel {} of panel {}.", child.getFileName(), getName());

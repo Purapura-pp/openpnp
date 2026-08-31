@@ -118,6 +118,7 @@ public class Configuration extends AbstractModelObject {
     private LinkedHashMap<String, Part> parts = new LinkedHashMap<>();
     private LinkedHashMap<String, AbstractVisionSettings> visionSettings = new LinkedHashMap<>();
     private Machine machine;
+    private Job job;
     private LinkedHashMap<File, Panel> panels = new LinkedHashMap<>();
     private LinkedHashMap<File, Board> boards = new LinkedHashMap<>();
     private boolean loaded;
@@ -156,10 +157,6 @@ public class Configuration extends AbstractModelObject {
      * @param configurationDirectory
      */
     public static synchronized void initialize() {
-        /**
-         * TODO STOPSHIP ideally this would use an in memory prefs, too, so that we
-         * don't mess with global user prefs.
-         */
         instance = new Configuration();
         instance.setLengthDisplayFormatWithUnits(PREF_LENGTH_DISPLAY_FORMAT_WITH_UNITS_DEF);
     }
@@ -172,7 +169,9 @@ public class Configuration extends AbstractModelObject {
     }
     
     private Configuration() {
-        this.prefs = Preferences.userNodeForPackage(Configuration.class);
+        // In memory as well, so that a Configuration created to avoid touching the disk cannot
+        // rewrite the preferences of the OpenPnP installed on the same account.
+        this.prefs = new MemoryPreferences();
         this.scripting = new Scripting(null);
         /**
          * Setting loaded = true allows the mechanism of immediately notifying late
@@ -1096,6 +1095,29 @@ public class Configuration extends AbstractModelObject {
     }
 
     /**
+     * The job the user currently has open, or null when none is. The job lifecycle already lives
+     * here - loadJob, saveJob, resolveBoard and isInUse are all on this class - but the open job
+     * itself used to be held by the job tab, which forced model objects to reach back into the GUI
+     * through MainFrame to find it. That reach is null without a GUI, so it made the model
+     * unusable headless.
+     * <p>
+     * Null is a normal state, not an error: a headless run has no open job, and every caller has
+     * an answer for that case which is the same as the answer for a job that does not contain the
+     * object being asked about.
+     * 
+     * @return
+     */
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        Object oldValue = this.job;
+        this.job = job;
+        firePropertyChange("job", oldValue, job);
+    }
+
+    /**
      * Returns the Job contained within the specified file 
      * @param file - the file containing the Job
      * @return the Job
@@ -1391,7 +1413,9 @@ public class Configuration extends AbstractModelObject {
      * @return true if the PlacementsHolder is in use
      */
     public boolean isInUse(PlacementsHolder<?> placementsHolder) {
-        if (MainFrame.get().getJobTab().getJob().instanceCount(placementsHolder) > 0) {
+        // With no job open there is nothing for it to be used by, so only the loaded panels below
+        // can claim it.
+        if (job != null && job.instanceCount(placementsHolder) > 0) {
             return true;
         }
         for (Panel panel : getPanels()) {
