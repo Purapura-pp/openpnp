@@ -100,7 +100,7 @@ public class EagleBoardImporter implements BoardImporter {
         return board;
     }
 
-    private static List<Placement> parseFile(File file, Side side, boolean createMissingParts,
+    static List<Placement> parseFile(File file, Side side, boolean createMissingParts,
             boolean updateExistingParts, boolean addLibraryPrefix) throws Exception {
 
         String dimensionLayer = ""; //$NON-NLS-1$

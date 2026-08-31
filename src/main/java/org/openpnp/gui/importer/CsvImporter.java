@@ -107,7 +107,19 @@ public abstract class CsvImporter {
     // this method shall be called by the parent to open a file open dialog and import
     // the selected file.
     public Board importBoard(Frame parent) throws Exception {
-    	// get strings to parse CSV context
+    	initPatterns();
+
+    	// open the file import dialog
+        Dlg dlg = new Dlg(parent);
+        dlg.setVisible(true);
+        return board;
+    }
+
+    /**
+     * Collect the column name patterns from the subclass. Kept apart from importBoard so that
+     * parseFile can be exercised without opening the import dialog.
+     */
+    void initPatterns() {
     	referencePattern = getReferencePattern();
     	valuePattern     = getValuePattern();
     	packagePattern   = getPackagePattern();
@@ -117,11 +129,6 @@ public abstract class CsvImporter {
     	sidePattern      = getSidePattern();
     	heightPattern    = getHeightPattern();
     	commentPattern   = getCommentPattern();
-
-    	// open the file import dialog
-        Dlg dlg = new Dlg(parent);
-        dlg.setVisible(true);
-        return board;
     }
 
     // the following variable will contain the column indexes in which that data has
@@ -319,7 +326,7 @@ public abstract class CsvImporter {
         return "ISO-8859-1"; //$NON-NLS-1$
     }
     
-    private List<Placement> parseFile(File file, boolean createMissingParts,
+    List<Placement> parseFile(File file, boolean createMissingParts,
             boolean updateHeights) throws Exception {
         String characterset = detectCharacterSet(file);
         BufferedReader reader =

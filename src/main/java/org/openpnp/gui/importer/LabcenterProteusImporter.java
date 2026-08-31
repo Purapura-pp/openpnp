@@ -94,7 +94,7 @@ public class LabcenterProteusImporter implements BoardImporter {
         return board;
     }
 
-    private static List<Placement> parseFile(File file, boolean createMissingParts, boolean stockCodesIncluded)
+    static List<Placement> parseFile(File file, boolean createMissingParts, boolean stockCodesIncluded)
             throws Exception {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(new FileInputStream(file)));

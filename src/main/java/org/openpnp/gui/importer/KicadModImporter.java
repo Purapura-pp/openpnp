@@ -49,7 +49,11 @@ public class KicadModImporter {
 
     Footprint footprint = new Footprint();
 
-    public class KicadPad {
+    /**
+     * Static so that the pad parsing can be exercised on its own. The enclosing importer opens a
+     * file dialog from its constructor, which a test cannot drive.
+     */
+    public static class KicadPad {
     
         String padDefinition;
 

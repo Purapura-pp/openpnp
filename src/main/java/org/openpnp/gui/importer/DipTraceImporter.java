@@ -89,7 +89,7 @@ public class DipTraceImporter implements BoardImporter {
         return board;
     }
 
-    private static List<Placement> parseFile(File file, boolean createMissingParts)
+    static List<Placement> parseFile(File file, boolean createMissingParts)
             throws Exception {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(new FileInputStream(file)));
