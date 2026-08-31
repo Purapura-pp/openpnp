@@ -546,29 +546,48 @@ public class Rs274xParser {
         }
 
         int code = readInteger();
-        int type = read();
+        // The template is a single letter for the four standard apertures and the name of an
+        // aperture macro otherwise. Both forms may be followed by parameters, so the whole name
+        // has to be read before the two can be told apart - reading a single character would take
+        // the R of a macro called ROUNDRECT for a rectangle and then fail on the parameters.
+        StringBuilder template = new StringBuilder();
+        while (peek() != ',' && peek() != '*') {
+            template.append((char) read());
+        }
+
         Aperture aperture = null;
-        switch (type) {
-            case 'R': {
-                aperture = readRectangleApertureDefinition(code);
-                break;
+        if (template.length() == 1) {
+            switch (template.charAt(0)) {
+                case 'R': {
+                    aperture = readRectangleApertureDefinition(code);
+                    break;
+                }
+                case 'C': {
+                    aperture = readCircleApertureDefinition(code);
+                    break;
+                }
+                case 'O': {
+                    aperture = readObroundApertureDefinition(code);
+                    break;
+                }
+                case 'P': {
+                    aperture = readPolygonApertureDefinition(code);
+                    break;
+                }
+                default: {
+                    error(String.format("Unhandled aperture definition type %c, code %d",
+                            template.charAt(0), code));
+                }
             }
-            case 'C': {
-                aperture = readCircleApertureDefinition(code);
-                break;
-            }
-            case 'O': {
-                aperture = readObroundApertureDefinition(code);
-                break;
-            }
-            case 'P': {
-                aperture = readPolygonApertureDefinition(code);
-                break;
-            }
-            default: {
-                error(String.format("Unhandled aperture definition type %c, code %d", ((char) type),
-                        code));
-            }
+        }
+        else {
+            // An aperture macro. Accepting the definition and then dropping its flashes would hand
+            // back a solder paste layer with pads missing, which is worse than not importing it,
+            // so say what is wrong and stop.
+            error(String.format("Aperture D%d is defined by the macro %s. Aperture macros are not "
+                    + "supported, and importing this layer would silently lose every pad that "
+                    + "uses them. Re-export the paste layer with standard apertures.",
+                    code, template));
         }
         apertures.put(code, aperture);
     }
@@ -811,9 +830,13 @@ public class Rs274xParser {
         while (sValue.length() < coordinateFormatIntegerLength + coordinateFormatDecimalLength) {
             sValue = "0" + sValue;
         }
-        String integerPart = sValue.substring(0, coordinateFormatIntegerLength);
-        String decimalPart = sValue.substring(coordinateFormatIntegerLength,
-                coordinateFormatIntegerLength + coordinateFormatDecimalLength - 1);
+        // The decimal point sits a fixed number of digits from the right, so the fraction is the
+        // tail of the padded value and the integer part is everything before it. Splitting from
+        // the right also leaves a coordinate that needs more integer digits than the format
+        // announces intact, rather than silently shifting it.
+        int pointAt = sValue.length() - coordinateFormatDecimalLength;
+        String integerPart = sValue.substring(0, pointAt);
+        String decimalPart = sValue.substring(pointAt);
         return (value < 0 ? -1 : 1) * Double.parseDouble(integerPart + "." + decimalPart);
     }
 
@@ -1072,17 +1095,6 @@ public class Rs274xParser {
         public String toString() {
             return "PolygonAperture [numberOfVertices=" + numberOfVertices + ", rotation="
                     + rotation + ", diameter=" + diameter + ", holeDiameter=" + holeDiameter + "]";
-        }
-    }
-
-    static class MacroAperture extends Aperture {
-        public MacroAperture(int index) {
-            super(index);
-        }
-
-        @Override
-        public BoardPad createPad(LengthUnit unit, java.awt.geom.Point2D.Double coordinate) {
-            return null;
         }
     }
 

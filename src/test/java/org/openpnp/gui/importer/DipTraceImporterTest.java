@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,7 @@ public class DipTraceImporterTest {
     private static final String HEADER = "RefDes,Name,X (mm),Y (mm),Side,Rotate,Value";
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -101,8 +102,46 @@ public class DipTraceImporterTest {
 
         List<Placement> placements = DipTraceImporter.parseFile(file, true);
 
-        assertEquals(Side.Bottom, placements.get(0).getSide(),
-                "the comparison is against an upper case T, so lower case top reads as bottom");
+        assertEquals(Side.Bottom, placements.get(0).getSide());
+    }
+
+    /**
+     * The side used to be decided by comparing against an upper case T, so a hand edited file
+     * spelling the side in lower case put every top placement on the bottom of the board.
+     */
+    @Test
+    public void sideIsRecognisedRegardlessOfCase() throws Exception {
+        File file = export(
+                HEADER,
+                "C1,C0603,1,1,top,0,1nF",
+                "C2,C0603,2,2,TOP,0,1nF",
+                "C3,C0603,3,3,tOp,0,1nF",
+                "C4,C0603,4,4,BOTTOM,0,1nF");
+
+        List<Placement> placements = DipTraceImporter.parseFile(file, true);
+
+        assertEquals(Side.Top, byId(placements, "C1").getSide());
+        assertEquals(Side.Top, byId(placements, "C2").getSide());
+        assertEquals(Side.Top, byId(placements, "C3").getSide());
+        assertEquals(Side.Bottom, byId(placements, "C4").getSide());
+    }
+
+    @Test
+    public void surroundingSpaceInTheSideColumnIsIgnored() throws Exception {
+        File file = export(HEADER, "C1,C0603,1,1, Top ,0,1nF");
+
+        List<Placement> placements = DipTraceImporter.parseFile(file, true);
+
+        assertEquals(Side.Top, placements.get(0).getSide());
+    }
+
+    @Test
+    public void anEmptySideColumnFallsBackToBottom() throws Exception {
+        File file = export(HEADER, "C1,C0603,1,1,,0,1nF");
+
+        List<Placement> placements = DipTraceImporter.parseFile(file, true);
+
+        assertEquals(Side.Bottom, placements.get(0).getSide());
     }
 
     @Test
@@ -174,27 +213,42 @@ public class DipTraceImporterTest {
     }
 
     /**
-     * The blank check runs before the line is trimmed, so a line of spaces gets through and then
-     * fails on the column lookup. Pins the present behaviour: such a file aborts the import rather
-     * than skipping the line.
+     * The blank check used to run before the line was trimmed, so a line of spaces got through and
+     * then failed on the column lookup, aborting the whole import over one stray space.
      */
     @Test
-    public void whitespaceOnlyLineAbortsTheImport() throws Exception {
+    public void whitespaceOnlyLineIsSkipped() throws Exception {
         File file = export(
                 HEADER,
                 "C1,C0603,1,1,Top,0,1nF",
                 "   ",
+                "\t",
                 "C2,C0603,2,2,Top,0,1nF");
 
-        assertThrows(ArrayIndexOutOfBoundsException.class,
-                () -> DipTraceImporter.parseFile(file, true));
+        List<Placement> placements = DipTraceImporter.parseFile(file, true);
+
+        assertEquals(2, placements.size());
+        assertEquals(Side.Top, byId(placements, "C2").getSide());
     }
 
+    /**
+     * A row that really is short is still fatal - guessing at missing coordinates would place
+     * parts in the wrong spot - but the failure now names the line instead of surfacing as an
+     * array index out of bounds.
+     */
     @Test
-    public void aRowWithTooFewColumnsAbortsTheImport() throws Exception {
-        File file = export(HEADER, "C1,C0603,1,1,Top,0");
+    public void aRowWithTooFewColumnsReportsTheLine() throws Exception {
+        File file = export(
+                HEADER,
+                "C1,C0603,1,1,Top,0,1nF",
+                "C2,C0603,1,1,Top,0");
 
-        assertThrows(ArrayIndexOutOfBoundsException.class,
+        Exception e = assertThrows(Exception.class,
                 () -> DipTraceImporter.parseFile(file, true));
+
+        assertTrue(e.getMessage().contains("3"),
+                "the message should name the offending line: " + e.getMessage());
+        assertTrue(e.getMessage().contains("C2,C0603,1,1,Top,0"),
+                "the message should quote the offending line: " + e.getMessage());
     }
 }

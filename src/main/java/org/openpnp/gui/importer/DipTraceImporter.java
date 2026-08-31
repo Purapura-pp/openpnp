@@ -91,8 +91,17 @@ public class DipTraceImporter implements BoardImporter {
 
     static List<Placement> parseFile(File file, boolean createMissingParts)
             throws Exception {
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        // The reader is closed by the try even when parsing throws part way through. Leaving it
+        // open kept a lock on the file on Windows, so a rejected export could not be corrected
+        // and retried without restarting OpenPnP.
+        try (BufferedReader reader =
+                new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            return parsePlacements(reader, createMissingParts);
+        }
+    }
+
+    private static List<Placement> parsePlacements(BufferedReader reader,
+            boolean createMissingParts) throws Exception {
         ArrayList<Placement> placements = new ArrayList<>();
         String line;
         int lineCount = 0;
@@ -107,12 +116,22 @@ public class DipTraceImporter implements BoardImporter {
         while ((line = reader.readLine()) != null) {
         	
         	// Skip first line as it's always header
-        	if (lineCount++ == 0 || line.length() == 0)  {
+        	if (lineCount++ == 0)  {
                 continue;
             }
             line = line.trim();
+            // Checked after trimming, so that a line holding nothing but spaces counts as blank
+            // instead of reaching the column lookup below and aborting the whole import.
+            if (line.isEmpty()) {
+                continue;
+            }
             
             String[] tokens = line.split(","); //$NON-NLS-1$
+            if (tokens.length < 7) {
+                throw new Exception(String.format(
+                        "Line %d has %d of the 7 expected columns: %s", lineCount, tokens.length,
+                        line));
+            }
             
             String placementId = tokens[0];  							// RefDes in Diptrace export
             String partValue = tokens[6];    							// Value in Diptrace export
@@ -144,10 +163,13 @@ public class DipTraceImporter implements BoardImporter {
 
             }
 
-            placement.setSide(placementLayer.charAt(0) == 'T' ? Side.Top : Side.Bottom);
+            // Compared without regard to case, so that a hand edited "top" is not read as bottom.
+            String side = placementLayer.trim();
+            placement.setSide(!side.isEmpty() && Character.toUpperCase(side.charAt(0)) == 'T'
+                    ? Side.Top
+                    : Side.Bottom);
             placements.add(placement);
         }
-        reader.close();
         return placements;
     }
 
@@ -263,7 +285,10 @@ public class DipTraceImporter implements BoardImporter {
                     }
                 }
                 catch (Exception e1) {
-                    MessageBoxes.errorBox(Dlg.this, "Import Error", "The expected file format is the default file export in DipTrace " //$NON-NLS-1$ //$NON-NLS-2$
+                    // The reason was previously dropped, leaving the user with the format blurb
+                    // and no clue which line the importer choked on.
+                    MessageBoxes.errorBox(Dlg.this, "Import Error", e1.getMessage() + "\n\n" //$NON-NLS-1$ //$NON-NLS-2$
+                            + "The expected file format is the default file export in DipTrace " //$NON-NLS-1$
                     		+ "PCB: File -> Export -> Pick and Place. The first line indicates RefDes, Name, X (mm), Y (mm), Side, Rotate, Value." //$NON-NLS-1$
                     		+ "The lines that follow are data."); //$NON-NLS-1$
                     return;

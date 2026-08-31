@@ -1,6 +1,7 @@
 package org.openpnp.gui.importer.rs274x;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -160,23 +161,84 @@ public class Rs274xParserTest {
     }
 
     /**
-     * The coordinate reader drops the least significant decimal digit: for a 2.4 format it builds
-     * the fraction from {@code substring(integerLength, integerLength + decimalLength - 1)}, so
-     * X12345 yields 1.234 where the Gerber specification calls for 1.2345. The error is one unit
-     * in the last place of the file format, which is why it has gone unnoticed, but it is a real
-     * loss of precision. This test pins the current behaviour rather than endorsing it.
+     * The full declared precision has to survive: in a 2.4 format the implied decimal point sits
+     * four digits from the right, so X12345 is 1.2345 and Y00001 is one unit in the last place.
+     * The reader used to build the fraction one digit short and drop that last place.
      */
     @Test
-    public void lastDecimalDigitOfACoordinateIsDropped() throws Exception {
+    public void coordinateKeepsEveryDeclaredDecimalDigit() throws Exception {
         List<BoardPad> pads = parse(gerber(
                 "%ADD10C,1.0*%",
                 "D10*",
                 "X12345Y00001D03*"));
 
-        assertEquals(1.234, pads.get(0).getLocation().getX(), DELTA,
-                "specification would give 1.2345");
-        assertEquals(0.0, pads.get(0).getLocation().getY(), DELTA,
-                "specification would give 0.0001");
+        assertEquals(1.2345, pads.get(0).getLocation().getX(), DELTA);
+        assertEquals(0.0001, pads.get(0).getLocation().getY(), DELTA);
+    }
+
+    /**
+     * A coordinate needing more integer digits than the format announces is still read with the
+     * decimal point four digits from the right, rather than being shifted by the surplus.
+     */
+    @Test
+    public void coordinateWiderThanTheFormatKeepsItsScale() throws Exception {
+        List<BoardPad> pads = parse(gerber(
+                "%ADD10C,1.0*%",
+                "D10*",
+                "X1234567Y0000001D03*"));
+
+        assertEquals(123.4567, pads.get(0).getLocation().getX(), DELTA);
+        assertEquals(0.0001, pads.get(0).getLocation().getY(), DELTA);
+    }
+
+    @Test
+    public void negativeCoordinateKeepsEveryDecimalDigit() throws Exception {
+        List<BoardPad> pads = parse(gerber(
+                "%ADD10C,1.0*%",
+                "D10*",
+                "X-12345Y-00001D03*"));
+
+        assertEquals(-1.2345, pads.get(0).getLocation().getX(), DELTA);
+        assertEquals(-0.0001, pads.get(0).getLocation().getY(), DELTA);
+    }
+
+    /**
+     * Aperture macros are not reconstructed. Importing the layer anyway would hand back a paste
+     * layer with every macro pad missing, so the parser has to refuse and say why. It must also
+     * not mistake the leading letter of the macro name for a standard aperture template.
+     */
+    @Test
+    public void macroApertureIsRefusedWithAnExplanation() throws Exception {
+        String source = "%FSLAX24Y24*%\n"
+                + "%MOMM*%\n"
+                + "%AMROUNDRECT*21,1,$1,$2,0,0,0*%\n"
+                + "%ADD10ROUNDRECT,0.5X0.3*%\n"
+                + "D10*\n"
+                + "X10000Y10000D03*\n"
+                + "M02*\n";
+
+        Exception e = assertThrows(Exception.class, () -> parse(source));
+
+        assertTrue(e.getMessage().contains("ROUNDRECT"),
+                "the message should name the macro: " + e.getMessage());
+        assertTrue(e.getMessage().contains("macro"),
+                "the message should explain the cause: " + e.getMessage());
+    }
+
+    @Test
+    public void unnamedMacroApertureIsAlsoRefused() throws Exception {
+        String source = "%FSLAX24Y24*%\n"
+                + "%MOMM*%\n"
+                + "%AMTHERMAL*7,0,0,0.8,0.55,0.125,45*%\n"
+                + "%ADD10THERMAL*%\n"
+                + "D10*\n"
+                + "X10000Y10000D03*\n"
+                + "M02*\n";
+
+        Exception e = assertThrows(Exception.class, () -> parse(source));
+
+        assertTrue(e.getMessage().contains("THERMAL"),
+                "the message should name the macro: " + e.getMessage());
     }
 
     @Test
