@@ -29,12 +29,7 @@
     </subpackage>
 
     <subpackage name="model" strategyOnMismatch="allowed">
-        <!--
-          Remaining model -> machine.reference edges. The vision settings classes and the
-          AbstractPartSettingsHolder that Part and Package extend are the bulk of it; untangling
-          them needs the SPI to express the "vision settings root" concept first.
-        -->
-        <allow pkg="org.openpnp.machine.reference.vision"/>
+        <!-- Fully clean, like spi: there is deliberately no exception list left here. -->
         <disallow pkg="org.openpnp.machine"/>
 
         <!--

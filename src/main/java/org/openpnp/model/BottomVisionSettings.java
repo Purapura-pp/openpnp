@@ -3,8 +3,6 @@ package org.openpnp.model;
 import java.awt.geom.Rectangle2D;
 
 import org.openpnp.gui.support.Wizard;
-import org.openpnp.machine.reference.vision.ReferenceBottomVision.PartSettings;
-import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -50,13 +48,14 @@ public class BottomVisionSettings extends AbstractVisionSettings {
     @Element(required = false)
     protected Location visionOffset = new Location(LengthUnit.Millimeters);
 
+    /**
+     * @return null. Which wizard configures these settings is a decision for whoever is showing
+     * them; see VisionSettingsPanel. A settings object naming a wizard from the reference machine
+     * is what used to make the model depend on it.
+     */
     @Override
     public Wizard getConfigurationWizard() {
-        return new BottomVisionSettingsConfigurationWizard(this, null);
-    }
-
-    public Wizard getConfigurationWizard(PartSettingsHolder settingsHolder) {
-        return new BottomVisionSettingsConfigurationWizard(this, settingsHolder);
+        return null;
     }
 
     public BottomVisionSettings() {
@@ -65,18 +64,6 @@ public class BottomVisionSettings extends AbstractVisionSettings {
 
     public BottomVisionSettings(String id) {
         super(id);
-    }
-
-    public BottomVisionSettings(PartSettings partSettings) {
-        this();
-        this.setEnabled(partSettings.isEnabled());
-        this.setPipeline(partSettings.getPipeline());
-        this.preRotateUsage = partSettings.getPreRotateUsage();
-        this.checkPartSizeMethod = partSettings.getCheckPartSizeMethod();
-        this.checkSizeTolerancePercent = partSettings.getCheckSizeTolerancePercent();
-        this.maxRotation = partSettings.getMaxRotation();
-        this.visionOffset = partSettings.getVisionOffset();
-        this.asymmetric = this.visionOffset.isInitialized();
     }
 
     public PreRotateUsage getPreRotateUsage() {

@@ -814,6 +814,24 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
         return new FiducialVisionSettingsConfigurationWizard(visionSettings, partSettingsHolder);
     }
 
+    /**
+     * Converts the per part settings an older configuration carried into the vision settings object
+     * that replaced them. This is migration of a format this class owns, so it lives here rather
+     * than as a constructor on FiducialVisionSettings, which would have made the model depend on
+     * the reference machine for the sake of a legacy type.
+     * 
+     * @param partSettings
+     * @return
+     */
+    @Deprecated
+    public static FiducialVisionSettings toVisionSettings(PartSettings partSettings) {
+        FiducialVisionSettings visionSettings = new FiducialVisionSettings();
+        // The enabled state of the old per part settings was never actually used.
+        visionSettings.setEnabled(true);
+        visionSettings.setPipeline(partSettings.getPipeline());
+        return visionSettings;
+    }
+
     @Root
     @Deprecated
     public static class PartSettings {
@@ -916,7 +934,7 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
                     String serializedHash = AbstractVisionSettings.createSettingsFingerprint(partSettings);
                     FiducialVisionSettings fiducialVisionSettings = fiducialVisionSettingsHashMap.get(serializedHash);
                     if (fiducialVisionSettings == null) {
-                        fiducialVisionSettings = new FiducialVisionSettings(partSettings);
+                        fiducialVisionSettings = toVisionSettings(partSettings);
                         fiducialVisionSettings.setName("");
                         fiducialVisionSettingsHashMap.put(serializedHash, fiducialVisionSettings);
 

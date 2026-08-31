@@ -1,8 +1,6 @@
 package org.openpnp.model;
 
 import org.openpnp.gui.support.Wizard;
-import org.openpnp.machine.reference.vision.ReferenceFiducialLocator.PartSettings;
-import org.openpnp.machine.reference.vision.wizards.FiducialVisionSettingsConfigurationWizard;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -21,13 +19,14 @@ public class FiducialVisionSettings extends AbstractVisionSettings {
     @Element(required = false)
     protected Length maxLinearOffset = new Length(0.2, LengthUnit.Millimeters);
 
+    /**
+     * @return null. Which wizard configures these settings is a decision for whoever is showing
+     * them; see VisionSettingsPanel. A settings object naming a wizard from the reference machine
+     * is what used to make the model depend on it.
+     */
     @Override
     public Wizard getConfigurationWizard() {
-        return new FiducialVisionSettingsConfigurationWizard(this, null);
-    }
-
-    public Wizard getConfigurationWizard(PartSettingsHolder settingsHolder) {
-        return new FiducialVisionSettingsConfigurationWizard(this, settingsHolder);
+        return null;
     }
 
     public FiducialVisionSettings() {
@@ -36,12 +35,6 @@ public class FiducialVisionSettings extends AbstractVisionSettings {
 
     public FiducialVisionSettings(String id) {
         super(id);
-    }
-
-    public FiducialVisionSettings(PartSettings partSettings) {
-        this();
-        this.setEnabled(true);// Enabled state was not actually used.
-        this.setPipeline(partSettings.getPipeline());
     }
 
     public Length getParallaxDiameter() {

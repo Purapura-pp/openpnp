@@ -758,6 +758,29 @@ public class ReferenceBottomVision extends AbstractPartAlignment {
                 new PropertySheetWizardAdapter(new BottomVisionSettingsConfigurationWizard(getBottomVisionSettings(), this))};
     }
 
+    /**
+     * Converts the per part settings an older configuration carried into the vision settings object
+     * that replaced them. This is migration of a format this class owns, so it lives here rather
+     * than as a constructor on BottomVisionSettings, which would have made the model depend on the
+     * reference machine for the sake of a legacy type.
+     * 
+     * @param partSettings
+     * @return
+     */
+    @Deprecated
+    public static BottomVisionSettings toVisionSettings(PartSettings partSettings) {
+        BottomVisionSettings visionSettings = new BottomVisionSettings();
+        visionSettings.setEnabled(partSettings.isEnabled());
+        visionSettings.setPipeline(partSettings.getPipeline());
+        visionSettings.setPreRotateUsage(partSettings.getPreRotateUsage());
+        visionSettings.setCheckPartSizeMethod(partSettings.getCheckPartSizeMethod());
+        visionSettings.setCheckSizeTolerancePercent(partSettings.getCheckSizeTolerancePercent());
+        visionSettings.setMaxRotation(partSettings.getMaxRotation());
+        visionSettings.setVisionOffset(partSettings.getVisionOffset());
+        visionSettings.setAsymmetric(partSettings.getVisionOffset().isInitialized());
+        return visionSettings;
+    }
+
     @Deprecated
     @Root
     public static class PartSettings extends AbstractModelObject {
@@ -889,7 +912,7 @@ public class ReferenceBottomVision extends AbstractPartAlignment {
                     String serializedHash = AbstractVisionSettings.createSettingsFingerprint(partSettings);
                     BottomVisionSettings bottomVisionSettings = bottomVisionSettingsHashMap.get(serializedHash);
                     if (bottomVisionSettings == null) {
-                        bottomVisionSettings = new BottomVisionSettings(partSettings);
+                        bottomVisionSettings = toVisionSettings(partSettings);
                         bottomVisionSettings.setName("");
                         bottomVisionSettingsHashMap.put(serializedHash, bottomVisionSettings);
 

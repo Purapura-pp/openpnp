@@ -46,6 +46,8 @@ import org.openpnp.gui.support.WizardContainer;
 import org.openpnp.gui.tablemodel.VisionSettingsTableModel;
 import org.openpnp.machine.reference.vision.AbstractPartAlignment;
 import org.openpnp.machine.reference.vision.ReferenceFiducialLocator;
+import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
+import org.openpnp.machine.reference.vision.wizards.FiducialVisionSettingsConfigurationWizard;
 import org.openpnp.model.AbstractVisionSettings;
 import org.openpnp.model.BottomVisionSettings;
 import org.openpnp.model.Configuration;
@@ -116,7 +118,7 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
                 tabbedPane.removeAll();
 
                 if (selectedVisionSettings != null) {
-                    Wizard wizard = selectedVisionSettings.getConfigurationWizard();
+                    Wizard wizard = configurationWizardFor(selectedVisionSettings);
                     if (wizard != null) {
                         tabbedPane.add(wizard.getWizardName(), (JPanel) wizard);
                         wizard.setWizardContainer(VisionSettingsPanel.this);
@@ -224,6 +226,26 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
             Helpers.selectObjectTableRow(table, visionSettings);
         }
     };
+
+    /**
+     * Creates the wizard for a set of vision settings. This dispatches on the concrete type, the
+     * same way newSettingsAction above decides which one to create, so that the settings classes
+     * themselves do not have to name a wizard from the reference machine.
+     * 
+     * @param visionSettings
+     * @return The wizard, or null if there is none for this type.
+     */
+    private static Wizard configurationWizardFor(AbstractVisionSettings visionSettings) {
+        if (visionSettings instanceof BottomVisionSettings) {
+            return new BottomVisionSettingsConfigurationWizard(
+                    (BottomVisionSettings) visionSettings, null);
+        }
+        if (visionSettings instanceof FiducialVisionSettings) {
+            return new FiducialVisionSettingsConfigurationWizard(
+                    (FiducialVisionSettings) visionSettings, null);
+        }
+        return null;
+    }
 
     public final Action deleteSettingsAction = new AbstractAction() {
         {
