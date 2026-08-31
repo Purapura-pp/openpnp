@@ -503,8 +503,9 @@ public class FeedersPanel extends JPanel implements WizardContainer {
         }
         
         if (Configuration.get().getParts().size() == 0) {
-            MessageBoxes.errorBox(getTopLevelAncestor(), "Error",
-                    "There are currently no parts defined in the system. Please create at least one part before creating a feeder.");
+            MessageBoxes.errorBox(getTopLevelAncestor(),
+                    Translations.getString("General.Error"), //$NON-NLS-1$
+                    Translations.getString("FeedersPanel.NewFeeder.NoParts")); //$NON-NLS-1$
             return;
         }
 

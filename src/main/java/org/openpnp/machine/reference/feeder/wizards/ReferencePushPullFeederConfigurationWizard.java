@@ -644,7 +644,8 @@ extends AbstractReferenceFeederConfigurationWizard {
         public void actionPerformed(ActionEvent e) {
             PipelineType type = (PipelineType) pipelineType.getSelectedItem();
             int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                    "This will reset the pipeline to the "+type+" type default. Are you sure?",
+                    String.format(Translations.getString( //$NON-NLS-1$
+                            "DialogMessages.ResetPipelineToTypeDefault"), type),
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
                 applyAction.actionPerformed(null);
@@ -741,11 +742,12 @@ extends AbstractReferenceFeederConfigurationWizard {
                 else {
                     // ask the user
                     result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                            "<html>"
-                            + "<p>This may overwrite all your current settings. Are you sure?</p>"
-                            +(feeder.isUsedAsTemplate() ? 
-                                    "<br/><p color=\"red\">This feeder is marked as template. Are you really, really sure?</p>" : "")
-                            + "</html>",
+                            String.format(Translations.getString( //$NON-NLS-1$
+                                    "ReferencePushPullFeederConfigurationWizard.AutoSetup.Confirm"),
+                                    feeder.isUsedAsTemplate()
+                                            ? Translations.getString( //$NON-NLS-1$
+                                                    "ReferencePushPullFeederConfigurationWizard.AutoSetup.TemplateWarning")
+                                            : ""),
                             null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 }
                 if (result == JOptionPane.YES_OPTION) {
@@ -774,7 +776,9 @@ extends AbstractReferenceFeederConfigurationWizard {
                     if (report.length() == 0) {
                         report.append("No action taken.");
                     }
-                    JOptionPane.showMessageDialog(getTopLevelAncestor(), "<html>"+report+"</html>", "OCR Report", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(getTopLevelAncestor(), "<html>"+report+"</html>",
+                            Translations.getString("DialogMessages.OcrReport.Title"), //$NON-NLS-1$
+                            JOptionPane.INFORMATION_MESSAGE);
                 });
             });
         }
@@ -825,7 +829,9 @@ extends AbstractReferenceFeederConfigurationWizard {
                 if (report.length() == 0) {
                     report.append("No action taken.");
                 }
-                JOptionPane.showMessageDialog(getTopLevelAncestor(), "<html>"+report+"</html>", "OCR Report", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(getTopLevelAncestor(), "<html>"+report+"</html>",
+                        Translations.getString("DialogMessages.OcrReport.Title"), //$NON-NLS-1$
+                        JOptionPane.INFORMATION_MESSAGE);
             });
         }
     };
@@ -853,9 +859,9 @@ extends AbstractReferenceFeederConfigurationWizard {
                     throw new Exception("No suitable template feeder found.");
                 }
                 int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "<html><p>This will overwrite the selected settings with those from the template:<br/><br/>"
-                                + feeder.getCloneTemplateStatus()+"<br/><br/>"
-                                + "Are you sure?",
+                        String.format(Translations.getString( //$NON-NLS-1$
+                                "ReferencePushPullFeederConfigurationWizard.CloneFromTemplate.Confirm"),
+                                feeder.getCloneTemplateStatus()),
                                 null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     feeder.smartClone(null, 
@@ -891,9 +897,9 @@ extends AbstractReferenceFeederConfigurationWizard {
                     throw new Exception("No suitable feeders found to clone to.");
                 }
                 int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "<html>This will overwrite the selected settings in all the target feeders:<br/><br/>"
-                                + feeder.getCloneTemplateStatus()+"<br/><br/>   "
-                                +"Are you sure?</html>",
+                        String.format(Translations.getString( //$NON-NLS-1$
+                                "ReferencePushPullFeederConfigurationWizard.CloneToAll.Confirm"),
+                                feeder.getCloneTemplateStatus()),
                                 null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     for (ReferencePushPullFeeder targetFeeder : feeder.getCompatibleFeeders()) {

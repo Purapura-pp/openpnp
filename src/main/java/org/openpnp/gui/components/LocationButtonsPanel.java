@@ -467,11 +467,8 @@ public class LocationButtonsPanel extends JPanel {
             if (isContactProbeReference()) {
                 /// Warn the user.
                 result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "<html>This will overwrite the Z reference and therefore<br/>"
-                                +"change the meaning of previously captured Z coordinates.<br/>"
-                                +"<span color=\"red\">You will need to recapture these locations!</span>"
-                                +"<br/><br/>"
-                                +"Are you sure?</html>",
+                        Translations.getString( //$NON-NLS-1$
+                                "LocationButtonsPanel.OverwriteZReference.Confirm"),
                                 null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             }
             if (result == JOptionPane.YES_OPTION) {

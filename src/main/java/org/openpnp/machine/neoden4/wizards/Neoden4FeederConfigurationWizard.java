@@ -377,8 +377,11 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 				Actuator actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
 
 				if (actuator == null) {
-					MessageBoxes.errorBox(contentPanel, "Error",
-							String.format("Can't find actuator '%s'", actuatorName));
+					MessageBoxes.errorBox(contentPanel,
+							Translations.getString("General.Error"), //$NON-NLS-1$
+							String.format(
+									Translations.getString("DialogMessages.ActuatorNotFound"), //$NON-NLS-1$
+									actuatorName));
 				} else {
 
 					UiUtils.submitUiMachineTask(() -> {

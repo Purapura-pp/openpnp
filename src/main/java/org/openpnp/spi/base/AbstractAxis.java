@@ -164,16 +164,20 @@ public abstract class AbstractAxis extends AbstractModelObject implements Axis {
                     }
                  }
             }
-            if (message != "") {
-                message = "<html><p>Axis currently assigned in:</p><ul>"+message+"</ul>"
-                        +"<p>Are you sure you want to delete " + getName() + "?</p></html>";
+            if (!message.isEmpty()) {
+                message = String.format(
+                        Translations.getString("AbstractAxis.Delete.AssignedIn"), //$NON-NLS-1$
+                        message, getName());
             }
             else {
-                message = "Are you sure you want to delete " + getName() + "?";
+                message = String.format(
+                        Translations.getString("DialogMessages.ConfirmDeleteName"), getName()); //$NON-NLS-1$
             }
             int ret = JOptionPane.showConfirmDialog(MainFrame.get(),
                     message,
-                    "Delete " + getName() + "?", JOptionPane.YES_NO_OPTION);
+                    String.format(Translations.getString("AbstractAxis.Delete.Title"), //$NON-NLS-1$
+                            getName()),
+                    JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
                 Configuration.get().getMachine().removeAxis(AbstractAxis.this);
             }

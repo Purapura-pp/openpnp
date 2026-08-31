@@ -366,9 +366,12 @@ public class CameraVisionConfigurationWizard extends AbstractConfigurationWizard
             if ((x != 0 || y != 0) 
                     && !initialJogWarningDisplayed) {
                 int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "<html>This will move "+jogTool.getName()+" for one jog increment and back. <br/>"
-                                + ((jogTool instanceof Camera) ? "" : "<span style=\"color:red\">WARNING: No move to Safe Z!</span><br/>")
-                                + "Are you sure?</html>",
+                        String.format(Translations.getString( //$NON-NLS-1$
+                                "CameraVisionConfigurationWizard.JogTest.Confirm"),
+                                jogTool.getName(),
+                                (jogTool instanceof Camera) ? ""
+                                        : Translations.getString( //$NON-NLS-1$
+                                                "CameraVisionConfigurationWizard.JogTest.NoSafeZWarning")),
                                 null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.NO_OPTION) {
                     // cancel this

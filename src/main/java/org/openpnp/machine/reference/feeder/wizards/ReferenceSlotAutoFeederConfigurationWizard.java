@@ -38,6 +38,7 @@ import javax.swing.border.TitledBorder;
 import org.jdesktop.beansbinding.AbstractBindingListener;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.Binding;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.LocationButtonsPanel;
 import org.openpnp.gui.support.*;
@@ -515,7 +516,9 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         public void actionPerformed(ActionEvent e) {
             Bank bank = (Bank) bankCb.getSelectedItem();
             if (ReferenceSlotAutoFeeder.getBanks().size() < 2) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Error", "Can't delete the only bank. There must always be one bank defined.");
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString("DialogMessages.DeleteBank.LastOne")); //$NON-NLS-1$
                 return;
             }
             ReferenceSlotAutoFeeder.getBanks().remove(bank);

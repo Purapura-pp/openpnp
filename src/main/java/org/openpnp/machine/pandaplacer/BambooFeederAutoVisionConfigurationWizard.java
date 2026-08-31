@@ -569,7 +569,8 @@ extends AbstractReferenceFeederConfigurationWizard {
         public void actionPerformed(ActionEvent e) {
             PipelineType type = (PipelineType) pipelineType.getSelectedItem();
             int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                    "This will reset the pipeline to the "+type+" type default. Are you sure?",
+                    String.format(Translations.getString( //$NON-NLS-1$
+                            "DialogMessages.ResetPipelineToTypeDefault"), type),
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
                 applyAction.actionPerformed(null);
@@ -668,9 +669,9 @@ extends AbstractReferenceFeederConfigurationWizard {
                 else {
                     // ask the user
                     result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                            "<html>"
-                            + "<p>This may overwrite all your current settings. Are you sure?</p>"
-                            + "</html>",
+                            String.format(Translations.getString( //$NON-NLS-1$
+                                    "ReferencePushPullFeederConfigurationWizard.AutoSetup.Confirm"),
+                                    ""),
                             null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 }
                 if (result == JOptionPane.YES_OPTION) {

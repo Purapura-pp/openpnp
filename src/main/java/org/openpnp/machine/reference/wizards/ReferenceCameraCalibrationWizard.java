@@ -944,29 +944,47 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
         public void actionPerformed(ActionEvent e) {
             //Pre-calibration checks
             if (!Configuration.get().getMachine().isHomed()) {
-                MessageBoxes.errorBox(MainFrame.get(), "Error", "Machine must be enabled and homed before starting calibration.");
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceCameraCalibrationWizard.Start.MachineNotReady"));
                 return;
             }
             if (advCal.getPrimaryLocation() == null || advCal.getSecondaryLocation() == null) {
                 if (isMovable) {
-                    MessageBoxes.errorBox(MainFrame.get(), "Error", "Must define Primary and Secondary Calibration Fiducial locations before starting calibration.");
+                    MessageBoxes.errorBox(MainFrame.get(),
+                            Translations.getString("General.Error"), //$NON-NLS-1$
+                            Translations.getString( //$NON-NLS-1$
+                                    "ReferenceCameraCalibrationWizard.Start.NeedFiducialLocations"));
                     return;
                 }
                 else {
-                    MessageBoxes.errorBox(MainFrame.get(), "Error", "Must define camera location before starting calibration.");
+                    MessageBoxes.errorBox(MainFrame.get(),
+                            Translations.getString("General.Error"), //$NON-NLS-1$
+                            Translations.getString( //$NON-NLS-1$
+                                    "ReferenceCameraCalibrationWizard.Start.NeedCameraLocation"));
                     return;
                 }
             }
             if (!Double.isFinite(advCal.getPrimaryLocation().getZ()) || !Double.isFinite(advCal.getSecondaryLocation().getZ())) {
-                MessageBoxes.errorBox(MainFrame.get(), "Error", "Must define finite Primary and Secondary Calibration Z values before starting calibration.");
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceCameraCalibrationWizard.Start.NeedFiniteZ"));
                 return;
             }
             if (advCal.getPrimaryLocation().getZ() == advCal.getSecondaryLocation().getZ()) {
-                MessageBoxes.errorBox(MainFrame.get(), "Error", "Primary and Secondary Calibration Z values must be different.");
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceCameraCalibrationWizard.Start.ZMustDiffer"));
                 return;
             }
             if (referenceCamera.getDefaultZ() == null || !Double.isFinite(referenceCamera.getDefaultZ().getValue())) {
-                MessageBoxes.errorBox(MainFrame.get(), "Error", "Must define finite Default Working Plane Z value before starting calibration.");
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceCameraCalibrationWizard.Start.NeedDefaultZ"));
                 return;
             }
             
@@ -1069,7 +1087,8 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
                         postCalibrationProcessing();
                     }
                     catch (Exception ex) {
-                        MessageBoxes.errorBox(MainFrame.get(), "Error", ex);
+                        MessageBoxes.errorBox(MainFrame.get(),
+                                Translations.getString("General.Error"), ex); //$NON-NLS-1$
                         advCal.setValid(false);
                         advCal.setEnabled(false);
                         chckbxEnable.setSelected(false);
@@ -1085,7 +1104,8 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
                 }
             }
             catch (IllegalStateException ex) {
-                MessageBoxes.errorBox(MainFrame.get(), "Error", ex);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("General.Error"), ex); //$NON-NLS-1$
                 return;
             }
         }

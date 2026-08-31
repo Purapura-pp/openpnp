@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
@@ -160,12 +161,14 @@ public class ReferenceTrayFeederConfigurationWizard
     protected void saveToModel() {
         super.saveToModel();
         if (feeder.getOffsets().getX() == 0 && feeder.getTrayCountX() > 1) {
-            MessageBoxes.errorBox(this, "Error",
-                    "X offset must be greater than 0 if X tray count is greater than 1 or feed failure will occur.");
+            MessageBoxes.errorBox(this, Translations.getString("General.Error"), //$NON-NLS-1$
+                    Translations.getString( //$NON-NLS-1$
+                            "ReferenceTrayFeederConfigurationWizard.Validation.XOffsetRequired"));
         }
         if (feeder.getOffsets().getY() == 0 && feeder.getTrayCountY() > 1) {
-            MessageBoxes.errorBox(this, "Error",
-                    "Y offset must be greater than 0 if Y tray count is greater than 1 or feed failure will occur.");
+            MessageBoxes.errorBox(this, Translations.getString("General.Error"), //$NON-NLS-1$
+                    Translations.getString( //$NON-NLS-1$
+                            "ReferenceTrayFeederConfigurationWizard.Validation.YOffsetRequired"));
         }
     }
 }

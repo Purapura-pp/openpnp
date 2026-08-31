@@ -46,6 +46,7 @@ import javax.swing.border.TitledBorder;
 import org.jdesktop.beansbinding.AbstractBindingListener;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.Binding;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.LocationButtonsPanel;
@@ -689,7 +690,10 @@ public class ReferenceHeapFeederConfigurationWizard
         public void actionPerformed(ActionEvent e) {
             DropBox box = (DropBox) dropBoxCb.getSelectedItem();
             if (ReferenceHeapFeeder.getDropBoxes().size() < 2) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Error", "Can't delete the only DropBox. There must always be one DropBox defined.");
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceHeapFeederConfigurationWizard.DeleteDropBox.LastOne"));
             }
             boolean isUsed = false;
             for (Feeder tFeeder: Configuration.get().getMachine().getFeeders()) {
@@ -698,7 +702,10 @@ public class ReferenceHeapFeederConfigurationWizard
                 }
             }
             if (isUsed) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Error", "Can't delete a DropBox that is in use by other feeder.");
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString( //$NON-NLS-1$
+                                "ReferenceHeapFeederConfigurationWizard.DeleteDropBox.InUse"));
             }
             ReferenceHeapFeeder.getDropBoxes().remove(box);
             dropBoxCb.removeItem(box);
