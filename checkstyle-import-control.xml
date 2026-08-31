@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE import-control PUBLIC
+    "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
+    "https://checkstyle.org/dtds/import_control_1_4.dtd">
+
+<!--
+  Keeps the layering that spi / spi.base / machine.reference is meant to express.
+
+  The intended direction is machine.reference -> spi -> model. Without a check, the reverse
+  edges creep back in one import at a time and are only noticed in a review much later, so
+  the two directions that have actually been cleaned up are pinned here.
+
+  The <allow> entries are the violations that still exist. They are not approved, they are a
+  worklist: delete the entry as each one is fixed, and the check will keep it from returning.
+  Anything not mentioned is allowed, so this file only constrains the two edges below.
+-->
+<import-control pkg="org.openpnp" strategyOnMismatch="allowed">
+
+    <!--
+      The service provider interface must not know about the machine implementation. This edge
+      is fully clean, so there is deliberately no exception list: every entry added here would
+      be a regression.
+
+      Note that spi -> gui is *not* constrained. Handing out a configuration Wizard is part of
+      the plug-in contract, so gui.support.Wizard and PropertySheetWizardAdapter belong there.
+    -->
+    <subpackage name="spi" strategyOnMismatch="allowed">
+        <disallow pkg="org.openpnp.machine"/>
+    </subpackage>
+
+    <subpackage name="model" strategyOnMismatch="allowed">
+        <!--
+          Remaining model -> machine.reference edges. The vision settings classes and the
+          AbstractPartSettingsHolder that Part and Package extend are the bulk of it; untangling
+          them needs the SPI to express the "vision settings root" concept first.
+        -->
+        <allow pkg="org.openpnp.machine.reference.vision"/>
+        <!-- Solutions.migrateLevel() recognises an unconfigured machine by these two classes. -->
+        <allow class="org.openpnp.machine.reference.driver.NullDriver"/>
+        <allow class="org.openpnp.machine.reference.driver.NullMotionPlanner"/>
+        <disallow pkg="org.openpnp.machine"/>
+
+        <!--
+          Remaining model -> gui edges. Most of them exist because model objects reach into
+          MainFrame for the currently open job, which is a model concept stored in the GUI.
+        -->
+        <allow class="org.openpnp.gui.MainFrame"/>
+        <allow class="org.openpnp.gui.components.AutoSelectTextTable"/>
+        <allow class="org.openpnp.gui.components.ThemeInfo"/>
+        <allow class="org.openpnp.gui.components.ThemeSettingsPanel"/>
+        <allow class="org.openpnp.gui.importer.KicadModImporter"/>
+        <allow class="org.openpnp.gui.support.Icons"/>
+        <allow class="org.openpnp.gui.support.LengthConverter"/>
+        <allow class="org.openpnp.gui.support.MessageBoxes"/>
+        <!-- As in spi, exposing a configuration Wizard is intended and stays. -->
+        <allow class="org.openpnp.gui.support.Wizard"/>
+        <disallow pkg="org.openpnp.gui"/>
+    </subpackage>
+
+</import-control>
