@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.openpnp.model.Abstract2DLocatable.Side;
+import org.openpnp.model.Board;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Placement;
 
@@ -39,8 +41,8 @@ public class EagleBoardImporterTest {
     }
 
     private static List<Placement> parse(String board) throws Exception {
-        return EagleBoardImporter.parseFile(new File(DEMO_BOARD, board), Side.Top, true, false,
-                false);
+        return EagleBoardImporter.parseFile(new File(DEMO_BOARD, board), new Board(), Side.Top,
+                true, false, false);
     }
 
     @Test
@@ -88,18 +90,38 @@ public class EagleBoardImporterTest {
     }
 
     /**
-     * The side argument is accepted for symmetry with the other importers but ignored: the layer
-     * of each element in the .brd file decides the side. Pins that, since passing Bottom looks like
-     * it should restrict or flip the result and does not.
+     * The side argument selects which side of the board is imported, and every placement returned
+     * sits on that side. The comment in the importer says the argument is unused, which is what a
+     * reader would otherwise believe: the layer of each element decides its side, but the argument
+     * still decides which elements are returned at all.
      */
     @Test
-    public void sideArgumentIsIgnoredInFavourOfTheBoardFile() throws Exception {
+    public void sideArgumentSelectsWhichSideIsImported() throws Exception {
         List<Placement> asTop = EagleBoardImporter.parseFile(
-                new File(DEMO_BOARD, "Demo Board v2.brd"), Side.Top, true, false, false);
+                new File(DEMO_BOARD, "Demo Board v2.brd"), new Board(), Side.Top, true, false,
+                false);
         List<Placement> asBottom = EagleBoardImporter.parseFile(
-                new File(DEMO_BOARD, "Demo Board v2.brd"), Side.Bottom, true, false, false);
+                new File(DEMO_BOARD, "Demo Board v2.brd"), new Board(), Side.Bottom, true, false,
+                false);
 
-        assertEquals(sidesOf(asTop), sidesOf(asBottom));
+        assertFalse(asTop.isEmpty());
+        assertFalse(asBottom.isEmpty());
+        for (Placement placement : asTop) {
+            assertEquals(Side.Top, placement.getSide(), placement.getId());
+        }
+        for (Placement placement : asBottom) {
+            assertEquals(Side.Bottom, placement.getSide(), placement.getId());
+        }
+        assertTrue(Collections.disjoint(idsOf(asTop), idsOf(asBottom)),
+                "a placement belongs to one side of the board, not both");
+    }
+
+    private static Set<String> idsOf(List<Placement> placements) {
+        Set<String> ids = new HashSet<>();
+        for (Placement placement : placements) {
+            ids.add(placement.getId());
+        }
+        return ids;
     }
 
     private static List<String> sidesOf(List<Placement> placements) {

@@ -79,7 +79,7 @@ public class EagleBoardImporter implements BoardImporter {
     private final static String DESCRIPTION =
             Translations.getString("EagleBoardImporter.Importer.Description"); //$NON-NLS-1$
 
-    private static Board board;
+    private Board board;
     private File boardFile;
     static private Double mil_to_mm = 0.0254;
 
@@ -100,8 +100,15 @@ public class EagleBoardImporter implements BoardImporter {
         return board;
     }
 
-    static List<Placement> parseFile(File file, Side side, boolean createMissingParts,
-            boolean updateExistingParts, boolean addLibraryPrefix) throws Exception {
+    /**
+     * @param board receives the solder paste pads and placements found in the file. It used to be
+     *            a static field that only the import dialog assigned, so any other caller - a
+     *            test, or a second importer running at the same time - either wrote into the
+     *            previous import or dereferenced null.
+     */
+    static List<Placement> parseFile(File file, Board board, Side side,
+            boolean createMissingParts, boolean updateExistingParts, boolean addLibraryPrefix)
+            throws Exception {
 
         String dimensionLayer = ""; //$NON-NLS-1$
         String topLayer = ""; //$NON-NLS-1$
@@ -783,21 +790,21 @@ public class EagleBoardImporter implements BoardImporter {
                 try {
                     if (boardFile.exists()) {
                         if (chckbxImportTop.isSelected() && chckbxImportBottom.isSelected()) {
-                            placements.addAll(parseFile(boardFile, null,
+                            placements.addAll(parseFile(boardFile, board, null,
                                     chckbxCreateMissingParts.isSelected(),
                                     chckbxUpdateExistingParts.isSelected(),
                                     chckbxAddLibraryPrefix.isSelected())); // both Top and Bottom
                                                                            // of the board
                         }
                         else if (chckbxImportTop.isSelected()) {
-                            placements.addAll(parseFile(boardFile, Side.Top,
+                            placements.addAll(parseFile(boardFile, board, Side.Top,
                                     chckbxCreateMissingParts.isSelected(),
                                     chckbxUpdateExistingParts.isSelected(),
                                     chckbxAddLibraryPrefix.isSelected())); // Just the Top side of
                                                                            // the board
                         }
                         else if (chckbxImportBottom.isSelected()) {
-                            placements.addAll(parseFile(boardFile, Side.Bottom,
+                            placements.addAll(parseFile(boardFile, board, Side.Bottom,
                                     chckbxCreateMissingParts.isSelected(),
                                     chckbxUpdateExistingParts.isSelected(),
                                     chckbxAddLibraryPrefix.isSelected())); // Just the Bottom side
