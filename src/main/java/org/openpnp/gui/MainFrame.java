@@ -94,6 +94,7 @@ import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.gui.support.OSXAdapter;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.RotationCellValue;
+import org.openpnp.gui.support.SwingUserInteraction;
 import org.openpnp.model.Board;
 import org.openpnp.model.BoardLocation;
 import org.openpnp.model.Configuration;
@@ -294,6 +295,9 @@ public class MainFrame extends JFrame {
     public MainFrame(Configuration configuration) {
         mainFrame = this;
         this.configuration = configuration;
+        // From here on the model can ask the user things. Without this it answers itself and logs,
+        // which is what a script or a test gets.
+        configuration.setUserInteraction(new SwingUserInteraction());
         LengthCellValue.setConfiguration(configuration);
         RotationCellValue.setConfiguration(configuration);
         HeadCellValue.setConfiguration(configuration);
