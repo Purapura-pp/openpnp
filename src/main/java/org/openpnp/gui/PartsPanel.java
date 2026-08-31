@@ -309,20 +309,22 @@ public class PartsPanel extends JPanel implements WizardContainer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (Configuration.get().getPackages().size() == 0) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Error",
-                        "There are currently no packages defined in the system. Please create at least one package before creating a part.");
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("General.Error"), //$NON-NLS-1$
+                        Translations.getString("PartsPanel.NewPart.NoPackages")); //$NON-NLS-1$
                 return;
             }
 
             String id;
             while ((id = JOptionPane.showInputDialog(frame,
-                    "Please enter an ID for the new part.")) != null) {
+                    Translations.getString("PartsPanel.NewPart.EnterId"))) != null) { //$NON-NLS-1$
                 id = id.trim();
                 if (id.isEmpty()) {
                     break;
                 }
                 if (configuration.getPart(id) != null) {
-                    MessageBoxes.errorBox(frame, "Error", "Part ID " + id + " already exists.");
+                    MessageBoxes.errorBox(frame, Translations.getString("General.Error"), //$NON-NLS-1$
+                            String.format(Translations.getString("PartsPanel.PartIdExists"), id)); //$NON-NLS-1$
                     continue;
                 }
                 Part part = new Part(id);
@@ -381,7 +383,8 @@ public class PartsPanel extends JPanel implements WizardContainer {
                 Part part = getSelectedPart();
                 Feeder feeder = FeederUtils.findFeeder(Configuration.get().getMachine(),part,null,null);
                 if (feeder == null) {
-                    throw new Exception("No valid feeder found for " + part.getId());
+                    throw new Exception(String.format(
+                            Translations.getString("PartsPanel.PickPart.NoFeeder"), part.getId())); //$NON-NLS-1$
                 }
                 // Perform the whole Job like pick cycle as in the FeedersPanel. 
                 FeedersPanel.pickFeeder(feeder);
@@ -411,7 +414,8 @@ public class PartsPanel extends JPanel implements WizardContainer {
                 clipboard.setContents(stringSelection, null);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Copy Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.CopyFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -427,7 +431,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
         public void actionPerformed(ActionEvent arg0) {
             String id;
             while ((id = JOptionPane.showInputDialog(frame,
-                    "Please enter an ID for the pasted part.")) != null) {
+                    Translations.getString("PartsPanel.PastePart.EnterId"))) != null) { //$NON-NLS-1$
                 id = id.trim();
                 if (id.isEmpty()) {
                     break;
@@ -435,7 +439,8 @@ public class PartsPanel extends JPanel implements WizardContainer {
                 if (configuration.getPart(id) == null) {
                     break;
                 }
-                MessageBoxes.errorBox(frame, "Error", "Part ID " + id + " already exists.");
+                MessageBoxes.errorBox(frame, Translations.getString("General.Error"), //$NON-NLS-1$
+                        String.format(Translations.getString("PartsPanel.PartIdExists"), id)); //$NON-NLS-1$
             }
             if (id == null || id.isEmpty()) {
                 return;
@@ -457,7 +462,8 @@ public class PartsPanel extends JPanel implements WizardContainer {
                 }
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Paste Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.PasteFailed"), e); //$NON-NLS-1$
             }
         }
     };

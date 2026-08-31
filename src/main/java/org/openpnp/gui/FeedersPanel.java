@@ -544,7 +544,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
 
         catch (Exception e) {
             MessageBoxes.errorBox(JOptionPane.getFrameForComponent(FeedersPanel.this),
-                    "Feeder Error", e);
+                    Translations.getString("FeedersPanel.Feeder.ErrorBox.Title"), e); //$NON-NLS-1$
         }
     }
     

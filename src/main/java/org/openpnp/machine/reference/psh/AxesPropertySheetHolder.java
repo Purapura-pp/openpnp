@@ -61,7 +61,8 @@ public class AxesPropertySheetHolder extends SimplePropertySheetHolder {
                 machine.addAxis(axis);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Axis Error", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("AxesPropertySheetHolder.NewAxis.ErrorBox.Title"), e); //$NON-NLS-1$
             }
         }
     };

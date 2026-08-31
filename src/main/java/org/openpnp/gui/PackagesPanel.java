@@ -307,13 +307,15 @@ public class PackagesPanel extends JPanel implements WizardContainer {
         public void actionPerformed(ActionEvent arg0) {
             String id;
             while ((id = JOptionPane.showInputDialog(frame,
-                    "Please enter an ID for the new package.")) != null) {
+                    Translations.getString("PackagesPanel.NewPackage.EnterId"))) != null) { //$NON-NLS-1$
                 id = id.trim();
                 if (id.isEmpty()) {
                     break;
                 }
                 if (configuration.getPackage(id) != null) {
-                    MessageBoxes.errorBox(frame, "Error", "Package ID " + id + " already exists.");
+                    MessageBoxes.errorBox(frame, Translations.getString("General.Error"), //$NON-NLS-1$
+                            String.format(
+                                    Translations.getString("PackagesPanel.PackageIdExists"), id)); //$NON-NLS-1$
                     continue;
                 }
                 Package this_package = new Package(id);
@@ -395,7 +397,8 @@ public class PackagesPanel extends JPanel implements WizardContainer {
                 clipboard.setContents(stringSelection, null);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Copy Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.CopyFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -411,7 +414,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
         public void actionPerformed(ActionEvent arg0) {
             String id;
             while ((id = JOptionPane.showInputDialog(frame,
-                    "Please enter an ID for the pasted package.")) != null) {
+                    Translations.getString("PackagesPanel.PastePackage.EnterId"))) != null) { //$NON-NLS-1$
                 id = id.trim();
                 if (id.isEmpty()) {
                     break;
@@ -419,7 +422,9 @@ public class PackagesPanel extends JPanel implements WizardContainer {
                 if (configuration.getPackage(id) == null) {
                     break;
                 }
-                MessageBoxes.errorBox(frame, "Error", "Package ID " + id + " already exists.");
+                MessageBoxes.errorBox(frame, Translations.getString("General.Error"), //$NON-NLS-1$
+                        String.format(
+                                Translations.getString("PackagesPanel.PackageIdExists"), id)); //$NON-NLS-1$
             }
             if (id == null || id.isEmpty()) {
                 return;
@@ -441,7 +446,8 @@ public class PackagesPanel extends JPanel implements WizardContainer {
                 }
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Paste Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.PasteFailed"), e); //$NON-NLS-1$
             }
         }
     };

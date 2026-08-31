@@ -287,10 +287,11 @@ public class DipTraceImporter implements BoardImporter {
                 catch (Exception e1) {
                     // The reason was previously dropped, leaving the user with the format blurb
                     // and no clue which line the importer choked on.
-                    MessageBoxes.errorBox(Dlg.this, "Import Error", e1.getMessage() + "\n\n" //$NON-NLS-1$ //$NON-NLS-2$
-                            + "The expected file format is the default file export in DipTrace " //$NON-NLS-1$
-                    		+ "PCB: File -> Export -> Pick and Place. The first line indicates RefDes, Name, X (mm), Y (mm), Side, Rotate, Value." //$NON-NLS-1$
-                    		+ "The lines that follow are data."); //$NON-NLS-1$
+                    MessageBoxes.errorBox(Dlg.this,
+                            Translations.getString("DialogMessages.ImportError"), //$NON-NLS-1$
+                            String.format(
+                                    Translations.getString("DipTraceImporter.Import.Error.Message"), //$NON-NLS-1$
+                                    e1.getMessage()));
                     return;
                 }
                 for (Placement placement : placements) {

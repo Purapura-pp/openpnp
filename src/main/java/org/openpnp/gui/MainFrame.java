@@ -836,14 +836,11 @@ public class MainFrame extends JFrame {
 	        catch (Exception e) {
 	            Logger.error(e, "Failed to load the configuration from {}.", //$NON-NLS-1$
 	                    configuration.getConfigurationDirectory());
-	            if (!MessageBoxes.errorBoxWithRetry(this, "Configuration Load Error", //$NON-NLS-1$
-	                    "There was a problem loading the configuration. The reason was:<br/><br/>" //$NON-NLS-1$
-	                            + e.getMessage() + "<br/><br/>" //$NON-NLS-1$
-	                            + "Please check your configuration files and try again. They are located at: " //$NON-NLS-1$
-	                            + configuration.getConfigurationDirectory().getAbsolutePath()
-	                            + "<br/><br/>" //$NON-NLS-1$
-	                            + "If you would like to start with a fresh configuration, just delete the entire directory at the location above.<br/><br/>" //$NON-NLS-1$
-	                            + "Retry loading (else openpnp will exit) ?")) { //$NON-NLS-1$
+	            if (!MessageBoxes.errorBoxWithRetry(this,
+	                    Translations.getString("MainFrame.LoadConfig.Error.Title"), //$NON-NLS-1$
+	                    String.format(Translations.getString("MainFrame.LoadConfig.Error.Message"), //$NON-NLS-1$
+	                            e.getMessage(),
+	                            configuration.getConfigurationDirectory().getAbsolutePath()))) {
 	            	System.exit(1);
 	            }
 	        }
@@ -1084,19 +1081,22 @@ public class MainFrame extends JFrame {
             Preferences.userRoot().flush();
         }
         catch (Exception e) {
-            MessageBoxes.errorBox(MainFrame.this, "Save Preferences", e); //$NON-NLS-1$
+            MessageBoxes.errorBox(MainFrame.this,
+                    Translations.getString("MainFrame.SavePreferences.ErrorBox.Title"), e); //$NON-NLS-1$
         }
         
         try {
             configuration.save();
         }
         catch (Exception e) {
-			String message = "There was a problem saving the configuration. The reason was:\n\n" + e.getMessage() //$NON-NLS-1$
-					+ "\n\n"; //$NON-NLS-1$
+			String message = String.format(
+					Translations.getString("MainFrame.SaveConfig.Error.Message"), e.getMessage()); //$NON-NLS-1$
 			message = message.replaceAll("\n", "<br/>"); //$NON-NLS-1$ //$NON-NLS-2$
 			message = message.replaceAll("\r", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			message = "<html><body width=\"400\">" + message + "</body></html>"; //$NON-NLS-1$ //$NON-NLS-2$
-			JOptionPane.showMessageDialog(this, message, "Configuration Save Error", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(this, message,
+					Translations.getString("MainFrame.SaveConfig.Error.Title"), //$NON-NLS-1$
+					JOptionPane.ERROR_MESSAGE);
 			return false;
         }
 
@@ -1118,12 +1118,13 @@ public class MainFrame extends JFrame {
             configuration.save();
         }
         catch (Exception e) {
-            String message = "There was a problem saving the configuration. The reason was:\n\n" //$NON-NLS-1$
-                    + e.getMessage() + "\n\nDo you want to quit without saving?"; //$NON-NLS-1$
+            String message = String.format(
+                    Translations.getString("MainFrame.QuitSaveConfig.Error.Message"), e.getMessage()); //$NON-NLS-1$
             message = message.replaceAll("\n", "<br/>"); //$NON-NLS-1$ //$NON-NLS-2$
             message = message.replaceAll("\r", ""); //$NON-NLS-1$ //$NON-NLS-2$
             message = "<html><body width=\"400\">" + message + "</body></html>"; //$NON-NLS-1$ //$NON-NLS-2$
-            int result = JOptionPane.showConfirmDialog(this, message, "Configuration Save Error", //$NON-NLS-1$
+            int result = JOptionPane.showConfirmDialog(this, message,
+                    Translations.getString("MainFrame.SaveConfig.Error.Title"), //$NON-NLS-1$
                     JOptionPane.YES_NO_OPTION);
             if (result != JOptionPane.YES_OPTION) {
                 return false;
@@ -1334,7 +1335,8 @@ public class MainFrame extends JFrame {
                 launchApplication.invoke(null, "125", null, false, null); //$NON-NLS-1$
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.this, "Unable to launch update application.", e); //$NON-NLS-1$
+                MessageBoxes.errorBox(MainFrame.this,
+                        Translations.getString("MainFrame.CheckForUpdates.Error.Title"), e); //$NON-NLS-1$
             }
         }
     };

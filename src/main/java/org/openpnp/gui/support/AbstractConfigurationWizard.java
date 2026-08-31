@@ -126,7 +126,9 @@ public abstract class AbstractConfigurationWizard extends JPanel implements Wiza
             validateInput();
         }
         catch (Exception e) {
-            MessageBoxes.errorBox(getTopLevelAncestor(), "Validation Error", e.getMessage());
+            MessageBoxes.errorBox(getTopLevelAncestor(),
+                    Translations.getString("AbstractConfigurationWizard.Validation.ErrorBox.Title"), //$NON-NLS-1$
+                    e.getMessage());
         }
         for (WrappedBinding wrappedBinding : wrappedBindings) {
             wrappedBinding.save();

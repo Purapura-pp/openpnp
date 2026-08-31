@@ -62,7 +62,9 @@ public class ActuatorsPropertySheetHolder extends SimplePropertySheetHolder {
                 }
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Camera Error", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("ActuatorsPropertySheetHolder.NewActuator.ErrorBox.Title"), //$NON-NLS-1$
+                        e);
             }
         }
     };

@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ClassSelectionDialog;
 import org.openpnp.gui.support.Helpers;
 import org.openpnp.gui.support.Icons;
@@ -324,7 +325,8 @@ public class PipelinePanel extends JPanel {
                 clipboard.setContents(stringSelection, null);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Copy failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.CopyFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -348,7 +350,8 @@ public class PipelinePanel extends JPanel {
                 editor.process();
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Paste failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.PasteFailed"), e); //$NON-NLS-1$
             }
         }
     };

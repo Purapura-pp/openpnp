@@ -320,7 +320,8 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
                 clipboard.setContents(stringSelection, null);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Copy Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.CopyFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -355,7 +356,8 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
                 Helpers.selectObjectTableRows(table, holder.visionSettings);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Paste Failed", e);
+                MessageBoxes.errorBox(getTopLevelAncestor(),
+                        Translations.getString("DialogMessages.PasteFailed"), e); //$NON-NLS-1$
             }
         }
     };

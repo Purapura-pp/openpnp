@@ -59,7 +59,9 @@ public class DriversPropertySheetHolder extends SimplePropertySheetHolder {
                 machine.addDriver(driver);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Driver Error", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("DriversPropertySheetHolder.NewDriver.ErrorBox.Title"), //$NON-NLS-1$
+                        e);
             }
         }
     };

@@ -33,6 +33,7 @@ import javax.swing.border.SoftBevelBorder;
 
 import org.apache.commons.io.FileUtils;
 import org.openpnp.Main;
+import org.openpnp.Translations;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.imgur.Imgur;
 import org.openpnp.imgur.Imgur.Album;
@@ -354,7 +355,9 @@ public class SubmitDiagnosticsDialog extends JDialog {
                 }
                 catch (Exception e1) {
                     Logger.error(e1, "Failed to submit the diagnostics package.");
-                    MessageBoxes.errorBox(MainFrame.get(), "Submit Failed", e1);
+                    MessageBoxes.errorBox(MainFrame.get(),
+                            Translations.getString("SubmitDiagnosticsDialog.Submit.ErrorBox.Title"), //$NON-NLS-1$
+                            e1);
                     okButton.setEnabled(true);
                 }
                 thread = null;
