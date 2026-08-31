@@ -267,6 +267,10 @@ public class CvPipeline implements AutoCloseable {
             // Process and time the stage and get the result.
             long processingTimeNs = System.nanoTime();
             Result result = null;
+            // A failed stage stores its exception as the result model. That model must not be
+            // promoted to the working model, or downstream stages would receive an Exception
+            // where they expect geometry.
+            boolean stageFailed = false;
             try {
                 if (!stage.isEnabled()) {
                     throw new Exception(String.format("Stage \"%s\"not enabled.", stage.getName()));
@@ -276,10 +280,12 @@ public class CvPipeline implements AutoCloseable {
             catch (TerminalException e) {
                 result = new Result(null, e.getOriginalException());
                 setTerminalException(e.getOriginalException());
+                stageFailed = true;
                 Logger.debug("Stage \""+stage.getName()+"\" throws "+e.getOriginalException());
             }
             catch (Exception e) {
                 result = new Result(null, e);
+                stageFailed = true;
                 if (stage.isEnabled()) {
                     Logger.debug("Stage \""+stage.getName()+"\" throws "+e);
                 }
@@ -295,7 +301,7 @@ public class CvPipeline implements AutoCloseable {
                 model = result.model;
                 colorSpace = result.colorSpace;
             }
-            if(stage.isEnabled() && model != null) {
+            if(stage.isEnabled() && !stageFailed && model != null) {
                 workingModel = model;
             }
             if(stage.isEnabled() && colorSpace != null) {
