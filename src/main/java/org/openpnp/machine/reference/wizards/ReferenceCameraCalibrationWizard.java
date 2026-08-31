@@ -1115,10 +1115,12 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
         updateDiagnosticsDisplay();
         
         if (isMovable && referenceCamera.getHead().getDefaultCamera() == referenceCamera) {
-            int ans = JOptionPane.showConfirmDialog(MainFrame.get(), 
-                    "Calibration of the head's default camera is complete and the machine should "
-                    + "be re-homed before any new locations are captured/examined. Home the machine now?", 
-                    "Calibration Complete", JOptionPane.YES_NO_OPTION);
+            int ans = JOptionPane.showConfirmDialog(MainFrame.get(),
+                    Translations.getString( //$NON-NLS-1$
+                            "ReferenceCameraCalibrationWizard.CalibrationComplete.Message"),
+                    Translations.getString( //$NON-NLS-1$
+                            "ReferenceCameraCalibrationWizard.CalibrationComplete.Title"),
+                    JOptionPane.YES_NO_OPTION);
             if (ans == JOptionPane.YES_OPTION) {
                 UiUtils.submitUiMachineTask(() -> {
                     Machine machine = Configuration.get().getMachine();

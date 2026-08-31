@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.CameraView.RenderingQuality;
 import org.openpnp.gui.components.CameraView.ZoomSensitivity;
@@ -529,7 +530,8 @@ public class CameraViewPopupMenu extends JPopupMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = JOptionPane.showInputDialog(cameraView,
-                        String.format("Enter the size in %s",
+                        String.format(
+                                Translations.getString("CameraViewPopupMenu.Reticle.EnterSize"), //$NON-NLS-1$
                                 reticle.getUnits().toString().toLowerCase()),
                         reticle.getSize() + "");
                 if (result != null) {

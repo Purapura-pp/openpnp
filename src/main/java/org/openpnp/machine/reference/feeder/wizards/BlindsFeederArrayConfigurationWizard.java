@@ -44,6 +44,7 @@ import javax.swing.border.TitledBorder;
 
 import org.apache.commons.io.IOUtils;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.LocationButtonsPanel;
@@ -502,7 +503,8 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         public void actionPerformed(ActionEvent e) {
             UiUtils.messageBoxOnException(() -> {
                 int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "This will replace the OCR settings of all the other BlindsFeeders on the machine with those of this BlindsFeeder. Are you sure?",
+                        Translations.getString( //$NON-NLS-1$
+                                "BlindsFeederArrayConfigurationWizard.ApplyOcrToAll.Confirm"),
                         null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     UiUtils.messageBoxOnException(() -> {
@@ -524,7 +526,8 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         public void actionPerformed(ActionEvent e) {
             UiUtils.messageBoxOnException(() -> {
                 int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "This will replace the pipeline of all the other BlindsFeeders on the machine with the pipeline of this BlindsFeeder. Are you sure?",
+                        Translations.getString( //$NON-NLS-1$
+                                "BlindsFeederArrayConfigurationWizard.ApplyPipelineToAll.Confirm"),
                         null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     UiUtils.messageBoxOnException(() -> {

@@ -553,7 +553,8 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                 }
             }
             catch (Exception ex) {
-                MessageBoxes.errorBox(getTopLevelAncestor(), "Auto Setup Failure", ex);
+                MessageBoxes.errorBox(getTopLevelAncestor(), Translations.getString(
+                        "ReferenceStripFeederConfigurationWizard.AutoSetup.ErrorBox.Title"), ex); //$NON-NLS-1$
                 return;
             }
 
@@ -647,7 +648,9 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                                      public void run() {
                                          autoSetupCancel.actionPerformed(null);
                                          MessageBoxes.errorBox(getTopLevelAncestor(),
-                                                 "Auto Setup Failure", t);
+                                                 Translations.getString(
+                                                         "ReferenceStripFeederConfigurationWizard.AutoSetup.ErrorBox.Title"), //$NON-NLS-1$
+                                                 t);
                                      }
                                  });
                              }
@@ -735,7 +738,9 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                                      public void run() {
                                          autoSetupCancel.actionPerformed(null);
                                          MessageBoxes.errorBox(getTopLevelAncestor(),
-                                                 "Auto Setup Failure", t);
+                                                 Translations.getString(
+                                                         "ReferenceStripFeederConfigurationWizard.AutoSetup.ErrorBox.Title"), //$NON-NLS-1$
+                                                 t);
                                      }
                                  });
                              }

@@ -26,6 +26,7 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.JobPanel;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.MessageBoxes;
@@ -164,7 +165,9 @@ public class MultiPlacementBoardLocationProcess {
         placements = jobPanel.getJobPlacementsPanel().getSelections();
         nPlacements = placements.size();
         if (nPlacements < 2) {
-            MessageBoxes.errorBox(mainFrame, "Error", "Please select at least two placements.");
+            MessageBoxes.errorBox(mainFrame, Translations.getString("General.Error"), //$NON-NLS-1$
+                    Translations.getString( //$NON-NLS-1$
+                            "MultiPlacementBoardLocationProcess.Error.SelectTwoPlacements"));
             return false;
         }
         
@@ -196,7 +199,9 @@ public class MultiPlacementBoardLocationProcess {
         //Save the result of the current placement measurement
         Location measuredLocation = camera.getLocation();
         if (measuredLocation == null) {
-            MessageBoxes.errorBox(mainFrame, "Error", "Please position the camera.");
+            MessageBoxes.errorBox(mainFrame, Translations.getString("General.Error"), //$NON-NLS-1$
+                    Translations.getString( //$NON-NLS-1$
+                            "MultiPlacementBoardLocationProcess.Error.PositionCamera"));
             return false;
         }
         measuredLocations.add(measuredLocation);

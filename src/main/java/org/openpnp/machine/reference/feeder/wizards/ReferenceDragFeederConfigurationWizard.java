@@ -46,6 +46,7 @@ import javax.swing.border.TitledBorder;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.CameraView;
 import org.openpnp.gui.components.ComponentDecorators;
@@ -468,8 +469,8 @@ public class ReferenceDragFeederConfigurationWizard
                 BufferedImage image = cameraView.captureSelectionImage();
                 if (image == null) {
                     MessageBoxes.errorBox(ReferenceDragFeederConfigurationWizard.this,
-                            "No Image Selected",
-                            "Please select an area of the camera image using the mouse.");
+                            Translations.getString("DialogMessages.NoImageSelected.Title"), //$NON-NLS-1$
+                            Translations.getString("DialogMessages.NoImageSelected.Message")); //$NON-NLS-1$
                 }
                 else {
                     labelTemplateImage.setIcon(new ImageIcon(image));

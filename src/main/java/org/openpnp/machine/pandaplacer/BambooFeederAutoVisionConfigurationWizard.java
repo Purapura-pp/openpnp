@@ -38,6 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.LocationButtonsPanel;
@@ -604,7 +605,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         @Override
         public void actionPerformed(ActionEvent e) {
             int result = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                    "This will reset the recorded feed count of this feeder. Are you sure?",
+                    Translations.getString("DialogMessages.ResetFeedCount.Confirm"), //$NON-NLS-1$
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
                 UiUtils.messageBoxOnException(() -> {

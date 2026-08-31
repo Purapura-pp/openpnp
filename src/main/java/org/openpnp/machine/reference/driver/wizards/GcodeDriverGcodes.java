@@ -308,8 +308,11 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                 File file = new File(new File(fileDialog.getDirectory()), filename);
                 if (file.exists()) {
                     int ret = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                            file.getName() + " already exists. Do you want to replace it?",
-                            "Replace file?", JOptionPane.YES_NO_OPTION,
+                            String.format(
+                                    Translations.getString("DialogMessages.ReplaceFile.Message"), //$NON-NLS-1$
+                                    file.getName()),
+                            Translations.getString("DialogMessages.ReplaceFile.Title"), //$NON-NLS-1$
+                            JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE);
                     if (ret != JOptionPane.YES_OPTION) {
                         return;
@@ -321,7 +324,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                 w.close();
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Export Failed", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("DialogMessages.ExportFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -353,7 +357,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                 // copySettings(d, driver);
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Import Failed", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("DialogMessages.ImportFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -378,7 +383,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                         Translations.getString("CommonPhrases.copiedGcodeToClipboard")); //$NON-NLS-1$
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Copy Failed", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("DialogMessages.CopyFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -403,7 +409,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                         Translations.getString("CommonPhrases.pastedGcodeFromClipboard")); //$NON-NLS-1$
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Paste Failed", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("DialogMessages.PasteFailed"), e); //$NON-NLS-1$
             }
         }
     };
@@ -418,9 +425,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
         public void actionPerformed(ActionEvent arg0) {
             try {
                 int ret = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
-                        "This will delete all your Gcode and reset it to minimal defaults.\n"
-                        + "Are you absolutely sure?", 
-                        "Reset to defaults",
+                        Translations.getString("GcodeDriverGcodes.ResetToDefaults.Message"), //$NON-NLS-1$
+                        Translations.getString("GcodeDriverGcodes.ResetToDefaults.Title"), //$NON-NLS-1$
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE);
                 if (ret == JOptionPane.YES_OPTION) {
@@ -429,7 +435,8 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                 }
             }
             catch (Exception e) {
-                MessageBoxes.errorBox(MainFrame.get(), "Reset Failed", e);
+                MessageBoxes.errorBox(MainFrame.get(),
+                        Translations.getString("GcodeDriverGcodes.Reset.ErrorBox.Title"), e); //$NON-NLS-1$
             }
         }
     };
