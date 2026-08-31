@@ -44,6 +44,7 @@ import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,7 +86,12 @@ import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
 import org.openpnp.util.Utils2D;
 import org.openpnp.util.VisionUtils;
-import org.openpnp.util.XmlSerialize;
+import org.openpnp.util.ColorTransform;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import org.simpleframework.xml.transform.RegistryMatcher;
 import org.pmw.tinylog.Logger;
 
 @SuppressWarnings("serial")
@@ -302,16 +308,12 @@ public class CameraView extends JComponent implements CameraListener {
         this.camera = camera;
         // load the reticle pref, if any
         try {
-            String reticleXml = prefs.get(getReticlePrefKey(), null);
-            Reticle reticle = (Reticle) XmlSerialize.deserialize(reticleXml);
-            setDefaultReticle(reticle);
+            setDefaultReticle(readReticlePref(getReticlePrefKey()));
         }
         catch (Exception e) {
             Logger.debug("Failed to load camera specific reticle, checking default.");
             try {
-                String reticleXml = prefs.get(PREF_RETICLE, null);
-                Reticle reticle = (Reticle) XmlSerialize.deserialize(reticleXml);
-                setDefaultReticle(reticle);
+                setDefaultReticle(readReticlePref(PREF_RETICLE));
             }
             catch (Exception e1) {
                 Logger.debug("No reticle preference found.");
@@ -354,13 +356,59 @@ public class CameraView extends JComponent implements CameraListener {
     public void setDefaultReticle(Reticle reticle) {
         setReticle(DEFAULT_RETICLE_KEY, reticle);
 
-        prefs.put(getReticlePrefKey(), XmlSerialize.serialize(reticle));
         try {
+            StringWriter writer = new StringWriter();
+            reticleSerializer().write(new ReticlePreference(reticle), writer);
+            prefs.put(getReticlePrefKey(), writer.toString());
             prefs.flush();
         }
         catch (Exception e) {
             Logger.warn(e, "Failed to store the default reticle preference.");
         }
+    }
+
+    /**
+     * Reads a stored reticle. Returns null when nothing is stored, and throws when what is stored
+     * cannot be read - including preferences written by the previous java.beans.XMLEncoder based
+     * format, in which case the caller falls back and the user picks a reticle again once.
+     */
+    private Reticle readReticlePref(String key) throws Exception {
+        String reticleXml = prefs.get(key, null);
+        if (reticleXml == null) {
+            return null;
+        }
+        return reticleSerializer().read(ReticlePreference.class, reticleXml).reticle;
+    }
+
+    /**
+     * Wraps the reticle so that its concrete class is recorded. simple-xml writes a class attribute
+     * for a field whose declared type is an interface, but not for a document root, and the stored
+     * preference has to say which of the reticle implementations it holds.
+     */
+    @Root(name = "reticle-preference")
+    private static class ReticlePreference {
+        @Element(required = false)
+        private Reticle reticle;
+
+        @SuppressWarnings("unused")
+        ReticlePreference() {
+        }
+
+        ReticlePreference(Reticle reticle) {
+            this.reticle = reticle;
+        }
+    }
+
+    /**
+     * A serializer that can carry a Color. Reticles are stored in the user preferences, which used
+     * to go through java.beans.XMLDecoder - a deserializer able to construct any object and invoke
+     * any method on it. Nothing untrusted reaches these preferences, but there is no reason to keep
+     * such a primitive around when simple-xml, which validates types, is already a dependency.
+     */
+    private static Serializer reticleSerializer() {
+        RegistryMatcher matcher = new RegistryMatcher();
+        matcher.bind(Color.class, new ColorTransform());
+        return new Persister(matcher);
     }
 
     public Reticle getDefaultReticle() {

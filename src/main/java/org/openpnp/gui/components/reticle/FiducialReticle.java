@@ -27,15 +27,29 @@ import java.awt.geom.AffineTransform;
 
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
+@Root
 public class FiducialReticle extends CrosshairReticle {
     public enum Shape {
         Circle, Square
     }
 
+    @Attribute(required = false)
     private Shape shape;
+
+    /**
+     * Persisted now. It has a setter but no getter, so the previous XMLEncoder based storage could
+     * not see it and the choice was lost on every restart.
+     */
+    @Attribute(required = false)
     private boolean filled;
+
+    @Attribute(required = false)
     private LengthUnit units;
+
+    @Attribute(required = false)
     private double size;
 
     public FiducialReticle() {

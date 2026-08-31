@@ -19,10 +19,6 @@
 
 package org.openpnp.util;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
@@ -34,19 +30,6 @@ import org.simpleframework.xml.stream.HyphenStyle;
 import org.simpleframework.xml.stream.Style;
 
 public class XmlSerialize {
-    public static String serialize(Object o) {
-        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-        XMLEncoder xmlEncoder = new XMLEncoder(bOut);
-        xmlEncoder.writeObject(o);
-        xmlEncoder.close();
-        return bOut.toString();
-    }
-
-    public static Object deserialize(String s) {
-        XMLDecoder xmlDecoder = new XMLDecoder(new ByteArrayInputStream(s.getBytes()));
-        return xmlDecoder.readObject();
-    }
-
     /**
      * From https://stackoverflow.com/questions/1265282/recommended-method-for-escaping-html-in-java
      * @param s

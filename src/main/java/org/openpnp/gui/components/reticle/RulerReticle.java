@@ -27,10 +27,21 @@ import java.awt.geom.AffineTransform;
 
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
+@Root
 public class RulerReticle extends CrosshairReticle {
+    @Attribute(required = false)
     private LengthUnit units;
+
+    @Attribute(required = false)
     private double unitsPerTick;
+
+    /**
+     * Not persisted: it is decided by which class was constructed, and GridReticle is the subclass
+     * that turns it off.
+     */
     private boolean drawRulerOnly = true;
 
     public RulerReticle(boolean drawRulerOnly) {

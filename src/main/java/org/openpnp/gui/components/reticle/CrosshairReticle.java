@@ -27,9 +27,16 @@ import java.awt.geom.AffineTransform;
 
 import org.openpnp.model.LengthUnit;
 import org.openpnp.util.HslColor;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.core.Commit;
 
+@Root
 public class CrosshairReticle implements Reticle {
+    @Attribute(required = false)
     protected Color color;
+
+    /** Derived from color by setColor, so it is not persisted. */
     protected Color complimentaryColor;
 
     public CrosshairReticle() {
@@ -43,6 +50,15 @@ public class CrosshairReticle implements Reticle {
     public void setColor(Color color) {
         this.color = color;
         complimentaryColor = new HslColor(color).getComplementary();
+    }
+
+    /**
+     * simple-xml writes the field directly, bypassing setColor, so the derived complimentary colour
+     * has to be brought back into step once the object is populated.
+     */
+    @Commit
+    protected void commit() {
+        setColor(color != null ? color : Color.red);
     }
 
     @Override
