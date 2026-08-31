@@ -22,6 +22,7 @@
 package org.openpnp.util;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -293,8 +294,18 @@ public class Utils2D {
         try {
             tx = tx.createInverse();
         }
-        catch (Exception e) {
-            Logger.error(e, "Could not invert the placement transform of {}, the uninverted transform is used instead.", bl.getFileName());
+        catch (NoninvertibleTransformException e) {
+            // A degenerate transform collapses the local frame onto a line or a point, so there is
+            // no global to local mapping to compute at all. Carrying on with the uninverted
+            // transform yielded a plausible looking but wrong coordinate, and on a machine that
+            // positions parts that is worse than refusing to answer. A transform only becomes
+            // degenerate if the fiducial measurements it was derived from were, since the default
+            // transform is a translation, a rotation and possibly a mirror, whose determinant is
+            // always +/-1.
+            String identifier = bl.getUniqueId() != null ? bl.getUniqueId() : bl.toString();
+            throw new IllegalStateException("Cannot convert a machine coordinate into a placement"
+                    + " coordinate for " + identifier + ": its placement transform is degenerate"
+                    + " and cannot be inverted. Re-run the fiducial check for it.", e);
         }
         
         double angleSign = 1.0;

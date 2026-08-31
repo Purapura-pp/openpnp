@@ -1,3 +1,6 @@
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
@@ -216,13 +219,45 @@ public class CalculateBoardLocationTests {
         Location p1l = Utils2D.calculateBoardPlacementLocation(boardLocation, p1.getLocation());
         
         Location p1li = Utils2D.calculateBoardPlacementLocationInverse(boardLocation, p1l);
-        
+
         Utils2DTest.checkNormalized(p1.getLocation(), p1li);
     }
-    
-    
-    
-    
+
+    /**
+     * A transform derived from degenerate fiducial measurements has no inverse, so there is no
+     * machine to placement mapping to compute at all. Refusing is deliberate: the calculation used
+     * to carry on with the uninverted transform, which returned a plausible looking but wrong
+     * coordinate.
+     */
+    @Test
+    public void invertingADegenerateTransformIsRefused() throws Exception {
+        BoardLocation boardLocation = createTestBoardLocation(Side.Top, false);
+        // Both basis vectors point the same way, collapsing the board frame onto a line.
+        boardLocation.setPlacementTransform(new AffineTransform(1, 1, 1, 1, 0, 0));
+
+        IllegalStateException e = assertThrows(IllegalStateException.class,
+                () -> Utils2D.calculateBoardPlacementLocationInverse(boardLocation,
+                        new Location(LengthUnit.Millimeters, 10, 20, 0, 0)));
+
+        assertTrue(e.getMessage().contains("degenerate"), e.getMessage());
+    }
+
+    /** The forward direction needs no inverse, so it still answers for a degenerate transform. */
+    @Test
+    public void theForwardCalculationStillWorksWithADegenerateTransform() throws Exception {
+        BoardLocation boardLocation = createTestBoardLocation(Side.Top, false);
+        Placement p1 = boardLocation.getBoard().getPlacements().get(0);
+        boardLocation.setPlacementTransform(new AffineTransform(1, 1, 1, 1, 0, 0));
+
+        Location p1l = Utils2D.calculateBoardPlacementLocation(boardLocation, p1.getLocation());
+
+        assertTrue(Double.isFinite(p1l.getX()));
+        assertTrue(Double.isFinite(p1l.getY()));
+    }
+
+
+
+
     
     /**
      * Simulates a 3 point fiducial check by generating 3 placements at fixed locations,
