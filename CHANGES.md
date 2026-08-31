@@ -11,6 +11,8 @@ a complete change list, only those that may directly interest or affect users.
 
 * Errors that were previously printed to the console, or discarded entirely, are now reported through the log with the context needed to act on them. Where an exception really is expected, the reason is recorded in the code instead.
 * A vision pipeline now stops at the stage where a machine level error occurred, such as a failed image capture or actuation. Previously it ran all the remaining stages first, which produced a cascade of misleading follow-on errors before reporting the real one.
+* Length fields now accept the written unit names - "in", "inch", "inches", "ft", "feet", "thou", "millimeters", "micrometer" and so on - alongside the prime marks used for display. Previously only `"` and `'` were recognised for inches and feet, and a suffix that was not recognised was discarded silently, so typing `15in` into a field that positions the machine gave you 15 mm. A suffix that still is not a unit is now reported instead of dropped, which also means `1e5` is refused rather than read as 1.
+* The X, Y and Z fields of the location buttons now honour the unit you type. Previously the unit was parsed and then discarded, so `1"` was applied as 1 mm. An unparseable coordinate is also reported now, rather than being treated as zero and moving the machine there.
 
 # Version 2.6
 

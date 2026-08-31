@@ -19,7 +19,10 @@
 
 package org.openpnp.model;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.simpleframework.xml.Attribute;
 
@@ -28,6 +31,37 @@ import org.simpleframework.xml.Attribute;
 public class Length {
     public enum Field {
         X, Y, Z
+    }
+
+    /**
+     * The unit spellings accepted on input, keyed by their lower cased form.
+     * <p>
+     * LengthUnit spells inches and feet with the prime marks, which is right for display but not
+     * what anyone types, so the written names are accepted here as well. Both spellings of mu are
+     * listed rather than rewritten, because rewriting u into mu would also corrupt "thou".
+     */
+    private static final Map<String, LengthUnit> unitsBySpelling;
+    static {
+        Map<String, LengthUnit> spellings = new HashMap<>();
+        addSpellings(spellings, LengthUnit.Meters, "meter", "meters", "metre", "metres");
+        addSpellings(spellings, LengthUnit.Centimeters, "centimeter", "centimeters", "centimetre",
+                "centimetres");
+        addSpellings(spellings, LengthUnit.Millimeters, "millimeter", "millimeters", "millimetre",
+                "millimetres");
+        addSpellings(spellings, LengthUnit.Feet, "ft", "foot", "feet");
+        addSpellings(spellings, LengthUnit.Inches, "in", "inch", "inches");
+        addSpellings(spellings, LengthUnit.Mils, "mils", "thou", "thous");
+        addSpellings(spellings, LengthUnit.Microns, "um", "micron", "microns", "micrometer",
+                "micrometers", "micrometre", "micrometres");
+        unitsBySpelling = Collections.unmodifiableMap(spellings);
+    }
+
+    private static void addSpellings(Map<String, LengthUnit> spellings, LengthUnit units,
+            String... alternatives) {
+        spellings.put(units.getShortName().toLowerCase(Locale.ROOT), units);
+        for (String alternative : alternatives) {
+            spellings.put(alternative, units);
+        }
     }
 
     @Attribute
@@ -203,14 +237,13 @@ public class Length {
         String valueString = null;
         if (startOfUnits != -1) {
             valueString = s.substring(0, startOfUnits);
-            String unitsString = s.substring(startOfUnits);
-            unitsString = unitsString.trim();
-            unitsString = unitsString.replace('u', 'μ'); //convert u to μ
-            for (LengthUnit lengthUnit : LengthUnit.values()) {
-                if (lengthUnit.getShortName().equalsIgnoreCase(unitsString)) {
-                    units = lengthUnit;
-                    break;
-                }
+            String unitsString = s.substring(startOfUnits).trim().toLowerCase(Locale.ROOT);
+            units = unitsBySpelling.get(unitsString);
+            if (units == null) {
+                // Something follows the number but it is not a unit we know. Refusing it here is
+                // what stops a mistyped suffix from being dropped, which used to turn "15in" into
+                // 15 of whatever the default units were.
+                return null;
             }
         }
         else {

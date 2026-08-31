@@ -41,6 +41,7 @@ import org.openpnp.gui.support.Icons;
 import org.openpnp.machine.reference.ContactProbeNozzle;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
+import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
@@ -251,20 +252,34 @@ public class LocationButtonsPanel extends JPanel {
     }
 
     private Location getParsedLocation() {
-        double x = 0, y = 0, z = 0, rotation = 0;
-        if (textFieldX != null && ! textFieldX.getText().isEmpty()) {
-            x = Length.parse(textFieldX.getText()).getValue();
-        }
-        if (textFieldY != null && ! textFieldY.getText().isEmpty()) {
-            y = Length.parse(textFieldY.getText()).getValue();
-        }
-        if (textFieldZ != null && ! textFieldZ.getText().isEmpty()) {
-            z = Length.parse(textFieldZ.getText()).getValue();
-        }
+        LengthUnit systemUnits = Configuration.get().getSystemUnits();
+        double rotation = 0;
         if (textFieldC != null && ! textFieldC.getText().isEmpty()) {
             rotation = Double.parseDouble(textFieldC.getText());
         }
-        return new Location(Configuration.get().getSystemUnits(), x, y, z, rotation);
+        return new Location(systemUnits,
+                parseCoordinate(textFieldX, "X", systemUnits),
+                parseCoordinate(textFieldY, "Y", systemUnits),
+                parseCoordinate(textFieldZ, "Z", systemUnits),
+                rotation);
+    }
+
+    /**
+     * Reads one coordinate field. The unit the user typed is honoured rather than assumed to be the
+     * system unit, and an unparseable field is reported instead of moving the machine to a
+     * coordinate nobody asked for.
+     */
+    private static double parseCoordinate(JTextField field, String name, LengthUnit systemUnits) {
+        if (field == null || field.getText().isEmpty()) {
+            return 0;
+        }
+        Length length = Length.parseWithDefaultUnits(field.getText(), systemUnits);
+        if (length == null) {
+            throw new RuntimeException(
+                    String.format("Unable to parse the %s coordinate \"%s\".", name,
+                            field.getText()));
+        }
+        return length.convertToUnits(systemUnits).getValue();
     }
 
     private Action captureCameraCoordinatesAction =
