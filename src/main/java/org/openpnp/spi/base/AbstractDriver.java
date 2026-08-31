@@ -13,21 +13,13 @@ import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
-import org.openpnp.machine.reference.ReferenceMachine;
-import org.openpnp.machine.reference.ReferenceNozzle;
-import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
-import org.openpnp.machine.reference.axis.ReferenceVirtualAxis;
 import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
-import org.openpnp.spi.Axis;
-import org.openpnp.spi.Axis.Type;
-import org.openpnp.spi.Camera;
 import org.openpnp.spi.ControllerAxis;
 import org.openpnp.spi.Driver;
 import org.openpnp.spi.Machine;
-import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.PropertySheetHolder;
 import org.simpleframework.xml.Attribute;
 
@@ -75,7 +67,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
     public Length getMinimumRate(int order) {
         // Get the minimum of all the axes' rate limits. 
         double rate = Double.POSITIVE_INFINITY;
-        ReferenceMachine machine = ((ReferenceMachine) Configuration.get().getMachine());
+        Machine machine = Configuration.get().getMachine();
         for (ControllerAxis axis : getAxes(machine)) {
             double axisRate = axis.getMotionLimit(order);
             if (rate > axisRate && axisRate != 0) {
@@ -105,7 +97,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
         return getName();
     }
 
-    public List<ControllerAxis> getAxes(ReferenceMachine machine) {
+    public List<ControllerAxis> getAxes(Machine machine) {
         List<ControllerAxis> list = new ArrayList<>(); 
         for (org.openpnp.spi.Axis axis : machine.getAxes()) {
             if (axis instanceof ControllerAxis) {
@@ -115,66 +107,6 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
             }
         }
         return list;
-    }
-
-    protected void createAxisMappingDefaults(ReferenceMachine machine) throws Exception {
-        if (machine.getAxes().size() == 0) {
-            // Create and map the standard axes to the HeadMountables. 
-            ReferenceControllerAxis axisX = migrateAxis(machine, Axis.Type.X, "");
-            ReferenceControllerAxis axisY = migrateAxis(machine, Axis.Type.Y, "");
-
-            for (Camera hm : machine.getDefaultHead().getCameras()) {
-                ((AbstractHeadMountable)hm).setAxisX(axisX);
-                ((AbstractHeadMountable)hm).setAxisY(axisY);
-                assignCameraVirtualAxes(machine, hm);
-            }
-            for (Nozzle hm : machine.getDefaultHead().getNozzles()) {
-                // Note, we create dedicated axes per Nozzle, assuming this is a test driver that does not
-                // care about shared/dedicated axes or a single nozzle test GcodeDriver.  
-                ReferenceControllerAxis axisZ = migrateAxis(machine, Axis.Type.Z, hm.getName());
-                ReferenceControllerAxis axisRotation = migrateAxis(machine, Axis.Type.Rotation, hm.getName());
-                if (hm instanceof ReferenceNozzle) {
-                    axisRotation.setLimitRotation(((ReferenceNozzle) hm).isLimitRotation());
-                }
-                ((AbstractHeadMountable)hm).setAxisX(axisX);
-                ((AbstractHeadMountable)hm).setAxisY(axisY);
-                ((AbstractHeadMountable)hm).setAxisZ(axisZ);
-                ((AbstractHeadMountable)hm).setAxisRotation(axisRotation);
-                if (hm instanceof ReferenceNozzle) {
-                    ((ReferenceNozzle)hm).migrateSafeZ();
-                }
-            }
-            // No movable actuators mapped for these test drivers.
-        }
-    }
-
-    protected void assignCameraVirtualAxes(ReferenceMachine machine, Camera hm) throws Exception {
-        // Assign virtual axes to cameras.
-        if (hm.getAxisZ() == null) {
-            ReferenceVirtualAxis axisZ = new ReferenceVirtualAxis();
-            axisZ.setType(Type.Z);
-            axisZ.setName("z"+hm.getName());
-            machine.addAxis(axisZ);
-            ((AbstractHeadMountable)hm).setAxisZ(axisZ);
-        }
-        if (hm.getAxisRotation() == null) {
-            ReferenceVirtualAxis axisRotation = new ReferenceVirtualAxis();
-            axisRotation.setType(Type.Rotation);
-            axisRotation.setName("rotation"+hm.getName());
-            machine.addAxis(axisRotation);
-            ((AbstractHeadMountable)hm).setAxisRotation(axisRotation);
-        }
-    }
-
-    protected ReferenceControllerAxis migrateAxis(ReferenceMachine machine, Axis.Type type, String suffix)
-            throws Exception {
-        ReferenceControllerAxis axis;
-        axis = new ReferenceControllerAxis();
-        axis.setType(type);
-        axis.setName(type.toString().toLowerCase()+suffix);
-        axis.setDriver(this);
-        machine.addAxis(axis);
-        return axis;
     }
 
     @Override

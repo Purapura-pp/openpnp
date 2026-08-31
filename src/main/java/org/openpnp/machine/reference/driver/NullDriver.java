@@ -235,7 +235,7 @@ public class NullDriver extends AbstractDriver {
     public void migrateDriver(Machine machine) throws Exception {
         machine.addDriver(this);
         if (machine instanceof ReferenceMachine) {
-            createAxisMappingDefaults((ReferenceMachine) machine);
+            DriverAxisMigration.createAxisMappingDefaults(this, (ReferenceMachine) machine);
             // Migrate feedrates etc.
             for (Axis axis : machine.getAxes()) {
                 if (axis instanceof ReferenceControllerAxis) {

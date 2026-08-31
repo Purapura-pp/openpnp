@@ -7,6 +7,7 @@ import javax.swing.Icon;
 
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceMachine;
+import org.openpnp.machine.reference.driver.DriverAxisMigration;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
@@ -266,7 +267,7 @@ public class TestDriver extends AbstractDriver implements Driver {
     @Override
     public void migrateDriver(Machine machine) throws Exception {
         machine.addDriver(this);
-        createAxisMappingDefaults((ReferenceMachine) machine);
+        DriverAxisMigration.createAxisMappingDefaults(this, (ReferenceMachine) machine);
     }
 
     @Override

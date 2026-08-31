@@ -497,7 +497,8 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
 
     @Override
     public void createDefaults() throws Exception {
-        createAxisMappingDefaults((ReferenceMachine) Configuration.get().getMachine());
+        DriverAxisMigration.createAxisMappingDefaults(this,
+                (ReferenceMachine) Configuration.get().getMachine());
 
         createDefaultCommands();
     }
@@ -2189,7 +2190,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
                         // Migrate axes on the default head. 
                         for (Camera hm : machine.getDefaultHead().getCameras()) {
                             migrateAssignAxis(legacyAxis, axis, hm);
-                            assignCameraVirtualAxes((ReferenceMachine) machine, hm);
+                            DriverAxisMigration.assignCameraVirtualAxes((ReferenceMachine) machine, hm);
                         }
                         for (Nozzle hm : machine.getDefaultHead().getNozzles()) {
                             migrateAssignAxis(legacyAxis, axis, hm);

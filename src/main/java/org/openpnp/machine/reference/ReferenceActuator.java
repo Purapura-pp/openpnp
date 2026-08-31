@@ -32,11 +32,13 @@ import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.Wizard;
+import org.openpnp.machine.reference.solutions.ActuatorSolutions;
 import org.openpnp.machine.reference.wizards.ReferenceActuatorConfigurationWizard;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
+import org.openpnp.model.Solutions;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Machine;
@@ -428,6 +430,17 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
             }
         }
     };
+
+    @Override
+    protected InterlockMonitor createInterlockMonitor() {
+        return new ActuatorInterlockMonitor();
+    }
+
+    @Override
+    public void findIssues(Solutions solutions) {
+        super.findIssues(solutions);
+        new ActuatorSolutions(this).findIssues(solutions);
+    }
 
     @Override
     public String toString() {

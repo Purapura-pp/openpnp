@@ -12,6 +12,7 @@ import org.openpnp.machine.reference.ReferenceHead;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.ReferenceNozzle;
 import org.openpnp.machine.reference.driver.AbstractReferenceDriver;
+import org.openpnp.machine.reference.driver.DriverAxisMigration;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -1328,7 +1329,7 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
     public void migrateDriver(Machine machine) throws Exception {
         machine.addDriver(this);
         if (machine instanceof ReferenceMachine) {
-            createAxisMappingDefaults((ReferenceMachine) machine);
+            DriverAxisMigration.createAxisMappingDefaults(this, (ReferenceMachine) machine);
             AxesLocation homeLocation = new AxesLocation(machine, this, (axis) -> ( axis.getHomeCoordinate() ));
             for (ControllerAxis axis : homeLocation.getAxes(this)) {
                 if (axis.getType() == Axis.Type.X) {
