@@ -20,7 +20,10 @@
 package org.openpnp.gui.tablemodel;
 
 import java.awt.Container;
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelEvent;
@@ -118,6 +121,9 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
     private Configuration configuration;
 
     private Container container;
+
+    /** Cleared by fireTableChanged; see partsWithEnabledFeeder(). */
+    private Set<Part> partsWithEnabledFeeder;
     
     public PlacementsHolderPlacementsTableModel(Container container) {
         super();
@@ -407,9 +413,9 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
             case 7:
                 return placement.getType();
             case 8:
-                // TODO STOPSHIP: Both of these are huge performance hogs and do not belong
-                // in the render process. At the least we should cache this information but it
-                // would be better if the information was updated out of band by a listener.
+                // TODO: It would be better for this to be pushed in by a listener than pulled
+                // during rendering, but it is only a map lookup now, so it is no longer a cost
+                // worth restructuring the panel for.
                 return MainFrame.get().getJobTab().getJob()
                         .retrievePlacedStatus(placementsHolderLocation, placement.getId());
             case 9:
@@ -433,17 +439,10 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
         }
         if (!placement.isEnabled()) {
             return Status.Disabled;
-                    
+
         }
         if (placement.getType() == Placement.Type.Placement && placement.isEnabled()) {
-            boolean found = false;
-            for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
-                if (feeder.getPart() == placement.getPart() && feeder.isEnabled()) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
+            if (!partsWithEnabledFeeder().contains(placement.getPart())) {
                 return Status.MissingFeeder;
             }
 
@@ -452,6 +451,39 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
             }
         }
         return Status.Ready;
+    }
+
+    /**
+     * The parts that an enabled feeder can supply. This used to be a scan of every feeder, run for
+     * each cell of the status column: once per visible row on a repaint, and once per row in the
+     * whole table when it is sorted by that column, so the work was the placement count times the
+     * feeder count.
+     * <p>
+     * Built on first use after the table data changes. A feeder enabled or reassigned while this
+     * table is on screen is therefore not reflected until the table reloads - which was already
+     * the case, since nothing here listens for feeder changes to repaint in the first place.
+     * <p>
+     * Membership is by identity, matching the reference comparison this replaces.
+     */
+    private Set<Part> partsWithEnabledFeeder() {
+        if (partsWithEnabledFeeder == null) {
+            Set<Part> parts = Collections.newSetFromMap(new IdentityHashMap<Part, Boolean>());
+            for (Feeder feeder : configuration.getMachine().getFeeders()) {
+                if (feeder.isEnabled() && feeder.getPart() != null) {
+                    parts.add(feeder.getPart());
+                }
+            }
+            partsWithEnabledFeeder = parts;
+        }
+        return partsWithEnabledFeeder;
+    }
+
+    @Override
+    public void fireTableChanged(TableModelEvent e) {
+        // Every fireTableXxx of the superclass funnels through here, so this is the one place the
+        // feeder lookup has to be dropped.
+        partsWithEnabledFeeder = null;
+        super.fireTableChanged(e);
     }
 
     public void setLocalReferenceFrame(boolean b) {
