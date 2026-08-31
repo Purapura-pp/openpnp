@@ -33,7 +33,7 @@ public class ReferenceStripFeederTest {
     private static final double DELTA = 1e-9;
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {

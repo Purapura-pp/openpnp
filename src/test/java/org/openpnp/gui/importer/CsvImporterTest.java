@@ -38,7 +38,7 @@ public class CsvImporterTest {
     private static final String HEADER = "Designator,Value,Footprint,Ref X,Ref Y,Rotation,Layer";
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {

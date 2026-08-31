@@ -30,7 +30,7 @@ public class EagleBoardImporterTest {
     private static final File DEMO_BOARD = new File("samples", "Demo Board");
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {

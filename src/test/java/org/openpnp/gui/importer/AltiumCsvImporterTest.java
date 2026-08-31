@@ -26,7 +26,7 @@ public class AltiumCsvImporterTest {
     private static final double DELTA = 0.0001;
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {

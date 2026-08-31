@@ -31,7 +31,7 @@ public class KicadPosImporterTest {
     private static final File SAMPLE = new File("samples", "kicad-example-F.Cu.pos");
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {

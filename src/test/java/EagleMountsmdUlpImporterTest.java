@@ -31,7 +31,7 @@ public class EagleMountsmdUlpImporterTest {
     private static final File EAT001 = new File("samples", "EAT001");
 
     @TempDir
-    private Path tempDir;
+    Path tempDir;
 
     @BeforeEach
     public void setUp() throws Exception {
