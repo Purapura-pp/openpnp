@@ -1206,7 +1206,7 @@ public class PhotonFeederTest {
         Solutions.Issue issue = maybeIssue.get();
 
         assertEquals(feeder, issue.getSubject());
-        assertEquals("Feeder slot has no configured location", issue.getIssue());
+        assertEquals("Feeder slot has no configured location", issue.getUntranslatedIssue());
         assertEquals(Solutions.Severity.Error, issue.getSeverity());
         assertEquals(Solutions.State.Open, issue.getState());
     }
@@ -1228,7 +1228,7 @@ public class PhotonFeederTest {
         Solutions.Issue issue = maybeIssue.get();
 
         assertEquals(feeder, issue.getSubject());
-        assertEquals("Feeder has no configured offset", issue.getIssue());
+        assertEquals("Feeder has no configured offset", issue.getUntranslatedIssue());
         assertEquals(Solutions.Severity.Error, issue.getSeverity());
         assertEquals(Solutions.State.Open, issue.getState());
     }

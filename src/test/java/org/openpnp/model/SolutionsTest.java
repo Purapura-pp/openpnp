@@ -67,7 +67,9 @@ public class SolutionsTest {
     }
 
     private static long countIssuesReading(Solutions solutions, String text) {
-        return solutions.getIssues().stream().filter(i -> text.equals(i.getIssue())).count();
+        // The untranslated wording, so this does not depend on the machine's display language.
+        return solutions.getIssues().stream()
+                .filter(i -> text.equals(i.getUntranslatedIssue())).count();
     }
 
     @Test

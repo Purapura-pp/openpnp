@@ -17,6 +17,10 @@ a complete change list, only those that may directly interest or affect users.
 * Converting a machine coordinate back into a placement coordinate now reports a clear error when the board's placement transform cannot be inverted. Previously the failure was only logged and the calculation carried on with the uninverted transform, which produced a plausible looking but wrong coordinate. A transform only becomes non-invertible if the fiducial measurements it was derived from were degenerate, so the remedy is to re-run the fiducial check for that board.
 * The X, Y and Z fields of the location buttons now honour the unit you type. Previously the unit was parsed and then discarded, so `1"` was applied as 1 mm. An unparseable coordinate is also reported now, rather than being treated as zero and moving the machine there.
 
+## Translations
+
+* The Issues and Solutions descriptions are now translated, 91 of them into Simplified Chinese. These are written in the source as English prose rather than as translation keys, because that English wording is also how OpenPnP remembers which issues you dismissed or marked as solved. It therefore stays as written and the translation is looked up from it, which means your dismissed and solved issues survive this change and no longer shift when you change display language. Descriptions that are assembled at runtime from machine, axis or nozzle names still appear in English, as does anything not yet translated.
+
 # Version 2.6
 
 ## New Features

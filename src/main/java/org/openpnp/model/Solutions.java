@@ -300,15 +300,26 @@ public class Solutions {
             return subject;
         }
         public String getIssue() {
-            return issue;
+            return Translations.translateText(issue);
         }
         public String getSolution() {
-            return solution;
+            return Translations.translateText(solution);
+        }
+        /**
+         * The English wording as the source wrote it, which is what identifies this issue - see
+         * getFingerprint. Compare against this rather than against getIssue, which follows the
+         * display language.
+         */
+        public String getUntranslatedIssue() {
+            return issue;
         }
         public Severity getSeverity() {
             return severity;
         }
         public String getFingerprint() {
+            // The untranslated fields, deliberately. This identity is persisted in machine.xml to
+            // remember which issues the user dismissed or solved, so it must not move when the
+            // display language does.
             return DigestUtils.shaHex(subject.getSubjectText()+"\n"+issue+"\n"+solution);
         }
 
@@ -317,7 +328,9 @@ public class Solutions {
         }
 
         public void setStateCall(State state) throws Exception {
-            Logger.debug("About to set state "+state+" (from "+getState()+") on "+getSubject().getSubjectText()+": "+getIssue());
+            // The untranslated wording: a log in the user's language is of no use to whoever ends
+            // up reading it to help them.
+            Logger.debug("About to set state "+state+" (from "+getState()+") on "+getSubject().getSubjectText()+": "+issue);
             setState(state);
         }
 
@@ -481,7 +494,7 @@ public class Solutions {
                 return icon;
             }
             public String getDescription() {
-                return description;
+                return Translations.translateText(description);
             }
         }
 
