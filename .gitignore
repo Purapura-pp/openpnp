@@ -14,5 +14,6 @@ hs_err*
 *.log
 
 .vscode/
+.cursor/
 /src/main/resources/org/openpnp/translations.properties.bak
 .DS_Store
