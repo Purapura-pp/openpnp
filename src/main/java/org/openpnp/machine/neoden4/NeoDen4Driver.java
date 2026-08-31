@@ -228,7 +228,9 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
 
         connected = false;
 
-        // Disable the machine
+        // Meant to leave the machine disabled until the user enables it, but setEnabled has no
+        // disable command to send, and this call runs while connected is still false, so it is
+        // currently a no-op. Kept for when setEnabled learns the command.
         setEnabled(false);
 
         connected = true;
@@ -240,11 +242,17 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
             connect();
         }
         if (connected) {
+            // The motion, feeder and rail commands in this driver were reverse engineered from
+            // captures of the vendor software driving the bus. No capture of it enabling or
+            // disabling the machine was taken, so the command bytes for that are unknown, and
+            // they cannot be guessed at: a wrong opcode on this bus moves hardware. Filling
+            // these in needs a capture of the vendor software toggling machine power, or vendor
+            // documentation.
             if (enabled) {
-                // TODO STOPSHIP enable
+                // TODO: send the enable command, once it is known.
             }
             else {
-                // TODO STOPSHIP disable
+                // TODO: send the disable command, once it is known.
             }
         }
     }
