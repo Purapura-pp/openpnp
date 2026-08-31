@@ -20,6 +20,7 @@ a complete change list, only those that may directly interest or affect users.
 ## Translations
 
 * The Issues and Solutions descriptions are now translated, 91 of them into Simplified Chinese. These are written in the source as English prose rather than as translation keys, because that English wording is also how OpenPnP remembers which issues you dismissed or marked as solved. It therefore stays as written and the translation is looked up from it, which means your dismissed and solved issues survive this change and no longer shift when you change display language. Descriptions that are assembled at runtime from machine, axis or nozzle names still appear in English, as does anything not yet translated.
+* Simplified Chinese now has an entry for every translatable string in the interface. 19 had none at all and appeared in English: the Rank column and the explanation of how ranks order a job, the job processor's placement attempt limits and feeder fault settings, the Photon feeder's "Feed 1mm" button and its move-while-feeding option, and the Priority and Faults columns on the Feeders page. Another 12, mostly the Rotation coordinate labels, were present but left in English. Terms the translation deliberately keeps in English, such as Safe Z, Camera Z, TCP and Gcode, are unchanged.
 
 # Version 2.6
 
