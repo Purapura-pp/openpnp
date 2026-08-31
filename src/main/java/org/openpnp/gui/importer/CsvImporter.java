@@ -308,29 +308,39 @@ public abstract class CsvImporter {
     
     // detect the character set required to read the file by searching for a byte order mark
     private String detectCharacterSet(File file) throws Exception {
-        FileInputStream f = new FileInputStream(file);
-        
-        // read the first two characters and test if its a byte order mark
-        // (https://en.wikipedia.org/wiki/Byte_order_mark)
-        int b1 = f.read();
-        int b2 = f.read();
-        
-        // if the file starts with 0xff 0xfe, its a byte order mark for UTF-16 encoding
-        if (b1 == 0xff && b2 == 0xfe) {
-            Logger.trace("Byte Order Mark detected, will read " + file + " using UTF-16 character set");
-            return "UTF-16"; //$NON-NLS-1$
-        }
+        // The stream was never closed on either path, which left the file locked on Windows for as
+        // long as OpenPnP ran, whether or not the import itself succeeded.
+        try (FileInputStream f = new FileInputStream(file)) {
+            // read the first two characters and test if its a byte order mark
+            // (https://en.wikipedia.org/wiki/Byte_order_mark)
+            int b1 = f.read();
+            int b2 = f.read();
 
-        // return default character set
-        Logger.trace("No Byte Order Mark detected, will read " + file + " using the default ISO-8859-1 character set");
-        return "ISO-8859-1"; //$NON-NLS-1$
+            // if the file starts with 0xff 0xfe, its a byte order mark for UTF-16 encoding
+            if (b1 == 0xff && b2 == 0xfe) {
+                Logger.trace("Byte Order Mark detected, will read " + file + " using UTF-16 character set");
+                return "UTF-16"; //$NON-NLS-1$
+            }
+
+            // return default character set
+            Logger.trace("No Byte Order Mark detected, will read " + file + " using the default ISO-8859-1 character set");
+            return "ISO-8859-1"; //$NON-NLS-1$
+        }
     }
     
     List<Placement> parseFile(File file, boolean createMissingParts,
             boolean updateHeights) throws Exception {
         String characterset = detectCharacterSet(file);
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(new FileInputStream(file), characterset));
+        // The reader was closed only where the parse ran to completion, so a file that was
+        // rejected stayed locked on Windows and could not be corrected and exported again.
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(file), characterset))) {
+            return parsePlacements(reader, createMissingParts, updateHeights);
+        }
+    }
+
+    private List<Placement> parsePlacements(BufferedReader reader, boolean createMissingParts,
+            boolean updateHeights) throws Exception {
         ArrayList<Placement> placements = new ArrayList<>();
         String line;
         Configuration cfg = Configuration.get();
@@ -347,7 +357,6 @@ public abstract class CsvImporter {
         }
 
         if (len <= 0) {
-            reader.close();
             throw new Exception("Unable to find relevant headers' names.\n See https://github.com/openpnp/openpnp/wiki/Importing-Centroid-Data for more."); //$NON-NLS-1$
         }
 
@@ -432,7 +441,6 @@ public abstract class CsvImporter {
                 placements.add(placement);
             }
         }
-        reader.close();
         return placements;
     }
 
