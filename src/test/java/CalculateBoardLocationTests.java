@@ -312,21 +312,23 @@ public class CalculateBoardLocationTests {
     }
     
     /**
-     * TODO STOPSHIP These all now closely match the pnp-test setup with simulation, but it's
-     * not all lining up perfectly. I'm not sure why the bottom has to be different for with and
-     * without width. I suspect that maybe the length is not exactly 37?
-     * 
-     * I think I can do the fiducial check and then create ORIG to find 0,0 and then jog to the
-     * other corner and measure the distance to get the exact length?
-     * 
-     * Looks like it might be 37.06
-     * 
-     * The board lcoations have to be different from each other because of with and without width
-     * but we should be able to take the distance between the two cand come up with the board
-     * width, and then the results should all be the same in the tests.
-     * 
-     * In other words, sqrt((84.107−113.763)^2+(46.671−68.740)^2) should be 37.06 but it's 
-     * not. Why?
+     * These match the pnp-test setup with simulation. The two bottom-side board locations were
+     * measured separately on the machine - one with the origin at the corner the board width is
+     * measured from, one at the opposite corner - so each carries its own jog error, and the
+     * expected results for the two cases differ slightly as a result.
+     * <p>
+     * That difference is in the inputs, not in the transform. Feeding the without-width case the
+     * location the with-width case implies, 37 mm along the recorded 36.662 deg, gives
+     * (113.787, 68.763) and both cases then produce byte-identical results: the bottom-side
+     * transform is symmetric in board width.
+     * <p>
+     * The recorded locations are 36.9665 mm apart, 0.0335 mm short of the nominal 37, and their
+     * recorded rotations differ by 0.077 deg. Re-measuring the board width does not reconcile
+     * them - substituting that 36.9665, or the 37.06 an earlier note guessed at, widens the gap
+     * between the two cases from 0.0125 mm to 0.0319 mm and 0.0651 mm respectively. The dominant
+     * term is the 0.077 deg, which is roughly 0.05 mm of arc at this distance from the origin and
+     * cannot be absorbed into a width. Nominal 37 is the closest of the candidates, which is why
+     * it is what the tests use.
      */
     static BoardLocation createTestBoardLocation(Side side, boolean includeBoardWidth) {
         Board board = new Board();
