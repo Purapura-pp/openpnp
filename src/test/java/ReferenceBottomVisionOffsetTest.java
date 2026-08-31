@@ -1,5 +1,5 @@
-import static org.openpnp.machine.reference.vision.ReferenceBottomVision.PreRotateUsage.AlwaysOff;
-import static org.openpnp.machine.reference.vision.ReferenceBottomVision.PreRotateUsage.AlwaysOn;
+import static org.openpnp.model.BottomVisionSettings.PreRotateUsage.AlwaysOff;
+import static org.openpnp.model.BottomVisionSettings.PreRotateUsage.AlwaysOn;
 
 import java.io.File;
 

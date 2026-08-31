@@ -308,6 +308,20 @@ public class Configuration extends AbstractModelObject {
         return prefs.get(PREF_LENGTH_DISPLAY_FORMAT, PREF_LENGTH_DISPLAY_FORMAT_DEF);
     }
 
+    /**
+     * Renders a length the way it is shown to the user: converted to the system units and
+     * formatted with the configured display format. This is the same rendering LengthConverter
+     * performs for data bound fields, kept here so that code outside the GUI can produce the
+     * matching text without reaching into the GUI for a converter.
+     * 
+     * @param length
+     * @return
+     */
+    public String formatLength(Length length) {
+        return String.format(Locale.US, getLengthDisplayFormat(),
+                length.convertToUnits(getSystemUnits()).getValue());
+    }
+
     public void setLengthDisplayFormat(String format) {
         prefs.put(PREF_LENGTH_DISPLAY_FORMAT, format);
     }

@@ -30,7 +30,6 @@ import java.util.Map.Entry;
 import java.util.TreeSet;
 
 import org.opencv.core.RotatedRect;
-import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.model.Footprint.Pad;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Nozzle;
@@ -804,7 +803,6 @@ public class VisionCompositing extends AbstractModelObject{
 
         private double maxPadRadius = 0;
         private double octogonalHull[] = new double[8]; 
-        private LengthConverter lengthConverter = new LengthConverter();
 
         /**
          * Compute the needed compositing solution for the given package footprint. 
@@ -849,8 +847,8 @@ public class VisionCompositing extends AbstractModelObject{
                     compositingSolution = CompositingSolution.VisionOffsets;
                     diagnostics += visionSettings.getClass().getSimpleName()+" "+visionSettings.getName()
                         + " has Vision Offsets "
-                        + lengthConverter.convertForward(visionSettings.getVisionOffset().getLengthX())+", "
-                        + lengthConverter.convertForward(visionSettings.getVisionOffset().getLengthY())
+                        + Configuration.get().formatLength(visionSettings.getVisionOffset().getLengthX())+", "
+                        + Configuration.get().formatLength(visionSettings.getVisionOffset().getLengthY())
                         + ", compositing unsupported. ";
                 }
                 else if (!camera.getRoamingRadius().isInitialized()) {

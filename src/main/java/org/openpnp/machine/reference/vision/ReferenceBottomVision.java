@@ -23,6 +23,9 @@ import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AbstractVisionSettings;
 import org.openpnp.model.BoardLocation;
 import org.openpnp.model.BottomVisionSettings;
+import org.openpnp.model.BottomVisionSettings.MaxRotation;
+import org.openpnp.model.BottomVisionSettings.PartSizeCheckMethod;
+import org.openpnp.model.BottomVisionSettings.PreRotateUsage;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
@@ -752,18 +755,6 @@ public class ReferenceBottomVision extends AbstractPartAlignment {
         return new PropertySheet[] {
                 new PropertySheetWizardAdapter(new ReferenceBottomVisionConfigurationWizard(this)),
                 new PropertySheetWizardAdapter(new BottomVisionSettingsConfigurationWizard(getBottomVisionSettings(), this))};
-    }
-
-    public enum PreRotateUsage {
-        Default, AlwaysOn, AlwaysOff
-    }
-
-    public enum PartSizeCheckMethod {
-        Disabled, BodySize, PadExtents
-    }
-
-    public enum MaxRotation {
-        Adjust, Full
     }
 
     @Deprecated

@@ -48,9 +48,7 @@
         <allow class="org.openpnp.gui.components.AutoSelectTextTable"/>
         <allow class="org.openpnp.gui.components.ThemeInfo"/>
         <allow class="org.openpnp.gui.components.ThemeSettingsPanel"/>
-        <allow class="org.openpnp.gui.importer.KicadModImporter"/>
         <allow class="org.openpnp.gui.support.Icons"/>
-        <allow class="org.openpnp.gui.support.LengthConverter"/>
         <allow class="org.openpnp.gui.support.MessageBoxes"/>
         <!-- As in spi, exposing a configuration Wizard is intended and stays. -->
         <allow class="org.openpnp.gui.support.Wizard"/>

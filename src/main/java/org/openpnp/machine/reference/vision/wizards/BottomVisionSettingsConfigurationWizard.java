@@ -237,14 +237,14 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
                 "BottomVisionSettingsConfigurationWizard.PreRotateLabel.text")); //$NON-NLS-1$
         panel.add(lblPrerotate, "2, 10, right, default");
 
-        comboBoxPreRotate = new JComboBox(ReferenceBottomVision.PreRotateUsage.values());
+        comboBoxPreRotate = new JComboBox(BottomVisionSettings.PreRotateUsage.values());
         panel.add(comboBoxPreRotate, "4, 10");
 
         JLabel lblMaxRotation = new JLabel(Translations.getString(
                 "BottomVisionSettingsConfigurationWizard.RotationLabel.text")); //$NON-NLS-1$
         panel.add(lblMaxRotation, "6, 10, right, default");
 
-        comboBoxMaxRotation = new JComboBox(ReferenceBottomVision.MaxRotation.values());
+        comboBoxMaxRotation = new JComboBox(BottomVisionSettings.MaxRotation.values());
         comboBoxMaxRotation.setToolTipText(Translations.getString(
                 "BottomVisionSettingsConfigurationWizard.ComboMaxRotation.toolTipText")); //$NON-NLS-1$
         panel.add(comboBoxMaxRotation, "8, 10, fill, default");
@@ -253,7 +253,7 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
                 "BottomVisionSettingsConfigurationWizard.PartSizeCheckLabel.text")); //$NON-NLS-1$
         panel.add(lblPartCheckType, "2, 12");
 
-        comboBoxCheckPartSizeMethod = new JComboBox(ReferenceBottomVision.PartSizeCheckMethod.values());
+        comboBoxCheckPartSizeMethod = new JComboBox(BottomVisionSettings.PartSizeCheckMethod.values());
         panel.add(comboBoxCheckPartSizeMethod, "4, 12, fill, default");
 
         JLabel lblPartSizeTolerance = new JLabel(Translations.getString(

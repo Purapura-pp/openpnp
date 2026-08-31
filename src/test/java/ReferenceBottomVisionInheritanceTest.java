@@ -81,13 +81,13 @@ public class ReferenceBottomVisionInheritanceTest {
         bottomVisionSettings = bottomVision.getInheritedVisionSettings(part);
         assertFalse(bottomVisionSettings.isEnabled(), "Part should inherit BottomVisionSettings from Package");
         
-        bottomVision.getBottomVisionSettings().setPreRotateUsage(ReferenceBottomVision.PreRotateUsage.AlwaysOn);
+        bottomVision.getBottomVisionSettings().setPreRotateUsage(BottomVisionSettings.PreRotateUsage.AlwaysOn);
         bottomVisionSettings = bottomVision.getInheritedVisionSettings(part);
-        assertEquals(ReferenceBottomVision.PreRotateUsage.Default, bottomVisionSettings.getPreRotateUsage(), "Part should inherit from Package custom settings");
+        assertEquals(BottomVisionSettings.PreRotateUsage.Default, bottomVisionSettings.getPreRotateUsage(), "Part should inherit from Package custom settings");
         
         pkg.setBottomVisionSettings(null);
         bottomVisionSettings = bottomVision.getInheritedVisionSettings(part);
-        assertEquals(ReferenceBottomVision.PreRotateUsage.AlwaysOn, bottomVisionSettings.getPreRotateUsage(),"Part should inherit from Package custom settings which is the built-in default");
+        assertEquals(BottomVisionSettings.PreRotateUsage.AlwaysOn, bottomVisionSettings.getPreRotateUsage(),"Part should inherit from Package custom settings which is the built-in default");
     }
     
     @Test
@@ -97,24 +97,24 @@ public class ReferenceBottomVisionInheritanceTest {
         Package pkg = part1.getPackage();
 
         BottomVisionSettings customPackageVisionSettings = new BottomVisionSettings();
-        customPackageVisionSettings.setPreRotateUsage(ReferenceBottomVision.PreRotateUsage.AlwaysOn);
-        customPackageVisionSettings.setMaxRotation(ReferenceBottomVision.MaxRotation.Full);
+        customPackageVisionSettings.setPreRotateUsage(BottomVisionSettings.PreRotateUsage.AlwaysOn);
+        customPackageVisionSettings.setMaxRotation(BottomVisionSettings.MaxRotation.Full);
         pkg.setBottomVisionSettings(customPackageVisionSettings);
         
         BottomVisionSettings customPartVisionSettings = new BottomVisionSettings();
-        customPackageVisionSettings.setPreRotateUsage(ReferenceBottomVision.PreRotateUsage.AlwaysOn);
-        customPartVisionSettings.setMaxRotation(ReferenceBottomVision.MaxRotation.Adjust);
+        customPackageVisionSettings.setPreRotateUsage(BottomVisionSettings.PreRotateUsage.AlwaysOn);
+        customPartVisionSettings.setMaxRotation(BottomVisionSettings.MaxRotation.Adjust);
         part1.setBottomVisionSettings(customPartVisionSettings);
         
         pkg.generalizeBottomVisionSettings();
         assertNull(part1.getBottomVisionSettings(), "Part Bottom Vision should be null");
         assertNull(part2.getBottomVisionSettings(), "Part Bottom Vision should be null");
         
-        assertEquals(ReferenceBottomVision.PreRotateUsage.AlwaysOn, bottomVision.getInheritedVisionSettings(part1).getPreRotateUsage(), "Part1 should inherit BottomVisionSettings from Package");
-        assertEquals(ReferenceBottomVision.MaxRotation.Full, bottomVision.getInheritedVisionSettings(part1).getMaxRotation(), "Part1 should inherit BottomVisionSettings from Package");
+        assertEquals(BottomVisionSettings.PreRotateUsage.AlwaysOn, bottomVision.getInheritedVisionSettings(part1).getPreRotateUsage(), "Part1 should inherit BottomVisionSettings from Package");
+        assertEquals(BottomVisionSettings.MaxRotation.Full, bottomVision.getInheritedVisionSettings(part1).getMaxRotation(), "Part1 should inherit BottomVisionSettings from Package");
 
-        assertEquals(ReferenceBottomVision.PreRotateUsage.AlwaysOn, bottomVision.getInheritedVisionSettings(part2).getPreRotateUsage(), "Part2 should inherit BottomVisionSettings from Package");
-        assertEquals(ReferenceBottomVision.MaxRotation.Full, bottomVision.getInheritedVisionSettings(part2).getMaxRotation(), "Part2 should inherit BottomVisionSettings from Package");
+        assertEquals(BottomVisionSettings.PreRotateUsage.AlwaysOn, bottomVision.getInheritedVisionSettings(part2).getPreRotateUsage(), "Part2 should inherit BottomVisionSettings from Package");
+        assertEquals(BottomVisionSettings.MaxRotation.Full, bottomVision.getInheritedVisionSettings(part2).getMaxRotation(), "Part2 should inherit BottomVisionSettings from Package");
         
         customPackageVisionSettings.setValues(bottomVision.getBottomVisionSettings());
         

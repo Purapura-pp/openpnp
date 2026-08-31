@@ -28,8 +28,6 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openpnp.gui.importer.KicadModImporter;
-import org.python.antlr.base.boolop;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 
@@ -534,11 +532,11 @@ public class Footprint extends AbstractModelObject{
             }
             case Kicad:
             {
-                KicadModImporter importer = new KicadModImporter();
-                for (Pad pad : importer.getPads()) {
-                    addPad(pad);
-                }
-                break;
+                // Not generated from the parameters above: the pads are read from a .kicad_mod
+                // file the user picks, which needs a file dialog. That belongs to the caller,
+                // which hands the finished pads to addPad().
+                throw new UnsupportedOperationException(
+                        "Kicad pads are imported by the caller, not generated here.");
             }
         }
     }

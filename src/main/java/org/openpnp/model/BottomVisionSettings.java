@@ -3,16 +3,34 @@ package org.openpnp.model;
 import java.awt.geom.Rectangle2D;
 
 import org.openpnp.gui.support.Wizard;
-import org.openpnp.machine.reference.vision.ReferenceBottomVision.MaxRotation;
 import org.openpnp.machine.reference.vision.ReferenceBottomVision.PartSettings;
-import org.openpnp.machine.reference.vision.ReferenceBottomVision.PartSizeCheckMethod;
-import org.openpnp.machine.reference.vision.ReferenceBottomVision.PreRotateUsage;
 import org.openpnp.machine.reference.vision.wizards.BottomVisionSettingsConfigurationWizard;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
 public class BottomVisionSettings extends AbstractVisionSettings {
+
+    /**
+     * Whether the part is rotated before it is imaged, rather than the measured angle being
+     * corrected afterwards.
+     */
+    public enum PreRotateUsage {
+        Default, AlwaysOn, AlwaysOff
+    }
+
+    /** Which dimensions the detected part is checked against, if any. */
+    public enum PartSizeCheckMethod {
+        Disabled, BodySize, PadExtents
+    }
+
+    /**
+     * Adjust keeps the correction within the smallest rotation that lines the part up, Full allows
+     * the whole turn, which is needed when bottom vision can tell pin 1 apart.
+     */
+    public enum MaxRotation {
+        Adjust, Full
+    }
 
     @Attribute(required = false)
     protected PreRotateUsage preRotateUsage = PreRotateUsage.Default;

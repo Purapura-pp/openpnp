@@ -50,6 +50,7 @@ import org.openpnp.gui.components.CameraView;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.reticle.FootprintReticle;
 import org.openpnp.gui.components.reticle.Reticle;
+import org.openpnp.gui.importer.KicadModImporter;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.Helpers;
@@ -406,7 +407,16 @@ public class PackageVisionWizard extends AbstractConfigurationWizard {
                     }
                     footprint.removeAllPads();
                 }
-                footprint.generate(type);
+                if (type == Footprint.Generator.Kicad) {
+                    // Reading a .kicad_mod asks the user to pick a file, so the dialog stays on
+                    // this side and the footprint is only handed the finished pads.
+                    for (Pad pad : new KicadModImporter().getPads()) {
+                        footprint.addPad(pad);
+                    }
+                }
+                else {
+                    footprint.generate(type);
+                }
             }
             finally {
                 tableModel.fireTableDataChanged();
