@@ -560,8 +560,13 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
                 location, location, visionSettings);
         if (edit) {
 
-            pipelinePanel.openPipelineEditor("Bottom Vision Pipeline", pipeline, 
-                    "move nozzle "+nozzle.getName()+" to the camera alignment location before editing the pipeline", 
+            pipelinePanel.openPipelineEditor(
+                    Translations.getString( //$NON-NLS-1$
+                            "BottomVisionSettingsConfigurationWizard.PipelineTitle"),
+                    pipeline,
+                    String.format(Translations.getString( //$NON-NLS-1$
+                            "BottomVisionSettingsConfigurationWizard.MoveNozzleToAlignment"),
+                            nozzle.getName()),
                     nozzle, location);
         }
     }

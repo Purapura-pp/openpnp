@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.model.Configuration;
@@ -275,7 +276,9 @@ public class UiUtils {
                 if (allowWithoutMove) {
                     if (moveBeforeActionDescription != null) {
                         result = JOptionPane.showConfirmDialog(parentComponent,
-                                "Do you want to "+moveBeforeActionDescription+"?\n",
+                                String.format(Translations.getString( //$NON-NLS-1$
+                                        "UiUtils.ConfirmMove.Question"),
+                                        moveBeforeActionDescription),
                                 null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     }
                     else {
@@ -284,8 +287,9 @@ public class UiUtils {
                 }
                 else {
                     result = JOptionPane.showConfirmDialog(parentComponent,
-                            "About to "+moveBeforeActionDescription+".\n"
-                                    +"Do you want to proceed?",
+                            String.format(Translations.getString( //$NON-NLS-1$
+                                    "UiUtils.ConfirmMove.Proceed"),
+                                    moveBeforeActionDescription),
                                     null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 }
                 if (result == JOptionPane.YES_OPTION) {
@@ -304,13 +308,16 @@ public class UiUtils {
                 // We can't move but should.
                 if (!allowWithoutMove) {
                     // Just say we can't. 
-                    throw new Exception("Machine not enabled, unable to "+moveBeforeActionDescription+".");
+                    throw new Exception(String.format(
+                            Translations.getString("UiUtils.MachineNotEnabled"), //$NON-NLS-1$
+                            moveBeforeActionDescription));
                 }
                 else {
                     // Ask the user if it is OK to proceed without moving. 
                     int result = JOptionPane.showConfirmDialog(parentComponent,
-                            "Machine not enabled, unable to "+moveBeforeActionDescription+".\n"
-                                    +"Do you want to proceed anyway?",
+                            String.format(Translations.getString( //$NON-NLS-1$
+                                    "UiUtils.MachineNotEnabled.ProceedAnyway"),
+                                    moveBeforeActionDescription),
                                     null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (result == JOptionPane.YES_OPTION) {
                         actionThrunnable.thrun();

@@ -416,7 +416,8 @@ public class FiducialVisionSettingsConfigurationWizard extends AbstractConfigura
         fiducialLocator.preparePipeline(pipeline, pipelineParameterAssignments, fiducialLocator.getVisionCamera(), settingsHolder, Location.origin);
 
         if (edit) {
-            pipelinePanel.openPipelineEditor("Fiducial Vision Pipeline", pipeline);
+            pipelinePanel.openPipelineEditor(Translations.getString( //$NON-NLS-1$
+                    "FiducialVisionSettingsConfigurationWizard.PipelineTitle"), pipeline);
         }
     }
 

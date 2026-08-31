@@ -50,6 +50,17 @@ import org.pmw.tinylog.Logger;
  * TODO: Disable the BoardLocation table while active.
  */
 public class MultiPlacementBoardLocationProcess {
+    private static final String SCALING_X =
+            "MultiPlacementBoardLocationProcess.Error.XScaling"; //$NON-NLS-1$
+    private static final String SCALING_Y =
+            "MultiPlacementBoardLocationProcess.Error.YScaling"; //$NON-NLS-1$
+    private static final String SHEARING_X =
+            "MultiPlacementBoardLocationProcess.Error.XShearing"; //$NON-NLS-1$
+    private static final String ORIGIN_MOVED =
+            "MultiPlacementBoardLocationProcess.Error.OriginMoved"; //$NON-NLS-1$
+    private static final String RESULTS_INVALID =
+            "MultiPlacementBoardLocationProcess.Error.ResultsInvalid"; //$NON-NLS-1$
+
     private final MainFrame mainFrame;
     private final JobPanel jobPanel;
     private final Camera camera;
@@ -268,34 +279,49 @@ public class MultiPlacementBoardLocationProcess {
             Utils2D.AffineInfo ai = Utils2D.affineInfo(boardLocation.getLocalToParentTransform());
             Logger.info("Placement affine transform: " + ai);
             
-            String errString = "";
+            // Collected rather than concatenated, so that a translation can join them with its own
+            // separator instead of having ", " built into each fragment.
+            List<String> problems = new ArrayList<>();
             if (ai.xScale > 0 && Math.abs(ai.xScale-1) > props.scalingTolerance) {
-                errString += "x scaling = " + String.format("%.5f", ai.xScale) + " which is outside the expected range of [" +
-                        String.format("%.5f", 1-props.scalingTolerance) + ", " + String.format("%.5f", 1+props.scalingTolerance) + "], ";
+                problems.add(String.format(
+                        Translations.getString(SCALING_X), //$NON-NLS-1$
+                        String.format("%.5f", ai.xScale),
+                        String.format("%.5f", 1-props.scalingTolerance),
+                        String.format("%.5f", 1+props.scalingTolerance)));
             }
             else if (ai.xScale < 0 && Math.abs(ai.xScale+1) > props.scalingTolerance) {
-                errString += "x scaling = " + String.format("%.5f", ai.xScale) + " which is outside the expected range of [" +
-                        String.format("-%.5f", 1+props.scalingTolerance) + ", " + String.format("-%.5f", 1-props.scalingTolerance) + "], ";
+                problems.add(String.format(
+                        Translations.getString(SCALING_X), //$NON-NLS-1$
+                        String.format("%.5f", ai.xScale),
+                        String.format("-%.5f", 1+props.scalingTolerance),
+                        String.format("-%.5f", 1-props.scalingTolerance)));
             }
             if (Math.abs(ai.yScale-1) > props.scalingTolerance) {
-                errString += "y scaling = " + String.format("%.5f", ai.yScale) + " which is outside the expected range of [" +
-                        String.format("%.5f", 1-props.scalingTolerance) + ", " + String.format("%.5f", 1+props.scalingTolerance) + "], ";
+                problems.add(String.format(
+                        Translations.getString(SCALING_Y), //$NON-NLS-1$
+                        String.format("%.5f", ai.yScale),
+                        String.format("%.5f", 1-props.scalingTolerance),
+                        String.format("%.5f", 1+props.scalingTolerance)));
             }
             if (Math.abs(ai.xShear) > props.shearingTolerance) {
-                errString += "x shearing = " + String.format("%.5f", ai.xShear) + " which is outside the expected range of [" +
-                        String.format("%.5f", -props.shearingTolerance) + ", " + String.format("%.5f", props.shearingTolerance) + "], ";
+                problems.add(String.format(
+                        Translations.getString(SHEARING_X), //$NON-NLS-1$
+                        String.format("%.5f", ai.xShear),
+                        String.format("%.5f", -props.shearingTolerance),
+                        String.format("%.5f", props.shearingTolerance)));
             }
             if (boardOffset > props.boardLocationTolerance.convertToUnits(LengthUnit.Millimeters).getValue()) {
-                errString += "the board origin moved " + String.format("%.4f", boardOffset) +
-                        "mm which is greater than the allowed amount of " +
-                        String.format("%.4f", props.boardLocationTolerance.convertToUnits(LengthUnit.Millimeters).getValue()) + "mm, ";
+                problems.add(String.format(
+                        Translations.getString(ORIGIN_MOVED), //$NON-NLS-1$
+                        String.format("%.4f", boardOffset),
+                        String.format("%.4f", props.boardLocationTolerance
+                                .convertToUnits(LengthUnit.Millimeters).getValue())));
             }
-            if (errString.length() > 0) {
-                errString = errString.substring(0, errString.length()-2); //strip off the last comma and space
-                MessageBoxes.errorBox(mainFrame, "Error", "Results invalid because " + errString + "; double check to ensure you are " +
-                        "jogging the camera to the correct placements.  Other potential remidies include " +
-                        "setting the initial board X, Y, Z, and Rotation in the Boards panel; using a different set of placements; " +
-                        "or changing the allowable tolerances in the MultiPlacementBoardLocationProperties section of machine.xml.");
+            if (!problems.isEmpty()) {
+                MessageBoxes.errorBox(mainFrame, Translations.getString("General.Error"), //$NON-NLS-1$
+                        String.format(Translations.getString(RESULTS_INVALID), //$NON-NLS-1$
+                                String.join(Translations.getString("CommonWords.listSeparator"), //$NON-NLS-1$
+                                        problems)));
                 cancel();
                 return false;
             }

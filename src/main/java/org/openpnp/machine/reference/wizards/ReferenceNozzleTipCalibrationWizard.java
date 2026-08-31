@@ -651,7 +651,9 @@ public class ReferenceNozzleTipCalibrationWizard extends AbstractConfigurationWi
 
         final Location moveToLocation = location;
         UiUtils.confirmMoveToLocationAndAct(getTopLevelAncestor(), 
-                "move nozzle "+nozzle.getName()+" to the camera center location before editing the pipeline", 
+                String.format(Translations.getString( //$NON-NLS-1$
+                        "ReferenceNozzleTipCalibrationWizard.MoveNozzleToCameraCenter"),
+                        nozzle.getName()),
                 nozzle, 
                 moveToLocation, true, () -> {
                     CvPipeline pipeline = calibration

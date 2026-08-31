@@ -548,7 +548,7 @@ extends AbstractReferenceFeederConfigurationWizard {
             UiUtils.messageBoxOnException(() -> {
                 UiUtils.confirmMoveToLocationAndAct(
                         getTopLevelAncestor(),
-                        "move the camera to the proper feeder vision location before editing the pipeline",
+                        Translations.getString("DialogMessages.MoveCameraToFeederVision"), //$NON-NLS-1$
                         feeder.getCamera(),
                         feeder.getNominalVisionLocation(),
                         true, () -> {
