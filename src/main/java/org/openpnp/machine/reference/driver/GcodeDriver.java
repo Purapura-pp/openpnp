@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -322,7 +323,12 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
     protected LinkedBlockingQueue<AxesLocation> reportedLocationsQueue = new LinkedBlockingQueue<>();
     protected LinkedBlockingQueue<Line> receivedConfirmationsQueue = new LinkedBlockingQueue<>();
 
-    protected Line errorResponse;
+    /**
+     * Written by the reader/writer threads, consumed by the machine task thread, therefore
+     * atomic: the take must clear it in the same step to avoid dropping an error that arrives
+     * between the test and the clear.
+     */
+    protected final AtomicReference<Line> errorResponse = new AtomicReference<>();
     private boolean motionPending;
 
     private PrintWriter gcodeLogger;
@@ -541,7 +547,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         readerThread = new ReaderThread();
         readerThread.setDaemon(true);
         readerThread.start();
-        errorResponse = null;
+        errorResponse.set(null);
         receivedConfirmationsQueue = new LinkedBlockingQueue<>();
         reportedLocationsQueue = new LinkedBlockingQueue<>();
     }
@@ -1296,9 +1302,8 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
     }
 
     protected void bailOnError() throws Exception {
-        if (errorResponse != null) {
-            Line error = errorResponse; 
-            errorResponse = null;
+        Line error = errorResponse.getAndSet(null);
+        if (error != null) {
             throw new Exception(getCommunications().getConnectionName()+" error response from controller: " + error);
         }
         if (readerThread == null || !readerThread.isAlive()) {
@@ -1556,7 +1561,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         }
         regex = getCommand(null, CommandType.COMMAND_ERROR_REGEX);
         if (regex != null && line.getLine().matches(regex)) {
-            errorResponse = line;
+            errorResponse.set(line);
         }
         processPositionReport(line);
     }

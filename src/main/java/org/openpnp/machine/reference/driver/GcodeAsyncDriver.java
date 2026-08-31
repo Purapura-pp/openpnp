@@ -281,7 +281,7 @@ public class GcodeAsyncDriver extends GcodeDriver {
                 catch (Exception e) {
                     // We probably got a timeout exception. We can't throw from the writer thread. Therefore, set 
                     // the exception as an error response, it will be reported when the driver wants to do the next step. 
-                    errorResponse = new Line(e.getMessage());
+                    errorResponse.set(new Line(e.getMessage()));
                     //Logger.error("[{}] {}", getCommunications().getConnectionName(), e);
                 }
             }
