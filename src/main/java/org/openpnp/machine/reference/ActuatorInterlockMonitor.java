@@ -34,7 +34,6 @@ import org.openpnp.spi.CoordinateAxis;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.base.AbstractActuator;
-import org.openpnp.spi.base.AbstractMachine;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -140,7 +139,7 @@ public class ActuatorInterlockMonitor extends AbstractModelObject implements Act
                 interlockAxis4 = (CoordinateAxis) configuration.getMachine().getAxis(interlockAxis4Id);
                 // We don't have access to the head here. So we need to scan them all. 
                 // I'm sure there is a better solution.
-                for (Head head : Configuration.get().getMachine().getHeads()) {
+                for (Head head : configuration.getMachine().getHeads()) {
                     conditionalActuator = head.getActuator(conditionalActuatorId);
                     if (conditionalActuator != null) {
                         conditionalActuatorLastState = conditionalActuator.isActuated();
@@ -415,6 +414,6 @@ public class ActuatorInterlockMonitor extends AbstractModelObject implements Act
 
     @Override
     public Wizard getConfigurationWizard(AbstractActuator actuator) {
-        return new ActuatorInterlockMonitorConfigurationWizard((AbstractMachine) Configuration.get().getMachine(), actuator, this);
+        return new ActuatorInterlockMonitorConfigurationWizard(actuator.getMachine(), actuator, this);
     }
 }

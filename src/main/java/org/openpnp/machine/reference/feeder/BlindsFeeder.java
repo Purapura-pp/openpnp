@@ -232,7 +232,7 @@ public class BlindsFeeder extends ReferenceFeeder {
         Configuration.get().addListener(new ConfigurationListener.Adapter() {
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineHeadActivity(Machine machine, Head head) {
@@ -370,8 +370,7 @@ public class BlindsFeeder extends ReferenceFeeder {
     }
 
     public Camera getCamera() throws Exception {
-        return Configuration.get()
-                .getMachine()
+        return getMachine()
                 .getDefaultHead()
                 .getDefaultCamera();
     }

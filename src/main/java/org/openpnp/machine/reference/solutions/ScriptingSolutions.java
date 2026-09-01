@@ -1,7 +1,6 @@
 package org.openpnp.machine.reference.solutions;
 
 import org.openpnp.machine.reference.ReferenceMachine;
-import org.openpnp.model.Configuration;
 
 import org.openpnp.model.Solutions;
 import org.openpnp.model.Solutions.Milestone;
@@ -23,9 +22,7 @@ public class ScriptingSolutions implements Solutions.Subject {
     @Override
     public void findIssues(Solutions solutions) {
         if (solutions.isTargeting(Milestone.Advanced)) {
-            if (Configuration.get()
-                             .getMachine()
-                             .isPoolScriptingEngines() == false) {
+            if (machine.isPoolScriptingEngines() == false) {
                 solutions.add(new Solutions.Issue(machine,
                         "Script execuction performance can be improved by enabling engine pooling.",
                         "Enable script engine pooling.", Severity.Suggestion,
@@ -33,10 +30,7 @@ public class ScriptingSolutions implements Solutions.Subject {
 
                     @Override
                     public void setState(Solutions.State state) throws Exception {
-                        ((ReferenceMachine) Configuration.get()
-                                                         .getMachine()).setPoolScriptingEngines(
-                                                                 state == State.Solved ? true
-                                                                         : false);
+                        machine.setPoolScriptingEngines(state == State.Solved ? true : false);
                         super.setState(state);
                     }
 

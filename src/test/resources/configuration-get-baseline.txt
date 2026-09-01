@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 451 calls in 153 files.
+# 427 calls in 152 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/BoardsPanel.java	5
@@ -58,37 +58,37 @@ org/openpnp/gui/tablemodel/PlacementsHolderTableModel.java	3
 org/openpnp/gui/tablemodel/VisionSettingsTableModel.java	3
 org/openpnp/gui/viewers/PlacementsHolderLocationViewer.java	10
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
-org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	3
-org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	5
-org/openpnp/machine/photon/PhotonFeeder.java	7
+org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	1
+org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	1
+org/openpnp/machine/photon/PhotonFeeder.java	6
 org/openpnp/machine/photon/sheets/gui/FeederSlotUpdateStep.java	1
 org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/ActuatorInterlockMonitor.java	3
+org/openpnp/machine/reference/ActuatorInterlockMonitor.java	1
 org/openpnp/machine/reference/ContactProbeNozzle.java	8
 org/openpnp/machine/reference/ReferenceActuator.java	2
 org/openpnp/machine/reference/ReferenceActuatorProfiles.java	1
 org/openpnp/machine/reference/ReferenceHead.java	1
 org/openpnp/machine/reference/ReferenceMachine.java	3
 org/openpnp/machine/reference/ReferenceNozzle.java	8
-org/openpnp/machine/reference/ReferenceNozzleTip.java	8
-org/openpnp/machine/reference/ReferenceNozzleTipCalibration.java	6
+org/openpnp/machine/reference/ReferenceNozzleTip.java	7
+org/openpnp/machine/reference/ReferenceNozzleTipCalibration.java	4
 org/openpnp/machine/reference/ReferencePnpJobProcessor.java	11
 org/openpnp/machine/reference/ScriptActuator.java	1
 org/openpnp/machine/reference/SimulationModeMachine.java	2
 org/openpnp/machine/reference/axis/ReferenceLinearTransformAxis.java	1
-org/openpnp/machine/reference/camera/AbstractBroadcastingCamera.java	3
+org/openpnp/machine/reference/camera/AbstractBroadcastingCamera.java	2
 org/openpnp/machine/reference/camera/AbstractSettlingCamera.java	3
 org/openpnp/machine/reference/camera/AutoFocusProvider.java	1
 org/openpnp/machine/reference/camera/ReferenceCamera.java	3
 org/openpnp/machine/reference/camera/SimulatedUpCamera.java	1
 org/openpnp/machine/reference/driver/AbstractMotionPlanner.java	3
 org/openpnp/machine/reference/driver/GcodeDriver.java	1
-org/openpnp/machine/reference/feeder/BlindsFeeder.java	10
+org/openpnp/machine/reference/feeder/BlindsFeeder.java	8
 org/openpnp/machine/reference/feeder/ReferenceAutoFeeder.java	1
 org/openpnp/machine/reference/feeder/ReferenceDragFeeder.java	3
 org/openpnp/machine/reference/feeder/ReferenceHeapFeeder.java	6
 org/openpnp/machine/reference/feeder/ReferenceLeverFeeder.java	3
-org/openpnp/machine/reference/feeder/ReferencePushPullFeeder.java	7
+org/openpnp/machine/reference/feeder/ReferencePushPullFeeder.java	2
 org/openpnp/machine/reference/feeder/ReferenceSlotAutoFeeder.java	4
 org/openpnp/machine/reference/feeder/ReferenceStripFeeder.java	2
 org/openpnp/machine/reference/feeder/SchultzFeeder.java	1
@@ -109,9 +109,8 @@ org/openpnp/machine/reference/solutions/ActuatorSolutions.java	1
 org/openpnp/machine/reference/solutions/AxisSolutions.java	2
 org/openpnp/machine/reference/solutions/CalibrationSolutions.java	3
 org/openpnp/machine/reference/solutions/CameraSolutions.java	2
-org/openpnp/machine/reference/solutions/GcodeDriverSolutions.java	3
+org/openpnp/machine/reference/solutions/GcodeDriverSolutions.java	1
 org/openpnp/machine/reference/solutions/HeadSolutions.java	5
-org/openpnp/machine/reference/solutions/ScriptingSolutions.java	2
 org/openpnp/machine/reference/solutions/VisionSolutions.java	4
 org/openpnp/machine/reference/vision/ReferenceBottomVision.java	3
 org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	2

@@ -281,7 +281,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
                 // Resolve the actuators by name (legacy way).
-                Head head = Configuration.get().getMachine().getDefaultHead();
+                Head head = getMachine().getDefaultHead();
                 try {
                     actuator = head.getActuatorByName(actuatorName);
                 }
@@ -297,7 +297,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
                 // Listen to the machine become unhomed to invalidate feeder calibration.
                 // Note that home()  first switches the machine isHomed() state off, then on again, 
                 // so we also catch re-homing.
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineHeadActivity(Machine machine, Head head) {
@@ -321,8 +321,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
     }
 
     public Camera getCamera() throws Exception {
-        return  Configuration.get()
-                .getMachine()
+        return  getMachine()
                 .getDefaultHead()
                 .getDefaultCamera();
     }
@@ -1439,7 +1438,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
     }
 
     public List<ReferencePushPullFeeder> getAllPushPullFeeders() {
-        return getPushPullFeedersFromPool(Configuration.get().getMachine().getFeeders());
+        return getPushPullFeedersFromPool(getMachine().getFeeders());
     }
 
     public Length getTapeWidth() {
@@ -1889,7 +1888,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
         feeder.setFeederLocation(newLocation, true, true, true, templateFeeder);
         feeder.setEnabled(isEnabled());
         // add to machine
-        Configuration.get().getMachine().addFeeder(feeder);
+        getMachine().addFeeder(feeder);
         return feeder;
     }
 

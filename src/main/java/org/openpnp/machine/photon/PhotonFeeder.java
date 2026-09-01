@@ -217,7 +217,7 @@ public class PhotonFeeder extends ReferenceFeeder {
             if (otherFeeder == null) {
                 otherFeeder = new PhotonFeeder();
                 otherFeeder.setHardwareId(response.uuid);
-                Configuration.get().getMachine().addFeeder(otherFeeder);
+                getMachine().addFeeder(otherFeeder);
             }
 
             // This other feeder is in the slot we thought we were

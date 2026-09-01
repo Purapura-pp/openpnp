@@ -125,7 +125,7 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
                 // Resolve the actuators by name (legacy way).
-                Machine machine = Configuration.get().getMachine();
+                Machine machine = getMachine();
                 try {
                     feedActuator = machine.getActuatorByName(feedActuatorName);
                 }
@@ -141,7 +141,7 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
                 // Listen to the machine become unhomed to invalidate feeder calibration.
                 // Note that home()  first switches the machine isHomed() state off, then on again,
                 // so we also catch re-homing.
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineHeadActivity(Machine machine, Head head) {
@@ -216,7 +216,7 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
         }
         Actuator actuator = nozzle.getHead().getActuatorByName(feedActuatorName);
         if (actuator == null) {
-            actuator = Configuration.get().getMachine().getActuatorByName(feedActuatorName);
+            actuator = getMachine().getActuatorByName(feedActuatorName);
         }
         if (actuator == null) {
             throw new Exception("Feed failed. Unable to find an actuator named " + feedActuatorName);
@@ -233,7 +233,7 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
         }
         Actuator actuator = nozzle.getHead().getActuatorByName(postPickActuatorName);
         if (actuator == null) {
-            actuator = Configuration.get().getMachine().getActuatorByName(postPickActuatorName);
+            actuator = getMachine().getActuatorByName(postPickActuatorName);
         }
         if (actuator == null) {
             throw new Exception("Post pick failed. Unable to find an actuator named " + postPickActuatorName);

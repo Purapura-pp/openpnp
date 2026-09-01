@@ -104,7 +104,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
 
     @Override
     public void findIssues(Solutions solutions) {
-        ReferenceMachine machine = (ReferenceMachine) Configuration.get().getMachine();
+        ReferenceMachine machine = gcodeDriver.getMachine();
         boolean hasAxes = !gcodeDriver.getAxisVariables(machine).isEmpty();
         if (solutions.isTargeting(Milestone.Advanced)) {
             if (!(gcodeDriver instanceof GcodeAsyncDriver)) {
@@ -1133,7 +1133,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
             });
         }
         if (disallowHeadMountables) {
-            for (Head head : Configuration.get().getMachine().getHeads()) {
+            for (Head head : gcodeDriver.getMachine().getHeads()) {
                 for (HeadMountable hm : head.getHeadMountables()) {
                     Command commandHeadMountable = gcodeDriver.getCommand(hm, commandType, false);
                     if (commandHeadMountable != null) {

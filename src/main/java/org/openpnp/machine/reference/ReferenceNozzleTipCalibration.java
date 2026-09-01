@@ -666,7 +666,7 @@ public class ReferenceNozzleTipCalibration extends AbstractModelObject {
             return;
         }
 
-        if (!(homing || Configuration.get().getMachine().isHomed())) {
+        if (!(homing || nozzle.getMachine().isHomed())) {
             throw new Exception("Machine not yet homed, nozzle tip calibration request aborted");
         }
 
@@ -677,7 +677,7 @@ public class ReferenceNozzleTipCalibration extends AbstractModelObject {
         if (nozzle.getPart()!= null) {
             throw new Exception("Cannot calibrate nozzle tip with part on nozzle "+nozzle.getName()+".");
         }
-        CameraBatchOperation cbo = Configuration.get().getMachine().getCameraBatchOperation();
+        CameraBatchOperation cbo = nozzle.getMachine().getCameraBatchOperation();
         if (cbo!=null) {
             cbo.startBatchOperation("nozzle");
         }

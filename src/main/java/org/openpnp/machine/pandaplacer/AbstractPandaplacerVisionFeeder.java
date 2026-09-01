@@ -139,7 +139,7 @@ public abstract class AbstractPandaplacerVisionFeeder extends ReferenceFeeder {
                 // Listen to the machine become unhomed to invalidate feeder calibration.
                 // Note that home()  first switches the machine isHomed() state off, then on again,
                 // so we also catch re-homing.
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineHeadActivity(Machine machine, Head head) {
@@ -164,8 +164,7 @@ public abstract class AbstractPandaplacerVisionFeeder extends ReferenceFeeder {
     }
 
     public Camera getCamera() throws Exception {
-        return  Configuration.get()
-                .getMachine()
+        return  getMachine()
                 .getDefaultHead()
                 .getDefaultCamera();
     }

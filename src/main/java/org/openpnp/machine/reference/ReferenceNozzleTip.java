@@ -288,8 +288,7 @@ public class ReferenceNozzleTip extends AbstractNozzleTip {
                     partOffProbingMilliseconds = pickDwellMilliseconds;
                     try {
                         // also add the nozzle's pick dwell time
-                        Nozzle nozzle = Configuration.get()
-                                .getMachine()
+                        Nozzle nozzle = getMachine()
                                 .getDefaultHead()
                                 .getDefaultNozzle();
                         if (nozzle instanceof ReferenceNozzle) {
