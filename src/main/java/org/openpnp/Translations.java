@@ -5,15 +5,31 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.pmw.tinylog.Logger;
+
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.Resource;
+import io.github.classgraph.ScanResult;
 
 public class Translations {
     private static final String BUNDLE_NAME = "org.openpnp.translations"; //$NON-NLS-1$
 
     private static final String TEXT_BUNDLE_NAME = "org.openpnp.texts"; //$NON-NLS-1$
 
+    /** Where the bundles live, as a resource path rather than a package name. */
+    private static final String BUNDLE_PATH = "org/openpnp"; //$NON-NLS-1$
+
+    private static final Pattern BUNDLE_RESOURCE =
+            Pattern.compile(".*/translations_(\\w+)\\.properties"); //$NON-NLS-1$
+
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, new UTF8Control());
 
     private static final ResourceBundle TEXT_BUNDLE = loadTextBundle();
+
+    private static List<Locale> availableLocales;
 
     private Translations() {
     }
@@ -56,6 +72,81 @@ public class Translations {
         catch (MissingResourceException e) {
             return english;
         }
+    }
+
+    /**
+     * The locales the application can display, discovered from the translation bundles that are
+     * actually on the classpath rather than from a list in the code, so that adding a language is
+     * only a matter of adding its properties file.
+     * <p>
+     * Scans the classpath rather than a directory: once packaged, the bundles are inside the jar,
+     * where File cannot list them.
+     */
+    public static synchronized List<Locale> getAvailableLocales() {
+        if (availableLocales == null) {
+            availableLocales = discoverLocales();
+        }
+        return availableLocales;
+    }
+
+    private static List<Locale> discoverLocales() {
+        Set<Locale> locales = new HashSet<>();
+        // The base bundle holds English and has no suffix to discover it by.
+        locales.add(Locale.US);
+        try (ScanResult scan = new ClassGraph().acceptPaths(BUNDLE_PATH).scan()) {
+            for (Resource resource : scan.getAllResources()) {
+                Matcher matcher = BUNDLE_RESOURCE.matcher("/" + resource.getPath());
+                if (matcher.matches()) {
+                    locales.add(localeOfSuffix(matcher.group(1)));
+                }
+            }
+        }
+        catch (Throwable t) {
+            // Better to offer only English than to fail starting up over a menu.
+            Logger.warn(t, "Could not scan for translation bundles."); //$NON-NLS-1$
+        }
+        // By language tag, not by display name: this list is cached, and it is first built before
+        // Locale.setDefault has been given the configured locale, so display names here would be
+        // ordered by whatever the system language happened to be. Callers that show the list sort
+        // it for the user themselves.
+        List<Locale> sorted = new ArrayList<>(locales);
+        sorted.sort(Comparator.comparing(Locale::toLanguageTag));
+        return Collections.unmodifiableList(sorted);
+    }
+
+    private static Locale localeOfSuffix(String suffix) {
+        String[] parts = suffix.split("_", 3); //$NON-NLS-1$
+        if (parts.length == 1) {
+            return new Locale(parts[0]);
+        }
+        if (parts.length == 2) {
+            return new Locale(parts[0], parts[1]);
+        }
+        return new Locale(parts[0], parts[1], parts[2]);
+    }
+
+    /**
+     * The locale to display when the user has never picked one. Prefers an exact match for the
+     * system locale, then a bundle whose language matches, and falls back to English.
+     * <p>
+     * Called before {@link Locale#setDefault} has been given the configured value, so the default
+     * locale it reads is still the system one. Re-reading it afterwards yields the same answer,
+     * because whatever this returns is itself one of the available locales.
+     */
+    public static Locale matchSystemLocale() {
+        Locale system = Locale.getDefault();
+        List<Locale> available = getAvailableLocales();
+        for (Locale locale : available) {
+            if (locale.equals(system)) {
+                return locale;
+            }
+        }
+        for (Locale locale : available) {
+            if (locale.getLanguage().equals(system.getLanguage())) {
+                return locale;
+            }
+        }
+        return Locale.US;
     }
 
     public static class UTF8Control extends ResourceBundle.Control {

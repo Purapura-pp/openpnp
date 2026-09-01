@@ -45,7 +45,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.security.InvalidParameterException;
+import java.text.Collator;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -459,39 +462,18 @@ public class MainFrame extends JFrame {
         JMenu mnLanguage = new JMenu(Translations.getString("Menu.View.Language")); //$NON-NLS-1$
         mnView.add(mnLanguage);
 
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(Locale.US));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-        
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("ru")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("es")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("fr")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-		
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("it")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("de")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-
-        menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(new Locale("zh", "CN")));
-        buttonGroup.add(menuItem);
-        mnLanguage.add(menuItem);
-
-        for (int i = 0; i < mnLanguage.getItemCount(); i++) {
-            JCheckBoxMenuItem item = (JCheckBoxMenuItem) mnLanguage.getItem(i);
-            LanguageSelectionAction action = (LanguageSelectionAction) item.getAction();
-            if (action.getLocale().equals(Configuration.get().getLocale())) {
-                item.setSelected(true);
+        // Discovered from the bundles that are present, so adding a language does not mean
+        // editing this list. See Translations.getAvailableLocales.
+        Locale selectedLocale = Configuration.get().getLocale();
+        List<Locale> locales = new ArrayList<>(Translations.getAvailableLocales());
+        Collator collator = Collator.getInstance();
+        locales.sort((a, b) -> collator.compare(a.getDisplayName(), b.getDisplayName()));
+        for (Locale locale : locales) {
+            menuItem = new JCheckBoxMenuItem(new LanguageSelectionAction(locale));
+            buttonGroup.add(menuItem);
+            mnLanguage.add(menuItem);
+            if (locale.equals(selectedLocale)) {
+                menuItem.setSelected(true);
             }
         }
         

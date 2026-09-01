@@ -45,6 +45,7 @@ import java.util.prefs.Preferences;
 
 import org.apache.commons.io.FileUtils;
 import org.openpnp.ConfigurationListener;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ThemeInfo;
 import org.openpnp.gui.components.ThemeSettingsPanel;
 import org.openpnp.model.Abstract2DLocatable.Side;
@@ -219,6 +220,11 @@ public class Configuration extends AbstractModelObject {
     }
 
     public Locale getLocale() {
+        // Whether the key is present, not whether it equals the default: that is what tells
+        // "never chose a language" apart from "chose English".
+        if (prefs.get(PREF_LOCALE_LANG, null) == null) {
+            return Translations.matchSystemLocale();
+        }
         return new Locale(prefs.get(PREF_LOCALE_LANG, PREF_LOCALE_LANG_DEF), 
                 prefs.get(PREF_LOCALE_COUNTRY, PREF_LOCALE_COUNTRY_DEF));
     }
