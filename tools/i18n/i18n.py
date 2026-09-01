@@ -893,6 +893,9 @@ NOT_TRANSLATABLE = (
     (re.compile(r"^(New label|New JLabel|New check ?box|New JCheckBox|New button|New JButton"
                 r"|newLabel|None|N/A|\.\.\.)$", re.I), "a placeholder left by the form editor"),
     (re.compile(r"^[A-Za-z]\s*[\d.]{4,}[\s,]"), "a template used to size a field, not shown"),
+    # A label bound to a numeric property carries this only until the binding first fires, which
+    # is before the wizard is visible, so the word itself never reaches a user.
+    (re.compile(r"^(min|max|def)$"), "a design time placeholder for a bound value"),
     (re.compile(r"^(OpenPnP|Gcode|G-code|TCP|UDP|HTTP|USB|CSV|XML|JSON|OpenCV|Java)$"), "a name"),
     (re.compile(r"^[^A-Za-z]*$"), "no letters"),
     (re.compile(r"©|\(c\)\s*\d{4}", re.I), "a copyright notice"),

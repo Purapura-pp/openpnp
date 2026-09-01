@@ -1,54 +1,0 @@
-# Fill in the third column only. Do not change the first two.
-# Keep every %s / %1$s and every <br/> and \n that the English has.
-# Put SKIP in the third column for anything you are unsure of; it stays English.
-# key	english	translation
-ReferencePushPullFeederConfigurationWizard.lblOcrWrongPart.toolTipText	<html>Determines what action should be taken when OCR detects the wrong Part ID in the feeder.<br/> \n<ul>\n<li>\n<strong>None</strong>: Use this setting if you don't want to use OCR.</li>\n<li>\n<strong>SwapFeeders</strong>: If a wrong part is detected but the right part is selected<br/>\nin a different ReferencePushPullFeeder, the locations of the two feeders are swapped. The<br/>\nswapped-in feeder will be enabled. This will happen, if you unload/reload/rearrange your<br/>\nfeeders on the machine.</li>\n<li>\n<strong>SwapOrCreate</strong>: Works like <strong>SwapFeeders</strong>, but if no<br/>\nother feeder with the right part is found, a new one will be created and swapped-in at the<br/>\ncurrent feeder's location. The current feeder is then disabled in turn (they are now sitting at<br/>\nthe same location and only one must be enabled).</li>\n<li>\n<strong>ChangePart</strong>: The part in the current feeder is changed. This will only<br/>\nwork correctly, if the tape settings etc. remain the same between the parts i.e. if you restrict<br/>\nany reloading/rearranging to groups of feeders with the same settings.</li>\n<li>\n<strong>ChangePartAndClone</strong>: The part in the current feeder is changed but<br/>\nsettings are cloned from a template feeder.</li>\n</ul>\n</html>\n	
-ReferencePushPullFeederConfigurationWizard.lblPickLocation.toolTipText	<html>Pick Location of the part. If multiple are produced by a feed operation<br/>\nthis must be the last one picked i.e. the one closest to the the tape reel.</html>	
-ReferencePushPullFeederConfigurationWizard.lblRotation.toolTipText	<html>Rotation of the part inside the tape as seen when the sprocket holes <br/>\nare on top. Your E-CAD part orientation is the reference.<br/>\nSee also: \n<ul>\n<li>EIA-481</li>\n<li>Component Zero Orientations for CAD Libraries</li>\n</ul>\n</html>	
-ReferencePushPullFeederConfigurationWizard.lblUsedAsTemplate.toolTipText	<html>Use this feeder as a template for cloning settings to other feeders. <br/>\nThe templates are matched by tape & reel specification or package of the parts <br/>\nloaded in feeders. <br/>\nWhen no template matches formally, the feeder \nwith the greatest similarities <br/>\nis taken (feed pitch, tape width, proximity, etc.).</html>	
-ReferencePushPullFeederConfigurationWizard.lblVisionType.toolTipText	<html>\n<p>Choose the vision type, then press <strong>Reset Pipeline</strong> to assign the<br/>\ndefault pipeline of that type. Sprocket holes are detected as follows:</p>\n<ul>\n<li><strong>ColorKeyed</strong>: the background under the holes must be of a vivid color<br/>\n(green by default).</li>\n<li><strong>CircularSymmetry</strong>: the shape of the holes must be circular, their<br/>\ninside/outside must be plain.</li>\n</ul>\n<p>Both types of pipeline will further assess detected holes by size, alignment, pitch<br/>\nand expected distance.</p>\n</html>	
-ReferencePushPullFeederConfigurationWizard.textFieldRotationInTape.toolTipText	<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>	
-ReferencePushPullMotionConfigurationWizard.additiveRotation.toolTipText	<html>Before the feed is performed, the current coordinate of the Rotation axis is taken.<br/>\nRotations stated below are then added to that base angle.<br/>\nThis is typically used for peeling axes, creating a continuous cover tape spool wind-up.\n</html>	
-ReferencePushPullMotionConfigurationWizard.lblMulti.toolTipText	<html>Locations that are included, when actuating multiple times.<br/>\nThe combination with the push ↓ and pull ↑ switch is taken.</html>	
-SimulationModeMachineConfigurationWizard.lblCameraNoise.toolTipText	<html>\nCreates simulated noise in the camera image (number of sparks) <br/>\nto satisfy Camera Settling that the frame has changed. \n</html>	
-SimulationModeMachineConfigurationWizard.lblDiscardPoint.toolTipText	<html>\nSimulates an initial homing error by that offset. Used to test visial homing. <br/>\nSet the homing fiducial to the PCB fiducial in the lower left corner of the test image.<br/>\nUse coordinates 5.736, 6.112 to get original coordinates through Visual homing.\n</html>	
-SimulationModeMachineConfigurationWizard.lblReplaceDrivers.toolTipText	<html>\nReplace driver connections with a built-in GcodeServer, simulating the real driver.<br/>\nWill only become effective when you disable/enable the machine.\n</html>	
-SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.toolTipText	Simulates Vibration, the amplitude is given in relation to the past acceleration at Eigenfrequency (try 0.1 for a strong vibration).	
-ActuatorInterlockMonitorConfigurationWizard.lblActuator.toolTipText	The interlock is only active if this actuator has the chosen known or unknown state.	
-ActuatorInterlockMonitorConfigurationWizard.lblRegex.toolTipText	Use a regular expression to match the pattern.	
-AdvancedLoosePartFeederConfigurationWizard.lblWarningThisFeeder.text	Warning: This feeder is incomplete and experimental. Use at your own risk.	
-AutoFocusProviderConfigurationWizard.lblAveragedFrames.toolTipText	Number of camera frames captured and averaged to reduce camera noise and improve the auto focus.	
-AutoFocusProviderConfigurationWizard.lblFocalResolution.toolTipText	Finest step length to seek the best focus.	
-AutoFocusProviderConfigurationWizard.lblShowDiagnostics.toolTipText	Show detected edges and Auto Focus status text in the camera view.	
-BambooFeederAutoVisionConfigurationWizard.btnShowVisionFeatures.toolTipText	Preview the features recognized by Computer Vision.	
-BambooFeederAutoVisionConfigurationWizard.checkBoxNormalizePickLocation.toolTipText	Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.	
-BambooFeederAutoVisionConfigurationWizard.checkBoxSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
-BambooFeederAutoVisionConfigurationWizard.ckBoxMoveBeforeFeed.toolTipText	Move nozzle to pick location before actuating the feed actuator	
-BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
-BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.toolTipText	Move nozzle to pick location before actuating the feed actuator	
-BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.toolTipText	Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.	
-BambooFeederAutoVisionConfigurationWizard.lblPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.toolTipText	Precision obtained with 95% confidence (assuming normal distribution)	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
-BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
-BambooFeederAutoVisionConfigurationWizard.textFieldFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
-BambooFeederAutoVisionConfigurationWizard.textFieldPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
-BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
-BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
-BlindsFeederArrayConfigurationWizard.lblFiducial3Location.toolTipText	The location of the third diamond shaped fiducial counter-clockwise from the first.	
-BlindsFeederConfigurationWizard.btnAutoSetup.toolTipText	Capture the pocket pitch, size and centerline from the current camera position.	
-BlindsFeederConfigurationWizard.lblEdgeBeginDistance.toolTipText	Distance from sprocket to the edge used for opening the cover (default: 2mm).	
-BlindsFeederConfigurationWizard.lblEdgeEnd.toolTipText	Distance from sprocket to the edge used for closing the cover (default: 2mm).	
-BlindsFeederConfigurationWizard.lblFeederNo.toolTipText	Feeder lane number inside the same holder.	
-BlindsFeederConfigurationWizard.lblFeedersTotal.toolTipText	Total number of feeder lanes in the same holder. 	
-BlindsFeederConfigurationWizard.lblFirstPocket.toolTipText	First pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.	
-BlindsFeederConfigurationWizard.lblLastPocket.toolTipText	Last pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.	
-BlindsFeederConfigurationWizard.lblPocketCenterline.toolTipText	Centerline of the pockets i.e. the perpendicular distance between the tape pocket centerline and fiducial 1.	
-CameraViewPopupMenu.menuItem.toolTipText	One mouse wheel tick changes the zoom by 2x.	
-CameraViewPopupMenu.menuItem2.toolTipText	Two mouse wheel ticks change the zoom by 2x.	
-CameraViewPopupMenu.menuItem3.toolTipText	Four mouse wheel ticks change the zoom by 2x.	
-ClassSelectionDialog.lblDescription.text	Please select an implemention class from the list.	
-ContactProbeNozzleWizard.lblProbeDepth.toolTipText	Maximum contact probing depth in Z, from the Start Offset.	
-ContactProbeNozzleWizard.lblSniffleIncrement.toolTipText	Vacuum sensing "sniffle" increment in Z. 	
-GlobalConfigConfigurationWizard.IfYouVeBuilt.text	If you've built your own slots and need to program them, use this wizard.	

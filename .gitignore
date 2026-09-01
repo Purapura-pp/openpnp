@@ -1,6 +1,7 @@
 doc
 bin
 target
+build
 
 installers
 .settings

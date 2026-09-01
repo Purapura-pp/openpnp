@@ -331,7 +331,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         brightnessAuto = new JCheckBox("");
         panelProperties.add(brightnessAuto, "4, 4, center, default");
 
-        brightnessMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.brightnessMin.text")); //$NON-NLS-1$
+        brightnessMin = new JLabel("min");
         panelProperties.add(brightnessMin, "8, 4");
 
         brightnessSlider = new JSlider();
@@ -344,10 +344,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         brightnessValue.setColumns(5);
         panelProperties.add(brightnessValue, "14, 4, center, default");
 
-        brightnessMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.brightnessMax.text")); //$NON-NLS-1$
+        brightnessMax = new JLabel("max");
         panelProperties.add(brightnessMax, "18, 4");
 
-        brightnessDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.brightnessDefault.text")); //$NON-NLS-1$
+        brightnessDefault = new JLabel("def");
         panelProperties.add(brightnessDefault, "22, 4");
         
         backLightCompensation = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.BacklightCompensationLabel.text")); //$NON-NLS-1$
@@ -356,7 +356,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         backLightCompensationAuto = new JCheckBox("");
         panelProperties.add(backLightCompensationAuto, "4, 6, center, default");
         
-        backLightCompensationMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMin.text")); //$NON-NLS-1$
+        backLightCompensationMin = new JLabel("min");
         panelProperties.add(backLightCompensationMin, "8, 6");
         
         backLightCompensationSlider = new JSlider();
@@ -369,10 +369,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         backLightCompensationValue.setColumns(5);
         panelProperties.add(backLightCompensationValue, "14, 6, center, default");
         
-        backLightCompensationMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMax.text")); //$NON-NLS-1$
+        backLightCompensationMax = new JLabel("max");
         panelProperties.add(backLightCompensationMax, "18, 6");
         
-        backLightCompensationDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.backLightCompensationDefault.text")); //$NON-NLS-1$
+        backLightCompensationDefault = new JLabel("def");
         panelProperties.add(backLightCompensationDefault, "22, 6");
 
         contrast = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.ContrastLabel.text")); //$NON-NLS-1$
@@ -381,7 +381,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         contrastAuto = new JCheckBox("");
         panelProperties.add(contrastAuto, "4, 8, center, default");
 
-        contrastMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.contrastMin.text")); //$NON-NLS-1$
+        contrastMin = new JLabel("min");
         panelProperties.add(contrastMin, "8, 8");
 
         contrastSlider = new JSlider();
@@ -394,10 +394,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         contrastValue.setColumns(5);
         panelProperties.add(contrastValue, "14, 8, center, default");
 
-        contrastMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.contrastMax.text")); //$NON-NLS-1$
+        contrastMax = new JLabel("max");
         panelProperties.add(contrastMax, "18, 8");
 
-        contrastDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.contrastDefault.text")); //$NON-NLS-1$
+        contrastDefault = new JLabel("def");
         panelProperties.add(contrastDefault, "22, 8");
 
         exposure = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.ExposureLabel.text")); //$NON-NLS-1$
@@ -406,7 +406,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         exposureAuto = new JCheckBox("");
         panelProperties.add(exposureAuto, "4, 10, center, default");
 
-        exposureMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.exposureMin.text")); //$NON-NLS-1$
+        exposureMin = new JLabel("min");
         panelProperties.add(exposureMin, "8, 10, center, default");
 
         exposureSlider = new JSlider();
@@ -419,16 +419,16 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         panelProperties.add(exposureValue, "14, 10, center, default");
         exposureValue.setColumns(5);
 
-        exposureMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.exposureMax.text")); //$NON-NLS-1$
+        exposureMax = new JLabel("max");
         panelProperties.add(exposureMax, "18, 10, center, default");
 
-        exposureDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.exposureDefault.text")); //$NON-NLS-1$
+        exposureDefault = new JLabel("def");
         panelProperties.add(exposureDefault, "22, 10");
 
-        focusDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.focusDefault.text")); //$NON-NLS-1$
+        focusDefault = new JLabel("def");
         panelProperties.add(focusDefault, "22, 12");
 
-        gainDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gainDefault.text")); //$NON-NLS-1$
+        gainDefault = new JLabel("def");
         panelProperties.add(gainDefault, "22, 14");
 
         gamma = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.GammaLabel.text")); //$NON-NLS-1$
@@ -437,7 +437,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         gammaAuto = new JCheckBox("");
         panelProperties.add(gammaAuto, "4, 16, center, default");
 
-        gammaMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gammaMin.text")); //$NON-NLS-1$
+        gammaMin = new JLabel("min");
         panelProperties.add(gammaMin, "8, 16");
 
         gammaSlider = new JSlider();
@@ -450,10 +450,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         gammaValue.setColumns(5);
         panelProperties.add(gammaValue, "14, 16, center, default");
 
-        gammaMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gammaMax.text")); //$NON-NLS-1$
+        gammaMax = new JLabel("max");
         panelProperties.add(gammaMax, "18, 16");
 
-        gammaDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gammaDefault.text")); //$NON-NLS-1$
+        gammaDefault = new JLabel("def");
         panelProperties.add(gammaDefault, "22, 16");
         
         hue = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.HueLabel.text")); //$NON-NLS-1$
@@ -462,7 +462,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         hueAuto = new JCheckBox("");
         panelProperties.add(hueAuto, "4, 18, center, default");
         
-        hueMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.hueMin.text")); //$NON-NLS-1$
+        hueMin = new JLabel("min");
         panelProperties.add(hueMin, "8, 18");
         
         hueSlider = new JSlider();
@@ -475,10 +475,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         hueValue.setColumns(5);
         panelProperties.add(hueValue, "14, 18, center, default");
         
-        hueMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.hueMax.text")); //$NON-NLS-1$
+        hueMax = new JLabel("max");
         panelProperties.add(hueMax, "18, 18");
         
-        hueDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.hueDefault.text")); //$NON-NLS-1$
+        hueDefault = new JLabel("def");
         panelProperties.add(hueDefault, "22, 18");
         
         powerLineFrequency = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.PowerLineFreqLabel.text")); //$NON-NLS-1$
@@ -487,7 +487,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         powerLineFrequencyAuto = new JCheckBox("");
         panelProperties.add(powerLineFrequencyAuto, "4, 20, center, default");
         
-        powerLineFrequencyMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMin.text")); //$NON-NLS-1$
+        powerLineFrequencyMin = new JLabel("min");
         panelProperties.add(powerLineFrequencyMin, "8, 20");
         
         powerLineFrequencySlider = new JSlider();
@@ -500,10 +500,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         powerLineFrequencyValue.setColumns(5);
         panelProperties.add(powerLineFrequencyValue, "14, 20, center, default");
         
-        powerLineFrequencyMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMax.text")); //$NON-NLS-1$
+        powerLineFrequencyMax = new JLabel("max");
         panelProperties.add(powerLineFrequencyMax, "18, 20");
         
-        powerLineFrequencyDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyDefault.text")); //$NON-NLS-1$
+        powerLineFrequencyDefault = new JLabel("def");
         panelProperties.add(powerLineFrequencyDefault, "22, 20");
 
         saturation = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.SaturationLabel.text")); //$NON-NLS-1$
@@ -512,7 +512,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         saturationAuto = new JCheckBox("");
         panelProperties.add(saturationAuto, "4, 22, center, default");
 
-        saturationMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.saturationMin.text")); //$NON-NLS-1$
+        saturationMin = new JLabel("min");
         panelProperties.add(saturationMin, "8, 22");
 
         saturationSlider = new JSlider();
@@ -525,10 +525,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         saturationValue.setColumns(5);
         panelProperties.add(saturationValue, "14, 22, center, default");
 
-        saturationMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.saturationMax.text")); //$NON-NLS-1$
+        saturationMax = new JLabel("max");
         panelProperties.add(saturationMax, "18, 22");
 
-        saturationDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.saturationDefault.text")); //$NON-NLS-1$
+        saturationDefault = new JLabel("def");
         panelProperties.add(saturationDefault, "22, 22");
         
         sharpness = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.SharpnessLabel.text")); //$NON-NLS-1$
@@ -537,7 +537,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         sharpnessAuto = new JCheckBox("");
         panelProperties.add(sharpnessAuto, "4, 24, center, default");
         
-        sharpnessMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.sharpnessMin.text")); //$NON-NLS-1$
+        sharpnessMin = new JLabel("min");
         panelProperties.add(sharpnessMin, "8, 24");
         
         sharpnessSlider = new JSlider();
@@ -550,10 +550,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         sharpnessValue.setColumns(5);
         panelProperties.add(sharpnessValue, "14, 24, center, default");
         
-        sharpnessMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.sharpnessMax.text")); //$NON-NLS-1$
+        sharpnessMax = new JLabel("max");
         panelProperties.add(sharpnessMax, "18, 24");
         
-        sharpnessDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.sharpnessDefault.text")); //$NON-NLS-1$
+        sharpnessDefault = new JLabel("def");
         panelProperties.add(sharpnessDefault, "22, 24");
 
         whiteBalance = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.WhiteBalanceLabel.text")); //$NON-NLS-1$
@@ -562,7 +562,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         whiteBalanceAuto = new JCheckBox("");
         panelProperties.add(whiteBalanceAuto, "4, 26, center, default");
 
-        whiteBalanceMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMin.text")); //$NON-NLS-1$
+        whiteBalanceMin = new JLabel("min");
         panelProperties.add(whiteBalanceMin, "8, 26, center, default");
 
         whiteBalanceSlider = new JSlider();
@@ -575,7 +575,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         whiteBalanceValue.setColumns(5);
         panelProperties.add(whiteBalanceValue, "14, 26, center, default");
 
-        whiteBalanceMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMax.text")); //$NON-NLS-1$
+        whiteBalanceMax = new JLabel("max");
         panelProperties.add(whiteBalanceMax, "18, 26, center, default");
 
         focus = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.FocusLabel.text")); //$NON-NLS-1$
@@ -584,7 +584,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         focusAuto = new JCheckBox("");
         panelProperties.add(focusAuto, "4, 12, center, default");
 
-        focusMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.focusMin.text")); //$NON-NLS-1$
+        focusMin = new JLabel("min");
         panelProperties.add(focusMin, "8, 12, center, default");
 
         focusSlider = new JSlider();
@@ -597,10 +597,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         focusValue.setColumns(5);
         panelProperties.add(focusValue, "14, 12, center, default");
 
-        focusMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.focusMax.text")); //$NON-NLS-1$
+        focusMax = new JLabel("max");
         panelProperties.add(focusMax, "18, 12, center, default");
 
-        whiteBalanceDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.whiteBalanceDefault.text")); //$NON-NLS-1$
+        whiteBalanceDefault = new JLabel("def");
         panelProperties.add(whiteBalanceDefault, "22, 26");
 
         zoom = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.ZoomLabel.text")); //$NON-NLS-1$
@@ -609,7 +609,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         zoomAuto = new JCheckBox("");
         panelProperties.add(zoomAuto, "4, 28, center, default");
 
-        zoomMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.zoomMin.text")); //$NON-NLS-1$
+        zoomMin = new JLabel("min");
         panelProperties.add(zoomMin, "8, 28, center, default");
 
         zoomSlider = new JSlider();
@@ -622,7 +622,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         zoomValue.setColumns(5);
         panelProperties.add(zoomValue, "14, 28, center, default");
 
-        zoomMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.zoomMax.text")); //$NON-NLS-1$
+        zoomMax = new JLabel("max");
         panelProperties.add(zoomMax, "18, 28, center, default");
 
         gain = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.GainLabel.text")); //$NON-NLS-1$
@@ -631,7 +631,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         gainAuto = new JCheckBox("");
         panelProperties.add(gainAuto, "4, 14, center, default");
 
-        gainMin = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gainMin.text")); //$NON-NLS-1$
+        gainMin = new JLabel("min");
         panelProperties.add(gainMin, "8, 14, center, default");
 
         gainSlider = new JSlider();
@@ -644,10 +644,10 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
         gainValue.setColumns(5);
         panelProperties.add(gainValue, "14, 14, center, default");
 
-        gainMax = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.gainMax.text")); //$NON-NLS-1$
+        gainMax = new JLabel("max");
         panelProperties.add(gainMax, "18, 14, center, default");
 
-        zoomDefault = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.zoomDefault.text")); //$NON-NLS-1$
+        zoomDefault = new JLabel("def");
         panelProperties.add(zoomDefault, "22, 28");
         
         lblFreezeProperties = new JLabel(Translations.getString("OpenPnpCaptureCameraConfigurationWizard.PropertiesPanel.FreezePropertiesLabel.text")); //$NON-NLS-1$
