@@ -889,6 +889,10 @@ WIDGET_PATTERNS = {
     "JLabel": re.compile(r'new JLabel\("([A-Za-z][^"]{3,})"\)'),
     "JButton": re.compile(r'new JButton\("([A-Za-z][^"]{3,})"\)'),
     "JCheckBox": re.compile(r'new JCheckBox\("([A-Za-z][^"]{3,})"\)'),
+    # Menus are built by hand rather than by WindowBuilder, which is why they were missed for so
+    # long: nothing in the form editor ever shows them as externalisable strings.
+    "JMenu": re.compile(r'new JMenu\("([A-Za-z][^"]{1,})"\)'),
+    "JMenuItem": re.compile(r'new J(?:RadioButton|CheckBox)?MenuItem\("([A-Za-z][^"]{1,})"\)'),
     "setToolTip": re.compile(r'setToolTipText\("([A-Za-z<][^"]*\s[^"]*)"\)'),
     "TitledBorder": re.compile(r'TitledBorder\([^;]*?"([A-Za-z][^"]*\s[^"]*)"', re.S),
     "errorBox": re.compile(r'MessageBoxes\.errorBox\s*\([^;]*?"([A-Za-z][^"]*\s[^"]*)"', re.S),
