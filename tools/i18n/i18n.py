@@ -979,7 +979,9 @@ NOT_TRANSLATABLE = (
 # new JLabel("x") / new JButton("x") / setToolTipText("x"), with what precedes them so the widget
 # can be named after the variable it is assigned to.
 EXTERNALIZE_PATTERNS = (
-    ("text", re.compile(r'(?P<lead>(?:(?P<var>\w+)\s*=\s*)?new (?:JLabel|JButton|JCheckBox)\()'
+    ("text", re.compile(r'(?P<lead>(?:(?P<var>\w+)\s*=\s*)?'
+                        r'new (?:JLabel|JButton|JCheckBox'
+                        r'|JMenu|J(?:RadioButton|CheckBox)?MenuItem)\()'
                         r'"(?P<text>[A-Za-z][^"]{2,})"\)')),
     # A tooltip may open with <html>, and the long explanatory ones usually do, so the first
     # character cannot be required to be a letter the way a label's can.
@@ -993,8 +995,13 @@ EXTERNALIZE_PATTERNS = (
 
 # WindowBuilder names a widget it was given no name for, and those names say nothing about the
 # text. Keys built from them read as noise, so the text itself is the better identifier.
+#
+# The menu variables are here for a different reason: a hand-built menu reassigns one variable for
+# every item in turn, so naming keys after it yields menuItem, menuItem2, menuItem3 - which say
+# nothing, and shift the moment an item is inserted above.
 GENERATED_NAME = re.compile(
-    r"^(lbl|label|btn|button|chckbx|checkBox|txt|textField|panel|separator)?"
+    r"^(lbl|label|btn|button|chckbx|checkBox|txt|textField|panel|separator"
+    r"|menu|menuItem|subMenu)?"
     r"(New\w*)?[_]?\d*$", re.I)
 
 CAMEL = re.compile(r"[^A-Za-z0-9]+")
@@ -1069,7 +1076,10 @@ def cmd_externalize(args):
         text = path.read_text(encoding="utf-8")
         original = text
         class_name = path.stem
-        used = set()
+        # key -> the English it was given. A hand-built menu repeats words like "Options" and
+        # "Units" across its submenus; those want one key, not Options2 and Units2, both so that
+        # each language translates the word once and so that the copies cannot drift apart.
+        used = {}
 
         for prop, pattern in EXTERNALIZE_PATTERNS:
             def replace(match):
@@ -1089,10 +1099,11 @@ def cmd_externalize(args):
                 name = variable if variable else key_fragment(body)
                 key = "{}.{}.{}".format(class_name, name, prop)
                 suffix = 2
-                while key in used or (key in english.entries and english.entries[key] != body):
+                while ((key in used and used[key] != body)
+                        or (key in english.entries and english.entries[key] != body)):
                     key = "{}.{}{}.{}".format(class_name, name, suffix, prop)
                     suffix += 1
-                used.add(key)
+                used[key] = body
                 added[key] = body
                 edits += 1
                 # The marker cannot go here: the statement's semicolon comes after this match, so
