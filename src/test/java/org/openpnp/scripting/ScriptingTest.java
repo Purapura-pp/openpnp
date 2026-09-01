@@ -38,7 +38,7 @@ public class ScriptingTest {
                      .load();
         ReferenceMachine referenceMachine = (ReferenceMachine) Configuration.get()
                                                                             .getMachine();
-        Scripting scripting = new Scripting(scriptsDirectory);
+        Scripting scripting = new Scripting(Configuration.get(), scriptsDirectory);
 
         // File extensions that there are test files for
         List<String> availableTestFileExtensions = Arrays.asList("java", "bsh", "js", "py");

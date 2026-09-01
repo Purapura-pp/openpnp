@@ -223,11 +223,11 @@ public abstract class ReferenceCamera extends AbstractBroadcastingCamera impleme
     public BufferedImage capture() throws Exception {
         Map<String, Object> globals = new HashMap<>();
         globals.put("camera", this);
-        Configuration.get().getScripting().on("Camera.BeforeCapture", globals);
+        getMachine().getScripting().on("Camera.BeforeCapture", globals);
 
         BufferedImage image = captureTransformed();
 
-        Configuration.get().getScripting().on("Camera.AfterCapture", globals);
+        getMachine().getScripting().on("Camera.AfterCapture", globals);
         return image;
     }
     

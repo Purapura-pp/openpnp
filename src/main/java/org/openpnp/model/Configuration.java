@@ -51,6 +51,7 @@ import org.openpnp.gui.components.ThemeSettingsPanel;
 import org.openpnp.model.Abstract2DLocatable.Side;
 import org.openpnp.scripting.Scripting;
 import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.NanosecondTime;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Element;
@@ -177,14 +178,14 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
         this.configurationDirectory = configurationDirectory;
         this.prefs = Preferences.userNodeForPackage(Configuration.class);
         File scriptingDirectory = new File(configurationDirectory, "scripts");
-        this.scripting = new Scripting(scriptingDirectory);
+        this.scripting = new Scripting(this, scriptingDirectory);
     }
     
     private Configuration() {
         // In memory as well, so that a Configuration created to avoid touching the disk cannot
         // rewrite the preferences of the OpenPnP installed on the same account.
         this.prefs = new MemoryPreferences();
-        this.scripting = new Scripting(null);
+        this.scripting = new Scripting(this, null);
         /**
          * Setting loaded = true allows the mechanism of immediately notifying late
          * Configuration.addListener() calls that the configuration is ready. It's a legacy
@@ -195,6 +196,11 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
     
     public void setMachine(Machine machine) {
         this.machine = machine;
+        if (machine instanceof AbstractMachine) {
+            // The machine hands this on to its elements, so that a nozzle firing a pick event does
+            // not have to come back here for the scripting service.
+            ((AbstractMachine) machine).setScripting(scripting);
+        }
     }
     
     public Scripting getScripting() {
@@ -945,7 +951,7 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
     private void loadMachine(File file) throws Exception {
         Serializer serializer = createSerializer();
         MachineConfigurationHolder holder = serializer.read(MachineConfigurationHolder.class, file);
-        machine = holder.machine;
+        setMachine(holder.machine);
     }
 
     private void saveMachine(File file) throws Exception {

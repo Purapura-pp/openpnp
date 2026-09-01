@@ -730,7 +730,7 @@ public class ReferenceNozzleTipCalibration extends AbstractModelObject {
             HashMap<String, Object> params = new HashMap<>();
             params.put("nozzle", nozzle);
             params.put("camera", camera);
-            Configuration.get().getScripting().on("NozzleCalibration.Starting", params);
+            nozzle.getMachine().getScripting().on("NozzleCalibration.Starting", params);
 
             // move nozzle to the camera location at the start angle - the nozzle must not necessarily be at the center
             MovableUtils.moveToLocationAtSafeZ(nozzle, measureBaseLocation.derive(null, null, null, angleStart));
@@ -801,7 +801,7 @@ public class ReferenceNozzleTipCalibration extends AbstractModelObject {
                                 + "Failure information can be found in the log.");
             }
 
-            Configuration.get().getScripting().on("NozzleCalibration.Finished", params);
+            nozzle.getMachine().getScripting().on("NozzleCalibration.Finished", params);
 
             if (!calibrateCamera) {
                 if (this.runoutCompensationAlgorithm == RunoutCompensationAlgorithm.Model) {

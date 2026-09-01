@@ -30,15 +30,23 @@ import com.google.common.io.Files;
 
 import bsh.engine.BshScriptEngineFactory;
 
-public class Scripting {
+public class Scripting implements ScriptEvents {
     private final ScriptEngineManager manager = new ScriptEngineManager();
     private final File scriptsDirectory;
     private final File eventsDirectory;
     private final HashMap<String, String> extensionToEngineNameMap;
     private final GenericKeyedObjectPool<String, ScriptEngine> enginePool;
     private final HashSet<String> eventsWithoutScripts;
+    private final Configuration configuration;
 
-    public Scripting(File scriptsDirectory) {
+    /**
+     * @param configuration the configuration this scripting service belongs to. Only stored here -
+     *                      Configuration builds its scripting service from its own constructor, so
+     *                      it is not finished being built yet and must not be called into.
+     * @param scriptsDirectory
+     */
+    public Scripting(Configuration configuration, File scriptsDirectory) {
+        this.configuration = configuration;
         this.scriptsDirectory = scriptsDirectory;
         extensionToEngineNameMap = new HashMap<>();
         eventsWithoutScripts = new HashSet<>();
@@ -144,8 +152,7 @@ public class Scripting {
         if(engineName==null) {
             throw new Exception("Unknown scripting engine for "+extension);
         }
-        boolean usePool = Configuration.get()
-                                       .getMachine()
+        boolean usePool = configuration.getMachine()
                                        .isPoolScriptingEngines();
         ScriptEngine engine;
         long startTimeNs;
@@ -175,9 +182,8 @@ public class Scripting {
         // Explicitly re-build and set the bindings to avoid foreign (to another script hooks
         // context) references to objects from past invocations.
         Bindings bindings = engine.createBindings();
-        bindings.put("config", Configuration.get());
-        bindings.put("machine", Configuration.get()
-                                             .getMachine());
+        bindings.put("config", configuration);
+        bindings.put("machine", configuration.getMachine());
         bindings.put("gui", MainFrame.get());
         bindings.put("scripting", this);
         bindings.put(ScriptEngine.FILENAME, script.getName());
@@ -219,6 +225,7 @@ public class Scripting {
     // This function returns false if event has some scripts, or if we do not yet know.
     // It returns true if and only if we have found there to be no scripts
     // associated with this event
+    @Override
     public Boolean hasNoScript(String event) {
         if (eventsDirectory == null) {
             return true;
@@ -235,6 +242,7 @@ public class Scripting {
         }
     }
 
+    @Override
     public void on(String event, Map<String, Object> globals) throws Exception {
         Logger.trace("Scripting.on " + event);
         if (eventsDirectory == null) {

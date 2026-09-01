@@ -650,7 +650,7 @@ public abstract class AbstractSettlingCamera extends AbstractCamera {
         }
         Map<String, Object> globals = new HashMap<>();
         globals.put("camera", this);
-        Configuration.get().getScripting().on("Camera.BeforeSettle", globals);
+        getMachine().getScripting().on("Camera.BeforeSettle", globals);
 
         try {
             // Make sure the camera (or its subject) stands still.
@@ -676,7 +676,7 @@ public abstract class AbstractSettlingCamera extends AbstractCamera {
         }
         finally {
 
-            Configuration.get().getScripting().on("Camera.AfterSettle", globals);
+            getMachine().getScripting().on("Camera.AfterSettle", globals);
         }
     }
 

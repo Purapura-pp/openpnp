@@ -387,7 +387,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
                             Translations.getString("PartsPanel.PickPart.NoFeeder"), part.getId())); //$NON-NLS-1$
                 }
                 // Perform the whole Job like pick cycle as in the FeedersPanel. 
-                FeedersPanel.pickFeeder(feeder);
+                MainFrame.get().getFeedersTab().pickFeeder(feeder);
             });
         }
     };

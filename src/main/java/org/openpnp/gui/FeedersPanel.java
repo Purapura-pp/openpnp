@@ -649,7 +649,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
      * @return the nozzle to be used for a subsequent pick.
      * @throws Exception
      */
-    public static Nozzle feedFeeder(Feeder feeder) throws Exception {
+    public Nozzle feedFeeder(Feeder feeder) throws Exception {
         if (feeder.getPart() == null) {
             throw new Exception("Feeder "+feeder.getName()+" has no part.");
         }
@@ -673,9 +673,9 @@ public class FeedersPanel extends JPanel implements WizardContainer {
 
         // Perform the feed.
         nozzle.moveToSafeZ();
-        Configuration.get().getScripting().on("Feeder.BeforeFeed", globals);
+        configuration.getScripting().on("Feeder.BeforeFeed", globals);
         feeder.feed(nozzle);
-        Configuration.get().getScripting().on("Feeder.AfterFeed", globals);
+        configuration.getScripting().on("Feeder.AfterFeed", globals);
         return nozzle;
     }
 
@@ -686,7 +686,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
      * @throws Exception
      * @throws JobProcessorException
      */
-    public static void pickFeeder(Feeder feeder) throws Exception, JobProcessorException {
+    public void pickFeeder(Feeder feeder) throws Exception, JobProcessorException {
         // Do the feed an get the nozzle for the pick.
         Nozzle nozzle = feedFeeder(feeder);
 
@@ -722,7 +722,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
         // The part is now on the nozzle.
         MovableUtils.fireTargetedUserAction(nozzle);
         if (MainFrame.get().getTabs().getSelectedComponent() == MainFrame.get().getFeedersTab() 
-                && Configuration.get().getTablesLinked() == TablesLinked.Linked) {
+                && configuration.getTablesLinked() == TablesLinked.Linked) {
             MainFrame.get().getPartsTab().selectPartInTableAndUpdateLinks(feeder.getPart());
         }
     }
@@ -733,9 +733,9 @@ public class FeedersPanel extends JPanel implements WizardContainer {
      * @param part
      * @return
      */
-    public static Location getTestPlacementLocation(Part part) {
+    public Location getTestPlacementLocation(Part part) {
         PartAlignment aligner = AbstractPartAlignment.getPartAlignment(part);
-        Location placementLocation = Configuration.get().getMachine().getDiscardLocation();
+        Location placementLocation = configuration.getMachine().getDiscardLocation();
         placementLocation = new Location(placementLocation.getUnits(),
                 placementLocation.getX(), 
                 placementLocation.getY(), 

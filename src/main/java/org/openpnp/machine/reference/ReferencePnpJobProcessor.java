@@ -215,7 +215,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         params.put("jobProcessor", this);
         params.put("exception", e1);
         try {
-            Configuration.get().getScripting().on("Job.Error", params);
+            getMachine().getScripting().on("Job.Error", params);
         }
         catch (Exception e) {
             throw new JobProcessorException(null, e);
@@ -389,7 +389,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             params.put("job", job);
             params.put("jobProcessor", this);
             try {
-                Configuration.get().getScripting().on("Job.Starting", params);
+                getMachine().getScripting().on("Job.Starting", params);
             }
             catch (Exception e) {
                 throw new JobProcessorException(null, e);
@@ -1354,9 +1354,8 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                     params.put("placement", placement);
                     params.put("boardLocation", boardLocation);
                     params.put("feeder", feeder);
-                    Configuration.get()
-                                 .getScripting()
-                                 .on("Job.Placement.Starting", params);
+                    getMachine().getScripting()
+                                .on("Job.Placement.Starting", params);
                 }
                 catch (Exception e) {
                     throw new JobProcessorException(null, e);
@@ -1430,9 +1429,9 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 try {
                     fireTextStatus("Feed %s on %s.", feeder.getName(), feeder.getPart().getId());
                     
-                    Configuration.get().getScripting().on("Feeder.BeforeFeed", globals);
+                    getMachine().getScripting().on("Feeder.BeforeFeed", globals);
                     feeder.feed(nozzle);
-                    Configuration.get().getScripting().on("Feeder.AfterFeed", globals);
+                    getMachine().getScripting().on("Feeder.AfterFeed", globals);
                     return;
                 }
                 catch (Feeder.FeederEmptyException e) {
@@ -1856,7 +1855,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         
         private void scriptBeforeAssembly(PlannedPlacement plannedPlacement) throws JobProcessorException {
             String eventName = "Job.Placement.BeforeAssembly";
-            if(Configuration.get().getScripting().hasNoScript(eventName)) {
+            if(getMachine().getScripting().hasNoScript(eventName)) {
                 // We know for certain that there are no scripts for this event, so
                 // we can skip the parameter setup as an optimisation.
                 return;
@@ -1884,7 +1883,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 params.put("placementLocationBase", placementLocation);
                 params.put("placementLocation", placementLocationPart);
                 params.put("alignmentOffsets", plannedPlacement.alignmentOffsets);
-                Configuration.get().getScripting().on(eventName, params);
+                getMachine().getScripting().on(eventName, params);
             }
             catch (Exception e) {
                 throw new JobProcessorException(null, e);
@@ -1909,7 +1908,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 params.put("boardLocation", boardLocation);
                 params.put("placementLocationBase", placementLocation);
                 params.put("placementLocation", placementLocationPart);
-                Configuration.get().getScripting().on("Job.Placement.Complete", params);
+                getMachine().getScripting().on("Job.Placement.Complete", params);
             }
             catch (Exception e) {
                 throw new JobProcessorException(null, e);
@@ -1985,9 +1984,8 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 HashMap<String, Object> params = new HashMap<>();
                 params.put("job", job);
                 params.put("jobProcessor", this);
-                Configuration.get()
-                             .getScripting()
-                             .on("Job.Finished", params);
+                getMachine().getScripting()
+                            .on("Job.Finished", params);
             }
             catch (Exception e) {
                 throw new JobProcessorException(null, e);
@@ -2598,7 +2596,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             HashMap<String, Object> params = new HashMap<>();
             params.put("feeder", feeder);
             params.put("exception", e1);
-            Configuration.get().getScripting().on("Feeder.Fault", params);
+            getMachine().getScripting().on("Feeder.Fault", params);
         }
         catch (Exception e) {
             throw new JobProcessorException(null, e);

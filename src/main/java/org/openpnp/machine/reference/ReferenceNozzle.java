@@ -362,7 +362,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
         Map<String, Object> globals = new HashMap<>();
         globals.put("nozzle", this);
         globals.put("part", part);
-        Configuration.get().getScripting().on("Nozzle.BeforePick", globals);
+        getMachine().getScripting().on("Nozzle.BeforePick", globals);
 
         setPart(part);
         setPartsFeeder(feeder);
@@ -383,7 +383,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
 
         getMachine().fireMachineHeadActivity(head);
 
-        Configuration.get().getScripting().on("Nozzle.AfterPick", globals);
+        getMachine().getScripting().on("Nozzle.AfterPick", globals);
     }
 
     @Override
@@ -406,7 +406,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
         Map<String, Object> globals = new HashMap<>();
         globals.put("nozzle", this);
         globals.put("part", getPart());
-        Configuration.get().getScripting().on("Nozzle.BeforePlace", globals);
+        getMachine().getScripting().on("Nozzle.BeforePlace", globals);
 
         // if the method needs it, store one measurement up front
         storeBeforePlaceVacuumLevel();
@@ -433,7 +433,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
         setPartsFeeder(null);
         getMachine().fireMachineHeadActivity(head);
 
-        Configuration.get().getScripting().on("Nozzle.AfterPlace", globals);
+        getMachine().getScripting().on("Nozzle.AfterPlace", globals);
     }
 
     protected ReferenceNozzleTip getUnloadedNozzleTipStandin() {
@@ -653,8 +653,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
                     globals.put("nozzle", this);
                     globals.put("nozzleTip", nt);
 
-                    Configuration.get()
-                    .getScripting()
+                    getMachine().getScripting()
                     .on("NozzleTip.BeforeLoad", globals);
 
                     ensureZCalibrated(true);
@@ -701,8 +700,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
 
                     Logger.debug("{}.loadNozzleTip({}): Finished", getName(), nozzleTip.getName());
 
-                    Configuration.get()
-                    .getScripting()
+                    getMachine().getScripting()
                     .on("NozzleTip.Loaded", globals);
                 }
                 else {
@@ -764,8 +762,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
                     globals.put("head", getHead());
                     globals.put("nozzle", this);
                     globals.put("nozzleTip", nt);
-                    Configuration.get()
-                    .getScripting()
+                    getMachine().getScripting()
                     .on("NozzleTip.BeforeUnload", globals);
 
                     ensureZCalibrated(false);
@@ -813,8 +810,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
 
                     Logger.debug("{}.unloadNozzleTip(): Finished", getName());
 
-                    Configuration.get()
-                    .getScripting()
+                    getMachine().getScripting()
                     .on("NozzleTip.Unloaded", globals);
                 }
                 else {

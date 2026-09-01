@@ -20,9 +20,11 @@ import java.util.stream.Stream;
 import javax.swing.Icon;
 
 import org.openpnp.model.AbstractModelObject;
+import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.model.Solutions;
+import org.openpnp.scripting.ScriptEvents;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Camera;
@@ -104,7 +106,31 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     volatile protected Thread taskThread;
 
+    private ScriptEvents scripting;
+
     protected AbstractMachine() {}
+
+    /**
+     * The scripting service the machine and its elements fire their events at.
+     * <p>
+     * Configuration hands this over when it puts the machine in place. A machine built directly,
+     * as the tests do, was never handed one and falls back on the machine of the moment, which is
+     * what everything did before.
+     *
+     * @return
+     */
+    public ScriptEvents getScripting() {
+        if (scripting == null) {
+            Logger.trace("{} was asked for its scripting service before it was given one.",
+                    getClass().getSimpleName());
+            return Configuration.get().getScripting();
+        }
+        return scripting;
+    }
+
+    public void setScripting(ScriptEvents scripting) {
+        this.scripting = scripting;
+    }
 
     @SuppressWarnings("unused")
     @Commit
