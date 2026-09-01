@@ -58,7 +58,7 @@ public class ExistingBoardOrPanelDialog extends JDialog {
     @SuppressWarnings("rawtypes")
     private JList existingListDisplay;
     protected Exception savedException;
-    private String boardOrPanel;
+    private String selectOneFile;
     private JButton okButton;
 
     /**
@@ -67,17 +67,18 @@ public class ExistingBoardOrPanelDialog extends JDialog {
     public ExistingBoardOrPanelDialog(Configuration configuration, Class<?> type, String title) {
         super(MainFrame.get(), title, ModalityType.APPLICATION_MODAL);
         
+        // A whole sentence per case, rather than a shared one with the noun spliced in: the article
+        // and the verb have to agree with the noun in most languages, and a case language cannot
+        // leave the noun in its dictionary form the way English can.
         if (type == Board.class) {
-            boardOrPanel = Translations.getString("ExistingBoardOrPanelDialog.boardOrPanel.Board"); //$NON-NLS-1$
-            // Not derived from the word above: that word is translated, and the extension is what
-            // the file on disk is actually called.
+            selectOneFile = Translations.getString("ExistingBoardOrPanelDialog.Label.SelectOneBoardFile"); //$NON-NLS-1$
             fileExtension = ".board.xml"; //$NON-NLS-1$
             for (Board board : configuration.getBoards()) {
                 existingList.add(board.getFile());
             }
         }
         else if (type == Panel.class) {
-            boardOrPanel = Translations.getString("ExistingBoardOrPanelDialog.boardOrPanel.Panel"); //$NON-NLS-1$
+            selectOneFile = Translations.getString("ExistingBoardOrPanelDialog.Label.SelectOnePanelFile"); //$NON-NLS-1$
             fileExtension = ".panel.xml"; //$NON-NLS-1$
             for (Panel panel : configuration.getPanels()) {
                 existingList.add(panel.getFile());
@@ -94,10 +95,7 @@ public class ExistingBoardOrPanelDialog extends JDialog {
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(new BorderLayout(0, 0));
         {
-            JLabel txtrSelectOneFile = new JLabel(
-                    Translations.getString("ExistingBoardOrPanelDialog.Label.SelectOneFile.Leader") //$NON-NLS-1$
-                    + boardOrPanel
-                    + Translations.getString("ExistingBoardOrPanelDialog.Label.SelectOneFile.Trailer")); //$NON-NLS-1$
+            JLabel txtrSelectOneFile = new JLabel(selectOneFile);
             contentPanel.add(txtrSelectOneFile, BorderLayout.NORTH);
         }
         {
