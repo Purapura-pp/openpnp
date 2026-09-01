@@ -31,6 +31,8 @@ import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.PartAlignment;
 import org.openpnp.spi.PartAlignment.PartAlignmentOffset;
+import org.openpnp.spi.base.AbstractMachine;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.vision.pipeline.CvPipeline;
 
 import com.google.zxing.BinaryBitmap;
@@ -266,13 +268,14 @@ public class VisionUtils {
     }
     
     public static PartAlignment.PartAlignmentOffset findPartAlignmentOffsets(PartAlignment p, Part part, BoardLocation boardLocation, Placement placement, Nozzle nozzle) throws Exception {
+        AbstractMachine machine = MachineElement.machineOf(nozzle);
         Map<String, Object> globals = new HashMap<>();
         globals.put("part", part);
         globals.put("nozzle", nozzle);
-        Configuration.get().getScripting().on("Vision.PartAlignment.Before", globals);
+        machine.getScripting().on("Vision.PartAlignment.Before", globals);
 
         PartAlignmentOffset offsets = null;
-        CameraBatchOperation cbo = Configuration.get().getMachine().getCameraBatchOperation();
+        CameraBatchOperation cbo = machine.getCameraBatchOperation();
         if (cbo!=null) {
             cbo.startBatchOperation("visionutils");
         }
@@ -285,7 +288,7 @@ public class VisionUtils {
                 cbo.endBatchOperation("visionutils");
             }
             globals.put("offsets", offsets);
-            Configuration.get().getScripting().on("Vision.PartAlignment.After", globals);
+            machine.getScripting().on("Vision.PartAlignment.After", globals);
         }
     }
 
@@ -406,7 +409,7 @@ public class VisionUtils {
                 newSettings.setValues(visionSettings);
                 newSettings.setName(part.getShortName());
                 part.setFiducialVisionSettings(newSettings);
-                Configuration.get().addVisionSettings(newSettings);
+                configuration.addVisionSettings(newSettings);
                 visionSettings = newSettings;
             }
             visionSettings.setPipeline(pipeline);

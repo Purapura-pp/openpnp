@@ -295,7 +295,7 @@ public class LocationButtonsPanel extends JPanel {
                 public void actionPerformed(ActionEvent arg0) {
                     UiUtils.submitUiMachineTask(() -> {
                         Location l = getCamera().getLocation();
-                        Location lz = Cycles.zProbe(l);
+                        Location lz = Cycles.zProbe(MachineElement.machineOf(getCamera()), l);
                         if (lz != null) {
                             l = lz;
                         }

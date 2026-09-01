@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 211 calls in 124 files.
+# 202 calls in 123 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/JobPlacementsPanel.java	1
@@ -112,7 +112,6 @@ org/openpnp/spi/base/AbstractMachine.java	1
 org/openpnp/spi/base/AbstractSingleTransformedAxis.java	1
 org/openpnp/spi/base/MachineElement.java	2
 org/openpnp/util/CameraWalker.java	1
-org/openpnp/util/Cycles.java	5
 org/openpnp/util/FeederVisionHelper.java	1
 org/openpnp/util/GcodeServer.java	1
 org/openpnp/util/MovableUtils.java	1
@@ -120,7 +119,7 @@ org/openpnp/util/OcrUtils.java	2
 org/openpnp/util/OpenCvUtils.java	1
 org/openpnp/util/TravelCost.java	1
 org/openpnp/util/UiUtils.java	2
-org/openpnp/util/VisionUtils.java	6
+org/openpnp/util/VisionUtils.java	2
 org/openpnp/vision/TemplateImage.java	1
 org/openpnp/vision/pipeline/stages/ActuatorWrite.java	4
 org/openpnp/vision/pipeline/stages/ImageWriteDebug.java	1

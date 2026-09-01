@@ -3,12 +3,14 @@ package org.openpnp.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Actuator;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.Nozzle.RotationMode;
+import org.openpnp.spi.base.AbstractMachine;
+import org.openpnp.spi.base.MachineElement;
 
 public class Cycles {
     /**
@@ -28,8 +30,8 @@ public class Cycles {
      * @return
      * @throws Exception
      */
-    public static Location zProbe(Location l) throws Exception {
-        Actuator zProbe = Configuration.get().getMachine().getDefaultHead().getzProbeActuator();
+    public static Location zProbe(Machine machine, Location l) throws Exception {
+        Actuator zProbe = machine.getDefaultHead().getzProbeActuator();
         if (zProbe == null) {
             return null;
         }
@@ -42,7 +44,7 @@ public class Cycles {
             z = Double.parseDouble(reading);
         }
         catch (Exception e) {
-            throw new Exception("Head "+Configuration.get().getMachine().getDefaultHead().getName()+" Z Probe "+zProbe.getName()
+            throw new Exception("Head "+machine.getDefaultHead().getName()+" Z Probe "+zProbe.getName()
             +" conversion failed ("+reading+")", e);
         }
         lz = lz.add(new Location(LengthUnit.Millimeters, 0, 0, z, 0));
@@ -77,11 +79,12 @@ public class Cycles {
      * @throws Exception
      */
     public static void discardAlways(Nozzle nozzle) throws Exception {
+        AbstractMachine machine = MachineElement.machineOf(nozzle);
         Map<String, Object> globals = new HashMap<>();
         globals.put("nozzle", nozzle);
-        Configuration.get().getScripting().on("Job.BeforeDiscard", globals);
+        machine.getScripting().on("Job.BeforeDiscard", globals);
 
-        Location discardLocation = Configuration.get().getMachine().getDiscardLocation();
+        Location discardLocation = machine.getDiscardLocation();
         if (nozzle.getRotationMode() == RotationMode.LimitedArticulation) {
             // On a limited articulation nozzle, keep the rotation.
             discardLocation = discardLocation.derive(nozzle.getLocation(),
@@ -93,6 +96,6 @@ public class Cycles {
         nozzle.place();
         nozzle.moveToSafeZ();
 
-        Configuration.get().getScripting().on("Job.AfterDiscard", globals);
+        machine.getScripting().on("Job.AfterDiscard", globals);
     }
 }
