@@ -6,14 +6,13 @@ import org.openpnp.ConfigurationListener;
 import org.openpnp.Translations;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 import org.openpnp.spi.Feeder;
 import org.openpnp.spi.Nozzle;
 import org.simpleframework.xml.Attribute;
 
-public abstract class AbstractFeeder extends AbstractModelObject implements Feeder {
+public abstract class AbstractFeeder extends AbstractMachineElement implements Feeder {
     /**
      * History:
      * 

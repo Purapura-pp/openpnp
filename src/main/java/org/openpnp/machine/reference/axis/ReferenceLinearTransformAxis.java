@@ -35,7 +35,6 @@ import org.openpnp.spi.LinearTransformAxis;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.Locatable.LocationOption;
 import org.openpnp.spi.base.AbstractAxis;
-import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.spi.base.AbstractTransformedAxis;
 import org.openpnp.util.Matrix;
 import org.simpleframework.xml.Attribute;
@@ -364,6 +363,6 @@ public class ReferenceLinearTransformAxis extends AbstractTransformedAxis implem
 
     @Override
     public Wizard getConfigurationWizard() {
-        return new ReferenceLinearTransformAxisConfigurationWizard((AbstractMachine)Configuration.get().getMachine(), this);
+        return new ReferenceLinearTransformAxisConfigurationWizard(getMachine(), this);
     }
 }

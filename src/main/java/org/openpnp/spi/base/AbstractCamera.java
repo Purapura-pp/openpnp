@@ -540,9 +540,9 @@ public abstract class AbstractCamera extends AbstractHeadMountable implements Ca
         return visionProvider;
     }
 
-    protected static void actuateLight(Actuator lightActuator, Object light) throws Exception {
+    protected void actuateLight(Actuator lightActuator, Object light) throws Exception {
         // Make sure it is actuated in a machine task, but only if the machine is enabled.
-        Configuration.get().getMachine().executeIfEnabled(() -> {
+        getMachine().executeIfEnabled(() -> {
             // Only actuate a light when the current state is unknown or different. 
             if (lightActuator.getLastActuationValue() == null 
                     || !lightActuator.getLastActuationValue().equals(light)) {
@@ -555,7 +555,7 @@ public abstract class AbstractCamera extends AbstractHeadMountable implements Ca
     @Override
     public void actuateLightBeforeCapture(Object light) throws Exception {
         // Anti-glare: switch off opposite looking cameras.
-        for (Camera camera : Configuration.get().getMachine().getAllCameras()) {
+        for (Camera camera : getMachine().getAllCameras()) {
             if (camera != this
                     && (camera instanceof AbstractCamera)
                     && ((AbstractCamera) camera).isAntiGlareLightOff() 
@@ -583,7 +583,7 @@ public abstract class AbstractCamera extends AbstractHeadMountable implements Ca
     public void actuateLightAfterCapture() throws Exception {
         if (isAfterCaptureLightOff()) {
 
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             CameraBatchOperation cbo = machine.getCameraBatchOperation();
             if (cbo!=null && cbo.registerWithBatchOperation(this)) {
                 // We are in the middle of a batch operation taking many captures.

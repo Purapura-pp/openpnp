@@ -1237,7 +1237,7 @@ public class BlindsFeeder extends ReferenceFeeder {
     public void calibrateFeederLocations() throws Exception {
         if (!isCalibrating()) {
 
-            if ( !Configuration.get().getMachine().isHomed() ) {
+            if ( !getMachine().isHomed() ) {
                 throw new Exception("Feeder " + getName() + ": Machine not yet homed.");
             }
 

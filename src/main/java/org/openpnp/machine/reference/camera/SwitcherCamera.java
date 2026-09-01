@@ -28,7 +28,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.camera.wizards.SwitcherCameraConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Machine;
@@ -73,7 +72,7 @@ public class SwitcherCamera extends ReferenceCamera {
                     // If we're in a machine task already, take the opportunity to switch the camera over, if necessary.
                     // Note if we'd just let the notified camera thread do the actuator switching, it would timeout and 
                     // produce an ugly error frame, because our machine thread is likely still running.
-                    Machine machine = Configuration.get().getMachine();
+                    Machine machine = getMachine();
                     if (machine.isTask(Thread.currentThread())) {
                         // Need to switch the camera over, provoke by capturing. 
                         captureTransformed();
@@ -112,7 +111,7 @@ public class SwitcherCamera extends ReferenceCamera {
                         // The switching is subject to fail, so make the state indeterminate.
                         switchers.put(switcher, null);
                         // Make sure actuator switching happens within a machine task, but wait for it.
-                        Camera switchedCamera = Configuration.get().getMachine().execute(() -> {
+                        Camera switchedCamera = getMachine().execute(() -> {
                             getActuator().actuate(actuatorDoubleValue);
                             return this;
                         }, 
@@ -253,7 +252,7 @@ public class SwitcherCamera extends ReferenceCamera {
     }
 
     public Camera getCamera() {
-        return Configuration.get().getMachine().getCamera(cameraId);
+        return getMachine().getCamera(cameraId);
     }
 
     public void setCamera(Camera camera) {
@@ -267,7 +266,7 @@ public class SwitcherCamera extends ReferenceCamera {
     }
 
     public Actuator getActuator() {
-        Actuator actuator = Configuration.get().getMachine().getActuator(actuatorId); 
+        Actuator actuator = getMachine().getActuator(actuatorId); 
         AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
         return actuator;
     }

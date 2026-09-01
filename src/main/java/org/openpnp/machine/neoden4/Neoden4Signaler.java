@@ -6,7 +6,6 @@ import org.openpnp.Translations;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.neoden4.wizards.Neoden4SignalerConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Driver;
 import org.openpnp.spi.base.AbstractJobProcessor;
 import org.openpnp.spi.base.AbstractSignaler;
@@ -89,7 +88,7 @@ public class Neoden4Signaler extends AbstractSignaler implements Runnable {
 	private NeoDen4Driver getNeoden4Driver() {
 		NeoDen4Driver driver = null;
 
-		for (Driver d : Configuration.get().getMachine().getDrivers()) {
+		for (Driver d : getMachine().getDrivers()) {
 			if (d instanceof NeoDen4Driver) {
 				driver = (NeoDen4Driver) d;
 				break;

@@ -181,6 +181,7 @@ public class ReferenceMachine extends AbstractMachine {
     @Commit
     protected void commit() {
         super.commit();
+        attach(motionPlanner);
     }
 
     public Driver getDefaultDriver() {
@@ -295,6 +296,7 @@ public class ReferenceMachine extends AbstractMachine {
 
     public void setMotionPlanner(MotionPlanner motionPlanner) {
         Object oldValue = this.motionPlanner;
+        attach(motionPlanner);
         this.motionPlanner = motionPlanner;
         firePropertyChange("motionPlanner", oldValue, motionPlanner);
     }

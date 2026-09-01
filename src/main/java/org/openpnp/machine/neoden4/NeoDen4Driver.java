@@ -14,7 +14,6 @@ import org.openpnp.machine.reference.ReferenceNozzle;
 import org.openpnp.machine.reference.driver.AbstractReferenceDriver;
 import org.openpnp.machine.reference.driver.DriverAxisMigration;
 import org.openpnp.model.AxesLocation;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Motion.MoveToCommand;
@@ -149,7 +148,7 @@ public class NeoDen4Driver extends AbstractReferenceDriver {
 
     public void createMachineObjects() throws Exception {
         // Make sure required objects exist
-        ReferenceMachine machine = ((ReferenceMachine) Configuration.get().getMachine());
+        ReferenceMachine machine = getMachine();
 
         ReferenceNozzle n;
         ReferenceActuator a;

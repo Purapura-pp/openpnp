@@ -365,6 +365,6 @@ public abstract class AbstractBroadcastingCamera extends AbstractSettlingCamera 
     }
 
     public boolean isPreviewSuspended() {
-        return (suspendPreviewInTasks && Configuration.get().getMachine().isBusy());
+        return (suspendPreviewInTasks && getMachine().isBusy());
     }
 }

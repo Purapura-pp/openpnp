@@ -1398,7 +1398,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
                 }
                 // If at least one nozzle tip uses vacuum sensing, require a sensing actuator.
                 boolean needsSensing = false;
-                for (NozzleTip tip : Configuration.get().getMachine().getNozzleTips()) {
+                for (NozzleTip tip : getMachine().getNozzleTips()) {
                     if (tip instanceof ReferenceNozzleTip) {
                         ReferenceNozzleTip referenceNozzleTip = (ReferenceNozzleTip) tip;
                         if (referenceNozzleTip.getMethodPartOn() != VacuumMeasurementMethod.None

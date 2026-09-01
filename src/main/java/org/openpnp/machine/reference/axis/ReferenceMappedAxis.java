@@ -24,11 +24,9 @@ package org.openpnp.machine.reference.axis;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.axis.wizards.ReferenceMappedAxisConfigurationWizard;
 import org.openpnp.model.AxesLocation;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.spi.Locatable.LocationOption;
-import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.spi.base.AbstractSingleTransformedAxis;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Element;
@@ -54,7 +52,7 @@ public class ReferenceMappedAxis extends AbstractSingleTransformedAxis {
 
     @Override
     public Wizard getConfigurationWizard() {
-        return new ReferenceMappedAxisConfigurationWizard((AbstractMachine)Configuration.get().getMachine(), this);
+        return new ReferenceMappedAxisConfigurationWizard(getMachine(), this);
     }
 
     protected double getScale() {

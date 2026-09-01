@@ -497,8 +497,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
 
     @Override
     public void createDefaults() throws Exception {
-        DriverAxisMigration.createAxisMappingDefaults(this,
-                (ReferenceMachine) Configuration.get().getMachine());
+        DriverAxisMigration.createAxisMappingDefaults(this, getMachine());
 
         createDefaultCommands();
     }
@@ -1246,7 +1245,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
     protected long getTimeoutAtMachineSpeed() {
         return timeoutMilliseconds == -1 ?
                 timeoutMilliseconds 
-                : Math.round(timeoutMilliseconds/Math.max(0.05, Configuration.get().getMachine().getSpeed()));
+                : Math.round(timeoutMilliseconds/Math.max(0.05, getMachine().getSpeed()));
     }
 
     protected void sendGcode(String gCode, long timeout) throws Exception {
@@ -1290,7 +1289,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         catch (IOException ex) {
             Logger.error(ex, "{} failed to write command {}", getCommunications().getConnectionName(), command);
             disconnect();
-            Configuration.get().getMachine().setEnabled(false);
+            getMachine().setEnabled(false);
         }
         waitForConfirmation(command, timeout);
         if (command.startsWith("$")) {
@@ -1594,7 +1593,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
         }
 
         Logger.trace("Position report: {}", line);
-        ReferenceMachine machine = ((ReferenceMachine) Configuration.get().getMachine());
+        ReferenceMachine machine = getMachine();
         AxesLocation position = AxesLocation.zero;
         for (ControllerAxis axis : new AxesLocation(machine).getAxes(this)) {
             try {
@@ -1877,7 +1876,7 @@ public class GcodeDriver extends AbstractReferenceDriver implements Named {
             setReportedAxes(null);
             setConfiguredAxes(null);
         }
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = getMachine();
         if (machine.isEnabled() || !allowConnect) {
             // If the machine is enabled, we must do this properly in a machine task.
             machine.execute(() -> { 

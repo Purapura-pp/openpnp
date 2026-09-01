@@ -73,7 +73,7 @@ public class ReferenceHead extends AbstractHead {
             if (homePart == null) {
                 throw new Exception("Visual homing is missing the FIDUCIAL-HOME part. Please create it.");
             }
-            Location homingLocation = Configuration.get().getMachine().getFiducialLocator()
+            Location homingLocation = getMachine().getFiducialLocator()
                     .getHomeFiducialLocation(getHomingFiducialLocation(), homePart);
             if (homingLocation == null) {
                 // Homing failed
@@ -163,8 +163,9 @@ public class ReferenceHead extends AbstractHead {
         return getName();
     }
 
+    @Override
     public ReferenceMachine getMachine() {
-        return (ReferenceMachine) Configuration.get().getMachine();
+        return (ReferenceMachine) super.getMachine();
     }
 
     public enum NozzleSolution {

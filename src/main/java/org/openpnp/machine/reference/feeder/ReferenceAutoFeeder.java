@@ -73,12 +73,12 @@ public class ReferenceAutoFeeder extends ReferenceFeeder {
             public void configurationLoaded(Configuration configuration) throws Exception {
                 // Migrate actuator value types.
                 if (actuatorType != null) { 
-                    Actuator actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
+                    Actuator actuator = configuration.getMachine().getActuatorByName(actuatorName);
                     AbstractActuator.suggestValueType(actuator, actuatorType);
                     actuatorType = null;
                 }
                 if (postPickActuatorType != null) {
-                    Actuator actuator = Configuration.get().getMachine().getActuatorByName(postPickActuatorName);
+                    Actuator actuator = configuration.getMachine().getActuatorByName(postPickActuatorName);
                     AbstractActuator.suggestValueType(actuator, postPickActuatorType);
                     postPickActuatorType = null;
                 }
@@ -100,7 +100,7 @@ public class ReferenceAutoFeeder extends ReferenceFeeder {
         }
         Actuator actuator = nozzle.getHead().getActuatorByName(actuatorName);
         if (actuator == null) {
-            actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
+            actuator = getMachine().getActuatorByName(actuatorName);
         }
         if (actuator == null) {
             throw new Exception("Feed failed. Unable to find an actuator named " + actuatorName);
@@ -119,7 +119,7 @@ public class ReferenceAutoFeeder extends ReferenceFeeder {
         }
         Actuator actuator = nozzle.getHead().getActuatorByName(postPickActuatorName);
         if (actuator == null) {
-            actuator = Configuration.get().getMachine().getActuatorByName(postPickActuatorName);
+            actuator = getMachine().getActuatorByName(postPickActuatorName);
         }
         if (actuator == null) {
             throw new Exception("Post pick failed. Unable to find an actuator named " + postPickActuatorName);

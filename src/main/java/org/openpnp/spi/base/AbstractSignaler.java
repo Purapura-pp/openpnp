@@ -12,14 +12,13 @@ import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.Wizard;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.PropertySheetHolder;
 import org.openpnp.spi.Signaler;
 import org.openpnp.spi.WizardConfigurable;
 import org.simpleframework.xml.Attribute;
 
-public abstract class AbstractSignaler extends AbstractModelObject implements Signaler, WizardConfigurable {
+public abstract class AbstractSignaler extends AbstractMachineElement implements Signaler, WizardConfigurable {
 
     @Attribute
     protected String id;
@@ -96,7 +95,7 @@ public abstract class AbstractSignaler extends AbstractModelObject implements Si
                     Translations.getString("DialogMessages.ConfirmDelete.title") + " " + getName() + "?", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
-                Configuration.get().getMachine().removeSignaler(AbstractSignaler.this);
+                getMachine().removeSignaler(AbstractSignaler.this);
             }
         }
     };

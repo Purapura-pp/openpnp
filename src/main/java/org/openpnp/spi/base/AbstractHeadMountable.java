@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.openpnp.ConfigurationListener;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -15,6 +14,7 @@ import org.openpnp.model.Motion.MotionOption;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.ControllerAxis;
 import org.openpnp.spi.CoordinateAxis;
+import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.MotionPlanner.CompletionType;
@@ -22,7 +22,7 @@ import org.openpnp.spi.VirtualAxis;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
 
-public abstract class AbstractHeadMountable extends AbstractModelObject implements HeadMountable {
+public abstract class AbstractHeadMountable extends AbstractMachineElement implements HeadMountable {
     private AbstractAxis axisX;
     private AbstractAxis axisY;
     private AbstractAxis axisZ;
@@ -467,8 +467,18 @@ public abstract class AbstractHeadMountable extends AbstractModelObject implemen
             return getMachine().getMotionPlanner().isValidLocation(this, axesLocation);
     }
 
-    protected AbstractMachine getMachine() {
-        return (AbstractMachine) Configuration.get().getMachine();
+    /**
+     * A head mountable that sits on a head reaches the machine through the head, which has held
+     * that reference since long before the rest of the machine did. The bottom cameras and the
+     * machine level actuators have no head, and get the reference from the machine directly.
+     */
+    @Override
+    public AbstractMachine getMachine() {
+        Head head = getHead();
+        if (head != null && head.getMachine() != null) {
+            return (AbstractMachine) head.getMachine();
+        }
+        return super.getMachine();
     }
 
 }

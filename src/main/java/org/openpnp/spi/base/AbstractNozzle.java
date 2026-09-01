@@ -271,7 +271,7 @@ public abstract class AbstractNozzle extends AbstractHeadMountable implements No
         if (compatibleNozzleTips == null) {
             compatibleNozzleTips = new HashSet<>();
             for (String nozzleTipId : compatibleNozzleTipIds) {
-                NozzleTip nt = Configuration.get().getMachine().getNozzleTip(nozzleTipId);
+                NozzleTip nt = getMachine().getNozzleTip(nozzleTipId);
                 if (nt != null) {
                     compatibleNozzleTips.add(nt);
                 }

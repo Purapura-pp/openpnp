@@ -133,7 +133,7 @@ public abstract class AbstractHead extends AbstractModelObject implements Head {
                 zProbeActuator = getActuatorByName(zProbeActuatorName);
                 pumpActuator = getActuatorByName(pumpActuatorName);
 
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                configuration.getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineAboutToBeDisabled(Machine machine, String reason) {

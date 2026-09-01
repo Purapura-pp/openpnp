@@ -416,7 +416,7 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
             Location feedEndLocation = getFeedEndLocation()
                     .subtractWithRotation(visionOffsets);
 
-            MotionPlanner motionPlanner = Configuration.get().getMachine().getMotionPlanner();
+            MotionPlanner motionPlanner = getMachine().getMotionPlanner();
             if (actuator.getAxisRotation() != null && isAdditiveRotation()) {
                 // Reset to the rotation axis to zero.
                 AxesLocation rotation = actuator.toRaw(actuator.toHeadLocation(

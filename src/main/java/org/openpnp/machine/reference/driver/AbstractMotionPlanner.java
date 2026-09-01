@@ -39,7 +39,6 @@ import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis.BacklashCompensationMethod;
 import org.openpnp.machine.reference.axis.ReferenceVirtualAxis;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -60,6 +59,7 @@ import org.openpnp.spi.Locatable.LocationOption;
 import org.openpnp.spi.MotionPlanner;
 import org.openpnp.spi.PropertySheetHolder;
 import org.openpnp.spi.base.AbstractActuator;
+import org.openpnp.spi.base.AbstractMachineElement;
 import org.openpnp.util.NanosecondTime;
 import org.openpnp.util.Utils2D;
 import org.pmw.tinylog.Logger;
@@ -80,12 +80,10 @@ import org.simpleframework.xml.Attribute;
  * </ul>
  *
  */
-public abstract class AbstractMotionPlanner extends AbstractModelObject implements MotionPlanner, PropertySheetHolder {
+public abstract class AbstractMotionPlanner extends AbstractMachineElement implements MotionPlanner, PropertySheetHolder {
 
     @Attribute(required=false)
     private double maximumPlanHistory = 60; // s
-
-    private ReferenceMachine machine;
 
     protected LinkedList<Motion> motionCommands = new LinkedList<>();
     protected TreeMap<Double, Motion> motionPlan = new TreeMap<Double, Motion>();
@@ -180,7 +178,7 @@ public abstract class AbstractMotionPlanner extends AbstractModelObject implemen
             LinkedHashSet<ControllerAxis> okToMoveAxes = new LinkedHashSet<>();
             
             // loop over all heads
-            for (Head h : machine.getHeads()) {
+            for (Head h : getMachine().getHeads()) {
                 // collect per head axes
                 LinkedHashSet<ControllerAxis> okToMoveHeadAxes = new LinkedHashSet<>();
                 // loop over all its head mountables
@@ -674,7 +672,7 @@ public abstract class AbstractMotionPlanner extends AbstractModelObject implemen
             // Append to a plan that is still running. 
             t = motionPlan.lastKey();
         }
-        ReferenceMachine machine = (ReferenceMachine) Configuration.get().getMachine();
+        ReferenceMachine machine = getMachine();
         List<Head> movedHeads = new ArrayList<>();
         boolean first = true;
         for (Motion plannedMotion : executionPlan) {
@@ -1092,11 +1090,9 @@ public abstract class AbstractMotionPlanner extends AbstractModelObject implemen
         }
     }
 
+    @Override
     public ReferenceMachine getMachine() {
-        if (machine == null) {
-            machine = (ReferenceMachine) Configuration.get().getMachine();
-        }
-        return machine;
+        return (ReferenceMachine) super.getMachine();
     }
 
     @Override

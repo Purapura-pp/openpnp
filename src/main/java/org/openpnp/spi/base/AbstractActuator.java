@@ -129,7 +129,7 @@ public abstract class AbstractActuator extends AbstractHeadMountable implements 
     public Driver getDriver() {
         // TODO: rework this fallback
         if (driver == null) {
-            return Configuration.get().getMachine().getDrivers().get(0);
+            return getMachine().getDrivers().get(0);
         }
         return driver;
     }
@@ -436,7 +436,7 @@ public abstract class AbstractActuator extends AbstractHeadMountable implements 
                     break;
             }
 
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             if (!machine.isTask(Thread.currentThread())) {
                 throw new Exception("Actuator "+getName()+" must not coordinate with machine when actuated outside machine task.");
             }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.Wizard;
+import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.SimulationModeMachine;
 import org.openpnp.machine.reference.SimulationModeMachine.SimulationMode;
 import org.openpnp.machine.reference.driver.ReferenceDriverCommunications.LineEndingType;
@@ -83,6 +84,15 @@ public abstract class AbstractReferenceDriver extends AbstractDriver {
     protected Boolean setRts = false;
     
     public AbstractReferenceDriver() {
+    }
+
+    /**
+     * A reference driver only ever belongs to a reference machine, and everything it reaches
+     * through the machine - the motion planner, the axes - is declared on that type.
+     */
+    @Override
+    public ReferenceMachine getMachine() {
+        return (ReferenceMachine) super.getMachine();
     }
     
     @Commit

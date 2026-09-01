@@ -2,12 +2,11 @@ package org.openpnp.spi.base;
 
 import javax.swing.Icon;
 
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.NozzleTip;
 import org.simpleframework.xml.Attribute;
 
-public abstract class AbstractNozzleTip extends AbstractModelObject implements NozzleTip {
+public abstract class AbstractNozzleTip extends AbstractMachineElement implements NozzleTip {
     @Attribute
     protected String id;
 

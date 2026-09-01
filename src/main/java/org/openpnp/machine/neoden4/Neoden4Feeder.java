@@ -101,7 +101,7 @@ public class Neoden4Feeder extends ReferenceFeeder {
 
         Head head = nozzle.getHead();
 
-		Actuator actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
+		Actuator actuator = getMachine().getActuatorByName(actuatorName);
 		if (actuator == null) {
 			throw new Exception(
 					String.format("No Actuator found with name %s on feed Head %s", actuatorName, head.getName()));

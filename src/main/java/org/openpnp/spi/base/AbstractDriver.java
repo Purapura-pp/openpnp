@@ -13,7 +13,6 @@ import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -23,7 +22,7 @@ import org.openpnp.spi.Machine;
 import org.openpnp.spi.PropertySheetHolder;
 import org.simpleframework.xml.Attribute;
 
-public abstract class AbstractDriver extends AbstractModelObject implements Driver {
+public abstract class AbstractDriver extends AbstractMachineElement implements Driver {
 
     @Attribute(required = false) 
     protected String id;
@@ -67,7 +66,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
     public Length getMinimumRate(int order) {
         // Get the minimum of all the axes' rate limits. 
         double rate = Double.POSITIVE_INFINITY;
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = getMachine();
         for (ControllerAxis axis : getAxes(machine)) {
             double axisRate = axis.getMotionLimit(order);
             if (rate > axisRate && axisRate != 0) {
@@ -136,7 +135,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
                     Translations.getString("DialogMessages.ConfirmDelete.title") + " " + getName() + "?", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
-                Configuration.get().getMachine().removeDriver(AbstractDriver.this);
+                getMachine().removeDriver(AbstractDriver.this);
             }
         }
     };
@@ -151,7 +150,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            Configuration.get().getMachine().permutateDriver(AbstractDriver.this, -1);
+            getMachine().permutateDriver(AbstractDriver.this, -1);
         }
     };
 
@@ -166,7 +165,7 @@ public abstract class AbstractDriver extends AbstractModelObject implements Driv
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            Configuration.get().getMachine().permutateDriver(AbstractDriver.this, +1);
+            getMachine().permutateDriver(AbstractDriver.this, +1);
         }
     };
 

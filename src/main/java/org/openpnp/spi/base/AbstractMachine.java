@@ -112,11 +112,36 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
         for (Head head : heads) {
             head.setMachine(this);
         }
+        attachAll(axes, signalers, feeders, cameras, actuators, drivers, nozzleTips);
     }
 
     public void addHead(Head head) {
         head.setMachine(this);
         heads.add(head);
+    }
+
+    /**
+     * Hands an element a reference back to this machine, so that it can reach the machine it is
+     * part of without asking Configuration which machine exists at the moment.
+     * <p>
+     * An implementation that does not extend {@link AbstractMachineElement} is left alone. It has
+     * nowhere to keep the reference and goes on asking Configuration, which is what everything did
+     * before.
+     * 
+     * @param element
+     */
+    protected void attach(Object element) {
+        if (element instanceof AbstractMachineElement) {
+            ((AbstractMachineElement) element).setMachine(this);
+        }
+    }
+
+    private void attachAll(Iterable<?>... groups) {
+        for (Iterable<?> group : groups) {
+            for (Object element : group) {
+                attach(element);
+            }
+        }
     }
 
     @Override
@@ -320,6 +345,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     @Override
     public void addAxis(Axis axis) throws Exception {
+        attach(axis);
         axes.add(axis);
         fireIndexedPropertyChange("axes", axes.size() - 1, null, axis);
     }
@@ -354,6 +380,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     @Override
     public void addFeeder(Feeder feeder) throws Exception {
+        attach(feeder);
         feeders.add(feeder);
         fireIndexedPropertyChange("feeders", feeders.size() - 1, null, feeder);
     }
@@ -369,6 +396,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
     @Override
     public void addCamera(Camera camera) throws Exception {
         camera.setHead(null);
+        attach(camera);
         cameras.add(camera);
         fireIndexedPropertyChange("cameras", cameras.size() - 1, null, camera);
     }
@@ -396,6 +424,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
     @Override
     public void addActuator(Actuator actuator) throws Exception {
         actuator.setHead(null);
+        attach(actuator);
         actuators.add(actuator);
         fireIndexedPropertyChange("actuators", actuators.size() - 1, null, actuator);
     }
@@ -422,6 +451,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     @Override
     public void addDriver(Driver driver) throws Exception {
+        attach(driver);
         drivers.add(driver);
         fireIndexedPropertyChange("drivers", drivers.size() - 1, null, drivers);
     }
@@ -448,6 +478,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     @Override
     public void addSignaler(Signaler signaler) throws Exception {
+        attach(signaler);
         signalers.add(signaler);
         fireIndexedPropertyChange("signalers", signalers.size() - 1, null, signalers);
     }
@@ -786,6 +817,7 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     @Override
     public void addNozzleTip(NozzleTip nozzleTip) throws Exception {
+        attach(nozzleTip);
         nozzleTips.add(nozzleTip);
         fireIndexedPropertyChange("nozzleTips", nozzleTips.size() - 1, null, nozzleTip);
     }

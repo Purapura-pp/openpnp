@@ -522,7 +522,7 @@ public class ReferenceNozzleTip extends AbstractNozzleTip {
 
     @Override
     public ReferenceNozzle getNozzleWhereLoaded() {
-        for (Head head : Configuration.get().getMachine().getHeads()) {
+        for (Head head : getMachine().getHeads()) {
             for (Nozzle nozzle : head.getNozzles()) {
                 if (nozzle instanceof ReferenceNozzle) {
                     // Note this also includes support for the "unloaded" nozzle tip stand-in to calibrate the
@@ -687,7 +687,7 @@ public class ReferenceNozzleTip extends AbstractNozzleTip {
         firePropertyChange("templateNozzleTip", oldValue, templateNozzleTip);
         if (templateNozzleTip && ! oldValue) {
             // Make sure, only one nozzle tip is template. 
-            for (NozzleTip nt : Configuration.get().getMachine().getNozzleTips()) {
+            for (NozzleTip nt : getMachine().getNozzleTips()) {
                 if (nt != this
                         && nt instanceof ReferenceNozzleTip
                         && ((ReferenceNozzleTip) nt).isTemplateNozzleTip()) {
@@ -1127,7 +1127,7 @@ public class ReferenceNozzleTip extends AbstractNozzleTip {
                     Translations.getString("DialogMessages.ConfirmDelete.title") + " " + getName() + "?", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
-                Configuration.get().getMachine().removeNozzleTip(ReferenceNozzleTip.this);
+                getMachine().removeNozzleTip(ReferenceNozzleTip.this);
             }
         }
     };

@@ -387,7 +387,7 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
                     getHead().removeActuator(ReferenceActuator.this);
                 }
                 else {
-                    Configuration.get().getMachine().removeActuator(ReferenceActuator.this);
+                    getMachine().removeActuator(ReferenceActuator.this);
                 }
             }
         }
@@ -404,7 +404,7 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (getHead() == null) {
-                Configuration.get().getMachine().permutateActuator(ReferenceActuator.this, -1);
+                getMachine().permutateActuator(ReferenceActuator.this, -1);
             }
             else {
                 getHead().permutateActuator(ReferenceActuator.this, -1);
@@ -423,7 +423,7 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (getHead() == null) {
-                Configuration.get().getMachine().permutateActuator(ReferenceActuator.this, +1);
+                getMachine().permutateActuator(ReferenceActuator.this, +1);
             }
             else {
                 getHead().permutateActuator(ReferenceActuator.this, +1);

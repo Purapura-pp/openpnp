@@ -7,7 +7,6 @@ import java.util.Map;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.neoden4.wizards.Neoden4SwitcherCameraConfigurationWizard;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.PropertySheetHolder;
 import org.pmw.tinylog.Logger;
@@ -42,7 +41,7 @@ public class Neoden4SwitcherCamera extends ReferenceCamera {
 			}
 			
 			Neoden4Camera neodenCam = null;
-			for (Camera c : Configuration.get().getMachine().getAllCameras()) {
+			for (Camera c : getMachine().getAllCameras()) {
 				if (c instanceof Neoden4Camera) {
 					neodenCam = (Neoden4Camera) c;
 					break;
@@ -120,7 +119,7 @@ public class Neoden4SwitcherCamera extends ReferenceCamera {
     }
 
     public Camera getCamera() {
-        return Configuration.get().getMachine().getCamera(cameraId);
+        return getMachine().getCamera(cameraId);
     }
 
     public void setCamera(Camera camera) {

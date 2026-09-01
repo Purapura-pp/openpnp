@@ -32,7 +32,6 @@ import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceActuator;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.neoden4.wizards.NeoDen4FeederActuatorConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -72,8 +71,9 @@ public class NeoDen4FeederActuator extends ReferenceActuator{
         return new NeoDen4FeederActuatorConfigurationWizard(getMachine(), this);
     }
 	
-    protected ReferenceMachine getMachine() {
-    	return (ReferenceMachine) Configuration.get().getMachine();
+    @Override
+    public ReferenceMachine getMachine() {
+    	return (ReferenceMachine) super.getMachine();
     }
 	
 	@Override

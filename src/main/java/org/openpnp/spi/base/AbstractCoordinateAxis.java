@@ -169,7 +169,7 @@ public abstract class AbstractCoordinateAxis extends AbstractAxis implements Coo
      * Returns null if the axis is unused.
      */
     public HeadMountable getDefaultHeadMountable() {
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = getMachine();
         for (Head head : machine.getHeads()) {
             // Try cameras with preference.
             for (HeadMountable hm : head.getCameras()) {

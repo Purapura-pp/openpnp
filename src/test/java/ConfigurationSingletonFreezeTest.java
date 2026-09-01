@@ -56,7 +56,7 @@ public class ConfigurationSingletonFreezeTest {
         for (Map.Entry<String, Integer> file : counted.entrySet()) {
             int cap = allowed.getOrDefault(file.getKey(), 0);
             if (file.getValue() > cap) {
-                exceeded.add(String.format("  %s calls it %d times, %d allowed", file.getKey(),
+                exceeded.add(String.format("  %s: %d calls, %d allowed", file.getKey(),
                         file.getValue(), cap));
             }
         }

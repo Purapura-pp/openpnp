@@ -23,7 +23,6 @@ import javax.swing.Action;
 
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -60,7 +59,7 @@ public class RapidFeeder extends ReferenceFeeder {
     public void feed(Nozzle nozzle) throws Exception {
         Actuator actuator = nozzle.getHead().getActuatorByName(actuatorName);
         if (actuator == null) {
-            actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
+            actuator = getMachine().getActuatorByName(actuatorName);
         }
         if (actuator == null) {
             throw new Exception("Feed failed. Unable to find an actuator named " + actuatorName);

@@ -671,10 +671,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
                 // Pseudo setter also fires in the name of the nozzle tip.
                 ((ReferenceNozzleTip) nt).setCalibrationOffsetZ(calibrationOffsetZ);
             }
-            Machine machine = Configuration.get().getMachine();
-            if (machine instanceof ReferenceMachine) {
-                ((ReferenceMachine)machine).fireMachineHeadActivity(getHead());
-            }
+            getMachine().fireMachineHeadActivity(getHead());
         }
     }
 
@@ -753,7 +750,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
     }
 
     protected boolean isPartHeightSensingAvailable(Part part, NozzleTip nozzleTip) {
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = getMachine();
         if (part != null && AbstractPartAlignment.getPartAlignment(part) != null) {
             // Uses Alignment, so it also needs a vision based method.
             Camera camera;

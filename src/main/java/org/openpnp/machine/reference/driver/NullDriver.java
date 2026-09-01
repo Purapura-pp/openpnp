@@ -29,7 +29,6 @@ import org.openpnp.machine.reference.SimulationModeMachine;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
 import org.openpnp.machine.reference.solutions.GcodeDriverSolutions;
 import org.openpnp.model.AxesLocation;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -137,7 +136,7 @@ public class NullDriver extends AbstractDriver {
 
     @Override
     public void waitForCompletion(HeadMountable hm, CompletionType completionType) throws Exception {
-        ReferenceMachine machine = (ReferenceMachine) Configuration.get().getMachine();
+        ReferenceMachine machine = (ReferenceMachine) getMachine();
         while (! machine.getMotionPlanner()
                 .getMomentaryMotion(NanosecondTime.getRuntimeSeconds())
                 .hasOption(Motion.MotionOption.Stillstand)) {
@@ -148,7 +147,7 @@ public class NullDriver extends AbstractDriver {
 
     @Override
     public AxesLocation getReportedLocation(long timeout) throws Exception {
-        ReferenceMachine machine = (ReferenceMachine) Configuration.get().getMachine();
+        ReferenceMachine machine = (ReferenceMachine) getMachine();
         double now = NanosecondTime.getRuntimeSeconds();
         Motion motion = machine.getMotionPlanner()
                 .getMomentaryMotion(now);

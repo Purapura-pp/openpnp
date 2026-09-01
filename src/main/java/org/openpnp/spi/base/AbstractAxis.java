@@ -31,7 +31,6 @@ import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
-import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
@@ -46,7 +45,7 @@ import org.simpleframework.xml.Attribute;
  * The Abstract Axis implements the common denominator of all the sub-classes. 
  *
  */
-public abstract class AbstractAxis extends AbstractModelObject implements Axis {
+public abstract class AbstractAxis extends AbstractMachineElement implements Axis {
 
     @Attribute
     protected String id;
@@ -157,7 +156,7 @@ public abstract class AbstractAxis extends AbstractModelObject implements Axis {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             String message = "";
-            for (Head head : Configuration.get().getMachine().getHeads()) {
+            for (Head head : getMachine().getHeads()) {
                 for (HeadMountable hm : head.getHeadMountables()) {
                     if (hm.getAxis(AbstractAxis.this.getType()) == AbstractAxis.this) {
                         message += "<li>"+hm.getClass().getSimpleName()+" "+hm.getName()+"</li>";    
@@ -179,7 +178,7 @@ public abstract class AbstractAxis extends AbstractModelObject implements Axis {
                             getName()),
                     JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
-                Configuration.get().getMachine().removeAxis(AbstractAxis.this);
+                getMachine().removeAxis(AbstractAxis.this);
             }
         }
     };
@@ -194,7 +193,7 @@ public abstract class AbstractAxis extends AbstractModelObject implements Axis {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            Configuration.get().getMachine().permutateAxis(AbstractAxis.this, -1);
+            getMachine().permutateAxis(AbstractAxis.this, -1);
         }
     };
 
@@ -208,7 +207,7 @@ public abstract class AbstractAxis extends AbstractModelObject implements Axis {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            Configuration.get().getMachine().permutateAxis(AbstractAxis.this, +1);
+            getMachine().permutateAxis(AbstractAxis.this, +1);
         }
     };
 

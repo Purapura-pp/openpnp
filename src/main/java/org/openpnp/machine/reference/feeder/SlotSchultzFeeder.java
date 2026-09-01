@@ -332,7 +332,7 @@ public class SlotSchultzFeeder extends SchultzFeeder {
 
     public Location getFiducialLocation(Location location, String part) throws Exception {
         Part fiducialPart = Configuration.get().getPart(part);
-        return Configuration.get().getMachine().getFiducialLocator()
+        return getMachine().getFiducialLocator()
                     .getHomeFiducialLocation(location, fiducialPart);
     }
 

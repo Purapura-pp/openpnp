@@ -1276,7 +1276,7 @@ public abstract class ReferenceCamera extends AbstractBroadcastingCamera impleme
                     getHead().removeCamera(ReferenceCamera.this);
                 }
                 else {
-                    Configuration.get().getMachine().removeCamera(ReferenceCamera.this);
+                    getMachine().removeCamera(ReferenceCamera.this);
                 }
                 MainFrame.get().getCameraViews().removeCamera(ReferenceCamera.this);
                 try {
