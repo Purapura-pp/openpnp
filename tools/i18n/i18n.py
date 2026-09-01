@@ -564,6 +564,32 @@ BATCH_HEADER = "# key\tenglish\ttranslation"
 SKIP = "SKIP"
 
 
+def batch_encode(text):
+    """Make a value safe to carry in one tab separated line, and visible while it is there.
+
+    A raw carriage return or tab inside a cell splits or silently reshapes the row, and a
+    translator cannot see it to reproduce it, so every character that is not printable on one line
+    is spelled out. The backslash goes first, so that decoding is unambiguous.
+    """
+    return (text.replace("\\", "\\\\").replace("\t", "\\t")
+            .replace("\r", "\\r").replace("\n", "\\n"))
+
+
+def batch_decode(text):
+    """The inverse of batch_encode, in a single left to right pass."""
+    out = []
+    i = 0
+    escapes = {"n": "\n", "r": "\r", "t": "\t", "\\": "\\"}
+    while i < len(text):
+        if text[i] == "\\" and i + 1 < len(text) and text[i + 1] in escapes:
+            out.append(escapes[text[i + 1]])
+            i += 2
+            continue
+        out.append(text[i])
+        i += 1
+    return "".join(out)
+
+
 def cmd_batch(args):
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -583,12 +609,12 @@ def cmd_batch(args):
         path = out_dir / "{}-{}-{:03d}.tsv".format(args.family, args.lang, number)
         lines = [
             "# Fill in the third column only. Do not change the first two.",
-            "# Keep every %s / %1$s and every <br/> and \\n that the English has.",
+            "# Keep every %s / %1$s and every <br/> and \\n and \\r that the English has.",
             "# Put {} in the third column for anything you are unsure of; it stays English.".format(SKIP),
             BATCH_HEADER,
         ]
         for key, value in chunk:
-            lines.append("{}\t{}\t".format(key, value.replace("\t", "\\t").replace("\n", "\\n")))
+            lines.append("{}\t{}\t".format(key, batch_encode(value)))
         path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         written.append(path)
 
@@ -622,7 +648,7 @@ def cmd_import(args):
         if key not in english:
             problems.append("{}: not a translatable string in this family".format(key[:70]))
             continue
-        actual = english[key].replace("\t", "\\t").replace("\n", "\\n")
+        actual = batch_encode(english[key])
         if shown_english != actual:
             problems.append("{}: the English column was altered".format(key))
             continue
@@ -636,7 +662,7 @@ def cmd_import(args):
             problems.append("{}: translation contains a tab".format(key))
             continue
 
-        value = translation.replace("\\n", "\n").replace("\\t", "\t")
+        value = batch_decode(translation)
         english_value = english[key]
 
         want, want_mixed = argument_map(english_value)
