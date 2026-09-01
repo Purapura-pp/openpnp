@@ -159,6 +159,19 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
         instance.setLengthDisplayFormatWithUnits(PREF_LENGTH_DISPLAY_FORMAT_WITH_UNITS_DEF);
     }
 
+    /**
+     * Forgets the singleton, so that the next {@link #get()} fails rather than answering with a
+     * configuration somebody else set up.
+     * <p>
+     * For tests. Nothing clears the instance while the application runs - there is one
+     * configuration for the life of the process - but tests share a JVM, and an instance that
+     * outlives the class which made it is how a test that forgets to initialize passes anyway,
+     * until the day it runs first.
+     */
+    public static synchronized void deinitialize() {
+        instance = null;
+    }
+    
     
     private Configuration(File configurationDirectory) {
         this.configurationDirectory = configurationDirectory;
