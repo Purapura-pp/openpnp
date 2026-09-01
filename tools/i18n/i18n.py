@@ -189,7 +189,11 @@ class Bundle:
                 i += 2
                 continue
             if c in "=:":
-                return load_convert(strip_unescaped(line[:i])), load_convert(line[i + 1:])
+                # Properties.load drops unescaped whitespace after the separator, so a value
+                # written as "key= text" reaches the program as "text". Reading it any other way
+                # would have the tool reporting a string the user never sees.
+                return load_convert(strip_unescaped(line[:i])), load_convert(
+                    line[i + 1:].lstrip(" \t\f"))
             i += 1
         return None, None
 
@@ -751,6 +755,30 @@ def cmd_reuse(args):
 # check
 # ---------------------------------------------------------------------------
 
+def swallowed_leading_space(bundle):
+    """Keys written with a leading space that Properties.load throws away.
+
+    The space is invisible in the file and gone at runtime, so it looks deliberate to whoever wrote
+    it and does nothing. Where the padding is wanted - the status bar counters use it - the space
+    has to be escaped as `\\ `. Worth an error rather than a warning: the two known cases were both
+    cosmetic padding that had silently stopped working.
+    """
+    found = []
+    for key, index in bundle.line_of.items():
+        raw = bundle.lines[index]
+        i = 0
+        while i < len(raw):
+            if raw[i] == "\\":
+                i += 2
+                continue
+            if raw[i] in "=:":
+                if raw[i + 1:i + 2] in (" ", "\t", "\f"):
+                    found.append(key)
+                break
+            i += 1
+    return found
+
+
 def check_language(lang, literals, strict_normalisation):
     """Returns (errors, warnings).
 
@@ -775,6 +803,9 @@ def check_language(lang, literals, strict_normalisation):
         for key in sorted(set(bundle.duplicates)):
             problems.append("{}: key appears more than once, the later one silently wins: {}"
                             .format(path.name, key))
+        for key in swallowed_leading_space(bundle):
+            problems.append("{}: the space after the separator is dropped at runtime, escape it "
+                            "as \\\\ or remove it: {}".format(path.name, key))
 
         for key, value in bundle.entries.items():
             if family == "texts":
@@ -827,6 +858,9 @@ def cmd_check(args):
     warnings = []
     for key in sorted(set(english.duplicates)):
         problems.append("translations.properties: duplicate key: {}".format(key))
+    for key in swallowed_leading_space(english):
+        problems.append("translations.properties: the space after the separator is dropped at "
+                        "runtime, escape it as \\\\ or remove it: {}".format(key))
 
     for lang in langs:
         errors, warns = check_language(lang, literals, args.strict)
