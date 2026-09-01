@@ -17,3 +17,4 @@ hs_err*
 .cursor/
 /src/main/resources/org/openpnp/translations.properties.bak
 .DS_Store
+__pycache__/
