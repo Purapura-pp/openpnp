@@ -188,10 +188,34 @@ the English wiki and screenshots. For field labels the same idea is done with a 
 label. Another language may reasonably choose differently; what matters is choosing once and
 writing it down.
 
+## When one word comes out two ways
+
+`check` finds the things that break at runtime. It cannot find a label that simply reads
+differently on two panels, because each reading is correct on its own; only the comparison across
+keys shows it. That is what this reports:
+
+```
+python tools/i18n/i18n.py consistency --lang sv
+```
+
+It lists short English strings that your language renders more than one way, and it is worth a look
+before you call a language finished. It found the Cancel button in Italian carrying the word for
+"delete" on all thirty of its keys, which had survived a full review pass.
+
+Expect findings you should keep, and say so in the commit rather than flattening them. The Chinese
+bundle uses two different words for Nozzle and Nozzle Tip, which is a distinction the English makes
+only by wording; several languages render `Cameras` differently for the bottom cameras and the head
+cameras. Where the English is one word for two different objects, two renderings is the right
+answer. Where it is one word for one object, they should match, and the majority form usually wins.
+
+Long values are left out on purpose: a sentence varies with its surroundings, and reporting those
+would bury the labels that matter. Raise `--max-len` if you want to see them anyway.
+
 ## Before you commit
 
 ```
 python tools/i18n/i18n.py check --lang sv
+python tools/i18n/i18n.py consistency --lang sv
 mvn -o test
 ```
 
@@ -219,8 +243,8 @@ of that kind should do the same.
 ## Where the work stands
 
 `python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As a rough
-picture, against 2670 English keys plus 112 Issues and Solutions descriptions: Simplified Chinese
-is complete, Russian is around 60 percent, and German, French, Spanish and Italian are all under
-5 percent. The English that used to be hardcoded in the configuration wizards has been
+picture, against 2670 English keys plus 112 Issues and Solutions descriptions: Simplified Chinese,
+Russian, French and Spanish are complete, and German and Italian are within a few dozen entries of
+it. The English that used to be hardcoded in the configuration wizards has been
 externalised, so a language that is complete today is complete; `i18n.py hardcoded` reports what
 is left, which is mostly log and exception wording that stays English on purpose.
