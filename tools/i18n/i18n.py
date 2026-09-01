@@ -10,6 +10,7 @@ Subcommands:
   check      the invariants that fail silently at runtime: placeholders, duplicates, orphans
   normalize  rewrite a bundle in the escaped form Properties.store produces
   hardcoded  English still baked into the Java sources, which no bundle can reach
+  unused     keys no Java source reads, left behind when a class was removed
 
 Run any subcommand with -h for its options.
 """
@@ -981,6 +982,56 @@ def cmd_collisions(args):
     return 0
 
 
+# ---------------------------------------------------------------------------
+# unused
+# ---------------------------------------------------------------------------
+
+def unused_report():
+    """English keys that no Java source reads.
+
+    A class can be deleted upstream while its keys stay behind in every bundle. Nothing breaks -
+    the entries are simply never looked up - but they are not harmless either, because the
+    consistency report groups keys by their English text, so a stale key carrying an older
+    rendering is indistinguishable from a live disagreement.
+
+    Keys are also assembled at run time ("Placement.Side." + side), so a key with no literal
+    occurrence is only a candidate. Every dotted prefix that appears as a literal is treated as a
+    possible builder, and a candidate matching one is left alone.
+    """
+    source = "\n".join(p.read_text(encoding="utf-8", errors="replace")
+                       for p in SOURCES.rglob("*.java"))
+    literals = set(re.findall(r'"([A-Za-z][\w.]*?)"', source))
+    builders = tuple(sorted(set(re.findall(r'"([A-Za-z][\w.]*?\.)"', source))))
+
+    dead = []
+    for key in sorted(Bundle(RESOURCES / "translations.properties").entries):
+        if key in literals:
+            continue
+        if any(key.startswith(prefix) for prefix in builders):
+            continue
+        dead.append(key)
+    return dead
+
+
+def cmd_unused(args):
+    dead = unused_report()
+    if not dead:
+        print("every key in translations.properties is read somewhere")
+        return 0
+
+    owners = OrderedDict()
+    for key in dead:
+        owners.setdefault(key.split(".")[0], []).append(key)
+
+    for owner, members in sorted(owners.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        print("{} ({})".format(owner, len(members)))
+        for key in members:
+            print("    " + key)
+    print()
+    print("{} keys are never read; delete them from every bundle, not just English".format(len(dead)))
+    return 1 if args.strict else 0
+
+
 def cmd_consistency(args):
     langs = discover_languages() if args.lang in (None, "all") else [args.lang]
     total = 0
@@ -1371,6 +1422,11 @@ def main():
     p.add_argument("--quiet", action="store_true", help="the count only")
     p.add_argument("--limit", type=int, default=40)
     p.set_defaults(func=cmd_collisions)
+
+    p = sub.add_parser("unused", help="keys no Java source reads")
+    p.add_argument("--strict", action="store_true",
+                   help="exit non-zero when any are found, for use in a pre-commit run")
+    p.set_defaults(func=cmd_unused)
 
     p = sub.add_parser("normalize", help="rewrite bundles in normalised escaped form")
     p.add_argument("--lang", default="all", help="a language code, en, or all")

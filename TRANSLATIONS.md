@@ -188,6 +188,33 @@ the English wiki and screenshots. For field labels the same idea is done with a 
 label. Another language may reasonably choose differently; what matters is choosing once and
 writing it down.
 
+## Run this before you trust a consistency report
+
+```
+python tools/i18n/i18n.py unused
+```
+
+A class can be deleted upstream while its keys stay behind in every bundle. Nothing breaks, because
+nothing looks them up, so they sit there indefinitely - `BoardLocationsTableModel`,
+`PlacementsTableModel` and `PanelFiducialsTableModel` were each replaced by a `PlacementsHolder*`
+equivalent and left forty-six keys between them.
+
+They are not harmless, and the damage is specifically to the report below. Consistency groups keys
+by their English text, so a stale key carrying an older rendering is indistinguishable from a live
+disagreement. Four of the sixty-nine Simplified Chinese findings were nothing but that, and one of
+them was convincing enough to send a reviewer looking for a Length/Width mix-up that did not exist:
+the live keys all said 纵向宽度, and the lone 长度 belonged to a table that no longer had a class.
+
+Keys are also assembled at run time, so a key with no literal occurrence is only a candidate; the
+command treats every dotted prefix that appears as a literal as a possible builder and leaves
+matching candidates alone. It still pays to confirm a surprising one by hand - search for the key in
+quotes, since `"PlacementsTableModel.ColumnName.Part"` is a bare substring of
+`"PlacementsHolderPlacementsTableModel.ColumnName.Part"` and an unquoted grep will tell you it is
+alive.
+
+When you delete, delete from all seven bundles. A key removed from English alone becomes an orphan
+that `check` then complains about.
+
 ## When one word comes out two ways
 
 `check` finds the things that break at runtime. It cannot find a label that simply reads
@@ -211,6 +238,19 @@ bundle uses two different words for Nozzle and Nozzle Tip, which is a distinctio
 only by wording; several languages render `Cameras` differently for the bottom cameras and the head
 cameras. Where the English is one word for two different objects, two renderings is the right
 answer. Where it is one word for one object, they should match, and the majority form usually wins.
+
+Read the Java before you decide, because the report cannot tell you which reading is right and the
+majority is not always it. Six of the sixty-nine Chinese findings looked like defects and were not.
+`Width` and `Length` render as 横向长度 and 纵向宽度 because those columns read X and Y respectively,
+which the English names get backwards. The label that said 旋转方式 where sixteen others said 旋转 sits
+on `comboBoxMaxRotation` and selects a strategy rather than an angle, so the odd one out was the
+accurate one and the English is what wants renaming. All eight `Solutions.Milestone.*.name` values
+are phases, so a milestone reading "进行校准阶段" against a panel's "校准" is the pattern, not an
+outlier. Twenty minutes with `git grep` saved four wrong "fixes" in that round.
+
+Of the sixty-nine, twenty-six survive on purpose. That is a normal ratio once a language is mature,
+and the ones you keep are worth writing down by key, with the reason - otherwise the next pass
+rediscovers them and someone flattens them from the report alone.
 
 Long values are left out on purpose: a sentence varies with its surroundings, and reporting those
 would bury the labels that matter. Raise `--max-len` if you want to see them anyway.
@@ -315,7 +355,14 @@ of that kind should do the same.
 
 `python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As of this
 round all six are complete: Simplified Chinese, Russian, German, Spanish, French and Italian each
-cover all 2696 English keys and all 112 Issues and Solutions descriptions.
+cover all 2650 English keys and all 112 Issues and Solutions descriptions.
+
+Consistency has been through a second pass. The counts now read 1 for French, 2 for German, 3 for
+Russian, 4 for Spanish, 5 for Italian and 26 for Simplified Chinese, every one of them recorded as
+deliberate with its reason. Chinese started at sixty-nine, an order of magnitude above the rest, for
+a reason that has nothing to do with the language: it was translated first and by the most hands, so
+it accumulated the most disagreement about wording. Expect the same of whichever language ends up
+carrying the most contributors.
 
 A language being complete now means what it says. The English that used to be hardcoded in the
 configuration wizards, the dialogs and the camera view popup menu has been externalised, so there
