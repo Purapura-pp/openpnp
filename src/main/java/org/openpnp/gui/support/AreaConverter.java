@@ -25,21 +25,44 @@ import org.jdesktop.beansbinding.Converter;
 import org.openpnp.model.Area;
 import org.openpnp.model.AreaUnit;
 import org.openpnp.model.Configuration;
+import org.openpnp.model.DisplayPreferences;
 
 public class AreaConverter extends Converter<Area, String> {
+    /**
+     * Where the units come from. Left null by the constructor that predates it, and then resolved
+     * to the shared configuration on first use rather than in the constructor, the same way
+     * {@link LengthConverter} does it.
+     */
+    private final DisplayPreferences preferences;
+
     final String format;
     
     public AreaConverter() {
-        this(Configuration.get().getLengthDisplayFormat());
+        this(Configuration.get());
     }
-    
+
+    public AreaConverter(DisplayPreferences preferences) {
+        this(preferences, preferences.getLengthDisplayFormat());
+    }
+
     public AreaConverter(String format) {
+        this(null, format);
+    }
+
+    public AreaConverter(DisplayPreferences preferences, String format) {
+        this.preferences = preferences;
         this.format = format;
     }
-    
+
+    private AreaUnit units() {
+        DisplayPreferences preferences =
+                (this.preferences != null ? this.preferences : Configuration.get());
+        return AreaUnit.fromLengthUnit(preferences.getSystemUnits());
+    }
+
     @Override
     public String convertForward(Area area) {
-        area = area.convertToUnits(AreaUnit.fromLengthUnit(Configuration.get().getSystemUnits()));
+        area = area.convertToUnits(units());
         return String.format(Locale.US, format, area.getValue());
     }
 
@@ -50,7 +73,7 @@ public class AreaConverter extends Converter<Area, String> {
             throw new RuntimeException("Unable to parse " + s);
         }
         if (area.getUnits() == null) {
-            area.setUnits(AreaUnit.fromLengthUnit(Configuration.get().getSystemUnits()));
+            area.setUnits(units());
         }
         return area;
     }

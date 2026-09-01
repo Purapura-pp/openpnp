@@ -44,7 +44,6 @@ import org.openpnp.machine.reference.ReferenceNozzle;
 import org.openpnp.machine.reference.ReferenceNozzleTip;
 import org.openpnp.machine.reference.camera.AutoFocusProvider;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -144,7 +143,7 @@ public class AutoFocusProviderConfigurationWizard extends AbstractConfigurationW
     @Override
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         LengthConverter lengthConverter = new LengthConverter();
 
         addWrappedBinding(focusProvider, "focalResolution", focalResolution, "text", lengthConverter);

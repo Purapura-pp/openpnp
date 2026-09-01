@@ -40,7 +40,6 @@ import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.machine.reference.driver.ReferenceAdvancedMotionPlanner;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Location;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.Translations;
@@ -184,7 +183,7 @@ public class ReferenceAdvancedMotionPlannerDiagnosticsWizard extends AbstractCon
 
     @Override
     public void createBindings() {
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         addWrappedBinding(motionPlanner, "moveTimePlanned", moveTimePlanned, "text", doubleConverter);
         addWrappedBinding(motionPlanner, "moveTimeActual", moveTimeActual, "text", doubleConverter);
 

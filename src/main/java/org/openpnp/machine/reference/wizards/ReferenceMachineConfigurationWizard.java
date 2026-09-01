@@ -18,7 +18,6 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.machine.reference.ReferenceMachine;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.MotionPlanner;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -242,7 +241,7 @@ public class ReferenceMachineConfigurationWizard extends AbstractConfigurationWi
     @Override
     public void createBindings() {
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         LengthConverter lengthConverter = new LengthConverter();
 
         addWrappedBinding(machine, "homeAfterEnabled", checkBoxHomeAfterEnabled, "selected");

@@ -713,10 +713,12 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                                  final Length partPitch_ = partPitchMM.convertToUnits(firstPartLocation.getUnits());
                                  SwingUtilities.invokeLater(new Runnable() {
                                      public void run() {
-                                         Helpers.copyLocationIntoTextFields(referenceHole1,
-                                                 textFieldFeedStartX, textFieldFeedStartY, null);
-                                         Helpers.copyLocationIntoTextFields(referenceHole2,
-                                                 textFieldFeedEndX, textFieldFeedEndY, null);
+                                         Helpers.copyLocationIntoTextFields(getDisplayPreferences(),
+                                                 referenceHole1, textFieldFeedStartX,
+                                                 textFieldFeedStartY, null, null);
+                                         Helpers.copyLocationIntoTextFields(getDisplayPreferences(),
+                                                 referenceHole2, textFieldFeedEndX,
+                                                 textFieldFeedEndY, null, null);
                                          textFieldPartPitch.setText(partPitch_.getValue() + "");
                                      }
                                  });

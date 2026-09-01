@@ -14,8 +14,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.machine.reference.driver.GcodeAsyncDriver;
 import org.openpnp.machine.reference.driver.GcodeDriver;
-import org.openpnp.model.Configuration;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -166,7 +164,7 @@ public class GcodeAsyncDriverSettings extends AbstractConfigurationWizard {
     @Override
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
-        //DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        //DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         DoubleConverter doubleConverterFine = new DoubleConverter("%.6f");
         LengthConverter lengthConverter = new LengthConverter();
 

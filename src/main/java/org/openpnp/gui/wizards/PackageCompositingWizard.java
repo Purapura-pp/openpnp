@@ -48,7 +48,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.machine.reference.vision.ReferenceBottomVision;
 import org.openpnp.model.BottomVisionSettings;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Location;
 import org.openpnp.model.VisionCompositing;
 import org.openpnp.model.VisionCompositing.Composite;
@@ -267,7 +266,7 @@ public class PackageCompositingWizard extends AbstractConfigurationWizard {
     @Override
     public void createBindings() {
         Converter lengthConverter = new LengthConverter();
-        Converter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        Converter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         Converter intConverter = new IntegerConverter();
         
         bind(UpdateStrategy.READ_WRITE, visionCompositing, "compositingMethod", compositingMethod, "selectedItem");

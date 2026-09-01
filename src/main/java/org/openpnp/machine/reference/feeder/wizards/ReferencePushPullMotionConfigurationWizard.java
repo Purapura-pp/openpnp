@@ -56,7 +56,6 @@ import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.feeder.ReferencePushPullFeeder;
 import org.openpnp.model.AxesLocation;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Head;
@@ -595,7 +594,7 @@ extends AbstractConfigurationWizard {
         IntegerConverter intConverter = new IntegerConverter();
         LongConverter longConverter = new LongConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         Head head = null;
         try {
             head = getMachine().getDefaultHead();

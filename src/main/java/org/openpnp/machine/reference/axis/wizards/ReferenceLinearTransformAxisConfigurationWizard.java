@@ -33,7 +33,6 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.NamedConverter;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.LinearInputAxis;
 import org.openpnp.spi.base.AbstractControllerAxis;
@@ -220,7 +219,7 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
         super.createBindings();
         LengthConverter lengthConverter = new LengthConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter("%f");//Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter("%f");//getDisplayPreferences().getLengthDisplayFormat());
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
 
         addWrappedBinding(getAxis(), "inputAxisX", inputAxisX, "selectedItem", axisConverter);

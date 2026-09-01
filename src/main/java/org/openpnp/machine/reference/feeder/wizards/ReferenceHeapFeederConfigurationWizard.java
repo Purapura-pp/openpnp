@@ -455,7 +455,7 @@ public class ReferenceHeapFeederConfigurationWizard
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         
         addWrappedBinding(feeder, "feedRetryCount", retryCountTf, "text", intConverter);
         addWrappedBinding(feeder, "pickRetryCount", pickRetryCount, "text", intConverter);

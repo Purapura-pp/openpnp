@@ -42,7 +42,6 @@ import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.gui.support.PercentConverter;
 import org.openpnp.machine.reference.ActuatorInterlockMonitor;
 import org.openpnp.machine.reference.ActuatorInterlockMonitor.InterlockType;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.CoordinateAxis;
@@ -263,7 +262,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
     @Override
     public void createBindings() {
         DoubleConverter doubleConverter =
-                new DoubleConverter("%f");//Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter("%f");//getDisplayPreferences().getLengthDisplayFormat());
         PercentConverter percentConverter =
                 new PercentConverter();
         NamedConverter<Driver> driverConverter = new NamedConverter<>(machine.getDrivers()); 

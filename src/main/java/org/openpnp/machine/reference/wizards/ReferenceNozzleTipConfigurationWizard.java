@@ -39,8 +39,6 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.machine.reference.ReferenceNozzleTip;
-import org.openpnp.model.Configuration;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -285,7 +283,7 @@ public class ReferenceNozzleTipConfigurationWizard extends AbstractConfiguration
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
         LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         
         addWrappedBinding(nozzleTip, "name", nameTf, "text");
 

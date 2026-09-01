@@ -44,7 +44,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.machine.reference.camera.ImageCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.util.UiUtils;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -307,7 +306,7 @@ public class ImageCameraConfigurationWizard extends AbstractConfigurationWizard 
     @Override
     public void createBindings() {
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter intConverter = new IntegerConverter();
         LengthConverter lengthConverter = new LengthConverter();
         LengthConverter uppConverter = new LengthConverter("%.6f");

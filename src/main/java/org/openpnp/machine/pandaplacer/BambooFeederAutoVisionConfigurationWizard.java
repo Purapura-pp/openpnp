@@ -53,7 +53,6 @@ import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.feeder.wizards.AbstractReferenceFeederConfigurationWizard;
 import org.openpnp.machine.pandaplacer.BambooFeederAutoVision;
 import org.openpnp.machine.pandaplacer.AbstractPandaplacerVisionFeeder.CalibrationTrigger;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
 import org.openpnp.util.FeederVisionHelper.PipelineType;
@@ -467,7 +466,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         IntegerConverter intConverter = new IntegerConverter();
         LongConverter longConverter = new LongConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         actuatorConverter = (new NamedConverter<>(getMachine().getActuators()));
 
         MutableLocationProxy firstPickLocation = new MutableLocationProxy();

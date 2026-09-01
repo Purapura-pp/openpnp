@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
+import org.openpnp.model.LengthUnit;
 
 public class ComponentDecorators {
     /**
@@ -76,11 +77,12 @@ public class ComponentDecorators {
     }
 
     private static void convertLength(JTextField textField, String format) {
-        Length length = Length.parseWithDefaultUnits(textField.getText(), Configuration.get().getSystemUnits());
+        LengthUnit units = Configuration.get().getSystemUnits();
+        Length length = Length.parseWithDefaultUnits(textField.getText(), units);
         if (length == null) {
             return;
         }
-        length = length.convertToUnits(Configuration.get().getSystemUnits());
+        length = length.convertToUnits(units);
         textField.setText(String.format(Locale.US, format, length.getValue()));
     }
 }

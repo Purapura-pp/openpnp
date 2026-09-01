@@ -55,7 +55,6 @@ import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.reference.feeder.SlotSchultzFeeder;
 import org.openpnp.machine.reference.feeder.SlotSchultzFeeder.Bank;
 import org.openpnp.machine.reference.feeder.SlotSchultzFeeder.Feeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Location;
 import org.openpnp.model.Part;
 import org.openpnp.spi.Actuator;
@@ -529,7 +528,7 @@ extends AbstractConfigurationWizard {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "fiducialPart", fiducialPartTf, "text");
         addWrappedBinding(feeder, "feedRetryCount", feedRetryCount, "text", intConverter);

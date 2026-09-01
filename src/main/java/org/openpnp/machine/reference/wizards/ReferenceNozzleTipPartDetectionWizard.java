@@ -41,8 +41,6 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.machine.reference.ReferenceNozzleTip;
 import org.openpnp.machine.reference.ReferenceNozzleTip.VacuumMeasurementMethod;
-import org.openpnp.model.Configuration;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -466,7 +464,7 @@ public class ReferenceNozzleTipPartDetectionWizard extends AbstractConfiguration
 
     @Override
     public void createBindings() {
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter integerConverter = new IntegerConverter();
 
         addWrappedBinding(nozzleTip, "methodPartOn", methodPartOn, "selectedItem");

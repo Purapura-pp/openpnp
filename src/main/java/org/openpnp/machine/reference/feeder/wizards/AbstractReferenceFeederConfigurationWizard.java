@@ -36,7 +36,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.reference.ReferenceFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.Translations;
@@ -205,7 +204,7 @@ public abstract class AbstractReferenceFeederConfigurationWizard
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "part", comboBoxPart, "selectedItem");
         addWrappedBinding(feeder, "feedRetryCount", feedRetryCount, "text", intConverter);

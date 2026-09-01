@@ -43,7 +43,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.machine.reference.SimulationModeMachine;
 import org.openpnp.machine.reference.SimulationModeMachine.SimulationMode;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -268,7 +267,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         DoubleConverter doubleConverter =
                 new DoubleConverter("%f");
         DoubleConverter degreeConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter integerConverter =
                 new IntegerConverter();
         LengthConverter lengthConverter = new LengthConverter();

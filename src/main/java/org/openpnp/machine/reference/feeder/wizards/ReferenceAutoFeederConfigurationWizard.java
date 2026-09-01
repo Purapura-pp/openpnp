@@ -37,7 +37,6 @@ import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.ActuatorsComboBoxModel;
 import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.machine.reference.feeder.ReferenceAutoFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.util.UiUtils;
 import org.pmw.tinylog.Logger;
@@ -147,7 +146,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
         super.createBindings();
 
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "actuatorName", comboBoxFeedActuator, "selectedItem");
         addWrappedBinding(feeder, "actuatorValue", actuatorValue, "text", doubleConverter);

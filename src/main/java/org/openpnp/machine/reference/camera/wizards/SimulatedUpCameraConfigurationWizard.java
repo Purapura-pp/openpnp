@@ -36,8 +36,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.machine.reference.camera.SimulatedUpCamera;
-import org.openpnp.model.Configuration;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -255,7 +253,7 @@ public class SimulatedUpCameraConfigurationWizard extends AbstractConfigurationW
     @Override
     public void createBindings() {
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter intConverter = new IntegerConverter();
         LengthConverter lengthConverter = new LengthConverter();
         LengthConverter uppConverter = new LengthConverter("%.6f");

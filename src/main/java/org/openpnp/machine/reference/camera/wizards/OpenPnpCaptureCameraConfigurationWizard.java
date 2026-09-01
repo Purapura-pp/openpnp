@@ -43,7 +43,6 @@ import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.machine.reference.camera.OpenPnpCaptureCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.Translations;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
@@ -668,7 +667,7 @@ public class OpenPnpCaptureCameraConfigurationWizard extends AbstractConfigurati
     @Override
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         bind(UpdateStrategy.READ, freezeProperties, "selected", btnReapplyToCamera, "enabled");
         

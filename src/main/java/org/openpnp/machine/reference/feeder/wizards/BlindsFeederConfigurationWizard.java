@@ -459,7 +459,8 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         public void actionPerformed(ActionEvent arg0) {
             UiUtils.messageBoxOnException(() -> {
                 Location l = getTool().getLocation();
-                Helpers.copyLocationIntoTextFields(l, null, null, textFieldPartZ, null);
+                Helpers.copyLocationIntoTextFields(getDisplayPreferences(), l, null, null,
+                        textFieldPartZ, null);
             });
         }
     };

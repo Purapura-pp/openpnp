@@ -57,7 +57,6 @@ import org.openpnp.machine.reference.ReferenceNozzleTip;
 import org.openpnp.machine.reference.ReferenceNozzleTip.VisionCalibration;
 import org.openpnp.machine.reference.ReferenceNozzleTip.VisionCalibrationTrigger;
 import org.openpnp.machine.reference.ReferenceNozzleTip.ZCalibrationTrigger;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Machine;
@@ -699,7 +698,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
     @Override
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter intConverter = new IntegerConverter();
 
         MutableLocationProxy changerStartLocation = new MutableLocationProxy();

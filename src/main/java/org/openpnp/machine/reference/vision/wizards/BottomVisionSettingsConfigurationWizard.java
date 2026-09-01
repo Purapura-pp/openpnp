@@ -421,7 +421,7 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
     @Override
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         LengthConverter lengthConverter = new LengthConverter();
 
         bind(UpdateStrategy.READ, asymmetric, "selected", tfBottomVisionOffsetX, "enabled");
@@ -512,7 +512,7 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
         Camera camera = VisionUtils.getBottomVisionCamera();
         Nozzle nozzle = MainFrame.get().getMachineControls().getSelectedNozzle();
         // Nominal position of the part over camera center
-        double angle = new DoubleConverter(Configuration.get().getLengthDisplayFormat())
+        double angle = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat())
                 .convertReverse(testAlignmentAngle.getText());
         Part part = nozzle.getPart();
         Package pkg = null;
@@ -574,7 +574,7 @@ public class BottomVisionSettingsConfigurationWizard extends AbstractConfigurati
     private void testAlignment(boolean centerAfterTest) throws Exception {
         Nozzle nozzle = getNozzleWithPart();
 
-        double angle = new DoubleConverter(Configuration.get().getLengthDisplayFormat())
+        double angle = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat())
                 .convertReverse(testAlignmentAngle.getText());
 
         alignAndCenter(bottomVision, nozzle, angle, centerAfterTest);

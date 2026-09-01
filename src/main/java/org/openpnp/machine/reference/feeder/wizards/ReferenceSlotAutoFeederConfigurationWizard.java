@@ -46,7 +46,6 @@ import org.openpnp.gui.support.JBindings.Wrapper;
 import org.openpnp.machine.reference.feeder.ReferenceSlotAutoFeeder;
 import org.openpnp.machine.reference.feeder.ReferenceSlotAutoFeeder.Bank;
 import org.openpnp.machine.reference.feeder.ReferenceSlotAutoFeeder.Feeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -396,7 +395,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "actuatorName", comboBoxFeedActuator, "selectedItem");
         addWrappedBinding(feeder, "actuatorValue", actuatorValue, "text", doubleConverter);

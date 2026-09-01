@@ -59,7 +59,6 @@ import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PercentConverter;
 import org.openpnp.machine.reference.feeder.ReferenceLeverFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Camera;
 import org.openpnp.util.UiUtils;
 
@@ -360,7 +359,7 @@ public class ReferenceLeverFeederConfigurationWizard
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         BufferedImageIconConverter imageConverter = new BufferedImageIconConverter();
         PercentConverter percentConverter = new PercentConverter();
 

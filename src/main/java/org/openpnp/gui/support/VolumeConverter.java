@@ -23,23 +23,46 @@ import java.util.Locale;
 
 import org.jdesktop.beansbinding.Converter;
 import org.openpnp.model.Configuration;
+import org.openpnp.model.DisplayPreferences;
 import org.openpnp.model.Volume;
 import org.openpnp.model.VolumeUnit;
 
 public class VolumeConverter extends Converter<Volume, String> {
+    /**
+     * Where the units come from. Left null by the constructor that predates it, and then resolved
+     * to the shared configuration on first use rather than in the constructor, the same way
+     * {@link LengthConverter} does it.
+     */
+    private final DisplayPreferences preferences;
+
     final String format;
     
     public VolumeConverter() {
-        this(Configuration.get().getLengthDisplayFormat());
+        this(Configuration.get());
     }
-    
+
+    public VolumeConverter(DisplayPreferences preferences) {
+        this(preferences, preferences.getLengthDisplayFormat());
+    }
+
     public VolumeConverter(String format) {
+        this(null, format);
+    }
+
+    public VolumeConverter(DisplayPreferences preferences, String format) {
+        this.preferences = preferences;
         this.format = format;
     }
-    
+
+    private VolumeUnit units() {
+        DisplayPreferences preferences =
+                (this.preferences != null ? this.preferences : Configuration.get());
+        return VolumeUnit.fromLengthUnit(preferences.getSystemUnits());
+    }
+
     @Override
     public String convertForward(Volume volume) {
-        volume = volume.convertToUnits(VolumeUnit.fromLengthUnit(Configuration.get().getSystemUnits()));
+        volume = volume.convertToUnits(units());
         return String.format(Locale.US, format, volume.getValue());
     }
 
@@ -50,7 +73,7 @@ public class VolumeConverter extends Converter<Volume, String> {
             throw new RuntimeException("Unable to parse " + s);
         }
         if (volume.getUnits() == null) {
-            volume.setUnits(VolumeUnit.fromLengthUnit(Configuration.get().getSystemUnits()));
+            volume.setUnits(units());
         }
         return volume;
     }

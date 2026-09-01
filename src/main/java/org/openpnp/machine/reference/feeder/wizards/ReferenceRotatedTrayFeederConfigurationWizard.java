@@ -48,7 +48,6 @@ import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.reference.feeder.ReferenceRotatedTrayFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -376,7 +375,7 @@ public class ReferenceRotatedTrayFeederConfigurationWizard extends AbstractConfi
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         //---------------------------------------------------------------------------------------//
         //These bindings are used to access the various text fields of the GUI without having to
@@ -574,7 +573,7 @@ public class ReferenceRotatedTrayFeederConfigurationWizard extends AbstractConfi
             rotDeg = colAngleDeg + 90;
         }
 
-        LengthUnit units = Configuration.get().getSystemUnits();
+        LengthUnit units = getDisplayPreferences().getSystemUnits();
         return new Location(units, colStep.convertToUnits(units).getValue(), 
                 rowStep.convertToUnits(units).getValue(), 0, rotDeg);
     }

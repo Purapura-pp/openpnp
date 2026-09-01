@@ -535,7 +535,7 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
         AbstractMachine machine = getMachine();
         LengthConverter uppLengthConverter = new LengthConverter(uppFormat);
         LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         NamedConverter<Actuator> actuatorConverter = (camera.getHead() != null
                 ? new NamedConverter<>(machine.getActuators(), camera.getHead().getActuators())
                 : new NamedConverter<>(machine.getActuators()));
@@ -630,7 +630,8 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
                                       .getMachineControls()
                                       .getSelectedTool()
                                       .getLocation();
-                Helpers.copyLocationIntoTextFields(l, null, null, textFieldDefaultZ, null);
+                Helpers.copyLocationIntoTextFields(getDisplayPreferences(), l, null, null,
+                        textFieldDefaultZ, null);
             });
         }
     };

@@ -543,7 +543,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         IntegerConverter intConverter = new IntegerConverter();
         LongConverter longConverter = new LongConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         MutableLocationProxy firstPickLocation = new MutableLocationProxy();
         bind(UpdateStrategy.READ_WRITE, feeder, "location", firstPickLocation, "location");

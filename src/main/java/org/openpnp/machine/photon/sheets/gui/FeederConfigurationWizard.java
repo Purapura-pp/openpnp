@@ -27,7 +27,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.photon.PhotonFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 import org.openpnp.util.UiUtils;
 
@@ -262,7 +261,7 @@ public class FeederConfigurationWizard extends AbstractConfigurationWizard {
 		LengthConverter lengthConverter = new LengthConverter();
 		IntegerConverter intConverter = new IntegerConverter();
 		DoubleConverter doubleConverter =
-				new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+				new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
 		SlotProxy slotProxy = new SlotProxy();
 		binding = Bindings.createAutoBinding(UpdateStrategy.READ,

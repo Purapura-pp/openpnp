@@ -43,7 +43,6 @@ import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PercentConverter;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.driver.ReferenceAdvancedMotionPlanner;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.MotionPlanner;
 import org.openpnp.Translations;
@@ -440,7 +439,7 @@ public class ReferenceAdvancedMotionPlannerConfigurationWizard extends AbstractC
     @Override
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         PercentConverter percentConverter = new PercentConverter();
 
         addWrappedBinding(motionPlanner, "allowContinuousMotion", allowContinuousMotion, "selected");

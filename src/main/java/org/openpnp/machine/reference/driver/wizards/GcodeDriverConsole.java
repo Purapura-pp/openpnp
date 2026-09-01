@@ -24,7 +24,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.driver.GcodeDriver;
 import org.openpnp.machine.reference.driver.GcodeDriver.CommandType;
-import org.openpnp.model.Configuration;
 import org.pmw.tinylog.Logger;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -133,7 +132,7 @@ public class GcodeDriverConsole extends AbstractConfigurationWizard {
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
     }
 

@@ -50,7 +50,6 @@ import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LongConverter;
 import org.openpnp.machine.reference.camera.AbstractSettlingCamera;
 import org.openpnp.machine.reference.camera.AbstractSettlingCamera.SettleMethod;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
@@ -321,7 +320,7 @@ public class CameraVisionConfigurationWizard extends AbstractConfigurationWizard
         AbstractMachine machine = getMachine();
         LongConverter longConverter = new LongConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(camera, "settleMethod", settleMethod, "selectedItem");
         addWrappedBinding(camera, "settleTimeMs", settleTimeMs, "text", longConverter);

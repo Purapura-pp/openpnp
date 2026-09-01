@@ -66,7 +66,6 @@ import org.openpnp.machine.reference.camera.ImageCamera;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
 import org.openpnp.machine.reference.camera.calibration.AdvancedCalibration;
 import org.openpnp.machine.reference.camera.calibration.CameraCalibrationUtils;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -236,7 +235,7 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
             calibrationHeightSelections.add(new LengthCellValue(secondaryLocation.getLengthZ()));
         };
         
-        displayUnits = Configuration.get().getSystemUnits();
+        displayUnits = getDisplayPreferences().getSystemUnits();
         if (displayUnits.equals(LengthUnit.Inches)) {
             smallDisplayUnits = LengthUnit.Mils;
         }

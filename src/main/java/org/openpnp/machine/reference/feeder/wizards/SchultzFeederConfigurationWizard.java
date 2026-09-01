@@ -37,7 +37,6 @@ import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.ActuatorsComboBoxModel;
 import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.machine.reference.feeder.SchultzFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.base.AbstractActuator;
 import org.openpnp.util.UiUtils;
@@ -256,7 +255,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         super.createBindings();
 
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "actuatorName", comboBoxFeedActuator, "selectedItem");
         addWrappedBinding(feeder, "actuatorValue", actuatorValue, "text", doubleConverter);

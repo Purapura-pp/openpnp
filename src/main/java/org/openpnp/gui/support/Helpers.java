@@ -33,6 +33,7 @@ import javax.swing.SwingUtilities;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.openpnp.gui.tablemodel.AbstractObjectTableModel;
 import org.openpnp.model.Configuration;
+import org.openpnp.model.DisplayPreferences;
 import org.openpnp.model.Location;
 
 public class Helpers {
@@ -43,22 +44,38 @@ public class Helpers {
 
     public static void copyLocationIntoTextFields(Location l, JTextField x, JTextField y,
             JTextField z, JTextField rotation) {
-        l = l.convertToUnits(Configuration.get().getSystemUnits());
+        copyLocationIntoTextFields(Configuration.get(), l, x, y, z, rotation);
+    }
+
+    /**
+     * Writes a location into the fields that show it, in the units and format they are shown in.
+     * <p>
+     * A wizard knows which preferences its fields were built with and passes them. The overloads
+     * above are for the callers that have none to hand, such as the location buttons, which are
+     * given nothing but the text fields themselves.
+     * 
+     * @param preferences
+     * @param l
+     * @param x
+     * @param y
+     * @param z
+     * @param rotation
+     */
+    public static void copyLocationIntoTextFields(DisplayPreferences preferences, Location l,
+            JTextField x, JTextField y, JTextField z, JTextField rotation) {
+        l = l.convertToUnits(preferences.getSystemUnits());
+        String format = preferences.getLengthDisplayFormat();
         if (x != null) {
-            x.setText(String.format(Locale.US, Configuration.get().getLengthDisplayFormat(),
-                    l.getLengthX().getValue()));
+            x.setText(String.format(Locale.US, format, l.getLengthX().getValue()));
         }
         if (y != null) {
-            y.setText(String.format(Locale.US, Configuration.get().getLengthDisplayFormat(),
-                    l.getLengthY().getValue()));
+            y.setText(String.format(Locale.US, format, l.getLengthY().getValue()));
         }
         if (z != null) {
-            z.setText(String.format(Locale.US, Configuration.get().getLengthDisplayFormat(),
-                    l.getLengthZ().getValue()));
+            z.setText(String.format(Locale.US, format, l.getLengthZ().getValue()));
         }
         if (rotation != null) {
-            rotation.setText(String.format(Locale.US, Configuration.get().getLengthDisplayFormat(),
-                    l.getRotation()));
+            rotation.setText(String.format(Locale.US, format, l.getRotation()));
         }
     }
 

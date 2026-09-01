@@ -47,7 +47,6 @@ import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.ContactProbeNozzle;
 import org.openpnp.machine.reference.ContactProbeNozzle.ContactProbeMethod;
 import org.openpnp.machine.reference.ContactProbeNozzle.ContactProbeTrigger;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.util.UiUtils;
 
@@ -245,7 +244,7 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         LongConverter longConverter = new LongConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         NamedConverter<Actuator> actuatorConverter = (new NamedConverter<>(nozzle.getHead().getActuators()));
 
         addWrappedBinding(nozzle, "contactProbeMethod", contactProbeMethod, "selectedItem");

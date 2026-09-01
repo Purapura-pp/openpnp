@@ -57,7 +57,6 @@ import org.openpnp.gui.support.Helpers;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.tablemodel.FootprintTableModel;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Footprint;
 import org.openpnp.model.Footprint.Generator;
 import org.openpnp.model.Footprint.Pad;
@@ -439,7 +438,7 @@ public class PackageVisionWizard extends AbstractConfigurationWizard {
 
     @Override
     public void createBindings() {
-        Converter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        Converter doubleConverter = new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         Converter intConverter = new IntegerConverter();
         
         bind(UpdateStrategy.READ_WRITE, footprint, "units", unitsCombo, "selectedItem");
