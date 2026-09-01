@@ -244,6 +244,43 @@ plurals, case and trailing punctuation, because Chinese marks no plural and has 
 where your language should not, and forcing a difference to quiet the report makes the translation
 worse. Write the ones you keep into the terminology block.
 
+## When Java has to build the sentence
+
+Some strings are glued to a value at runtime: `Center Camera on ` gets a location name appended,
+`CameraViewPopupMenu.Reticle.EnterSize` interpolates a unit. Both hand you a word you do not
+control, in a form you did not choose. The unit label is capitalised because it doubles as a menu
+item, and the location name arrives in the nominative because it is one too.
+
+English survives this because it inflects almost nothing and does not mind a capital mid-sentence.
+Russian and French both do mind. The fix that works without touching Java is to restructure your
+sentence so the interpolation lands after a colon, where any reader takes a capitalised word as a
+quoted value:
+
+    Введите размер. Единица: %s
+    Saisissez la taille. Unité : %s
+
+Lowercasing the label in Java would be wrong, because German capitalises nouns and needs the
+capital. A parallel set of lowercase keys is a lot of machinery for two prompts. Restructuring
+costs nothing and is a translator's decision. Write it into your terminology block, because it
+looks like an oversight and the next person will otherwise "fix" it back.
+
+The same reasoning is why `ExistingBoardOrPanelDialog` no longer assembles its prompt from a
+leader, a noun and a trailer. Where Java concatenates, prefer one key holding a whole sentence.
+
+## A leading space is not what you typed
+
+`Properties.load` throws away unescaped whitespace after the separator, so
+
+    SomeLabel.text= Placed:
+
+reaches the program as `Placed:` and the padding you wanted is gone. To keep it, escape it:
+
+    SomeLabel.text=\ Placed:
+
+`check` reports the unescaped form as an error. It has to, because the space is invisible in the
+file and does nothing at runtime, so it looks deliberate and correct to everyone who reads it
+afterwards - two status bar counters had been losing their padding for years.
+
 ## Before you commit
 
 ```
