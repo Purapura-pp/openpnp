@@ -851,6 +851,55 @@ def cmd_check(args):
 
 
 # ---------------------------------------------------------------------------
+# consistency
+# ---------------------------------------------------------------------------
+
+# A short label rendered one way on one panel and another way on the next is invisible to a
+# reviewer working entry by entry, because each rendering reads correctly on its own. Long values
+# are excluded: a sentence legitimately varies with its surroundings, and reporting those buries
+# the labels that matter. Markup is excluded for the same reason.
+def consistency_report(lang, family, max_len):
+    english = Bundle(bundle_path(family)).entries
+    target_path = bundle_path(family, lang)
+    if not target_path.exists():
+        return []
+    target = Bundle(target_path).entries
+
+    by_english = {}
+    for key, value in english.items():
+        if key not in target or len(value) > max_len or "<" in value:
+            continue
+        by_english.setdefault(value.strip(), {})[key] = target[key].strip()
+
+    findings = []
+    for source, renderings in sorted(by_english.items()):
+        if len(set(renderings.values())) > 1:
+            findings.append((source, renderings))
+    return findings
+
+
+def cmd_consistency(args):
+    langs = discover_languages() if args.lang in (None, "all") else [args.lang]
+    total = 0
+    for lang in langs:
+        for family in FAMILIES:
+            findings = consistency_report(lang, family, args.max_len)
+            total += len(findings)
+            if not findings or args.quiet:
+                continue
+            print("{}_{}.properties".format(family, lang))
+            for source, renderings in findings[:args.limit]:
+                print("  {!r} is rendered {} ways".format(source, len(set(renderings.values()))))
+                for key, value in sorted(renderings.items(), key=lambda kv: kv[1]):
+                    print("    {:24s} {}".format(value, key))
+            if len(findings) > args.limit:
+                print("  ... {} more".format(len(findings) - args.limit))
+            print()
+    print("{}: {} English strings have more than one rendering".format(", ".join(langs), total))
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # normalize
 # ---------------------------------------------------------------------------
 
@@ -1203,6 +1252,14 @@ def main():
     p.add_argument("--quiet", action="store_true", help="errors only, no dead entry warnings")
     p.add_argument("--limit", type=int, default=15)
     p.set_defaults(func=cmd_check)
+
+    p = sub.add_parser("consistency", help="short labels one language renders more than one way")
+    p.add_argument("--lang", default="all")
+    p.add_argument("--max-len", type=int, default=40,
+                   help="ignore English longer than this; sentences vary with context")
+    p.add_argument("--quiet", action="store_true", help="the count only")
+    p.add_argument("--limit", type=int, default=40)
+    p.set_defaults(func=cmd_consistency)
 
     p = sub.add_parser("normalize", help="rewrite bundles in normalised escaped form")
     p.add_argument("--lang", default="all", help="a language code, en, or all")
