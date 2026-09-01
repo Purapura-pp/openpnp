@@ -168,14 +168,14 @@ public class MachineControlsPanel extends JPanel {
         try {
             Head head = selectedTool.getHead();
             if (head == null) {
-                head = Configuration.get().getMachine().getDefaultHead();
+                head = configuration.getMachine().getDefaultHead();
             }
             camera = head.getDefaultCamera();
         }
         catch (Exception e) {
             Logger.debug(e, "No default camera available, tool actions are enabled without it.");
         }
-        boolean enabled = Configuration.get().getMachine().isEnabled();
+        boolean enabled = configuration.getMachine().isEnabled();
         homeAction.setEnabled(enabled);
         jogControlsPanel.setEnabled(enabled);
         targetCameraAction.setEnabled(enabled && selectedTool != camera);
@@ -379,7 +379,7 @@ public class MachineControlsPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             setEnabled(false);
-            final Machine machine = Configuration.get().getMachine();
+            final Machine machine = configuration.getMachine();
             final boolean enable = !machine.isEnabled();
             Runnable task = () -> {
                 try {
@@ -425,7 +425,7 @@ public class MachineControlsPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             UiUtils.submitUiMachineTask(() -> {
-                Machine machine = Configuration.get().getMachine();
+                Machine machine = configuration.getMachine();
                 machine.home();
             });
         }

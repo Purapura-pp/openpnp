@@ -3,21 +3,13 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 427 calls in 152 files.
+# 347 calls in 144 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
-org/openpnp/gui/BoardsPanel.java	5
-org/openpnp/gui/FeedersPanel.java	10
-org/openpnp/gui/JobPanel.java	26
+org/openpnp/gui/FeedersPanel.java	4
 org/openpnp/gui/JobPlacementsPanel.java	1
-org/openpnp/gui/JogControlsPanel.java	10
-org/openpnp/gui/MachineControlsPanel.java	4
 org/openpnp/gui/MachineSetupPanel.java	2
-org/openpnp/gui/MainFrame.java	3
-org/openpnp/gui/PackagesPanel.java	9
 org/openpnp/gui/PanelDefinitionPanel.java	28
-org/openpnp/gui/PanelsPanel.java	5
-org/openpnp/gui/PartsPanel.java	12
 org/openpnp/gui/ScriptAction.java	1
 org/openpnp/gui/SubmitDiagnosticsDialog.java	4
 org/openpnp/gui/VisionSettingsPanel.java	4

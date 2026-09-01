@@ -161,7 +161,7 @@ public class BoardsPanel extends JPanel {
                         
                         boolean updateLinkedTables = 
                                 MainFrame.get().getTabs().getSelectedComponent() == MainFrame.get().getBoardsTab() 
-                                && Configuration.get().getTablesLinked() == TablesLinked.Linked;
+                                && configuration.getTablesLinked() == TablesLinked.Linked;
 
                         List<Board> selections = getSelections();
                         if (selections.size() == 0) {
@@ -169,7 +169,7 @@ public class BoardsPanel extends JPanel {
                             multiSelectionActionGroup.setEnabled(false);
                             getBoardPlacementsPanel().setBoard(null);
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(null, BoardsPanel.this));
                             }
                         }
@@ -178,7 +178,7 @@ public class BoardsPanel extends JPanel {
                             singleSelectionActionGroup.setEnabled(true);
                             getBoardPlacementsPanel().setBoard(selections.get(0));
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(selections.get(0), BoardsPanel.this));
                             }
                         }
@@ -187,7 +187,7 @@ public class BoardsPanel extends JPanel {
                             multiSelectionActionGroup.setEnabled(true);
                             getBoardPlacementsPanel().setBoard(null);
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(null, BoardsPanel.this));
                             }
                         }
@@ -258,7 +258,7 @@ public class BoardsPanel extends JPanel {
         
         add(splitPane);
 
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
     }
     
     public JTable getFiducialLocatableLocationsTable() {

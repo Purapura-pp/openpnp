@@ -246,7 +246,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
             }
         });
         
-        Configuration.get().addPropertyChangeListener("visionSettings", new PropertyChangeListener() {
+        configuration.addPropertyChangeListener("visionSettings", new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 // Handle vision settings changes like selection changes, as the inherited settings might change. 
@@ -308,7 +308,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            if (Configuration.get().getPackages().size() == 0) {
+            if (configuration.getPackages().size() == 0) {
                 MessageBoxes.errorBox(getTopLevelAncestor(),
                         Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString("PartsPanel.NewPart.NoPackages")); //$NON-NLS-1$
@@ -329,7 +329,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
                 }
                 Part part = new Part(id);
 
-                part.setPackage(Configuration.get().getPackages().get(0));
+                part.setPackage(configuration.getPackages().get(0));
 
                 configuration.addPart(part);
                 tableModel.fireTableDataChanged();
@@ -364,7 +364,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
                                     "CommonWords.parts") + "?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
             if (ret == JOptionPane.YES_OPTION) {
                 for (Part part : selections) {
-                    Configuration.get().removePart(part);
+                    configuration.removePart(part);
                 }
             }
         }
@@ -381,7 +381,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
         public void actionPerformed(ActionEvent arg0) {
             UiUtils.submitUiMachineTask(() -> {
                 Part part = getSelectedPart();
-                Feeder feeder = FeederUtils.findFeeder(Configuration.get().getMachine(),part,null,null);
+                Feeder feeder = FeederUtils.findFeeder(configuration.getMachine(),part,null,null);
                 if (feeder == null) {
                     throw new Exception(String.format(
                             Translations.getString("PartsPanel.PickPart.NoFeeder"), part.getId())); //$NON-NLS-1$
@@ -447,18 +447,18 @@ public class PartsPanel extends JPanel implements WizardContainer {
             }
             try {
                 try {
-                    Configuration.get().lockListeners();
+                    configuration.lockListeners();
                     Serializer ser = Configuration.createSerializer();
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     String s = (String) clipboard.getData(DataFlavor.stringFlavor);
                     StringReader r = new StringReader(s);
                     Part part = ser.read(Part.class, s);
                     part.setId(id);
-                    Configuration.get().addPart(part);
+                    configuration.addPart(part);
                     tableModel.fireTableDataChanged();
                     Helpers.selectLastTableRow(table);
                 } finally {
-                    Configuration.get().unlockListeners();
+                    configuration.unlockListeners();
                 }
             }
             catch (Exception e) {
@@ -503,7 +503,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
             tabbedPane.add(Translations.getString("PartsPanel.SettingsTab.title"), //$NON-NLS-1$
                     (JPanel) wizard);
 
-            for (PartAlignment partAlignment : Configuration.get().getMachine().getPartAlignments()) {
+            for (PartAlignment partAlignment : configuration.getMachine().getPartAlignments()) {
                 wizard = partAlignment.getPartConfigurationWizard(selectedPart);
                 if (wizard != null) {
                     wizard.setWizardContainer(PartsPanel.this);
@@ -512,7 +512,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
             }
             
             FiducialLocator fiducialLocator =
-                    Configuration.get().getMachine().getFiducialLocator();
+                    configuration.getMachine().getFiducialLocator();
             wizard = fiducialLocator.getPartConfigurationWizard(selectedPart);
             if (wizard != null) {
                 wizard.setWizardContainer(PartsPanel.this);
@@ -520,7 +520,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
             }
             MainFrame mainFrame = MainFrame.get();
             if (mainFrame.getTabs().getSelectedComponent() == mainFrame.getPartsTab() 
-                    && Configuration.get().getTablesLinked() == TablesLinked.Linked) {
+                    && configuration.getTablesLinked() == TablesLinked.Linked) {
                 mainFrame.getPackagesTab().selectPackageInTable(selectedPart.getPackage());
                 mainFrame.getFeedersTab().selectFeederForPart(selectedPart);
                 mainFrame.getVisionSettingsTab().selectVisionSettingsInTable(selectedPart);
@@ -537,7 +537,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
     public void selectPartInTableAndUpdateLinks(Part part) {
         selectPartInTable(part);
 
-        if(Configuration.get().getTablesLinked() == TablesLinked.Linked)
+        if(configuration.getTablesLinked() == TablesLinked.Linked)
         {
             MainFrame mainFrame = MainFrame.get();
             mainFrame.getPartsTab().selectPartInTable(part);

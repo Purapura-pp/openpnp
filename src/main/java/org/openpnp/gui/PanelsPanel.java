@@ -162,7 +162,7 @@ public class PanelsPanel extends JPanel {
                         }
                         
                         boolean updateLinkedTables = MainFrame.get().getTabs().getSelectedComponent() == MainFrame.get().getPanelsTab() 
-                                && Configuration.get().getTablesLinked() == TablesLinked.Linked;
+                                && configuration.getTablesLinked() == TablesLinked.Linked;
 
                         List<Panel> selections = getSelections();
                         if (selections.size() == 0) {
@@ -175,7 +175,7 @@ public class PanelsPanel extends JPanel {
                                 Logger.error(e1, "Failed to clear the panel definition view.");
                             }
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(null, PanelsPanel.this));
                             }
                         }
@@ -190,7 +190,7 @@ public class PanelsPanel extends JPanel {
                                         selections.get(0).getName());
                             }
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(selections.get(0), PanelsPanel.this));
                             }
                         }
@@ -204,7 +204,7 @@ public class PanelsPanel extends JPanel {
                                 Logger.error(e1, "Failed to clear the panel definition view.");
                             }
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderSelectedEvent(null, PanelsPanel.this));
                             }
                         }
@@ -271,7 +271,7 @@ public class PanelsPanel extends JPanel {
         add(splitPane);
         
 
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
     }
     
     public JTable getPanelsTable() {

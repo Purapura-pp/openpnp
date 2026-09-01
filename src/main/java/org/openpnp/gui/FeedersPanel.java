@@ -320,7 +320,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
                                     lastSelectedTabIndex.get(feeder.getClass()))));
                         }
                         if (mainFrame.getTabs().getSelectedComponent() == mainFrame.getFeedersTab()
-                              &&  Configuration.get().getTablesLinked() == TablesLinked.Linked
+                              &&  configuration.getTablesLinked() == TablesLinked.Linked
                               && feeder.getPart() != null) {
                             mainFrame.getPartsTab().selectPartInTableAndUpdateLinks(feeder.getPart());
                         }
@@ -329,12 +329,12 @@ public class FeedersPanel extends JPanel implements WizardContainer {
                     revalidate();
                     repaint();
 
-                    Configuration.get().getBus().post(new FeederSelectedEvent(feeder, FeedersPanel.this));
+                    configuration.getBus().post(new FeederSelectedEvent(feeder, FeedersPanel.this));
                 }
             }
         });
 
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
         
         JPopupMenu popupMenu = new JPopupMenu();
 
@@ -470,7 +470,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
         int[] selectedRows = table.getSelectedRows();
         for (int selectedRow : selectedRows) {
             selectedRow = table.convertRowIndexToModel(selectedRow);
-            selections.add(Configuration.get().getMachine().getFeeders().get(selectedRow));
+            selections.add(configuration.getMachine().getFeeders().get(selectedRow));
         }
         return selections;
     }
@@ -502,7 +502,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
             return;
         }
         
-        if (Configuration.get().getParts().size() == 0) {
+        if (configuration.getParts().size() == 0) {
             MessageBoxes.errorBox(getTopLevelAncestor(),
                     Translations.getString("General.Error"), //$NON-NLS-1$
                     Translations.getString("FeedersPanel.NewFeeder.NoParts")); //$NON-NLS-1$
@@ -532,7 +532,7 @@ public class FeedersPanel extends JPanel implements WizardContainer {
             
             Feeder feeder = feederClass.newInstance();
 
-            feeder.setPart(part == null ? Configuration.get().getParts().get(0) : part);
+            feeder.setPart(part == null ? configuration.getParts().get(0) : part);
 
             configuration.getMachine().addFeeder(feeder);
             tableModel.refresh();

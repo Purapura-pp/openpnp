@@ -464,7 +464,7 @@ public class MainFrame extends JFrame {
 
         // Discovered from the bundles that are present, so adding a language does not mean
         // editing this list. See Translations.getAvailableLocales.
-        Locale selectedLocale = Configuration.get().getLocale();
+        Locale selectedLocale = configuration.getLocale();
         List<Locale> locales = new ArrayList<>(Translations.getAvailableLocales());
         Collator collator = Collator.getInstance();
         locales.sort((a, b) -> collator.compare(a.getDisplayName(), b.getDisplayName()));
@@ -805,13 +805,13 @@ public class MainFrame extends JFrame {
 	            scriptFileWatcher = new ScriptFileWatcher(configuration.getScripting());
 	            scriptFileWatcher.setMenu(mnScripts);
 	            
-	            if (Configuration.get().getMachine().getProperty("Welcome2_0_Dialog_Shown") == null) {
+	            if (configuration.getMachine().getProperty("Welcome2_0_Dialog_Shown") == null) {
 	                Welcome2_0Dialog dialog = new Welcome2_0Dialog(this);
 	                dialog.setSize(750, 550);
 	                dialog.setLocationRelativeTo(null);
 	                dialog.setModal(true);
 	                dialog.setVisible(true);
-	                Configuration.get().getMachine().setProperty("Welcome2_0_Dialog_Shown", true);
+	                configuration.getMachine().setProperty("Welcome2_0_Dialog_Shown", true);
 	            }
 	            configurationLoaded = true;    
 	        }

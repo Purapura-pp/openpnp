@@ -182,7 +182,7 @@ public class JogControlsPanel extends JPanel {
     public void jogTool(final int x, final int y, final int z, final int c, HeadMountable tool)
             throws Exception {
         Location l = tool.getLocation()
-                .convertToUnits(Configuration.get()
+                .convertToUnits(configuration
                         .getSystemUnits());
         double xPos = l.getX();
         double yPos = l.getY();
@@ -345,7 +345,7 @@ public class JogControlsPanel extends JPanel {
             int oldValue = 100;
             @Override
             public void stateChanged(ChangeEvent e) {
-                Machine machine = Configuration.get().getMachine();
+                Machine machine = configuration.getMachine();
                 int minSpeedSlider = (int) Math.ceil(machine.getMotionPlanner().getMinimumSpeed()*100);
                 if (speedSlider.getValue() > 0 && speedSlider.getValue() < minSpeedSlider) {
                     if (oldValue > speedSlider.getValue()) {
@@ -562,7 +562,7 @@ public class JogControlsPanel extends JPanel {
             UiUtils.submitUiMachineTask(() -> {
                 Head head = machineControlsPanel.getSelectedTool().getHead();
                 if (head == null) {
-                    head = Configuration.get()
+                    head = configuration
                             .getMachine()
                             .getDefaultHead(); 
                 }
@@ -578,7 +578,7 @@ public class JogControlsPanel extends JPanel {
         public void actionPerformed(ActionEvent arg0) {
             UiUtils.submitUiMachineTask(() -> {
                 HeadMountable hm = machineControlsPanel.getSelectedTool();
-                if (Configuration.get().getMachine().isSafeZPark()) {
+                if (configuration.getMachine().isSafeZPark()) {
                     // All other head-mountables must also be moved to safe Z.
                     hm.getHead().moveToSafeZ();
                 }
@@ -662,16 +662,16 @@ public class JogControlsPanel extends JPanel {
                     throw new Exception("No Part on the current nozzle!");
                 }
                 
-                Feeder feeder = FeederUtils.findFeeder(Configuration.get().getMachine(),part,nozzle.getPartsFeeder(),null);
+                Feeder feeder = FeederUtils.findFeeder(configuration.getMachine(),part,nozzle.getPartsFeeder(),null);
                 if(feeder!=null) {
                     Map<String, Object> globals = new HashMap<>();
                     globals.put("nozzle", nozzle);
                     globals.put("feeder", feeder);
                     globals.put("part", part);
 
-                    Configuration.get().getScripting().on("Feeder.BeforeTakeBack", globals);
+                    configuration.getScripting().on("Feeder.BeforeTakeBack", globals);
                     feeder.takeBackPart(nozzle);
-                    Configuration.get().getScripting().on("Feeder.AfterTakeBack", globals);
+                    configuration.getScripting().on("Feeder.AfterTakeBack", globals);
                 }
             });
         }
@@ -769,7 +769,7 @@ public class JogControlsPanel extends JPanel {
 
             panelActuators.removeAll();
 
-            Machine machine = Configuration.get()
+            Machine machine = configuration
                     .getMachine();
 
             for (Actuator actuator : machine.getActuators()) {
@@ -808,7 +808,7 @@ public class JogControlsPanel extends JPanel {
                         boolean canTakeBack = false;
                         Part part = selectedNozzle.getPart();
                         if (part != null) {
-                            for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+                            for (Feeder feeder : configuration.getMachine().getFeeders()) {
                                 if (feeder.isEnabled() 
                                         && feeder.getPart() == part
                                         && feeder.canTakeBackPart()) {
@@ -820,7 +820,7 @@ public class JogControlsPanel extends JPanel {
                     }
                 };
             // add to all nozzles
-            for (Head head : Configuration.get().getMachine().getHeads()) {
+            for (Head head : configuration.getMachine().getHeads()) {
                 for (Nozzle nozzle : head.getNozzles()) {
                     if (nozzle instanceof AbstractNozzle) {
                         AbstractNozzle aNozzle = (AbstractNozzle) nozzle;

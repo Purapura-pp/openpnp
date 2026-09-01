@@ -275,7 +275,7 @@ public class JobPanel extends JPanel {
                         }
                         
                         boolean updateLinkedTables = mainFrame.getTabs().getSelectedComponent() == mainFrame.getJobTab() 
-                                && Configuration.get().getTablesLinked() == TablesLinked.Linked;
+                                && configuration.getTablesLinked() == TablesLinked.Linked;
                         
                         List<PlacementsHolderLocation<?>> selections = getSelections();
                         if (selections.size() == 0) {
@@ -285,9 +285,9 @@ public class JobPanel extends JPanel {
                             multiTopLevelSelectionActionGroup.setEnabled(false);
                             jobPlacementsPanel.setBoardOrPanelLocation(null);
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderLocationSelectedEvent(null, JobPanel.this));
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementSelectedEvent(null, null, JobPanel.this));
                             }
                         }
@@ -305,14 +305,14 @@ public class JobPanel extends JPanel {
                             jobPlacementsPanel.setBoardOrPanelLocation(selections.get(0));
                             if (updateLinkedTables) {
                                 if (selections.get(0).getParent() != job.getRootPanelLocation()) {
-                                    Configuration.get().getBus()
+                                    configuration.getBus()
                                     .post(new PlacementsHolderLocationSelectedEvent(
                                             selections.get(0).getParent().getDefinition(), JobPanel.this));
                                 }
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderLocationSelectedEvent(
                                             selections.get(0).getDefinition(), JobPanel.this));
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementSelectedEvent(null, selections.get(0), JobPanel.this));
                             }
                         }
@@ -337,9 +337,9 @@ public class JobPanel extends JPanel {
                             }
                             jobPlacementsPanel.setBoardOrPanelLocation(null);
                             if (updateLinkedTables) {
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementsHolderLocationSelectedEvent(null, JobPanel.this));
-                                Configuration.get().getBus()
+                                configuration.getBus()
                                     .post(new PlacementSelectedEvent(null, null, JobPanel.this));
                             }
                         }
@@ -463,7 +463,7 @@ public class JobPanel extends JPanel {
         mnOpenRecent.setMnemonic(KeyEvent.VK_R);
         loadRecentJobs();
 
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+        configuration.addListener(new ConfigurationListener.Adapter() {
             // FYI: this listener is executed asynchronously
             public void configurationComplete(Configuration configuration) throws Exception {
                 Machine machine = configuration.getMachine();
@@ -507,7 +507,7 @@ public class JobPanel extends JPanel {
 
         jobTable.setComponentPopupMenu(popupMenu);
 
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
     }
     
     void setState(State newState) {
@@ -577,7 +577,7 @@ public class JobPanel extends JPanel {
             this.job.getRootPanelLocation().getPanel().removeAllChildren();
         }
         this.job = job;
-        Configuration.get().setJob(job);
+        configuration.setJob(job);
         jobTableModel.setJob(job);
         job.addPropertyChangeListener("dirty", titlePropertyChangeListener); //$NON-NLS-1$
         job.addPropertyChangeListener("file", titlePropertyChangeListener); //$NON-NLS-1$
@@ -587,7 +587,7 @@ public class JobPanel extends JPanel {
         if (jobViewer != null) {
             jobViewer.setPlacementsHolder(job.getRootPanelLocation().getPlacementsHolder(), getSelections());
         }
-        Configuration.get().getBus().post(new JobLoadedEvent(job));
+        configuration.getBus().post(new JobLoadedEvent(job));
     }
 
     public JobPlacementsPanel getJobPlacementsPanel() {
@@ -933,7 +933,7 @@ public class JobPanel extends JPanel {
      * @throws Exception
      */
     public void jobStart() throws Exception {
-        jobProcessor = Configuration.get().getMachine().getPnpJobProcessor();
+        jobProcessor = configuration.getMachine().getPnpJobProcessor();
         if (isAllPlaced()) {
             int ret = JOptionPane.showConfirmDialog(getTopLevelAncestor(),
                     Translations.getString("JobPanel.JobStart.ResetPlacements.ConfirmDialog.Question"), //$NON-NLS-1$
@@ -951,7 +951,7 @@ public class JobPanel extends JPanel {
     public void jobRun() {
         UiUtils.submitUiMachineTask(() -> {
             // For optional motion stepping, remember the past move.
-            MotionPlanner motionPlanner = Configuration.get().getMachine().getMotionPlanner();
+            MotionPlanner motionPlanner = configuration.getMachine().getMotionPlanner();
             Motion pastMotion = motionPlanner.getLastMotion();
             do {
                 do { 
@@ -1242,7 +1242,7 @@ public class JobPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             ExistingBoardOrPanelDialog existingBoardDialog = new ExistingBoardOrPanelDialog(
-                    Configuration.get(), Board.class, 
+                    configuration, Board.class, 
                     Translations.getString("JobPanel.Action.Job.AddBoard.ExistingBoard.Dialog.Title")); //$NON-NLS-1$
             existingBoardDialog.setVisible(true);
             File file = existingBoardDialog.getFile();
@@ -1265,15 +1265,15 @@ public class JobPanel extends JPanel {
     protected void addBoard(File file) throws Exception {
         Board board = new Board(configuration.getBoard(file));
         BoardLocation boardLocation = new BoardLocation(board);
-        boardLocation.setLocation(Configuration.get().getMachine().getDefaultBoardLocation());
+        boardLocation.setLocation(configuration.getMachine().getDefaultBoardLocation());
         
-        Configuration.get().resolveBoard(job, boardLocation);
+        configuration.resolveBoard(job, boardLocation);
         
         job.addBoardOrPanelLocation(boardLocation);
         job.getRootPanelLocation().dump(""); //$NON-NLS-1$
         // TODO: Move to a list property listener.
         jobTableModel.fireTableDataChanged();
-        Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(boardLocation, "all", null, null, this));
+        configuration.getBus().post(new PlacementsHolderLocationChangedEvent(boardLocation, "all", null, null, this));
         Helpers.selectObjectTableRow(jobTable, boardLocation);
     }
     
@@ -1327,7 +1327,7 @@ public class JobPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             ExistingBoardOrPanelDialog existingPanelDialog = new ExistingBoardOrPanelDialog(
-                    Configuration.get(), Panel.class, 
+                    configuration, Panel.class, 
                     Translations.getString("JobPanel.Action.Job.AddBoard.ExitingPanel.Dialog.Title")); //$NON-NLS-1$
             existingPanelDialog.setVisible(true);
             File file = existingPanelDialog.getFile();
@@ -1350,15 +1350,15 @@ public class JobPanel extends JPanel {
     protected void addPanel(File file) throws Exception {
         Panel panel = new Panel(configuration.getPanel(file));
         PanelLocation panelLocation = new PanelLocation(panel);
-        panelLocation.setLocation(Configuration.get().getMachine().getDefaultBoardLocation());
+        panelLocation.setLocation(configuration.getMachine().getDefaultBoardLocation());
         
-        Configuration.get().resolvePanel(job, panelLocation);
+        configuration.resolvePanel(job, panelLocation);
         
         job.addBoardOrPanelLocation(panelLocation);
         job.getRootPanelLocation().dump(""); //$NON-NLS-1$
         // TODO: Move to a list property listener.
         jobTableModel.fireTableDataChanged();
-        Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(panelLocation, "all", null, null, this));
+        configuration.getBus().post(new PlacementsHolderLocationChangedEvent(panelLocation, "all", null, null, this));
         Helpers.selectObjectTableRow(jobTable, panelLocation);
     }
     
@@ -1376,7 +1376,7 @@ public class JobPanel extends JPanel {
                 job.removeBoardOrPanelLocation(selection);
             }
             jobTableModel.fireTableDataChanged();
-            Configuration.get().getBus().post(new DefinitionStructureChangedEvent(job.getRootPanelLocation().getPanel(), "children", this));
+            configuration.getBus().post(new DefinitionStructureChangedEvent(job.getRootPanelLocation().getPanel(), "children", this));
         }
     };
 
@@ -1447,7 +1447,7 @@ public class JobPanel extends JPanel {
 
                         Map<String, Object> globals = new HashMap<>();
                         globals.put("camera", camera); //$NON-NLS-1$
-                        Configuration.get().getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
+                        configuration.getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
                     });
                 }
             };
@@ -1476,7 +1476,7 @@ public class JobPanel extends JPanel {
 
                         Map<String, Object> globals = new HashMap<>();
                         globals.put("camera", camera); //$NON-NLS-1$
-                        Configuration.get().getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
+                        configuration.getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
                     });
                 }
             };
@@ -1527,7 +1527,7 @@ public class JobPanel extends JPanel {
         public void actionPerformed(ActionEvent arg0) {
             UiUtils.submitUiMachineTask(() -> {
                 PlacementsHolderLocation<?> placementsHolderLocation = getSelection();
-                Location location = Configuration.get().getMachine().getFiducialLocator()
+                Location location = configuration.getMachine().getFiducialLocator()
                         .locatePlacementsHolder(placementsHolderLocation);
                 
                 /**

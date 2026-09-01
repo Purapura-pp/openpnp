@@ -214,7 +214,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             }
         });
 
-        Configuration.get().addPropertyChangeListener("visionSettings", new PropertyChangeListener() {
+        configuration.addPropertyChangeListener("visionSettings", new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 // Handle vision settings changes like selection changes, as the inherited settings might change. 
@@ -246,7 +246,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             public void componentHidden(ComponentEvent e) {
                 try {
                     Camera camera =
-                            Configuration.get().getMachine().getDefaultHead().getDefaultCamera();
+                            configuration.getMachine().getDefaultHead().getDefaultCamera();
                     CameraView cameraView = MainFrame.get().getCameraViews().getCameraView(camera);
                     if (cameraView == null) {
                         return;
@@ -340,7 +340,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             // Check to make sure there are no parts using this package.
             List<Package> selections = getSelections();
             for (Package pkg : selections) {
-                for (Part part : Configuration.get().getParts()) {
+                for (Part part : configuration.getParts()) {
                     if (part.getPackage() == pkg) {
                         MessageBoxes.errorBox(getTopLevelAncestor(),
                                 Translations.getString("CommonWords.error"), //$NON-NLS-1$
@@ -369,7 +369,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
                                     "CommonWords.packages") + "?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
             if (ret == JOptionPane.YES_OPTION) {
                 for (Package pkg : selections) {
-                    Configuration.get().removePackage(pkg);
+                    configuration.removePackage(pkg);
                 }
             }
         }
@@ -431,18 +431,18 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             }
             try {
                 try {
-                    Configuration.get().lockListeners();
+                    configuration.lockListeners();
                     Serializer ser = Configuration.createSerializer();
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     String s = (String) clipboard.getData(DataFlavor.stringFlavor);
                     StringReader r = new StringReader(s);
                     Package pkg = ser.read(Package.class, s);
                     pkg.setId(id);
-                    Configuration.get().addPackage(pkg);
+                    configuration.addPackage(pkg);
                     tableModel.fireTableDataChanged();
                     Helpers.selectObjectTableRow(table, pkg);
                 } finally {
-                    Configuration.get().unlockListeners();
+                    configuration.unlockListeners();
                 }
             }
             catch (Exception e) {
@@ -508,7 +508,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             tabbedPane.add(Translations.getString("PackagesPanel.VisionCompositingTab.title"), //$NON-NLS-1$
                     packageCompositingPanel);
             
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = configuration.getMachine();
             for (PartAlignment partAlignment : machine.getPartAlignments()) {
                 Wizard wizard = partAlignment.getPartConfigurationWizard(selectedPackage);
                 if (wizard != null) {
@@ -530,7 +530,7 @@ public class PackagesPanel extends JPanel implements WizardContainer {
             }
             MainFrame mainFrame = MainFrame.get();
             if (mainFrame.getTabs().getSelectedComponent() == mainFrame.getPackagesTab() 
-                    && Configuration.get().getTablesLinked() == TablesLinked.Linked) {
+                    && configuration.getTablesLinked() == TablesLinked.Linked) {
                  mainFrame.getVisionSettingsTab().selectVisionSettingsInTable(selectedPackage);
             }
         }
