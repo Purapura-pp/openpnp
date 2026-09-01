@@ -110,7 +110,8 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
 
     public BlindsFeederArrayConfigurationWizard(BlindsFeeder feeder) {
         this.feeder = feeder;
-        List<String> blindsFeederGroupNames = feeder.getBlindsFeederGroupNames();
+        List<String> blindsFeederGroupNames =
+                BlindsFeeder.getBlindsFeederGroupNames(feeder.getMachine());
 
         panelArray = new JPanel();
         contentPanel.add(panelArray);

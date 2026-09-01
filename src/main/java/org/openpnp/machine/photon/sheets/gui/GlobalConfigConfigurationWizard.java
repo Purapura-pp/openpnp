@@ -124,7 +124,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
             progressBarPanel.setNumberOfElements(maxFeederAddress);
 
             UiUtils.submitUiMachineTask(() -> {
-                PhotonFeeder.findAllFeeders(progressBarPanel::updateFeederState);
+                PhotonFeeder.findAllFeeders(getMachine(), progressBarPanel::updateFeederState);
                 return null;
             }, (parameter) -> {
                 resetState();

@@ -410,7 +410,7 @@ public class PhotonFeederTest {
         feeder.setSlotAddress(feederAddress);
         String otherHardwareId = "445566778899AABBCCDDEEFF";
 
-        assertNull(PhotonFeeder.findByHardwareId(otherHardwareId));
+        assertNull(PhotonFeeder.findByHardwareId(machine, otherHardwareId));
 
         bus.when(new InitializeFeeder(feederAddress, hardwareId))
                 .reply(responses.errors.wrongFeederUUID(feederAddress, otherHardwareId));
@@ -430,7 +430,7 @@ public class PhotonFeederTest {
         assertEquals(newAddress, (int) feeder.getSlotAddress());
         assertTrue(feeder.isInitialized());
 
-        PhotonFeeder otherFeeder = PhotonFeeder.findByHardwareId(otherHardwareId);
+        PhotonFeeder otherFeeder = PhotonFeeder.findByHardwareId(machine, otherHardwareId);
         assertNotNull(otherFeeder);
         assertFalse(otherFeeder.initialized);
         assertEquals(feederAddress, (int) otherFeeder.slotAddress);
@@ -449,7 +449,7 @@ public class PhotonFeederTest {
         otherFeeder.setHardwareId(otherHardwareId);
         machine.addFeeder(otherFeeder);
 
-        assertSame(otherFeeder, PhotonFeeder.findByHardwareId(otherHardwareId));
+        assertSame(otherFeeder, PhotonFeeder.findByHardwareId(machine, otherHardwareId));
 
         bus.when(new InitializeFeeder(feederAddress, hardwareId))
                 .reply(responses.errors.wrongFeederUUID(feederAddress, otherHardwareId));
@@ -469,7 +469,7 @@ public class PhotonFeederTest {
         assertEquals(newAddress, (int) feeder.getSlotAddress());
         assertTrue(feeder.isInitialized());
 
-        PhotonFeeder recalledOtherFeeder = PhotonFeeder.findByHardwareId(otherHardwareId);
+        PhotonFeeder recalledOtherFeeder = PhotonFeeder.findByHardwareId(machine, otherHardwareId);
         assertSame(otherFeeder, recalledOtherFeeder);
         assertFalse(otherFeeder.initialized);
         assertEquals(feederAddress, (int) otherFeeder.slotAddress);
@@ -996,12 +996,12 @@ public class PhotonFeederTest {
                     .reply(responses.getFeederId.ok(address, uuid));
         }
 
-        PhotonFeeder.findAllFeeders(null);
+        PhotonFeeder.findAllFeeders(machine, null);
 
         for (int address = 1; address <= maxFeederAddress; address++) {
             String expectedUUID = uuids.get(address);
-            PhotonFeeder byUUID = PhotonFeeder.findByHardwareId(expectedUUID);
-            PhotonFeeder byAddress = PhotonFeeder.findBySlotAddress(address);
+            PhotonFeeder byUUID = PhotonFeeder.findByHardwareId(machine, expectedUUID);
+            PhotonFeeder byAddress = PhotonFeeder.findBySlotAddress(machine, address);
 
             assertNotNull(byUUID);
             assertNotNull(byAddress);
@@ -1039,7 +1039,7 @@ public class PhotonFeederTest {
             bus.when(new GetFeederId(i)).timeout();
         }
 
-        PhotonFeeder.findAllFeeders(null);
+        PhotonFeeder.findAllFeeders(machine, null);
 
         assertEquals(2, (int) feeder.getSlotAddress());
         assertEquals(
@@ -1047,7 +1047,7 @@ public class PhotonFeederTest {
                 feeder.getName()
         );
 
-        PhotonFeeder newFeeder = PhotonFeeder.findByHardwareId(newHardwareUuid);
+        PhotonFeeder newFeeder = PhotonFeeder.findByHardwareId(machine, newHardwareUuid);
         assertNotNull(newFeeder);
         assertEquals(1, (int) newFeeder.getSlotAddress());
         assertEquals(newHardwareUuid, newFeeder.getHardwareId());
@@ -1078,7 +1078,7 @@ public class PhotonFeederTest {
         bus.when(new GetFeederId(2))
                 .reply(responses.getFeederId.ok(2, newHardwareUuid));
 
-        PhotonFeeder.findAllFeeders(null);
+        PhotonFeeder.findAllFeeders(machine, null);
 
         assertEquals(1, (int) feeder.getSlotAddress());
         assertEquals(hardwareId, feeder.getHardwareId());
@@ -1087,7 +1087,7 @@ public class PhotonFeederTest {
                 feeder.getName()
         );
 
-        PhotonFeeder newFeeder = PhotonFeeder.findByHardwareId(newHardwareUuid);
+        PhotonFeeder newFeeder = PhotonFeeder.findByHardwareId(machine, newHardwareUuid);
         assertNotNull(newFeeder);
         assertEquals(2, (int) newFeeder.getSlotAddress());
         assertEquals(newHardwareUuid, newFeeder.getHardwareId());
@@ -1110,7 +1110,7 @@ public class PhotonFeederTest {
             bus.when(new GetFeederId(i)).timeout();
         }
 
-        PhotonFeeder.findAllFeeders(null);
+        PhotonFeeder.findAllFeeders(machine, null);
 
         assertNull(feeder.getSlotAddress());
 
@@ -1129,7 +1129,7 @@ public class PhotonFeederTest {
 //
 //        IntConsumer progressUpdates = mock(IntConsumer.class);
 //
-//        PhotonFeeder.findAllFeeders(progressUpdates);
+//        PhotonFeeder.findAllFeeders(machine, progressUpdates);
 //
 //        InOrder inOrder = inOrder(progressUpdates);
 //        for (int i = 1; i <= maxFeederAddress; i++) {

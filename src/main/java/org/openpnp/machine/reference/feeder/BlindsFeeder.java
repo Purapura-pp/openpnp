@@ -1306,24 +1306,24 @@ public class BlindsFeeder extends ReferenceFeeder {
         return feederList;
     }
 
-    public static void actuateAllFeederCovers(Nozzle preferredNozzle, boolean openState) throws Exception  {
-        List<BlindsFeeder> feederList = getFeedersWithCoverToActuate(Configuration.get().getMachine().getFeeders(), 
+    public static void actuateAllFeederCovers(Machine machine, Nozzle preferredNozzle, boolean openState) throws Exception  {
+        List<BlindsFeeder> feederList = getFeedersWithCoverToActuate(machine.getFeeders(), 
                 new CoverActuation [] { CoverActuation.Manual, CoverActuation.CheckOpen, CoverActuation.OpenOnFirstUse, CoverActuation.OpenOnJobStart }, 
                 openState); 
         if (feederList.size() == 0) {
             throw new Exception("No feeders found to "+(openState ? "open." : "close."));
         }
-        actuateListedFeederCovers(preferredNozzle, feederList, openState, false);
+        actuateListedFeederCovers(machine, preferredNozzle, feederList, openState, false);
     }
 
-    public static void actuateListedFeederCovers(Nozzle preferredNozzle, List<BlindsFeeder> feederList, boolean openState, boolean restoreNozzleTip) throws Exception  {
+    public static void actuateListedFeederCovers(Machine machine, Nozzle preferredNozzle, List<BlindsFeeder> feederList, boolean openState, boolean restoreNozzleTip) throws Exception  {
         if (feederList.size() == 0) {
             // nothing to do, avoid changing the nozzle tip for nothing.
             return;
         }
 
         // Get the push nozzle for the current position. This will also throw if none is allowed.
-        NozzleAndTipForPushing nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(preferredNozzle, true);
+        NozzleAndTipForPushing nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(machine, preferredNozzle, true);
 
         // Use a Travelling Salesman algorithm to optimize the path to actuate all the feeder covers.
         TravellingSalesman<BlindsFeeder> tsm = new TravellingSalesman<>(
@@ -1413,7 +1413,7 @@ public class BlindsFeeder extends ReferenceFeeder {
             return changed;
         }
     }
-    public static NozzleAndTipForPushing getNozzleAndTipForPushing(Nozzle preferredNozzle, boolean loadNozzleTipIfNeeded) throws Exception {
+    public static NozzleAndTipForPushing getNozzleAndTipForPushing(Machine machine, Nozzle preferredNozzle, boolean loadNozzleTipIfNeeded) throws Exception {
         // Search for any nozzle and nozzle tip that may be used for cover pushing. 
         // First, try the preferredNozzle.
         if (preferredNozzle != null ) {
@@ -1428,7 +1428,6 @@ public class BlindsFeeder extends ReferenceFeeder {
         }
 
         // Second, try any free nozzle with loaded nozzle tip. 
-        Machine machine = Configuration.get().getMachine();
         for (Head head : machine.getHeads()) {
             for (Nozzle nozzle :  head.getNozzles()) {
                 if (nozzle.getPart() == null) { 
@@ -1510,7 +1509,7 @@ public class BlindsFeeder extends ReferenceFeeder {
                     && ! isCoverOpen()) {
                 // Get the push nozzle for the current position. This will also throw if none is allowed.
                 // Note, we save this for pass two of the feeder prep to restore.
-                nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(null, true);
+                nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(getMachine(), null, true);
 
                 // Actuate the cover.
                 actuateCover(true);
@@ -1536,7 +1535,7 @@ public class BlindsFeeder extends ReferenceFeeder {
                 // Report all the changed parts.
                 StringBuilder msg = new StringBuilder();
                 msg.append("OCR changed parts: ");
-                for (BlindsFeeder feeder : getAllBlindsFeeders()) {
+                for (BlindsFeeder feeder : getAllBlindsFeeders(getMachine())) {
                     if (feeder.ocrChangedPartId != null) {
                         msg.append(feeder.getClass().getSimpleName());
                         msg.append(" ");
@@ -1574,7 +1573,7 @@ public class BlindsFeeder extends ReferenceFeeder {
             }
 
             // Get the nozzle for pushing
-            NozzleAndTipForPushing nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(preferredNozzle, loadNozzleTipIfNeeded);
+            NozzleAndTipForPushing nozzleAndTipForPushing = BlindsFeeder.getNozzleAndTipForPushing(getMachine(), preferredNozzle, loadNozzleTipIfNeeded);
             Nozzle nozzle = nozzleAndTipForPushing.getNozzle();
             NozzleTip nozzleTip = nozzleAndTipForPushing.getNozzleTip();
             if (nozzleTip == null) {
@@ -1864,11 +1863,11 @@ public class BlindsFeeder extends ReferenceFeeder {
         return false;
     }
 
-    public static List<String> getBlindsFeederGroupNames() {
+    public static List<String> getBlindsFeederGroupNames(Machine machine) {
         List<String> list = new ArrayList<>();
         list.add(defaultGroupName);
 
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (feeder instanceof BlindsFeeder) {
                 BlindsFeeder blindsFeeder = (BlindsFeeder) feeder;
                 String feederGroupName = blindsFeeder.getFeederGroupName();
@@ -1880,9 +1879,9 @@ public class BlindsFeeder extends ReferenceFeeder {
         return list;
     }
 
-    public static List<BlindsFeeder> getBlindsFeedersWithGroupName(String groupName) {
+    public static List<BlindsFeeder> getBlindsFeedersWithGroupName(Machine machine, String groupName) {
         List<BlindsFeeder> list = new ArrayList<>();
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (feeder instanceof BlindsFeeder) {
                 BlindsFeeder blindsFeeder = (BlindsFeeder) feeder;
                 if(blindsFeeder.getFeederGroupName().equals(groupName)) {
@@ -1893,10 +1892,10 @@ public class BlindsFeeder extends ReferenceFeeder {
         return list;
     }
 
-    public static List<BlindsFeeder> getAllBlindsFeeders() {
+    public static List<BlindsFeeder> getAllBlindsFeeders(Machine machine) {
         // Get all the BlindsFeeder instances on the machine.
         List<BlindsFeeder> list = new ArrayList<>();
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (feeder instanceof BlindsFeeder) {
                 BlindsFeeder blindsFeeder = (BlindsFeeder) feeder;
                 list.add(blindsFeeder);
@@ -1905,10 +1904,10 @@ public class BlindsFeeder extends ReferenceFeeder {
         return list;
     }
 
-    public static List<BlindsFeeder> getConnectedFeedersByLocation(Location location, boolean fiducial1MatchOnly) {
+    public static List<BlindsFeeder> getConnectedFeedersByLocation(Machine machine, Location location, boolean fiducial1MatchOnly) {
         // Get all the feeders with connected by location.
         List<BlindsFeeder> list = new ArrayList<>();
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (feeder instanceof BlindsFeeder) {
                 BlindsFeeder blindsFeeder = (BlindsFeeder) feeder;
                 if (blindsFeeder.isLocationInFeeder(location, fiducial1MatchOnly)) {
@@ -1947,7 +1946,7 @@ public class BlindsFeeder extends ReferenceFeeder {
     }
 
     public List<BlindsFeeder> getConnectedFeeders(Location location, boolean fiducial1MatchOnly) {
-        List<BlindsFeeder> feeder_list = getConnectedFeedersByLocation(location, fiducial1MatchOnly);
+        List<BlindsFeeder> feeder_list = getConnectedFeedersByLocation(getMachine(), location, fiducial1MatchOnly);
         return filterFeedersByGroupName(feeder_list, this.feederGroupName);
     }
 
@@ -2060,7 +2059,7 @@ public class BlindsFeeder extends ReferenceFeeder {
 
     public void setOcrSettingsToAllFeeders() {
         // Update all the BlindsFeeder instances' OCR settings from this one.
-        for (BlindsFeeder feeder : getAllBlindsFeeders()) {
+        for (BlindsFeeder feeder : getAllBlindsFeeders(getMachine())) {
             if (feeder != this) {
                 setOcrAction(feeder.getOcrAction());
                 setOcrMargin(feeder.getOcrMargin());
@@ -2073,7 +2072,7 @@ public class BlindsFeeder extends ReferenceFeeder {
 
     public void setPipelineToAllFeeders() throws CloneNotSupportedException {
         // Update all the BlindsFeeder instances' pipeline from this one.
-        for (BlindsFeeder feeder : getAllBlindsFeeders()) {
+        for (BlindsFeeder feeder : getAllBlindsFeeders(getMachine())) {
             if (feeder != this) {
                 feeder.pipeline = pipeline.clone();
             }
@@ -2377,8 +2376,8 @@ public class BlindsFeeder extends ReferenceFeeder {
         }
 
         List<BlindsFeeder> connected_feeders = getConnectedFeeders();
-        List<BlindsFeeder> feedersWithNewGroupName = getBlindsFeedersWithGroupName(proposedGroupName);
-        List<String> feederGroupNames = getBlindsFeederGroupNames();
+        List<BlindsFeeder> feedersWithNewGroupName = getBlindsFeedersWithGroupName(getMachine(), proposedGroupName);
+        List<String> feederGroupNames = getBlindsFeederGroupNames(getMachine());
 
         boolean proposedIsDefault = proposedGroupName.contentEquals(defaultGroupName);
         boolean proposedIsExistingGroup = feederGroupNames.contains(proposedGroupName);

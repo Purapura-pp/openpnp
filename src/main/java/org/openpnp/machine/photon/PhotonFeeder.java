@@ -211,7 +211,7 @@ public class PhotonFeeder extends ReferenceFeeder {
         if (response == null) {
             slotAddress = null;
         } else if (response.error == ErrorTypes.WRONG_FEEDER_UUID) {
-            PhotonFeeder otherFeeder = findByHardwareId(response.uuid);
+            PhotonFeeder otherFeeder = findByHardwareId(getMachine(), response.uuid);
 
             // If we don't know about that feeder, let's go ahead and create it
             if (otherFeeder == null) {
@@ -434,7 +434,7 @@ public class PhotonFeeder extends ReferenceFeeder {
 
         if (slotAddress != null) {
             // Find any other photon feeders and if they have this slot address, set their address to null
-            PhotonFeeder otherFeeder = findBySlotAddress(slotAddress);
+            PhotonFeeder otherFeeder = findBySlotAddress(getMachine(), slotAddress);
             if (otherFeeder != null) {
                 otherFeeder.slotAddress = null;
                 otherFeeder.initialized = false;
@@ -485,8 +485,8 @@ public class PhotonFeeder extends ReferenceFeeder {
         return partPitch;
     }
 
-    public static PhotonFeeder findByHardwareId(String hardwareId) {
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+    public static PhotonFeeder findByHardwareId(Machine machine, String hardwareId) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (!(feeder instanceof PhotonFeeder)) {
                 continue;
             }
@@ -506,8 +506,8 @@ public class PhotonFeeder extends ReferenceFeeder {
         return null;
     }
 
-    public static PhotonFeeder findBySlotAddress(int slotAddress) {
-        for (Feeder feeder : Configuration.get().getMachine().getFeeders()) {
+    public static PhotonFeeder findBySlotAddress(Machine machine, int slotAddress) {
+        for (Feeder feeder : machine.getFeeders()) {
             if (!(feeder instanceof PhotonFeeder)) {
                 continue;
             }
@@ -533,9 +533,8 @@ public class PhotonFeeder extends ReferenceFeeder {
         void accept(int feederAddress, FeederSearchState feederSearchState);
     }
 
-    public static void findAllFeeders(FeederSearchProgressConsumer progressUpdate) throws Exception {
+    public static void findAllFeeders(Machine machine, FeederSearchProgressConsumer progressUpdate) throws Exception {
         Logger.info("Searching for Photon Feeders");
-        Machine machine = Configuration.get().getMachine();
         PhotonProperties photonProperties = new PhotonProperties(machine);
         int maxFeederAddress = photonProperties.getMaxFeederAddress();
         Logger.debug("Max Photon feeder address: " + maxFeederAddress);
@@ -557,16 +556,16 @@ public class PhotonFeeder extends ReferenceFeeder {
             }
 
             if (response == null) {
-                PhotonFeeder otherFeeder = findBySlotAddress(address);
+                PhotonFeeder otherFeeder = findBySlotAddress(machine, address);
                 if (otherFeeder != null) {
                     otherFeeder.slotAddress = null;
                     otherFeeder.initialized = false;
                 }
             } else {
-                PhotonFeeder otherFeeder = findByHardwareId(response.uuid);
+                PhotonFeeder otherFeeder = findByHardwareId(machine, response.uuid);
                 if (otherFeeder == null) {
                     // Try to find an existing feeder without a hardware id before making a new one
-                    otherFeeder = findByHardwareId(null);
+                    otherFeeder = findByHardwareId(machine, null);
                     if (otherFeeder == null) {
                         otherFeeder = new PhotonFeeder();
                         feedersToAdd.add(otherFeeder);
@@ -581,7 +580,7 @@ public class PhotonFeeder extends ReferenceFeeder {
         }
 
         for (PhotonFeeder feeder : feedersToAdd) {
-            Configuration.get().getMachine().addFeeder(feeder);
+            machine.addFeeder(feeder);
         }
     }
 

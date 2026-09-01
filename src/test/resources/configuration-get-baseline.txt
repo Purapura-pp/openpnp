@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 286 calls in 133 files.
+# 276 calls in 133 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/FeedersPanel.java	4
@@ -41,7 +41,7 @@ org/openpnp/gui/tablemodel/HeadsTableModel.java	1
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
 org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	1
 org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	1
-org/openpnp/machine/photon/PhotonFeeder.java	6
+org/openpnp/machine/photon/PhotonFeeder.java	2
 org/openpnp/machine/photon/sheets/gui/FeederSlotUpdateStep.java	1
 org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/ActuatorInterlockMonitor.java	1
@@ -64,7 +64,7 @@ org/openpnp/machine/reference/camera/ReferenceCamera.java	3
 org/openpnp/machine/reference/camera/SimulatedUpCamera.java	1
 org/openpnp/machine/reference/driver/AbstractMotionPlanner.java	3
 org/openpnp/machine/reference/driver/GcodeDriver.java	1
-org/openpnp/machine/reference/feeder/BlindsFeeder.java	8
+org/openpnp/machine/reference/feeder/BlindsFeeder.java	2
 org/openpnp/machine/reference/feeder/ReferenceAutoFeeder.java	1
 org/openpnp/machine/reference/feeder/ReferenceDragFeeder.java	3
 org/openpnp/machine/reference/feeder/ReferenceHeapFeeder.java	6
