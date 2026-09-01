@@ -2,53 +2,53 @@
 # Keep every %s / %1$s and every <br/> and \n that the English has.
 # Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-ReferencePushPullFeederConfigurationWizard.lblCloneTapeSetting.toolTipText	Clone the Tape Settings. 	
-ReferencePushPullFeederConfigurationWizard.lblCloneVisionSettings.text	Clone Vision Settings?	
-ReferencePushPullFeederConfigurationWizard.lblDiscoverOnJobStart.text	Check on Job Start?	
-ReferencePushPullFeederConfigurationWizard.lblFeedCount.text	Feed Count	
-ReferencePushPullFeederConfigurationWizard.lblFeedCount.toolTipText	Total feed count of the feeder.	
-ReferencePushPullFeederConfigurationWizard.lblFeedPitch.text	Feed Pitch	
-ReferencePushPullFeederConfigurationWizard.lblFontSizept.text	OCR Font Size [pt]	
-ReferencePushPullFeederConfigurationWizard.lblHole1Location.text	Hole 1 Location	
-ReferencePushPullFeederConfigurationWizard.lblHole2Location.text	Hole 2 Location	
-ReferencePushPullFeederConfigurationWizard.lblMultiplier.text	Multiplier	
-ReferencePushPullFeederConfigurationWizard.lblNormalizePickLocation.text	Normalize?	
-ReferencePushPullFeederConfigurationWizard.lblOcrFontName.text	OCR Font Name	
-ReferencePushPullFeederConfigurationWizard.lblOcrWrongPart.text	OCR Wrong Part Action	
-ReferencePushPullFeederConfigurationWizard.lblPartPitch.text	Part Pitch	
-ReferencePushPullFeederConfigurationWizard.lblPickLocation.text	Pick Location	
-ReferencePushPullFeederConfigurationWizard.lblPrecisionAverage.text	Precision Average	
-ReferencePushPullFeederConfigurationWizard.lblPrecisionConfidenceLimit.text	Precision Confidence Limit	
-ReferencePushPullFeederConfigurationWizard.lblPrecisionWanted.text	Precision wanted	
-ReferencePushPullFeederConfigurationWizard.lblRotation.text	Rotation in Tape	
-ReferencePushPullFeederConfigurationWizard.lblSnapToAxis.text	Snap to Axis?	
-ReferencePushPullFeederConfigurationWizard.lblStopAfterWrong.text	Stop after wrong part?	
-ReferencePushPullFeederConfigurationWizard.lblTemplate.text	Template:	
-ReferencePushPullFeederConfigurationWizard.lblUsedAsTemplate.text	Use this one as Template?	
-ReferencePushPullFeederConfigurationWizard.lblVisionType.text	Vision Type	
-ReferencePushPullFeederConfigurationWizard.panelCloning.Border.title	Clone Settings	
-ReferencePushPullFeederConfigurationWizard.panelLocations.Border.title	Locations	
-ReferencePushPullFeederConfigurationWizard.panelLocations2.Border.title	Tape Settings	
-ReferencePushPullFeederConfigurationWizard.panelTape.Border.title	Tape Settings	
-ReferencePushPullFeederConfigurationWizard.panelVision.Border.title	Vision	
-ReferencePushPullFeederConfigurationWizard.textFieldFeedCount.toolTipText	Total feed count of the feeder.	
-ReferencePushPullMotionConfigurationWizard.additiveRotation.text	Additive	
-ReferencePushPullMotionConfigurationWizard.chckbxPull0.toolTipText	Go to the Start Location when pulling.	
-ReferencePushPullMotionConfigurationWizard.chckbxPull1.toolTipText	Go to the Mid 1 Location when pulling.	
-ReferencePushPullMotionConfigurationWizard.chckbxPull2.toolTipText	Go to the Mid 2 Location when pulling.	
-ReferencePushPullMotionConfigurationWizard.chckbxPull3.toolTipText	Go to the Mid 3 Location when pulling.	
-ReferencePushPullMotionConfigurationWizard.chckbxPush1.toolTipText	Go to the Mid 1 Location when pushing.	
-ReferencePushPullMotionConfigurationWizard.chckbxPush2.toolTipText	Go to the Mid 2 Location when pushing.	
-ReferencePushPullMotionConfigurationWizard.chckbxPush3.toolTipText	Go to the Mid 3 Location when pushing.	
-ReferencePushPullMotionConfigurationWizard.chckbxPushEnd.toolTipText	Go to the End Location when pushing.	
-ReferencePushPullMotionConfigurationWizard.lblActuatorId.text	Feed Actuator	
-ReferencePushPullMotionConfigurationWizard.lblActuatorId.toolTipText	Actuator for feed signal and for motion	
-ReferencePushPullMotionConfigurationWizard.lblCalibrate.text	Vision Calibrate?	
-ReferencePushPullMotionConfigurationWizard.lblDelay0.text	Delay	
-ReferencePushPullMotionConfigurationWizard.lblDelay1.text	Delay	
-ReferencePushPullMotionConfigurationWizard.lblDelay2.text	Delay	
-ReferencePushPullMotionConfigurationWizard.lblDelay3.text	Delay	
-ReferencePushPullMotionConfigurationWizard.lblDelay4.text	Delay	
-ReferencePushPullMotionConfigurationWizard.lblFeedEndLocation.text	End Location	
-ReferencePushPullMotionConfigurationWizard.lblFeedMid1Location.text	Mid 1 Location	
 ReferencePushPullMotionConfigurationWizard.lblFeedMid2Location.text	Mid 2 Location	
+ReferencePushPullMotionConfigurationWizard.lblFeedMid3Location.text	Mid 3 Location	
+ReferencePushPullMotionConfigurationWizard.lblFeedSpeed0_1.text	Speed ↕	
+ReferencePushPullMotionConfigurationWizard.lblFeedSpeed1_2.text	Speed ↕	
+ReferencePushPullMotionConfigurationWizard.lblFeedSpeed2_3.text	Speed ↕	
+ReferencePushPullMotionConfigurationWizard.lblFeedSpeed3_4.text	Speed ↕	
+ReferencePushPullMotionConfigurationWizard.lblFeedStartLocation.text	Start Location	
+ReferencePushPullMotionConfigurationWizard.lblPeelOffActuatorId.text	Auxiliary Actuator	
+ReferencePushPullMotionConfigurationWizard.lblRotation.text	Rotation	
+ReferencePushPullMotionConfigurationWizard.panelLocations.Border.title	Tape Settings	
+ReferencePushPullMotionConfigurationWizard.panelPushPull.Border.title	Push-Pull Settings	
+ReferenceSlotAutoFeederConfigurationWizard.feederPanel.Border.title	Feeder	
+ReferenceSlotAutoFeederConfigurationWizard.lblActuator.text	Actuator	
+ReferenceSlotAutoFeederConfigurationWizard.lblActuatorValue.text	Actuator Value	
+ReferenceSlotAutoFeederConfigurationWizard.lblBank.text	Bank	
+ReferenceSlotAutoFeederConfigurationWizard.lblFeed.text	Feed	
+ReferenceSlotAutoFeederConfigurationWizard.lblFeeder.text	Feeder	
+ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean.text	For Boolean: 1 = True, 0 = False	
+ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean_1.text	For Boolean: 1 = True, 0 = False	
+ReferenceSlotAutoFeederConfigurationWizard.lblMoveBeforeFeed.text	Move before feed	
+ReferenceSlotAutoFeederConfigurationWizard.lblOffsets.text	Offsets	
+ReferenceSlotAutoFeederConfigurationWizard.lblPart.text	Part	
+ReferenceSlotAutoFeederConfigurationWizard.lblPickLocation.text	Location	
+ReferenceSlotAutoFeederConfigurationWizard.lblPickRetryCount.text	Pick Retry Count	
+ReferenceSlotAutoFeederConfigurationWizard.lblPostPick.text	Post Pick	
+ReferenceSlotAutoFeederConfigurationWizard.lblRetryCount.text	Feed Retry Count	
+ReferenceSlotAutoFeederConfigurationWizard.lblRotation.text	Rotation	
+ReferenceSlotAutoFeederConfigurationWizard.lblRotation_1.text	Rotation	
+ReferenceSlotAutoFeederConfigurationWizard.panelActuator.Border.title	Actuators	
+ReferenceSlotAutoFeederConfigurationWizard.slotPanel.Border.title	Slot	
+ReferenceTrayFeederConfigurationWizard.lblFeedCount.text	Feed Count	
+ReferenceTrayFeederConfigurationWizard.lblFeedStartLocation.text	Offsets	
+ReferenceTrayFeederConfigurationWizard.lblTrayCount.text	Tray Count	
+SchultzFeederConfigurationWizard.lblActuator.text	Actuator	
+SchultzFeederConfigurationWizard.lblActuatorValue.text	Feeder Number:	
+SchultzFeederConfigurationWizard.lblClearCount.text	Clear Feed Count	
+SchultzFeederConfigurationWizard.lblFeed.text	Pre Pick	
+SchultzFeederConfigurationWizard.lblFeedCount.text	Get Feed Count	
+SchultzFeederConfigurationWizard.lblGetID.text	Get ID	
+SchultzFeederConfigurationWizard.lblGetPitch.text	Get Pitch	
+SchultzFeederConfigurationWizard.lblGetStatus.text	Get Status	
+SchultzFeederConfigurationWizard.lblPostPick.text	Post Pick	
+SchultzFeederConfigurationWizard.lblTogglePitch.text	Toggle Pitch	
+SchultzFeederConfigurationWizard.lblTogglePitchDesc.text	Toggle between 2 MM and 4 MM	
+SchultzFeederConfigurationWizard.panelActuator.Border.title	Actuators	
+ScriptActuatorConfigurationWizard.lblName.text	Name	
+ScriptActuatorConfigurationWizard.lblScriptName.text	Script Name	
+ScriptActuatorConfigurationWizard.panelProperties.Border.title	Properties	
+SimulationModeMachineConfigurationWizard.btnResetFeeders.text	Reset Feeders	
+SimulationModeMachineConfigurationWizard.btnSetMachineTable.text	Set Machine Table Z	

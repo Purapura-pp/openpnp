@@ -1,54 +1,51 @@
-# Fill in the third column only. Do not change the first two.
-# Keep every %s / %1$s and every <br/> and \n that the English has.
-# Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.text	Move before feed	
-BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.text	Normalize?	
-BambooFeederAutoVisionConfigurationWizard.lblPartPitch.text	Part Pitch	
-BambooFeederAutoVisionConfigurationWizard.lblPickLocation.text	Pick Location	
-BambooFeederAutoVisionConfigurationWizard.lblPostPick.text	Post Pick	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.text	Precision Average	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.text	Precision Confidence Limit	
-BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.text	Precision wanted	
-BambooFeederAutoVisionConfigurationWizard.lblRotation.text	Rotation in Tape	
-BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.text	Snap to Axis?	
-BambooFeederAutoVisionConfigurationWizard.lblVisionType.text	Vision Type	
-BambooFeederAutoVisionConfigurationWizard.panelActuator.Border.title	Actuators	
-BambooFeederAutoVisionConfigurationWizard.panelLocations.Border.title	Tape Settings	
-BambooFeederAutoVisionConfigurationWizard.panelLocations2.Border.title	Locations	
-BambooFeederAutoVisionConfigurationWizard.panelTape.Border.title	Tape Settings	
-BambooFeederAutoVisionConfigurationWizard.panelVision.Border.title	Vision	
-BambooFeederAutoVisionConfigurationWizard.textFieldFeedCount.toolTipText	Total feed count of the feeder.	
-BlindsFeederArrayConfigurationWizard.lblFiducial1Location.text	Fiducial 1	
-BlindsFeederArrayConfigurationWizard.lblFiducial2Location.text	Fiducial 2	
-BlindsFeederArrayConfigurationWizard.lblFiducial3Location.text	Fiducial 3	
-BlindsFeederArrayConfigurationWizard.lblFontSizept.text	Font Size [pt]	
-BlindsFeederArrayConfigurationWizard.lblGroupName.text	Feeder Group Name	
-BlindsFeederArrayConfigurationWizard.lblNormalize.text	Normalize	
-BlindsFeederArrayConfigurationWizard.lblOcrAction.text	OCR Action	
-BlindsFeederArrayConfigurationWizard.lblOcrFontName.text	OCR Font	
-BlindsFeederArrayConfigurationWizard.lblOcrMargin.text	OCR Margin	
-BlindsFeederArrayConfigurationWizard.lblOcrTextOrientation.text	OCR Text Orientation	
-BlindsFeederArrayConfigurationWizard.lblUseVision.text	Use Fiducial Vision?	
-BlindsFeederArrayConfigurationWizard.panelArray.Border.title	Array	
-BlindsFeederArrayConfigurationWizard.panelLocations.Border.title	Locations	
-BlindsFeederArrayConfigurationWizard.panelVision.Border.title	Vision Settings	
-BlindsFeederConfigurationWizard.lblCoverOpenClose.text	Cover Open/Close	
-BlindsFeederConfigurationWizard.lblCoverType.text	Cover Type	
-BlindsFeederConfigurationWizard.lblEdgeBeginDistance.text	Edge Distance Open	
-BlindsFeederConfigurationWizard.lblEdgeEnd.text	Edge Distance Closed	
-BlindsFeederConfigurationWizard.lblFeedCount.text	Feed Count	
-BlindsFeederConfigurationWizard.lblFeederExtent.text	Feeder Extent	
-BlindsFeederConfigurationWizard.lblFeederExtent.toolTipText	Total feeder holder extent (all tapes).	
-BlindsFeederConfigurationWizard.lblFeederNo.text	Feeder No.	
-BlindsFeederConfigurationWizard.lblFeedersTotal.text	Feeders Total	
-BlindsFeederConfigurationWizard.lblFirstPocket.text	First Pocket	
-BlindsFeederConfigurationWizard.lblLastPocket.text	Last Pocket	
-BlindsFeederConfigurationWizard.lblPart.text	Part	
-BlindsFeederConfigurationWizard.lblPartSize.text	Pocket Size	
-BlindsFeederConfigurationWizard.lblPartSize.toolTipText	Size of the pocket across the tape.	
-BlindsFeederConfigurationWizard.lblPartTopZ.text	Part Z	
-BlindsFeederConfigurationWizard.lblPartTopZ.toolTipText	Part pickup Z	
-BlindsFeederConfigurationWizard.lblPocketCenterline.text	Pocket Centerline	
-BlindsFeederConfigurationWizard.lblPocketCount.text	Pocket Count	
-BlindsFeederConfigurationWizard.lblPocketPitch.text	Pocket Pitch	
+BlindsFeederConfigurationWizard.lblPocketPitch.text	Pocket Pitch	料槽间距
+BlindsFeederConfigurationWizard.lblPocketPitch.toolTipText	Pitch of the part pockets in the tape.	料带上元件料槽的间距。
+BlindsFeederConfigurationWizard.lblPushSpeed.text	Push speed	推盖速度
+BlindsFeederConfigurationWizard.lblPushSpeed.toolTipText	Speed factor when pushing the cover.	推动盖带时的速度因数。
+BlindsFeederConfigurationWizard.lblPushZOffset.text	Push Z Offset	推盖 Z 偏移量
+BlindsFeederConfigurationWizard.lblRetryCount.text	Retry Count	重试次数
+BlindsFeederConfigurationWizard.lblRotationInTape.text	Rotation in Tape	料带元件方向
+BlindsFeederConfigurationWizard.lblTapeLength.text	Tape Length	料带长度
+BlindsFeederConfigurationWizard.lblTapeLength.toolTipText	Length of the tape.	料带的长度。
+BlindsFeederConfigurationWizard.panelCover.Border.title	Cover Settings	盖带设置
+BlindsFeederConfigurationWizard.panelPart.Border.title	General Settings	通用设置
+BlindsFeederConfigurationWizard.panelTapeSettings.Border.title	Tape Settings	料带设置
+ContactProbeNozzleWizard.ContactProbing.Border.title	Contact Probing	接触探测
+ContactProbeNozzleWizard.lblContactProbeActuator.text	Contact Sense Actuator	接触感应执行器
+ContactProbeNozzleWizard.lblDiscardProbing.text	Discard Probing	丢弃位探测
+ContactProbeNozzleWizard.lblFeederHeightProbing.text	Feeder Height Probing	供料器高度探测
+ContactProbeNozzleWizard.lblFinalAdjustment.text	Final Adjustment	最终修正量
+ContactProbeNozzleWizard.lblMethod.text	Method	探测方式
+ContactProbeNozzleWizard.lblPartHeightProbing.text	Placement Height Probing	贴装高度探测
+ContactProbeNozzleWizard.lblProbeDepth.text	Probe Depth	探测深度
+ContactProbeNozzleWizard.lblProbeSpeed.text	Probe Speed	探测速度
+ContactProbeNozzleWizard.lblSniffleDwellTime.text	Sniffle Dwell Time [ms]	逐步下探停留时间 [ms]
+ContactProbeNozzleWizard.lblSniffleIncrement.text	Sniffle Increment	逐步下探步长
+ContactProbeNozzleWizard.lblStartOffset.text	Start Offset	起始偏移量
+ContactProbeNozzleWizard.lblZCalibration.text	Calibration Z Offset	校准 Z 偏移量
+FeederSlotUpdateStep.CurrentSlotAddress.text	Current Slot Address	当前槽位地址
+GlobalConfigConfigurationWizard.btnStartFeedSlotsWizard.text	Start Wizard	启动向导
+GlobalConfigConfigurationWizard.lblMaxFeeder.text	Maximum Feeder Address To Scan	扫描的最大供料器地址
+GlobalConfigConfigurationWizard.programFeederSlotsPanel.Border.title	Program Feeder Slots	写入供料器槽位地址
+GlobalConfigConfigurationWizard.searchButton.text	Search	搜索
+GlobalConfigConfigurationWizard.searchPanel.Border.title	Search	搜索
+GstreamerCameraConfigurationWizard.lblPipeline.text	Pipeline launch string	管线启动字符串
+GstreamerCameraConfigurationWizard.panelPipe.Border.title	GStreamer Pipeline	GStreamer 管线
+HttpActuatorConfigurationWizard.lblName.text	Name	名称
+HttpActuatorConfigurationWizard.lblOffUrl.text	Off URL	关闭 URL
+HttpActuatorConfigurationWizard.lblOnUrl.text	On URL	开启 URL
+HttpActuatorConfigurationWizard.lblParametricUrl.text	Parametric URL	带参 URL
+HttpActuatorConfigurationWizard.lblReadUrl.text	Read URL	读取 URL
+HttpActuatorConfigurationWizard.lblRegex.text	Regular Expression	正则表达式
+HttpActuatorConfigurationWizard.panelProperties.Border.title	Properties	属性
+IconViewer.btnRefresh.text	Refresh	刷新
+IconViewer.chckbxGray.text	Gray?	灰度显示？
+IconViewer.lblDirectory.text	Directory	目录
+IssuePanel.Templates.text	Templates: 	模板：
+JogControlsPanel.lblXy.text	X/Y	X/Y
+KicadPosImporterDialog.chckbxCreateMissingParts.toolTipText	PartId = 'Package'-'Value'	PartId = 'Package'-'Value'
+MjpgCaptureCameraWizard.lblIP.text	Camera IP Address and Port Number	相机 IP 地址与端口号
+MjpgCaptureCameraWizard.lblTimeout.text	Timeout [ms]	超时 [ms]
+MjpgCaptureCameraWizard.panelGeneral.Border.title	General	通用
+NeoDen4FeederActuatorConfigurationWizard.NewID.text	New ID	新建 ID

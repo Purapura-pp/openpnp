@@ -2,53 +2,53 @@
 # Keep every %s / %1$s and every <br/> and \n that the English has.
 # Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-OpenCvCameraConfigurationWizard.lblProperty.text	Property	
-OpenCvCameraConfigurationWizard.lblValue.text	Value	
-OpenCvCameraConfigurationWizard.panelGeneral.Border.title	General	
-OpenCvCameraConfigurationWizard.setAfterOpenCk.text	Set After Open	
-OpenCvCameraConfigurationWizard.setBeforeOpenCk.text	Set Before Open	
-OpenPnpCaptureCameraConfigurationWizard.backLightCompensationDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.brightnessDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.brightnessMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.brightnessMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.contrastDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.contrastMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.contrastMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.exposureDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.exposureMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.exposureMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.focusDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.focusMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.focusMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.gainDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.gainMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.gainMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.gammaDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.gammaMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.gammaMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.hueDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.hueMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.hueMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.saturationDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.saturationMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.saturationMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.sharpnessDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.sharpnessMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.sharpnessMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.whiteBalanceDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMin.text	min	
-OpenPnpCaptureCameraConfigurationWizard.zoomDefault.text	def	
-OpenPnpCaptureCameraConfigurationWizard.zoomMax.text	max	
-OpenPnpCaptureCameraConfigurationWizard.zoomMin.text	min	
-ProgramFeederSlotWizard.wizardButton.text	Next	
-RapidFeederConfigurationWizard.Address.text	Address	
-RapidFeederConfigurationWizard.Pitch.text	Pitch	
-RapidFeederConfigurationWizard.ScanEndLocation.text	Scan End Location	
-RapidFeederConfigurationWizard.ScanIncrement.text	Scan Increment	
 RapidFeederConfigurationWizard.ScanStartLocation.text	Scan Start Location	
+RapidFeederConfigurationWizard.panelRapidFeederConfig.Border.title	Rapid Feeder Config	
+RapidFeederConfigurationWizard.panelRapidFeederScan.Border.title	Rapid Feeder Scanning	
+ReferenceActuatorProfilesWizard.lblActuator_1.text	Actuator 1	
+ReferenceActuatorProfilesWizard.lblActuator_2.text	Actuator 2	
+ReferenceActuatorProfilesWizard.lblActuator_3.text	Actuator 3	
+ReferenceActuatorProfilesWizard.lblActuator_4.text	Actuator 4	
+ReferenceActuatorProfilesWizard.lblActuator_5.text	Actuator 5	
+ReferenceActuatorProfilesWizard.lblActuator_6.text	Actuator 6	
+ReferenceActuatorProfilesWizard.panelCondition.Border.title	Profiles	
+ReferenceActuatorProfilesWizard.panelInterlock.Border.title	Actuators	
+ReferenceAdvancedMotionPlannerDiagnosticsWizard.btnTest.text	Test	
+ReferenceAutoFeederConfigurationWizard.actuatorValue.toolTipText	For Boolean: 1 = True, 0 = False	
+ReferenceCamClockwiseAxisConfigurationWizard.lblInputAxis.text	Counter-Clockwise Axis	
+ReferenceCamClockwiseAxisConfigurationWizard.panelTransformation.Border.title	Cam Clockwise Axis	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblArmsAngle.text	Cam Arms Angle	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblArmsAngle.toolTipText	Angle between the two arms	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamRadius.text	Cam Radius	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamWheelGap.text	Cam Wheel Gap	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamWheelRadius.text	Cam Wheel Radius	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.lblInputAxis.text	Input Axis	
+ReferenceCamCounterClockwiseAxisConfigurationWizard.panelTransformation.Border.title	Cam Counter-Clockwise Axis	
+ReferenceDragFeederConfigurationWizard.btnCancelChangeAoi.text	Cancel	
+ReferenceDragFeederConfigurationWizard.btnChangeAoi.text	Change	
+ReferenceDragFeederConfigurationWizard.btnResetVisionOffsets.text	Reset offsets	
+ReferenceDragFeederConfigurationWizard.chckbxVisionEnabled.text	Vision Enabled?	
+ReferenceDragFeederConfigurationWizard.lblActuatorId.text	Actuator Name	
+ReferenceDragFeederConfigurationWizard.lblBackoffDistance.text	Backoff Distance	
+ReferenceDragFeederConfigurationWizard.lblFeedEndLocation.text	Feed End Location	
+ReferenceDragFeederConfigurationWizard.lblFeedRate.text	Feed Speed %	
+ReferenceDragFeederConfigurationWizard.lblFeedStartLocation.text	Feed Start Location	
+ReferenceDragFeederConfigurationWizard.lblHeight.text	Height	
+ReferenceDragFeederConfigurationWizard.lblPartPitch.text	Part Pitch	
+ReferenceDragFeederConfigurationWizard.lblPeelOffActuatorId.text	Peel Off Actuator Name	
+ReferenceDragFeederConfigurationWizard.lblWidth.text	Width	
+ReferenceDragFeederConfigurationWizard.panelAoE.Border.title	Area of Interest	
+ReferenceDragFeederConfigurationWizard.panelGeneral.Border.title	General Settings	
+ReferenceDragFeederConfigurationWizard.panelLocations.Border.title	Locations	
+ReferenceDragFeederConfigurationWizard.panelTemplate.Border.title	Template Image	
+ReferenceDragFeederConfigurationWizard.panelVision.Border.title	Vision	
+ReferenceHeapFeederConfigurationWizard.chckbxPokeForParts.text	Poke for Parts	
+ReferenceHeapFeederConfigurationWizard.dropBoxPanel.Border.title	DropBox	
+ReferenceHeapFeederConfigurationWizard.heapPanel.Border.title	Heap	
+ReferenceHeapFeederConfigurationWizard.lblDepth.text	Depth	
+ReferenceHeapFeederConfigurationWizard.lblDetectionPipeline.text	Detection Pipeline	
+ReferenceHeapFeederConfigurationWizard.lblDropBox.text	DropBox	
+ReferenceHeapFeederConfigurationWizard.lblDropBoxCenterBottom.text	Center Bottom	
+ReferenceHeapFeederConfigurationWizard.lblDropLocation.text	Drop Location	
+ReferenceHeapFeederConfigurationWizard.lblDummyPart.text	Dummy Part	
+ReferenceHeapFeederConfigurationWizard.lblFeedRetryCount.text	Feed Retry Count	

@@ -2,53 +2,53 @@
 # Keep every %s / %1$s and every <br/> and \n that the English has.
 # Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-BlindsFeederConfigurationWizard.lblPocketPitch.toolTipText	Picth of the part pockets in the tape.	
-BlindsFeederConfigurationWizard.lblPushSpeed.text	Push speed	
-BlindsFeederConfigurationWizard.lblPushSpeed.toolTipText	Speed factor when pushing the cover.	
-BlindsFeederConfigurationWizard.lblPushZOffset.text	Push Z Offset	
-BlindsFeederConfigurationWizard.lblRetryCount.text	Retry Count	
-BlindsFeederConfigurationWizard.lblRotationInTape.text	Rotation in Tape	
-BlindsFeederConfigurationWizard.lblTapeLength.text	Tape Length	
-BlindsFeederConfigurationWizard.lblTapeLength.toolTipText	Length of the tape.	
-BlindsFeederConfigurationWizard.panelCover.Border.title	Cover Settings	
-BlindsFeederConfigurationWizard.panelPart.Border.title	General Settings	
-BlindsFeederConfigurationWizard.panelTapeSettings.Border.title	Tape Settings	
-ContactProbeNozzleWizard.ContactProbing.Border.title	Contact Probing	
-ContactProbeNozzleWizard.lblContactProbeActuator.text	Contact Sense Actuator	
-ContactProbeNozzleWizard.lblDiscardProbing.text	Discard Probing	
-ContactProbeNozzleWizard.lblFeederHeightProbing.text	Feeder Height Probing	
-ContactProbeNozzleWizard.lblFinalAdjustment.text	Final Adjustment	
-ContactProbeNozzleWizard.lblMethod.text	Method	
-ContactProbeNozzleWizard.lblPartHeightProbing.text	Placement Height Probing	
-ContactProbeNozzleWizard.lblProbeDepth.text	Probe Depth	
-ContactProbeNozzleWizard.lblProbeSpeed.text	Probe Speed	
-ContactProbeNozzleWizard.lblSniffleDwellTime.text	Sniffle Dwell Time [ms]	
-ContactProbeNozzleWizard.lblSniffleIncrement.text	Sniffle Increment	
-ContactProbeNozzleWizard.lblStartOffset.text	Start Offset	
-ContactProbeNozzleWizard.lblZCalibration.text	Calibration Z Offset	
-FeederSlotUpdateStep.CurrentSlotAddress.text	Current Slot Address	
-GlobalConfigConfigurationWizard.btnStartFeedSlotsWizard.text	Start Wizard	
-GlobalConfigConfigurationWizard.lblMaxFeeder.text	Maximum Feeder Address To Scan	
-GlobalConfigConfigurationWizard.programFeederSlotsPanel.Border.title	Program Feeder Slots	
-GlobalConfigConfigurationWizard.searchButton.text	Search	
-GlobalConfigConfigurationWizard.searchPanel.Border.title	Search	
-GstreamerCameraConfigurationWizard.lblPipeline.text	Pipeline launch string	
-GstreamerCameraConfigurationWizard.panelPipe.Border.title	GStreamer Pipeline	
-HttpActuatorConfigurationWizard.lblName.text	Name	
-HttpActuatorConfigurationWizard.lblOffUrl.text	Off URL	
-HttpActuatorConfigurationWizard.lblOnUrl.text	On URL	
-HttpActuatorConfigurationWizard.lblParametricUrl.text	Parametric URL	
-HttpActuatorConfigurationWizard.lblReadUrl.text	Read URL	
-HttpActuatorConfigurationWizard.lblRegex.text	Regular Expression	
-HttpActuatorConfigurationWizard.panelProperties.Border.title	Properties	
-IconViewer.btnRefresh.text	Refresh	
-IconViewer.chckbxGray.text	Gray?	
-IconViewer.lblDirectory.text	Directory	
-IssuePanel.Templates.text	Templates: 	
-JogControlsPanel.lblXy.text	X/Y	
-KicadPosImporterDialog.chckbxCreateMissingParts.toolTipText	PartId = 'Package'-'Value'	
-MjpgCaptureCameraWizard.lblIP.text	Camera IP Address and Port Number	
-MjpgCaptureCameraWizard.lblTimeout.text	Timeout [ms]	
-MjpgCaptureCameraWizard.panelGeneral.Border.title	General	
-NeoDen4FeederActuatorConfigurationWizard.NewID.text	New ID	
 NeoDen4FeederActuatorConfigurationWizard.lblChangeId.text	Change Feeder ID	
+NeoDen4FeederActuatorConfigurationWizard.lblDriver.text	Driver	
+NeoDen4FeederActuatorConfigurationWizard.lblFeedLength.text	Feed length	
+NeoDen4FeederActuatorConfigurationWizard.lblFeedStrength.text	Feed Strength	
+NeoDen4FeederActuatorConfigurationWizard.lblFeederId.text	Feeder ID	
+NeoDen4FeederActuatorConfigurationWizard.lblName.text	Name	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelLength.text	Peel length	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelStrength.text	Peel Strength	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelerId.text	Peeler ID	
+NeoDen4FeederActuatorConfigurationWizard.panelProperties.Border.title	Properties	
+Neoden4CameraConfigurationWizard.lblImageHeight.text	Height	
+Neoden4CameraConfigurationWizard.lblImageWidth.text	Width	
+Neoden4CameraConfigurationWizard.lblShiftX.text	Shift X	
+Neoden4CameraConfigurationWizard.lblShiftY.text	Shift Y	
+Neoden4CameraConfigurationWizard.lblTimeout.text	Timeout	
+Neoden4CameraConfigurationWizard.panelGeneral.Border.title	General	
+Neoden4CameraConfigurationWizard.panelImage.Border.title	Image settings	
+Neoden4DriverConfigurationWizard.lblHomeCoordinateX.text	Home Coordinate X	
+Neoden4DriverConfigurationWizard.lblHomeCoordinateY.text	Home Coordinate Y	
+Neoden4DriverConfigurationWizard.lblScaleFactorX.text	Scale Factor - X	
+Neoden4DriverConfigurationWizard.lblScaleFactorY.text	Scale Factor - Y	
+Neoden4DriverConfigurationWizard.panelMachineDetails.Border.title	Machine Details	
+Neoden4FeederConfigurationWizard.btnCancelChangeAoi.text	Cancel	
+Neoden4FeederConfigurationWizard.btnChangeAoi.text	Change	
+Neoden4FeederConfigurationWizard.btnResetVisionOffsets.text	Reset offsets	
+Neoden4FeederConfigurationWizard.chckbxVisionEnabled.text	Vision Enabled?	
+Neoden4FeederConfigurationWizard.lblActuatorId.text	Actuator Name	
+Neoden4FeederConfigurationWizard.lblFeedCount.text	Feed Count	
+Neoden4FeederConfigurationWizard.lblHeight.text	Height	
+Neoden4FeederConfigurationWizard.lblPartPitchInTape.text	Pitch In Tape [mm]	
+Neoden4FeederConfigurationWizard.lblPartRotationInTape.text	Rotation In Tape [deg]	
+Neoden4FeederConfigurationWizard.lblWidth.text	Width	
+Neoden4FeederConfigurationWizard.panelAoE.Border.title	Area of Interest	
+Neoden4FeederConfigurationWizard.panelOther.Border.title	Other	
+Neoden4FeederConfigurationWizard.panelTemplate.Border.title	Template Image	
+Neoden4FeederConfigurationWizard.panelVision.Border.title	Vision	
+Neoden4SwitcherCameraConfigurationWizard.SourceCamera.text	Source Camera	
+Neoden4SwitcherCameraConfigurationWizard.SwitcherNumber.text	Switcher Number	
+Neoden4SwitcherCameraConfigurationWizard.lblExposure.text	Exposure	
+Neoden4SwitcherCameraConfigurationWizard.lblGain.text	Gain	
+OnvifIPCameraConfigurationWizard.lblIP.text	Camera IP	
+OnvifIPCameraConfigurationWizard.lblPassword.text	Password	
+OnvifIPCameraConfigurationWizard.lblResizeHeight.text	Target Height	
+OnvifIPCameraConfigurationWizard.lblResizeWidth.text	Target Width	
+OnvifIPCameraConfigurationWizard.lblSupportedResolutions.text	Resolution	
+OnvifIPCameraConfigurationWizard.lblUsername.text	Username	
+OnvifIPCameraConfigurationWizard.panelGeneral.Border.title	General	
+OpenCvCameraConfigurationWizard.PropertiesExperimental.Border.title	Properties (Experimental)	
+OpenCvCameraConfigurationWizard.lblDeviceId.text	USB Device Index	
+OpenCvCameraConfigurationWizard.lblPreferredHeight.text	Preferred Height	

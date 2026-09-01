@@ -1,51 +1,51 @@
 # key	english	translation
-AbstractReferenceFeederConfigurationWizard.lblRotation.text	Rotation	旋转
-ActuatorControlDialog.closeBtn.text	Close	关闭
-ActuatorControlDialog.lblBoolean.text	Set Boolean Value	设置 Boolean 值
-ActuatorControlDialog.lblRead.text	Read Value	读取值
-ActuatorControlDialog.lblSetProfile.text	Set Profile	设置 Profile
-ActuatorControlDialog.lblValue.text	Set Value	设置值
-ActuatorControlDialog.lblWith.text	With	传入值
-ActuatorControlDialog.offBtn.text	Off	关
-ActuatorControlDialog.readBtn.text	Read	读取
-ActuatorControlDialog.readWithDoubleBtn.text	Read with Double	带参读取
-ActuatorControlDialog.setBtn.text	Set	设置
-ActuatorControlDialog.setProfileBtn.text	Set	设置
-ActuatorInterlockMonitorConfigurationWizard.lblActuator.text	Boolean Actuator	Boolean 执行器
-ActuatorInterlockMonitorConfigurationWizard.lblAxis.text	Axis 3	轴 3
-ActuatorInterlockMonitorConfigurationWizard.lblAxis1.text	Axis 1	轴 1
-ActuatorInterlockMonitorConfigurationWizard.lblAxis2.text	Axis 2	轴 2
-ActuatorInterlockMonitorConfigurationWizard.lblAxis_1.text	Axis 4	轴 4
-ActuatorInterlockMonitorConfigurationWizard.lblConfirmationGoodRange.text	Confirmation range	确认范围
-ActuatorInterlockMonitorConfigurationWizard.lblConfirmationPattern.text	Confirmation pattern	确认模式串
-ActuatorInterlockMonitorConfigurationWizard.lblFunction.text	Interlock Type	互锁类型
-ActuatorInterlockMonitorConfigurationWizard.lblRegex.text	Regex?	正则表达式？
-ActuatorInterlockMonitorConfigurationWizard.lblSpeed.text	Speed [%]	速度 [%]
-ActuatorInterlockMonitorConfigurationWizard.panelCondition.Border.title	Interlock Conditions	互锁条件
-ActuatorInterlockMonitorConfigurationWizard.panelInterlock.Border.title	Axis Interlock	轴互锁
-AdvancedLoosePartFeederConfigurationWizard.Vision.Border.title	Vision	视觉
-AdvancedLoosePartFeederConfigurationWizard.btnEditPipeline.text	Edit	编辑
-AdvancedLoosePartFeederConfigurationWizard.btnEditTrainingPipeline.text	Edit	编辑
-AdvancedLoosePartFeederConfigurationWizard.btnResetPipeline.text	Reset	重置
-AdvancedLoosePartFeederConfigurationWizard.btnResetTrainingPipeline.text	Reset	重置
-AdvancedLoosePartFeederConfigurationWizard.lblFeedPipeline.text	Feed Pipeline	送料管线
-AdvancedLoosePartFeederConfigurationWizard.lblTrainingPipeline.text	Training Pipeline	训练管线
-AutoFocusProviderConfigurationWizard.lblAveragedFrames.text	Averaged Frames	平均帧数
-AutoFocusProviderConfigurationWizard.lblFocalResolution.text	Focal Resolution	对焦分辨率
-AutoFocusProviderConfigurationWizard.lblFocusSpeed.text	Focus Speed	对焦速度
-AutoFocusProviderConfigurationWizard.lblFocusSpeed.toolTipText	Focus motion speed factor.	对焦运动的速度因数。
-AutoFocusProviderConfigurationWizard.lblLastFocusDistance.text	Last Focus Distance	上次对焦距离
-AutoFocusProviderConfigurationWizard.lblShowDiagnostics.text	Show Diagnostics?	显示诊断信息？
-AutoFocusProviderConfigurationWizard.panelGeneral.Border.title	Auto Focus Settings	自动对焦设置
-BambooFeederAutoVisionConfigurationWizard.comboBoxFeedActuator.toolTipText	Select the actuator for the feed action	选择执行送料动作的执行器
-BambooFeederAutoVisionConfigurationWizard.lblActuator.text	Actuator	执行器
-BambooFeederAutoVisionConfigurationWizard.lblActuatorValue.text	Actuator Value	执行器值
-BambooFeederAutoVisionConfigurationWizard.lblCalibrationCount.text	Calibration Count	校准次数
-BambooFeederAutoVisionConfigurationWizard.lblCalibrationTrigger.text	Calibration Trigger	校准触发条件
-BambooFeederAutoVisionConfigurationWizard.lblFeed.text	Feed	送料
-BambooFeederAutoVisionConfigurationWizard.lblFeed.toolTipText	Select the actuator for the feed action	选择执行送料动作的执行器
-BambooFeederAutoVisionConfigurationWizard.lblFeedCount.text	Feed Count	送料次数
-BambooFeederAutoVisionConfigurationWizard.lblFeedCount.toolTipText	Total feed count of the feeder.	该供料器的累计送料次数。
-BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.text	Feed Pitch	送料间距
-BambooFeederAutoVisionConfigurationWizard.lblHole1Location.text	Hole 1 Location	孔 1 位置
-BambooFeederAutoVisionConfigurationWizard.lblHole2Location.text	Hole 2 Location	孔 2 位置
+ActuatorControlDialog.onBtn.text	On	开
+BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.text	Move before feed	送料前移动
+BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.text	Normalize?	归一化取料位置？
+BambooFeederAutoVisionConfigurationWizard.lblPartPitch.text	Part Pitch	元件间距
+BambooFeederAutoVisionConfigurationWizard.lblPickLocation.text	Pick Location	取料位置
+BambooFeederAutoVisionConfigurationWizard.lblPostPick.text	Post Pick	取料后动作
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.text	Precision Average	精度平均值
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.text	Precision Confidence Limit	精度置信限
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.text	Precision wanted	期望精度
+BambooFeederAutoVisionConfigurationWizard.lblRotation.text	Rotation in Tape	料带元件方向
+BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.text	Snap to Axis?	对齐到坐标轴？
+BambooFeederAutoVisionConfigurationWizard.lblVisionType.text	Vision Type	视觉类型
+BambooFeederAutoVisionConfigurationWizard.panelActuator.Border.title	Actuators	执行器
+BambooFeederAutoVisionConfigurationWizard.panelLocations.Border.title	Tape Settings	料带设置
+BambooFeederAutoVisionConfigurationWizard.panelLocations2.Border.title	Locations	位置
+BambooFeederAutoVisionConfigurationWizard.panelTape.Border.title	Tape Settings	料带设置
+BambooFeederAutoVisionConfigurationWizard.panelVision.Border.title	Vision	视觉
+BambooFeederAutoVisionConfigurationWizard.textFieldFeedCount.toolTipText	Total feed count of the feeder.	该供料器的累计送料次数。
+BlindsFeederArrayConfigurationWizard.lblFiducial1Location.text	Fiducial 1	基准点 1
+BlindsFeederArrayConfigurationWizard.lblFiducial2Location.text	Fiducial 2	基准点 2
+BlindsFeederArrayConfigurationWizard.lblFiducial3Location.text	Fiducial 3	基准点 3
+BlindsFeederArrayConfigurationWizard.lblFontSizept.text	Font Size [pt]	字号 [pt]
+BlindsFeederArrayConfigurationWizard.lblGroupName.text	Feeder Group Name	供料器组名称
+BlindsFeederArrayConfigurationWizard.lblNormalize.text	Normalize	归一化
+BlindsFeederArrayConfigurationWizard.lblOcrAction.text	OCR Action	OCR 处置动作
+BlindsFeederArrayConfigurationWizard.lblOcrFontName.text	OCR Font	OCR 字体
+BlindsFeederArrayConfigurationWizard.lblOcrMargin.text	OCR Margin	OCR 标签边距
+BlindsFeederArrayConfigurationWizard.lblOcrTextOrientation.text	OCR Text Orientation	OCR 文字方向
+BlindsFeederArrayConfigurationWizard.lblUseVision.text	Use Fiducial Vision?	使用基准点视觉？
+BlindsFeederArrayConfigurationWizard.panelArray.Border.title	Array	阵列
+BlindsFeederArrayConfigurationWizard.panelLocations.Border.title	Locations	位置
+BlindsFeederArrayConfigurationWizard.panelVision.Border.title	Vision Settings	视觉设置
+BlindsFeederConfigurationWizard.lblCoverOpenClose.text	Cover Open/Close	盖带开合
+BlindsFeederConfigurationWizard.lblCoverType.text	Cover Type	盖带类型
+BlindsFeederConfigurationWizard.lblEdgeBeginDistance.text	Edge Distance Open	开启位边距
+BlindsFeederConfigurationWizard.lblEdgeEnd.text	Edge Distance Closed	关闭位边距
+BlindsFeederConfigurationWizard.lblFeedCount.text	Feed Count	送料次数
+BlindsFeederConfigurationWizard.lblFeederExtent.text	Feeder Extent	供料器总长
+BlindsFeederConfigurationWizard.lblFeederExtent.toolTipText	Total feeder holder extent (all tapes).	供料器夹具的总长度（含全部料带）。
+BlindsFeederConfigurationWizard.lblFeederNo.text	Feeder No.	供料器编号
+BlindsFeederConfigurationWizard.lblFeedersTotal.text	Feeders Total	供料器总数
+BlindsFeederConfigurationWizard.lblFirstPocket.text	First Pocket	起始料槽
+BlindsFeederConfigurationWizard.lblLastPocket.text	Last Pocket	末尾料槽
+BlindsFeederConfigurationWizard.lblPart.text	Part	元件
+BlindsFeederConfigurationWizard.lblPartSize.text	Pocket Size	料槽尺寸
+BlindsFeederConfigurationWizard.lblPartSize.toolTipText	Size of the pocket across the tape.	料槽在料带横向上的尺寸。
+BlindsFeederConfigurationWizard.lblPartTopZ.text	Part Z	元件 Z
+BlindsFeederConfigurationWizard.lblPartTopZ.toolTipText	Part pickup Z	元件取料的 Z 高度
+BlindsFeederConfigurationWizard.lblPocketCenterline.text	Pocket Centerline	料槽中心线
+BlindsFeederConfigurationWizard.lblPocketCount.text	Pocket Count	料槽数量

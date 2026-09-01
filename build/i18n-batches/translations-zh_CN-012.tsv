@@ -2,8 +2,6 @@
 # Keep every %s / %1$s and every <br/> and \n that the English has.
 # Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-ContactProbeNozzleWizard.lblProbeDepth.toolTipText	Maximum contact probing depth in Z, from the Start Offset.	
-GlobalConfigConfigurationWizard.IfYouVeBuilt.text	If you've built your own slots and need to program them, use this wizard.	
 OpenCvVisionProviderConfigurationWizard.lblOpencvvisionproviderconfigurationwizardPlaceholder.text	OpenCvVisionProviderConfigurationWizard Placeholder	
 ReferenceHeapFeederConfigurationWizard.cbDummyPartForUnknownParts.toolTipText	Dummy part for moving unknown parts (e.g. to the trash). Is also used to determine the used nozzle.	
 ReferenceHeapFeederConfigurationWizard.chckbxPokeForParts.toolTipText	If enabled the nozzle is lifted for each move inside the heap. Reduces the risk to damage (large) parts, but slower.	

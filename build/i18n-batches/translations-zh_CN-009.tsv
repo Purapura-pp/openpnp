@@ -2,53 +2,53 @@
 # Keep every %s / %1$s and every <br/> and \n that the English has.
 # Put SKIP in the third column for anything you are unsure of; it stays English.
 # key	english	translation
-ReferencePushPullMotionConfigurationWizard.lblFeedMid3Location.text	Mid 3 Location	
-ReferencePushPullMotionConfigurationWizard.lblFeedSpeed0_1.text	Speed ↕	
-ReferencePushPullMotionConfigurationWizard.lblFeedSpeed1_2.text	Speed ↕	
-ReferencePushPullMotionConfigurationWizard.lblFeedSpeed2_3.text	Speed ↕	
-ReferencePushPullMotionConfigurationWizard.lblFeedSpeed3_4.text	Speed ↕	
-ReferencePushPullMotionConfigurationWizard.lblFeedStartLocation.text	Start Location	
-ReferencePushPullMotionConfigurationWizard.lblPeelOffActuatorId.text	Auxiliary Actuator	
-ReferencePushPullMotionConfigurationWizard.lblRotation.text	Rotation	
-ReferencePushPullMotionConfigurationWizard.panelLocations.Border.title	Tape Settings	
-ReferencePushPullMotionConfigurationWizard.panelPushPull.Border.title	Push-Pull Settings	
-ReferenceSlotAutoFeederConfigurationWizard.feederPanel.Border.title	Feeder	
-ReferenceSlotAutoFeederConfigurationWizard.lblActuator.text	Actuator	
-ReferenceSlotAutoFeederConfigurationWizard.lblActuatorValue.text	Actuator Value	
-ReferenceSlotAutoFeederConfigurationWizard.lblBank.text	Bank	
-ReferenceSlotAutoFeederConfigurationWizard.lblFeed.text	Feed	
-ReferenceSlotAutoFeederConfigurationWizard.lblFeeder.text	Feeder	
-ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean.text	For Boolean: 1 = True, 0 = False	
-ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean_1.text	For Boolean: 1 = True, 0 = False	
-ReferenceSlotAutoFeederConfigurationWizard.lblMoveBeforeFeed.text	Move before feed	
-ReferenceSlotAutoFeederConfigurationWizard.lblOffsets.text	Offsets	
-ReferenceSlotAutoFeederConfigurationWizard.lblPart.text	Part	
-ReferenceSlotAutoFeederConfigurationWizard.lblPickLocation.text	Location	
-ReferenceSlotAutoFeederConfigurationWizard.lblPickRetryCount.text	Pick Retry Count	
-ReferenceSlotAutoFeederConfigurationWizard.lblPostPick.text	Post Pick	
-ReferenceSlotAutoFeederConfigurationWizard.lblRetryCount.text	Feed Retry Count	
-ReferenceSlotAutoFeederConfigurationWizard.lblRotation.text	Rotation	
-ReferenceSlotAutoFeederConfigurationWizard.lblRotation_1.text	Rotation	
-ReferenceSlotAutoFeederConfigurationWizard.panelActuator.Border.title	Actuators	
-ReferenceSlotAutoFeederConfigurationWizard.slotPanel.Border.title	Slot	
-ReferenceTrayFeederConfigurationWizard.lblFeedCount.text	Feed Count	
-ReferenceTrayFeederConfigurationWizard.lblFeedStartLocation.text	Offsets	
-ReferenceTrayFeederConfigurationWizard.lblTrayCount.text	Tray Count	
-SchultzFeederConfigurationWizard.lblActuator.text	Actuator	
-SchultzFeederConfigurationWizard.lblActuatorValue.text	Feeder Number:	
-SchultzFeederConfigurationWizard.lblClearCount.text	Clear Feed Count	
-SchultzFeederConfigurationWizard.lblFeed.text	Pre Pick	
-SchultzFeederConfigurationWizard.lblFeedCount.text	Get Feed Count	
-SchultzFeederConfigurationWizard.lblGetID.text	Get ID	
-SchultzFeederConfigurationWizard.lblGetPitch.text	Get Pitch	
-SchultzFeederConfigurationWizard.lblGetStatus.text	Get Status	
-SchultzFeederConfigurationWizard.lblPostPick.text	Post Pick	
-SchultzFeederConfigurationWizard.lblTogglePitch.text	Toggle Pitch	
-SchultzFeederConfigurationWizard.lblTogglePitchDesc.text	Toggle between 2 MM and 4 MM	
-SchultzFeederConfigurationWizard.panelActuator.Border.title	Actuators	
-ScriptActuatorConfigurationWizard.lblName.text	Name	
-ScriptActuatorConfigurationWizard.lblScriptName.text	Script Name	
-ScriptActuatorConfigurationWizard.panelProperties.Border.title	Properties	
-SimulationModeMachineConfigurationWizard.btnResetFeeders.text	Reset Feeders	
-SimulationModeMachineConfigurationWizard.btnSetMachineTable.text	Set Machine Table Z	
 SimulationModeMachineConfigurationWizard.lblCameraLags.text	Camera Lag [s]	
+SimulationModeMachineConfigurationWizard.lblCameraNoise.text	Camera Noise	
+SimulationModeMachineConfigurationWizard.lblDiscardPoint.text	Homing Error	
+SimulationModeMachineConfigurationWizard.lblDuration.text	Vibration Duration [s]	
+SimulationModeMachineConfigurationWizard.lblMachineTableZ.text	Machine Table Z	
+SimulationModeMachineConfigurationWizard.lblNonsquarenessFactor.text	Non-Squareness Factor	
+SimulationModeMachineConfigurationWizard.lblNozzleTipRunout.text	Nozzle Tip Runout	
+SimulationModeMachineConfigurationWizard.lblPickPlace.text	Pick & Place Checking?	
+SimulationModeMachineConfigurationWizard.lblReplaceDrivers.text	Replace Drivers?	
+SimulationModeMachineConfigurationWizard.lblRunoutPhase.text	Runout Phase	
+SimulationModeMachineConfigurationWizard.lblRunoutPhase.toolTipText	Phase angle for the simulated runout.	
+SimulationModeMachineConfigurationWizard.lblSimulationMode.text	Simulation Mode	
+SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.text	Vibration Amplitude	
+SimulationModeMachineConfigurationWizard.panelGeneral.Border.title	General	
+SimulationModeMachineConfigurationWizard.panelLocations.Border.title	Simulated Imperfections	
+SlotSchultzFeederConfigurationWizard.deleteFeederBtn.toolTipText	Remove selected feeder from database.	
+SlotSchultzFeederConfigurationWizard.feederPanel.Border.title	Feeder	
+SlotSchultzFeederConfigurationWizard.fiducialAlign.toolTipText	Update feeder location based on fiducial	
+SlotSchultzFeederConfigurationWizard.lblActuator.text	Actuator	
+SlotSchultzFeederConfigurationWizard.lblActuatorValue.text	Feeder Number:	
+SlotSchultzFeederConfigurationWizard.lblBank.text	Bank	
+SlotSchultzFeederConfigurationWizard.lblClearCount.text	Clear Feed Count	
+SlotSchultzFeederConfigurationWizard.lblFeed.text	Pre Pick	
+SlotSchultzFeederConfigurationWizard.lblFeedCount.text	Get Feed Count	
+SlotSchultzFeederConfigurationWizard.lblFeedRetryCount.text	Feed Retry Count	
+SlotSchultzFeederConfigurationWizard.lblFeeder.text	Feeder	
+SlotSchultzFeederConfigurationWizard.lblFiducialPart.text	Fiducial Part	
+SlotSchultzFeederConfigurationWizard.lblGetID.text	Get ID	
+SlotSchultzFeederConfigurationWizard.lblGetPitch.text	Get Pitch	
+SlotSchultzFeederConfigurationWizard.lblGetStatus.text	Get Status	
+SlotSchultzFeederConfigurationWizard.lblOffsets.text	Offsets	
+SlotSchultzFeederConfigurationWizard.lblPart.text	Part	
+SlotSchultzFeederConfigurationWizard.lblPickLocation.text	Location	
+SlotSchultzFeederConfigurationWizard.lblPickRetryCount.text	Pick Retry Count	
+SlotSchultzFeederConfigurationWizard.lblPostPick.text	Post Pick	
+SlotSchultzFeederConfigurationWizard.lblRotation.text	Rotation	
+SlotSchultzFeederConfigurationWizard.lblRotation_1.text	Rotation	
+SlotSchultzFeederConfigurationWizard.lblTogglePitch.text	Toggle Pitch	
+SlotSchultzFeederConfigurationWizard.lblTogglePitchDesc.text	Toggle between 2 MM and 4 MM	
+SlotSchultzFeederConfigurationWizard.loadFeederBtn.toolTipText	Load installed feeder to slot.	
+SlotSchultzFeederConfigurationWizard.panelActuator.Border.title	Actuators	
+SlotSchultzFeederConfigurationWizard.slotPanel.Border.title	Slot	
+SubmitDiagnosticsDialog.includeLogChk.text	Latest Log File	
+SubmitDiagnosticsDialog.includeScreenShotChk.text	OpenPnP Window Screen Shot	
+SubmitDiagnosticsDialog.includeSystemInfoChk.text	Anonymous System Information	
+SubmitDiagnosticsDialog.includeVisionChk.text	Vision Debug Images (10 Newest)	
+SubmitDiagnosticsDialog.lblComments.text	Please Describe The Issue	
+SubmitDiagnosticsDialog.lblInclude.text	Include	
+SubmitDiagnosticsDialog.lblSubmitAHelp.text	Submit Diagnostics	
+SwitcherCameraConfigurationWizard.Actuator.text	Actuator	
