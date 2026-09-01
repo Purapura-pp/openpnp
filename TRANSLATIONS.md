@@ -144,7 +144,7 @@ Give each batch the terminology block from the top of the language's file, and a
 already translated entries from the same part of the interface. Consistency comes much more
 easily from examples than from instructions.
 
-## The two mechanisms, and why one has a strange rule
+## The three mechanisms, and why one has a strange rule
 
 Almost everything goes through `Translations.getString("Some.Key")` and lives in
 `translations_<lang>.properties`, keyed by an identifier. That is the ordinary case.
@@ -164,6 +164,58 @@ disappears.
 The same mechanism has a maintenance cost worth knowing about: if a developer rewords the English
 by so much as a word, the entry no longer matches and the translation goes dead with no error
 anywhere. `i18n.py check` reports those as dead entries, and it is the only way they are found.
+
+Note that a description the source splits across several lines is still one constant, and it is
+offered for translation like any other. Only a description built around a *value* is not.
+
+## The wording the source assembles, and how it is translated anyway
+
+A great many of those descriptions are not constants at all:
+
+```java
+holder.getSubjectText()+" is missing a "+qualifier+" actuator.",
+```
+
+That is a different string on every machine, so no key made of the English can ever reach it. Those
+go through the third mechanism: `patterns_<lang>.properties`, which holds templates keyed by an
+identifier the way `translations` is.
+
+```
+ActuatorSolutions.Missing=%s is missing a %s actuator.
+```
+
+`translateText` tries the whole-string lookup first. On a miss it matches the string against these
+templates, lifts out whatever the placeholders covered, and formats them into the translation. The
+fingerprint is untouched by any of this: `getFingerprint` reads the raw fields, and only
+`getIssue`, `getSolution` and `Choice.getDescription` translate.
+
+Four things are worth knowing before adding a template:
+
+- **The English side must read exactly as the source assembles it.** Reword the source and the
+  template stops matching, silently. `i18n.py patterns` checks each template's literal runs are
+  still somewhere in the Java, which catches most of it.
+- **Use `%1$s` indices in the translation whenever the sentence wants the values in another order.**
+  `Automatically calibrates the camera %s using the nozzle %s.` becomes
+  `用吸嘴 %2$s 自动标定相机 %1$s。`
+- **A template needs one run of six literal characters.** Without something distinctive it would
+  match far more than it was written for, so the runtime refuses to load it and says so in the log.
+- **Keys under `Word.` are not templates.** They are the English words a template may lift out -
+  `pump control`, `primary` - as opposed to the names a user gave their own nozzles and cameras,
+  which have no entry and so pass through untouched. `i18n.py patterns` reports an actuator role
+  the sources use that has no `Word.` entry.
+
+When two templates describe the same string, the one resting on more literal text wins, so
+`The %s actuator %s has no driver assigned.` beats `The %s actuator %s has no %s assigned.` and the
+reader is told what is missing. `i18n.py patterns --against <file>` reports any string that two
+templates both claim, along with any that nothing covers:
+
+```
+python tools/i18n/i18n.py patterns --against untranslated.txt
+```
+
+Feed it the strings a real machine produced. Reading them off a running machine is the only way to
+know what a given configuration actually surfaces; the sources alone will not tell you, because
+which checks run depends on what the machine has.
 
 ## What not to translate
 
@@ -353,9 +405,15 @@ of that kind should do the same.
 
 ## Where the work stands
 
-`python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As of this
-round all six are complete: Simplified Chinese, Russian, German, Spanish, French and Italian each
-cover all 2650 English keys and all 112 Issues and Solutions descriptions.
+`python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. All six -
+Simplified Chinese, Russian, German, Spanish, French and Italian - cover all 2650 English keys.
+
+The Issues and Solutions descriptions are further along in Simplified Chinese than elsewhere. The
+manifest is 143, not the 112 it read for a long time: `whole_literals()` used to drop any argument
+containing a `+`, which threw away 31 descriptions the sources merely split across source lines.
+They were never offered to anybody, in any language. Chinese has taken them on and has the 21
+templates for the assembled wording as well; the other five languages will report those as missing
+until someone picks them up, which is the truth rather than a regression.
 
 Consistency has been through a second pass. The counts now read 1 for French, 2 for German, 3 for
 Russian, 4 for Spanish, 5 for Italian and 26 for Simplified Chinese, every one of them recorded as

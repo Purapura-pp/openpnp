@@ -25,9 +25,14 @@ REPO = Path(__file__).resolve().parents[2]
 RESOURCES = REPO / "src" / "main" / "resources" / "org" / "openpnp"
 SOURCES = REPO / "src" / "main" / "java"
 
-# The two bundle families. "translations" is keyed by identifier, "texts" is keyed by the English
-# prose itself - see the note on Translations.translateText.
-FAMILIES = ("translations", "texts")
+# The bundle families. "translations" is keyed by identifier, "texts" is keyed by the English prose
+# itself - see the note on Translations.translateText - and "patterns" holds templates, keyed by
+# identifier like translations but matched against prose the sources assemble at runtime.
+FAMILIES = ("translations", "texts", "patterns")
+
+# Keys under this prefix in the patterns family are single words a template may substitute rather
+# than templates in their own right.
+VOCABULARY_PREFIX = "Word."
 
 
 # ---------------------------------------------------------------------------
@@ -416,12 +421,20 @@ def split_top_level(text, separators):
     return parts
 
 
+"""How many strings one argument may yield before it is not worth enumerating. Reached only by
+a concatenation of several ternaries, which is not prose anyone would translate as a whole."""
+MAX_ALTERNATIVES = 16
+
+
 def whole_literals(expression):
     """The strings an argument can evaluate to, if it can only ever be a literal.
 
     A bare literal yields itself, and a ternary between literals yields both branches, because at
-    runtime the whole string arrives at translateText either way. Anything joined with + yields
-    nothing: the runtime string is then not the string in the source, so it could never match.
+    runtime the whole string arrives at translateText either way. A concatenation counts too when
+    every part is itself a literal: the result is a compile time constant, and long prose in these
+    sources is routinely split across lines that way. One part that is not a literal makes the
+    whole string unknowable, and it is then dropped: what arrives at translateText would not be
+    what the source says, so no key could ever match it.
     """
     expression = " ".join(expression.split())
     while expression.startswith("(") and expression.endswith(")"):
@@ -443,8 +456,19 @@ def whole_literals(expression):
         if len(alternatives) == 2:
             return whole_literals(alternatives[0]) + whole_literals(alternatives[1])
 
-    if len(split_top_level(expression, "+")) > 1:
-        return []
+    parts = split_top_level(expression, "+")
+    if len(parts) > 1:
+        combinations = [""]
+        for part in parts:
+            alternatives = whole_literals(part)
+            if not alternatives:
+                return []
+            combinations = [prefix + alternative
+                            for prefix in combinations
+                            for alternative in alternatives]
+            if len(combinations) > MAX_ALTERNATIVES:
+                return []
+        return combinations
     return []
 
 
@@ -492,6 +516,26 @@ def solutions_literals():
                     if literal.startswith("http") or len(literal) < 3:
                         continue
                     found.setdefault(load_java_literal(literal), path.name)
+    return found
+
+
+# The role an actuator plays, which these helpers paste into a sentence they build. The word is
+# English in the source, so a template that lifts it back out needs it translated - see the Word.
+# entries in the patterns bundle.
+ACTUATOR_QUALIFIER = re.compile(
+    r"find(?:Actuate|ActuatorRead)Issues\s*\([^;]*?,\s*\"((?:[^\"\\]|\\.)*)\"\s*,")
+
+
+def actuator_qualifiers():
+    """The English role words the actuator solutions build their wording around."""
+    found = set()
+    for path in sorted(SOURCES.rglob("*.java")):
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for match in ACTUATOR_QUALIFIER.finditer(text):
+            found.add(load_java_literal(match.group(1)))
     return found
 
 
@@ -811,6 +855,8 @@ def check_language(lang, literals, strict_normalisation):
         for key, value in bundle.entries.items():
             if family == "texts":
                 # Keyed by the English prose, so the key itself has to still exist in the source.
+                # Either as a standalone literal, or as one the sources build by concatenating
+                # literals across lines, which is still a constant and still reaches translateText.
                 if key not in literals:
                     warnings.append("{}: no source string matches this key any more, so the "
                                     "translation is dead: {!r}".format(path.name, key[:70]))
@@ -851,8 +897,9 @@ def normalised_body(bundle):
 
 def cmd_check(args):
     langs = discover_languages() if args.lang in (None, "all") else [args.lang]
-    literals = java_string_literals() if any(
-        bundle_path("texts", l).exists() for l in langs) else set()
+    literals = set()
+    if any(bundle_path("texts", l).exists() for l in langs):
+        literals = java_string_literals() | set(source_entries("texts"))
 
     english = Bundle(bundle_path("translations"))
     problems = []
@@ -1030,6 +1077,127 @@ def cmd_unused(args):
     print()
     print("{} keys are never read; delete them from every bundle, not just English".format(len(dead)))
     return 1 if args.strict else 0
+
+
+# ---------------------------------------------------------------------------
+# patterns
+# ---------------------------------------------------------------------------
+
+PATTERN_PLACEHOLDER = re.compile(r"%(?:\d+\$)?s")
+
+# Mirrors Translations.MINIMUM_LITERAL_RUN: a template with no distinctive phrase in it would
+# match far more than it was written for, so the runtime refuses to load one.
+MINIMUM_LITERAL_RUN = 6
+
+
+def template_regex(english):
+    """The matcher Translations builds for a template, and the literal text it rests on."""
+    regex = ["^"]
+    literals = []
+    consumed = 0
+    for placeholder in PATTERN_PLACEHOLDER.finditer(english):
+        literal = english[consumed:placeholder.start()]
+        regex.append(re.escape(literal))
+        regex.append("(.+?)")
+        literals.append(literal)
+        consumed = placeholder.end()
+    tail = english[consumed:]
+    regex.append(re.escape(tail))
+    regex.append("$")
+    literals.append(tail)
+    return re.compile("".join(regex), re.DOTALL), literals
+
+
+def cmd_patterns(args):
+    """Report what the templates would and would not recognise.
+
+    The risk in matching prose by template is silent on both sides: a reworded source stops being
+    recognised, and a loose template starts recognising things it was never meant to. Feed this the
+    strings a real machine produced and it says which is happening.
+    """
+    english = Bundle(bundle_path("patterns")).entries
+    templates = OrderedDict((k, v) for k, v in english.items()
+                            if not k.startswith(VOCABULARY_PREFIX))
+    vocabulary = {v: k for k, v in english.items() if k.startswith(VOCABULARY_PREFIX)}
+
+    problems = 0
+    compiled = []
+    for key, template in templates.items():
+        matcher, literals = template_regex(template)
+        if len(literals) == 1:
+            print("{}: no placeholder, so this is whole prose and belongs in texts".format(key))
+            problems += 1
+            continue
+        longest = max(len(literal) for literal in literals)
+        if longest < MINIMUM_LITERAL_RUN:
+            print("{}: longest literal run is {} characters, under the {} the runtime requires, "
+                  "so it is ignored".format(key, longest, MINIMUM_LITERAL_RUN))
+            problems += 1
+            continue
+        compiled.append((key, template, matcher, sum(len(l) for l in literals)))
+    compiled.sort(key=lambda entry: -entry[3])
+
+    # A template whose English no longer appears in the sources cannot fire. Comparing against the
+    # assembled prose is not possible from here, so the literal runs are looked for instead: every
+    # one of them has to survive somewhere in the Java.
+    if not args.against:
+        source = "\n".join(p.read_text(encoding="utf-8", errors="replace")
+                           for p in SOURCES.rglob("*.java"))
+        for key, template, _, _ in compiled:
+            _, literals = template_regex(template)
+            missing = [l for l in literals if len(l) >= MINIMUM_LITERAL_RUN and l not in source]
+            if missing:
+                print("{}: no source builds this any more, the wording {!r} is gone"
+                      .format(key, missing[0][:60]))
+                problems += 1
+        for word, key in sorted(vocabulary.items()):
+            if '"{}"'.format(word) not in source:
+                print("{}: no source passes {!r} any more".format(key, word))
+                problems += 1
+        for qualifier in sorted(actuator_qualifiers() - set(vocabulary)):
+            print("no Word. entry for the actuator role {!r}, so a template that lifts it out "
+                  "would leave it English".format(qualifier))
+            problems += 1
+        print()
+        print("{} templates, {} words, {} problems".format(len(compiled), len(vocabulary), problems))
+        return 1 if problems and args.strict else 0
+
+    lines = [l.strip() for l in Path(args.against).read_text(encoding="utf-8").split("\n")
+             if l.strip() and not l.startswith("#")]
+    # Prose another mechanism already covers needs no template, and saying so would bury the
+    # strings that do. Two of them cover prose: texts, keyed by the English itself, and ordinary
+    # keys, whose English sits in translations.properties and sometimes has a name appended to it.
+    # Ambiguity is still worth reporting for these, since a template that reaches one is too loose.
+    whole = set(source_entries("texts"))
+    keyed = [v for v in Bundle(bundle_path("translations")).entries.values() if len(v) >= 10]
+
+    def covered_elsewhere(line):
+        return line in whole or any(line.startswith(v) for v in keyed)
+
+    uncovered = []
+    ambiguous = []
+    matched = 0
+    for line in lines:
+        hits = [key for key, _, matcher, _ in compiled if matcher.match(line)]
+        if len(hits) > 1:
+            ambiguous.append((line, hits))
+        if hits:
+            matched += 1
+        elif not covered_elsewhere(line):
+            uncovered.append(line)
+
+    for line, hits in ambiguous:
+        print("matched by {}, the first wins: {!r}".format(", ".join(hits), line[:80]))
+    if ambiguous:
+        print()
+    for line in uncovered:
+        print("nothing covers this: {!r}".format(line[:110]))
+    if uncovered:
+        print()
+    print("{} strings: {} by template, {} by whole prose, {} covered by nothing, {} ambiguous"
+          .format(len(lines), matched, len(lines) - matched - len(uncovered), len(uncovered),
+                  len(ambiguous)))
+    return 1 if (uncovered or ambiguous or problems) and args.strict else 0
 
 
 def cmd_consistency(args):
@@ -1422,6 +1590,14 @@ def main():
     p.add_argument("--quiet", action="store_true", help="the count only")
     p.add_argument("--limit", type=int, default=40)
     p.set_defaults(func=cmd_collisions)
+
+    p = sub.add_parser("patterns", help="what the runtime templates do and do not recognise")
+    p.add_argument("--against", metavar="FILE",
+                   help="a file of assembled English, one string per line, to match the templates "
+                        "against; without it the templates are checked against the sources")
+    p.add_argument("--strict", action="store_true",
+                   help="exit non-zero when anything is unmatched or unsound")
+    p.set_defaults(func=cmd_patterns)
 
     p = sub.add_parser("unused", help="keys no Java source reads")
     p.add_argument("--strict", action="store_true",
