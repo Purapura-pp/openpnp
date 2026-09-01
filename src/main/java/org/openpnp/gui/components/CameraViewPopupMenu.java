@@ -260,6 +260,29 @@ public class CameraViewPopupMenu extends JPopupMenu {
         return menu;
     }
     
+    /**
+     * The reticle menus only ever offer millimetres and inches, so anything else falls back to the
+     * unit's own name rather than inventing a key that no bundle carries.
+     */
+    private static String unitsLabel(LengthUnit units) {
+        if (units == LengthUnit.Millimeters) {
+            return Translations.getString("CameraViewPopupMenu.Millimeters.text"); //$NON-NLS-1$
+        }
+        if (units == LengthUnit.Inches) {
+            return Translations.getString("CameraViewPopupMenu.Inches.text"); //$NON-NLS-1$
+        }
+        return units.toString();
+    }
+
+    private void addColorMenuItems(JMenu menu, ButtonGroup buttonGroup, CrosshairReticle reticle) {
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.Red"), Color.red, buttonGroup, reticle)); //$NON-NLS-1$
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.Green"), Color.green, buttonGroup, reticle)); //$NON-NLS-1$
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.Yellow"), Color.yellow, buttonGroup, reticle)); //$NON-NLS-1$
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.Orange"), Color.decode("#ffd35d"), buttonGroup, reticle)); //$NON-NLS-1$ //$NON-NLS-2$
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.Blue"), Color.blue, buttonGroup, reticle)); //$NON-NLS-1$
+        menu.add(createColorMenuItem(Translations.getString("CameraViewPopupMenu.Color.White"), Color.white, buttonGroup, reticle)); //$NON-NLS-1$
+    }
+
     private JMenuItem createColorMenuItem(String name, Color color, ButtonGroup buttonGroup, CrosshairReticle reticle) {
         JMenuItem menuItem = new JRadioButtonMenuItem(name);
         buttonGroup.add(menuItem);
@@ -281,13 +304,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        menu.add(createColorMenuItem("Red", Color.red, buttonGroup, reticle));
-        menu.add(createColorMenuItem("Green", Color.green, buttonGroup, reticle));
-        menu.add(createColorMenuItem("Yellow", Color.yellow, buttonGroup, reticle));
-        menu.add(createColorMenuItem("Orange", Color.decode("#ffd35d"), buttonGroup, reticle));
-        menu.add(createColorMenuItem("Blue", Color.blue, buttonGroup, reticle));
-        menu.add(createColorMenuItem("White", Color.white, buttonGroup, reticle));
-        menu.add(createColorMenuItem("Red", Color.red, buttonGroup, reticle));
+        addColorMenuItems(menu, buttonGroup, reticle);
 
         return menu;
     }
@@ -301,12 +318,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
 
         subMenu = new JMenu(Translations.getString("CameraViewPopupMenu.Color.text")); //$NON-NLS-1$
         buttonGroup = new ButtonGroup();
-        subMenu.add(createColorMenuItem("Red", Color.red, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Green", Color.green, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Yellow", Color.yellow, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Orange", Color.decode("#ffd35d"), buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Blue", Color.blue, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("White", Color.white, buttonGroup, reticle));
+        addColorMenuItems(subMenu, buttonGroup, reticle);
         menu.add(subMenu);
 
         subMenu = new JMenu(Translations.getString("CameraViewPopupMenu.Units.text")); //$NON-NLS-1$
@@ -446,12 +458,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
 
         subMenu = new JMenu(Translations.getString("CameraViewPopupMenu.Color.text")); //$NON-NLS-1$
         buttonGroup = new ButtonGroup();
-        subMenu.add(createColorMenuItem("Red", Color.red, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Green", Color.green, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Yellow", Color.yellow, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Orange", Color.decode("#ffd35d"), buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("Blue", Color.blue, buttonGroup, reticle));
-        subMenu.add(createColorMenuItem("White", Color.white, buttonGroup, reticle));
+        addColorMenuItems(subMenu, buttonGroup, reticle);
         menu.add(subMenu);
 
         subMenu = new JMenu(Translations.getString("CameraViewPopupMenu.Units.text")); //$NON-NLS-1$
@@ -514,7 +521,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
         subMenu.add(menuItem);
         menu.add(subMenu);
 
-        JCheckBoxMenuItem chkMenuItem = new JCheckBoxMenuItem(Translations.getString("CameraViewPopupMenu.chkMenuItem.text")); //$NON-NLS-1$
+        JCheckBoxMenuItem chkMenuItem = new JCheckBoxMenuItem(Translations.getString("CameraViewPopupMenu.Filled.text")); //$NON-NLS-1$
         chkMenuItem.setSelected(reticle.isFilled());
         chkMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -525,14 +532,14 @@ public class CameraViewPopupMenu extends JPopupMenu {
         });
         menu.add(chkMenuItem);
 
-        JMenuItem inputMenuItem = new JMenuItem(Translations.getString("CameraViewPopupMenu.inputMenuItem.text")); //$NON-NLS-1$
+        JMenuItem inputMenuItem = new JMenuItem(Translations.getString("CameraViewPopupMenu.Size.text")); //$NON-NLS-1$
         inputMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = JOptionPane.showInputDialog(cameraView,
                         String.format(
                                 Translations.getString("CameraViewPopupMenu.Reticle.EnterSize"), //$NON-NLS-1$
-                                reticle.getUnits().toString().toLowerCase()),
+                                unitsLabel(reticle.getUnits())),
                         reticle.getSize() + "");
                 if (result != null) {
                     reticle.setSize(Double.valueOf(result));
