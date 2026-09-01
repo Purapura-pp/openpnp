@@ -124,15 +124,14 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
      * Hands an element a reference back to this machine, so that it can reach the machine it is
      * part of without asking Configuration which machine exists at the moment.
      * <p>
-     * An implementation that does not extend {@link AbstractMachineElement} is left alone. It has
-     * nowhere to keep the reference and goes on asking Configuration, which is what everything did
-     * before.
+     * An implementation that is not a {@link MachineElement} is left alone. It has nowhere to keep
+     * the reference and goes on asking Configuration, which is what everything did before.
      * 
      * @param element
      */
     protected void attach(Object element) {
-        if (element instanceof AbstractMachineElement) {
-            ((AbstractMachineElement) element).setMachine(this);
+        if (element instanceof MachineElement) {
+            ((MachineElement) element).setMachine(this);
         }
     }
 

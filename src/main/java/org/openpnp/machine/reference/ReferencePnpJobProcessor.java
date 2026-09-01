@@ -154,8 +154,6 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
 
     protected Job job;
 
-    protected Machine machine;
-
     protected Head head;
 
     /**
@@ -191,22 +189,22 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         }
         this.job = job;
         currentStep = new PreFlight();
-        this.fireJobState(Configuration.get().getMachine().getSignalers(), AbstractJobProcessor.State.STOPPED);
+        this.fireJobState(getMachine().getSignalers(), AbstractJobProcessor.State.STOPPED);
     }
 
     @Override
     public synchronized boolean next() throws JobProcessorException {
-        this.fireJobState(Configuration.get().getMachine().getSignalers(), AbstractJobProcessor.State.RUNNING);
+        this.fireJobState(getMachine().getSignalers(), AbstractJobProcessor.State.RUNNING);
         try {
             currentStep = currentStep.step();
         }
         catch (Exception e) {
-            this.fireJobState(Configuration.get().getMachine().getSignalers(), AbstractJobProcessor.State.ERROR);
+            this.fireJobState(getMachine().getSignalers(), AbstractJobProcessor.State.ERROR);
             scriptJobError(e);
             throw e;
         }
         if (currentStep == null) {
-            this.fireJobState(Configuration.get().getMachine().getSignalers(), AbstractJobProcessor.State.FINISHED);
+            this.fireJobState(getMachine().getSignalers(), AbstractJobProcessor.State.FINISHED);
         }
         return currentStep != null;
     }
@@ -228,7 +226,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         try {
             if (cameraBatchOperationStarted) {
                 cameraBatchOperationStarted = false;
-                machine.getCameraBatchOperation().endBatchOperation("job abort");
+                getMachine().getCameraBatchOperation().endBatchOperation("job abort");
             }
         }
         catch (Exception e) {
@@ -245,7 +243,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             // we can do. We have to end the job.
             Logger.error(e);
         }
-        this.fireJobState(Configuration.get().getMachine().getSignalers(), AbstractJobProcessor.State.STOPPED);
+        this.fireJobState(getMachine().getSignalers(), AbstractJobProcessor.State.STOPPED);
         currentStep = null;
     }
 
@@ -271,12 +269,11 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             jobPlacements.clear();
 
             // Create some shortcuts for things that won't change during the run
-            machine = Configuration.get().getMachine();
             try {
-                head = machine.getDefaultHead();
+                head = getMachine().getDefaultHead();
             }
             catch (Exception e) {
-                throw new JobProcessorException(machine, e);
+                throw new JobProcessorException(getMachine(), e);
             }
             previousPlacePlanStartLocation = previousPickPlanStartLocation = new Location(LengthUnit.Millimeters);
             
@@ -355,7 +352,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             validatePartNozzleTip(head, part);
 
             // Make sure there is at least one compatible and enabled feeder available
-            findFeeder(machine, part, null, null);
+            findFeeder(getMachine(), part, null, null);
         }
         
         private void validatePartNozzleTip(Head head, Part part) throws JobProcessorException {
@@ -417,7 +414,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         private void prepFeeders() throws JobProcessorException {
             // Everything still looks good, so prepare the feeders.
             fireTextStatus("Preparing feeders.");
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             List<Feeder> feederVisitList = new ArrayList<>();
             List<Feeder> feederNoVisitList = new ArrayList<>();
             // Get all the feeders that are used in the pending placements.
@@ -505,7 +502,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
         protected int level = 0; // counter used to process some nesting levels of fiducials separately
 
         public Step step() throws JobProcessorException {
-            FiducialLocator locator = Configuration.get().getMachine().getFiducialLocator();
+            FiducialLocator locator = getMachine().getFiducialLocator();
             
             // collect all board and panel fiducial locations
             List<ExtendedPlacementsHolderLocation> locations = collectAllBoardLocations(job.getRootPanelLocation(), 0);
@@ -843,7 +840,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             for (JobPlacement p : local) {
                 // get feeder and add it to the list
                 try {
-                    final Feeder feeder = findFeeder(machine,p.getPlacement().getPart(),null,previousPickPlanStartLocation);
+                    final Feeder feeder = findFeeder(getMachine(),p.getPlacement().getPart(),null,previousPickPlanStartLocation);
                     if (!feeders.contains(feeder)) {
                         feeders.add(feeder);
                     }
@@ -1270,7 +1267,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 Nozzle nozzle = p.nozzle;
                 Location pickLocation;
 
-                Feeder feeder = findFeeder(machine,part,null,null);
+                Feeder feeder = findFeeder(getMachine(),part,null,null);
                 jobPlacement.setPlannedFeeder(feeder);
 
                 try {
@@ -1342,7 +1339,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                     }
                 }
 
-                final Feeder feeder = findFeeder(machine,part,jobPlacement.getPlannedFeeder(),null);
+                final Feeder feeder = findFeeder(getMachine(),part,jobPlacement.getPlannedFeeder(),null);
                 
                 /**
                  * Run the placement starting script. An error here will throw. That's the user's
@@ -1589,7 +1586,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             if (cameraBatchOperationStarted) {
                 // unexpected!
             } else {
-                CameraBatchOperation cbo = machine.getCameraBatchOperation();
+                CameraBatchOperation cbo = getMachine().getCameraBatchOperation();
                 if (cbo!=null)
                 {
                     cbo.startBatchOperation("align step");
@@ -1694,10 +1691,10 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
             if (cameraBatchOperationStarted) {
                 cameraBatchOperationStarted = false;
                 try {
-                    machine.getCameraBatchOperation().endBatchOperation("align step");
+                    getMachine().getCameraBatchOperation().endBatchOperation("align step");
                 }
                 catch (Exception e) {
-                    throw new JobProcessorException(machine, "Error in EndCameraBatchOperation");
+                    throw new JobProcessorException(getMachine(), "Error in EndCameraBatchOperation");
                 }
             }
 
@@ -1956,7 +1953,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
 
 
             try {// Wait until those actions are complete
-                machine.getMotionPlanner().waitForCompletion(null,CompletionType.WaitForStillstand);
+                getMachine().getMotionPlanner().waitForCompletion(null,CompletionType.WaitForStillstand);
             }
             catch (Exception e) {
                 throw new JobProcessorException(head, e);
@@ -2100,7 +2097,7 @@ public class ReferencePnpJobProcessor extends AbstractPnpJobProcessor {
                 location = partPickLocations.get(part);
             } else {
                 try {
-                    final Feeder feeder = findFeeder(machine,part,null,null);
+                    final Feeder feeder = findFeeder(getMachine(),part,null,null);
                     location = feeder.getPickLocation();
                     if(location == null) {
                         throw new Exception("Feeder pick location must not be null");

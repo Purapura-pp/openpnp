@@ -13,7 +13,7 @@ import org.openpnp.spi.PropertySheetHolder;
 import org.openpnp.spi.Signaler;
 import org.pmw.tinylog.Logger;
 
-public abstract class AbstractJobProcessor implements JobProcessor {
+public abstract class AbstractJobProcessor extends AbstractMachineElement implements JobProcessor {
 
     public enum State {
         STOPPED,

@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 516 calls in 186 files.
+# 506 calls in 186 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/BoardsPanel.java	5
@@ -78,7 +78,7 @@ org/openpnp/machine/reference/ReferenceMachine.java	3
 org/openpnp/machine/reference/ReferenceNozzle.java	8
 org/openpnp/machine/reference/ReferenceNozzleTip.java	8
 org/openpnp/machine/reference/ReferenceNozzleTipCalibration.java	6
-org/openpnp/machine/reference/ReferencePnpJobProcessor.java	19
+org/openpnp/machine/reference/ReferencePnpJobProcessor.java	11
 org/openpnp/machine/reference/ScriptActuator.java	1
 org/openpnp/machine/reference/SimulationModeMachine.java	2
 org/openpnp/machine/reference/axis/ReferenceLinearTransformAxis.java	1
@@ -138,7 +138,7 @@ org/openpnp/machine/reference/solutions/HeadSolutions.java	5
 org/openpnp/machine/reference/solutions/ScriptingSolutions.java	2
 org/openpnp/machine/reference/solutions/VisionSolutions.java	4
 org/openpnp/machine/reference/vision/ReferenceBottomVision.java	3
-org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	4
+org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	2
 org/openpnp/machine/reference/vision/wizards/BottomVisionSettingsConfigurationWizard.java	6
 org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	4
 org/openpnp/machine/reference/vision/wizards/ReferenceBottomVisionConfigurationWizard.java	1
@@ -171,8 +171,8 @@ org/openpnp/spi/base/AbstractCoordinateAxis.java	1
 org/openpnp/spi/base/AbstractFeeder.java	1
 org/openpnp/spi/base/AbstractHead.java	1
 org/openpnp/spi/base/AbstractHeadMountable.java	2
-org/openpnp/spi/base/AbstractMachineElement.java	1
 org/openpnp/spi/base/AbstractSingleTransformedAxis.java	1
+org/openpnp/spi/base/MachineElement.java	1
 org/openpnp/util/CameraWalker.java	1
 org/openpnp/util/Cycles.java	5
 org/openpnp/util/FeederVisionHelper.java	1

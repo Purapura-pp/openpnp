@@ -182,6 +182,8 @@ public class ReferenceMachine extends AbstractMachine {
     protected void commit() {
         super.commit();
         attach(motionPlanner);
+        attach(pnpJobProcessor);
+        attach(fiducialLocator);
     }
 
     public Driver getDefaultDriver() {

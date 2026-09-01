@@ -21,7 +21,6 @@ package org.openpnp.spi.base;
 
 import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.Configuration;
-import org.pmw.tinylog.Logger;
 
 /**
  * A part of a machine that knows which machine it is part of.
@@ -37,7 +36,7 @@ import org.pmw.tinylog.Logger;
  * heads have always used, and it runs before any {@code configurationLoaded} callback, so an
  * element that is part of a machine has this available from the moment the machine does.
  */
-public abstract class AbstractMachineElement extends AbstractModelObject {
+public abstract class AbstractMachineElement extends AbstractModelObject implements MachineElement {
     /**
      * Deliberately not serialized. The machine writes it back on every load, and an element that
      * named its machine in the XML would put a cycle in a file the user has to be able to read.
@@ -45,25 +44,17 @@ public abstract class AbstractMachineElement extends AbstractModelObject {
     private AbstractMachine machine;
 
     /**
-     * The machine this element is part of.
-     * <p>
-     * Between the constructor and the {@code add} call that attaches it - the window in which a
-     * wizard has made an element the user has not confirmed yet - there is no machine to name, and
-     * the singleton is asked, as it was everywhere before. Keeping that fallback here rather than
-     * returning null means an element used early behaves as it did, and it puts the one remaining
-     * reach for global state in a single place where it can be seen.
+     * The machine this element is part of, or the one that exists if it has not been attached to a
+     * machine yet.
      * 
      * @return
      */
+    @Override
     public AbstractMachine getMachine() {
-        if (machine == null) {
-            Logger.trace("{} was asked for its machine before it was attached to one.",
-                    getClass().getSimpleName());
-            return (AbstractMachine) Configuration.get().getMachine();
-        }
-        return machine;
+        return MachineElement.machineOf(this, machine);
     }
 
+    @Override
     public void setMachine(AbstractMachine machine) {
         this.machine = machine;
     }

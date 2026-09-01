@@ -46,6 +46,9 @@ import org.openpnp.spi.Camera;
 import org.openpnp.spi.CameraBatchOperation;
 import org.openpnp.spi.FiducialLocator;
 import org.openpnp.spi.PropertySheetHolder;
+import org.openpnp.spi.base.AbstractMachine;
+import org.openpnp.spi.base.AbstractMachineElement;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.IdentifiableList;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.OpenCvUtils;
@@ -67,7 +70,15 @@ import com.google.common.collect.Sets;
  * orientation for the board.
  */
 @Root
-public class ReferenceFiducialLocator extends AbstractPartSettingsHolder implements PartSettingsRoot, FiducialLocator {
+public class ReferenceFiducialLocator extends AbstractPartSettingsHolder
+        implements PartSettingsRoot, FiducialLocator, MachineElement {
+    /**
+     * Deliberately not serialized. The machine hands it over from its {@code @Commit}, the same way
+     * it does for the elements that descend from {@link AbstractMachineElement}, which this cannot
+     * because it is a part settings holder first.
+     */
+    private AbstractMachine machine;
+
     @Deprecated
     @Element(required = false)
     protected CvPipeline pipeline;
@@ -93,6 +104,16 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
         protected double scalingTolerance = 0.05; //unitless
         protected double shearingTolerance = 0.05; //unitless
         protected Length boardLocationTolerance = new Length(5.0, LengthUnit.Millimeters);
+    }
+
+    @Override
+    public AbstractMachine getMachine() {
+        return MachineElement.machineOf(this, machine);
+    }
+
+    @Override
+    public void setMachine(AbstractMachine machine) {
+        this.machine = machine;
     }
 
     public ReferenceFiducialLocator() {
@@ -128,7 +149,7 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
      * @return compensated board location of last PlacementsHolderLocation processed (in list)
      */
     public Location locateAllPlacementsHolder(List<PlacementsHolderLocation<?>> allPlacementsHolderLocation, Location endLocation) throws Exception {
-        CameraBatchOperation cbo = Configuration.get().getMachine().getCameraBatchOperation();
+        CameraBatchOperation cbo = getMachine().getCameraBatchOperation();
         if (cbo!=null) {
             cbo.startBatchOperation("fid");
         }
@@ -461,7 +482,7 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder impleme
      * @throws Exception
      */
     public Camera getVisionCamera() throws Exception {
-        return Configuration.get().getMachine().getDefaultHead().getDefaultCamera();
+        return getMachine().getDefaultHead().getDefaultCamera();
     }
 
     /**
