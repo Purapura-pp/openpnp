@@ -118,17 +118,17 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
     private JobPlacementsPanel jobPlacementsPanel;
     private boolean editDefinition;
     private boolean isPanel;
-    private Configuration configuration;
+    private final Configuration configuration;
 
     private Container container;
 
     /** Cleared by fireTableChanged; see partsWithEnabledFeeder(). */
     private Set<Part> partsWithEnabledFeeder;
     
-    public PlacementsHolderPlacementsTableModel(Container container) {
+    public PlacementsHolderPlacementsTableModel(Configuration configuration, Container container) {
         super();
         this.container = container;
-        configuration = Configuration.get();
+        this.configuration = configuration;
         configuration.getBus().register(this);
     }
     
@@ -376,7 +376,7 @@ public class PlacementsHolderPlacementsTableModel extends AbstractObjectTableMod
             propName = propertyNames[column];
             newValue = getValueAt(row, column);
         }
-        Configuration.get().getBus().post(new PlacementChangedEvent(placementsHolder, 
+        configuration.getBus().post(new PlacementChangedEvent(placementsHolder, 
                 getRowObjectAt(row), propName, null, newValue, this));
     }
     

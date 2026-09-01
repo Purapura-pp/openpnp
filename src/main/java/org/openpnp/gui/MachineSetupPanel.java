@@ -96,7 +96,11 @@ public class MachineSetupPanel extends JPanel implements WizardContainer {
     private Object lastSelectedNode = null;
     private HashMap<Class, Integer> lastSelectedTabIndex = new HashMap<>();
 
-    public MachineSetupPanel() {
+    private final Configuration configuration;
+
+    public MachineSetupPanel(Configuration configuration) {
+        this.configuration = configuration;
+
         setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
@@ -179,14 +183,14 @@ public class MachineSetupPanel extends JPanel implements WizardContainer {
             }
         });
 
-        Configuration.get().addListener(new ConfigurationListener() {
+        configuration.addListener(new ConfigurationListener() {
             @Override
             public void configurationLoaded(Configuration configuration) throws Exception {}
 
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
                 tree.setModel(treeModel = new DefaultTreeModel(
-                        new PropertySheetHolderTreeNode(Configuration.get().getMachine(), null)));
+                        new PropertySheetHolderTreeNode(configuration.getMachine(), null)));
                 for (int i = 1; i < tree.getRowCount(); i++) {
                   if (cbExp.isSelected()) {
                     tree.expandRow(i);

@@ -138,10 +138,10 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
     private Configuration configuration;
     private boolean dirty;
 
-    public PanelDefinitionPanel(PanelsPanel panelsPanel) {
+    public PanelDefinitionPanel(Configuration configuration, PanelsPanel panelsPanel) {
+    	this.configuration = configuration;
     	this.panelsPanel = panelsPanel;
     	frame = MainFrame.get();
-    	configuration = Configuration.get();
         createUi();
         addChildAction.setEnabled(false);
         viewerAction.setEnabled(false);
@@ -152,8 +152,6 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
     private void createUi() {
         setBorder(new TitledBorder(null, Translations.getString("PanelDefinition.Title"), //$NON-NLS-1$
                 TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        
-        Configuration configuration = Configuration.get();
         
         fiducialSingleSelectionActionGroup = new ActionGroup(removeFiducialAction, setSideAction, 
                 setEnabledAction);
@@ -279,7 +277,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 }
                 
                 boolean updateLinkedTables = MainFrame.get().getTabs().getSelectedComponent() == MainFrame.get().getPanelsTab() 
-                        && Configuration.get().getTablesLinked() == TablesLinked.Linked;
+                        && configuration.getTablesLinked() == TablesLinked.Linked;
 
                 List<PlacementsHolderLocation<?>> selections = getChildrenSelections();
                 if (selections.size() > 1) {
@@ -303,9 +301,9 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                     }
                     replaceChildrenSelectionActionGroup.setEnabled(allSameDefinition);
                     if (updateLinkedTables) {
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementsHolderLocationSelectedEvent(null, PanelDefinitionPanel.this));
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementSelectedEvent(null, null, PanelDefinitionPanel.this));
                     }
                 }
@@ -315,9 +313,9 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                     childrenSingleSelectionActionGroup.setEnabled(selections != null);
                     replaceChildrenSelectionActionGroup.setEnabled(selections != null);
                     if (updateLinkedTables) {
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementsHolderLocationSelectedEvent(selections.get(0), PanelDefinitionPanel.this));
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementSelectedEvent(null, selections.get(0), PanelDefinitionPanel.this));
                     }
                 }
@@ -327,9 +325,9 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                     childrenMultiSelectionActionGroup.setEnabled(false);
                     replaceChildrenSelectionActionGroup.setEnabled(false);
                     if (updateLinkedTables) {
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementsHolderLocationSelectedEvent(null, PanelDefinitionPanel.this));
-                        Configuration.get().getBus()
+                        configuration.getBus()
                             .post(new PlacementSelectedEvent(null, null, PanelDefinitionPanel.this));
                     }
                 }
@@ -405,7 +403,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         btnUseChildFiducial.setHideActionText(true);
         toolBarFiducials.add(btnUseChildFiducial);
         
-        fiducialTableModel = new PlacementsHolderPlacementsTableModel(this) {
+        fiducialTableModel = new PlacementsHolderPlacementsTableModel(configuration, this) {
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 if (!super.isCellEditable(rowIndex, columnIndex)) {
@@ -451,14 +449,14 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 }
                 
                 boolean updateLinkedTables = MainFrame.get().getTabs().getSelectedComponent() == MainFrame.get().getPanelsTab() 
-                        && Configuration.get().getTablesLinked() == TablesLinked.Linked;
+                        && configuration.getTablesLinked() == TablesLinked.Linked;
                 
                 if (getFiducialSelections().size() > 1) {
                     // multi select
                     fiducialSingleSelectionActionGroup.setEnabled(false);
                     fiducialMultiSelectionActionGroup.setEnabled(true);
                     if (updateLinkedTables) {
-                        Configuration.get().getBus().post(new PlacementSelectedEvent(null,
+                        configuration.getBus().post(new PlacementSelectedEvent(null,
                                 rootPanelLocation, PanelDefinitionPanel.this));
                     }
                 }
@@ -467,7 +465,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                     fiducialMultiSelectionActionGroup.setEnabled(false);
                     fiducialSingleSelectionActionGroup.setEnabled(getFiducialSelection() != null);
                     if (updateLinkedTables) {
-                        Configuration.get().getBus().post(new PlacementSelectedEvent(getFiducialSelection(),
+                        configuration.getBus().post(new PlacementSelectedEvent(getFiducialSelection(),
                                 rootPanelLocation, PanelDefinitionPanel.this));
                     }
                 }
@@ -502,7 +500,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
             }
         });
 
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
     }
     
     public void setPanel(Panel panel) throws IOException {
@@ -586,7 +584,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            if (Configuration.get().getParts().size() == 0) {
+            if (configuration.getParts().size() == 0) {
                 MessageBoxes.errorBox(getTopLevelAncestor(), Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString("PanelDefinition.PanelAlignment.Add.Error.NoParts")); //$NON-NLS-1$
                 return;
@@ -613,14 +611,14 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
             
             Placement placement = new Placement(id);
 
-            placement.setPart(Configuration.get().getParts().get(0));
-            placement.setLocation(new Location(Configuration.get().getSystemUnits()));
+            placement.setPart(configuration.getParts().get(0));
+            placement.setLocation(new Location(configuration.getSystemUnits()));
             placement.setSide(rootPanelLocation.getGlobalSide());
             placement.setType(Placement.Type.Fiducial);
 
             panel.addPlacement(placement);
 
-            Configuration.get().getBus()
+            configuration.getBus()
                 .post(new DefinitionStructureChangedEvent(panel, "placements", PanelDefinitionPanel.this)); //$NON-NLS-1$
 
             fiducialTableModel.fireTableDataChanged();
@@ -649,7 +647,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
             }
             fiducialTableModel.fireTableDataChanged();
             
-            Configuration.get().getBus()
+            configuration.getBus()
                 .post(new DefinitionStructureChangedEvent(panel, "placements", PanelDefinitionPanel.this)); //$NON-NLS-1$
         }
     };
@@ -663,10 +661,11 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            ChildFiducialSelectorDialog dialog = new ChildFiducialSelectorDialog(rootPanelLocation);
+            ChildFiducialSelectorDialog dialog = new ChildFiducialSelectorDialog(configuration,
+                    rootPanelLocation);
             dialog.setVisible(true);
             
-            Configuration.get().getBus()
+            configuration.getBus()
                 .post(new DefinitionStructureChangedEvent(panel, "placements", PanelDefinitionPanel.this)); //$NON-NLS-1$
 
             fiducialTableModel.fireTableDataChanged();
@@ -737,7 +736,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         @Override
         public void actionPerformed(ActionEvent arg0) {
             ExistingBoardOrPanelDialog existingBoardDialog = new ExistingBoardOrPanelDialog(
-                    Configuration.get(), Board.class,
+                    configuration, Board.class,
                     Translations.getString("PanelDefinition.Children.Add.ExistingBoard.DialogTitle")); //$NON-NLS-1$
             existingBoardDialog.setVisible(true);
             File file = existingBoardDialog.getFile();
@@ -767,7 +766,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         panel.addChild(boardLocation);
         childrenTableModel.fireTableDataChanged();
         
-        Configuration.get().getBus()
+        configuration.getBus()
             .post(new DefinitionStructureChangedEvent(rootPanelLocation.getPanel(), "children",  //$NON-NLS-1$
                     PanelDefinitionPanel.this));
         
@@ -826,7 +825,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         @Override
         public void actionPerformed(ActionEvent arg0) {
             ExistingBoardOrPanelDialog existingPanelDialog = new ExistingBoardOrPanelDialog(
-                    Configuration.get(), Panel.class, 
+                    configuration, Panel.class, 
                     Translations.getString("PanelDefinition.Children.Add.ExistingPanel.DialogTitle")); //$NON-NLS-1$
             existingPanelDialog.setVisible(true);
             File file = existingPanelDialog.getFile();
@@ -857,7 +856,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         PanelLocation.setParentsOfAllDescendants(rootPanelLocation);
         childrenTableModel.fireTableDataChanged();
         
-        Configuration.get().getBus()
+        configuration.getBus()
             .post(new DefinitionStructureChangedEvent(panel, "children", PanelDefinitionPanel.this)); //$NON-NLS-1$
         
         return panelLocation;
@@ -889,7 +888,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
             }
             childrenTableModel.fireTableDataChanged();
             
-            Configuration.get().getBus()
+            configuration.getBus()
                 .post(new DefinitionStructureChangedEvent(rootPanelLocation.getPanel(), "children", //$NON-NLS-1$
                         PanelDefinitionPanel.this));
         }
@@ -905,10 +904,11 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         @Override
         public void actionPerformed(ActionEvent arg0) {
             PlacementsHolderLocation<?> child = getChildrenSelection();
-            PanelArrayBuilderDialog dlg = new PanelArrayBuilderDialog(rootPanelLocation, child, () -> refresh());
+            PanelArrayBuilderDialog dlg = new PanelArrayBuilderDialog(configuration,
+                    rootPanelLocation, child, () -> refresh());
             dlg.setVisible(true);
             
-            Configuration.get().getBus()
+            configuration.getBus()
             .post(new DefinitionStructureChangedEvent(rootPanelLocation.getPanel(), "children", //$NON-NLS-1$
                     PanelDefinitionPanel.this));
             
@@ -927,7 +927,8 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (panelViewer == null) {
-                panelViewer = new PlacementsHolderLocationViewerDialog(rootPanelLocation, false, null);
+                panelViewer = new PlacementsHolderLocationViewerDialog(configuration,
+                        rootPanelLocation, false, null);
                 panelViewer.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
@@ -955,12 +956,12 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
             File file;
             if (selectedChildren.get(0) instanceof BoardLocation) {
                 existingBoardOrPanelDialog = new ExistingBoardOrPanelDialog(
-                        Configuration.get(), Board.class,
+                        configuration, Board.class,
                         Translations.getString("PanelDefinition.Children.Replace.ExistingBoard.DialogTitle")); //$NON-NLS-1$
             }
             else {
                 existingBoardOrPanelDialog = new ExistingBoardOrPanelDialog(
-                        Configuration.get(), Panel.class,
+                        configuration, Panel.class,
                         Translations.getString("PanelDefinition.Children.Replace.ExistingPanel.DialogTitle")); //$NON-NLS-1$
             }
 
@@ -996,7 +997,7 @@ public class PanelDefinitionPanel extends JPanel implements PropertyChangeListen
                 
                 childrenTableModel.fireTableDataChanged();
                 
-                Configuration.get().getBus()
+                configuration.getBus()
                     .post(new DefinitionStructureChangedEvent(rootPanelLocation.getPanel(), "children", //$NON-NLS-1$
                             PanelDefinitionPanel.this));
             }

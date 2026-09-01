@@ -3,16 +3,13 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 347 calls in 144 files.
+# 286 calls in 133 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/FeedersPanel.java	4
 org/openpnp/gui/JobPlacementsPanel.java	1
-org/openpnp/gui/MachineSetupPanel.java	2
-org/openpnp/gui/PanelDefinitionPanel.java	28
 org/openpnp/gui/ScriptAction.java	1
 org/openpnp/gui/SubmitDiagnosticsDialog.java	4
-org/openpnp/gui/VisionSettingsPanel.java	4
 org/openpnp/gui/components/CameraPanel.java	1
 org/openpnp/gui/components/CameraView.java	1
 org/openpnp/gui/components/ComponentDecorators.java	2
@@ -25,8 +22,6 @@ org/openpnp/gui/importer/EagleBoardImporter.java	1
 org/openpnp/gui/importer/EagleMountsmdUlpImporter.java	1
 org/openpnp/gui/importer/KicadPosImporter.java	1
 org/openpnp/gui/importer/LabcenterProteusImporter.java	1
-org/openpnp/gui/panelization/ChildFiducialSelectorDialog.java	1
-org/openpnp/gui/panelization/PanelArrayBuilderDialog.java	1
 org/openpnp/gui/processes/CalibrateCameraProcess.java	4
 org/openpnp/gui/processes/MultiPlacementBoardLocationProcess.java	2
 org/openpnp/gui/support/AbstractConfigurationWizard.java	2
@@ -43,12 +38,6 @@ org/openpnp/gui/support/VolumeConverter.java	2
 org/openpnp/gui/tablemodel/FeedersTableModel.java	1
 org/openpnp/gui/tablemodel/FootprintTableModel.java	2
 org/openpnp/gui/tablemodel/HeadsTableModel.java	1
-org/openpnp/gui/tablemodel/PartsTableModel.java	5
-org/openpnp/gui/tablemodel/PlacementsHolderLocationsTableModel.java	2
-org/openpnp/gui/tablemodel/PlacementsHolderPlacementsTableModel.java	2
-org/openpnp/gui/tablemodel/PlacementsHolderTableModel.java	3
-org/openpnp/gui/tablemodel/VisionSettingsTableModel.java	3
-org/openpnp/gui/viewers/PlacementsHolderLocationViewer.java	10
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
 org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	1
 org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	1

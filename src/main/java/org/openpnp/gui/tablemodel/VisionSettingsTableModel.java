@@ -19,9 +19,12 @@ public class VisionSettingsTableModel extends AbstractObjectTableModel implement
 
     private List<AbstractVisionSettings> visionSettings;
 
-    public VisionSettingsTableModel() {
-        Configuration.get().addPropertyChangeListener("visionSettings", this);
-        visionSettings = new ArrayList<>(Configuration.get().getVisionSettings());
+    private final Configuration configuration;
+
+    public VisionSettingsTableModel(Configuration configuration) {
+        this.configuration = configuration;
+        configuration.addPropertyChangeListener("visionSettings", this);
+        visionSettings = new ArrayList<>(configuration.getVisionSettings());
     }
 
     @Override
@@ -34,7 +37,7 @@ public class VisionSettingsTableModel extends AbstractObjectTableModel implement
                     visionSettings.removePropertyChangeListener(this);
                 }
             }
-            visionSettings = new ArrayList<>(Configuration.get().getVisionSettings());
+            visionSettings = new ArrayList<>(configuration.getVisionSettings());
             fireTableDataChanged();
             for (AbstractVisionSettings visionSettings : this.visionSettings) {
                 visionSettings.addPropertyChangeListener(this);

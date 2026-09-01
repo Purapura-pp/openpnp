@@ -63,6 +63,7 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
     private static final int PREF_DIVIDER_POSITION_DEF = -1;
     private Preferences prefs = Preferences.userNodeForPackage(VisionSettingsPanel.class);
 
+    private final Configuration configuration;
     private final Frame frame;
     protected AbstractVisionSettings selectedVisionSettings;
 
@@ -71,14 +72,15 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
     private JTable table;
     private JComboBox visionTypeFilter;
 
-    public VisionSettingsPanel(Frame frame) {
+    public VisionSettingsPanel(Configuration configuration, Frame frame) {
+        this.configuration = configuration;
         this.frame = frame;
 
         setLayout(new BorderLayout(0, 0));
 
         createAndAddToolbar();
 
-        tableModel = new VisionSettingsTableModel();
+        tableModel = new VisionSettingsTableModel(configuration);
         tableSorter = new TableRowSorter<>(tableModel);
 
         JSplitPane splitPane = new JSplitPane();
@@ -222,7 +224,7 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
             }
             visionSettings.resetToDefault();
             visionSettings.setName(visionSettings.getClass().getSimpleName());
-            Configuration.get().addVisionSettings(visionSettings);
+            configuration.addVisionSettings(visionSettings);
             Helpers.selectObjectTableRow(table, visionSettings);
         }
     };
@@ -289,7 +291,7 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
                     JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION) {
                 for (AbstractVisionSettings visionSettings : selections) {
-                    Configuration.get().removeVisionSettings(visionSettings);
+                    configuration.removeVisionSettings(visionSettings);
                 }
             }
         }
@@ -345,13 +347,13 @@ public class VisionSettingsPanel extends JPanel implements WizardContainer {
                 table.clearSelection();
                 for (AbstractVisionSettings visionSettings : holder.visionSettings) {
                     visionSettings.setId(Configuration.createId(visionSettings.getId().substring(0, 3)));
-                    for (AbstractVisionSettings visionSettings2 : Configuration.get().getVisionSettings()) {
+                    for (AbstractVisionSettings visionSettings2 : configuration.getVisionSettings()) {
                         if (visionSettings2.getName().equals(visionSettings.getName())) {
                             visionSettings.setName(visionSettings+" (Copy)");
                             break;
                         }
                     }
-                    Configuration.get().addVisionSettings(visionSettings);
+                    configuration.addVisionSettings(visionSettings);
                 }
                 Helpers.selectObjectTableRows(table, holder.visionSettings);
             }

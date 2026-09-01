@@ -352,9 +352,9 @@ public class MainFrame extends JFrame {
         partsPanel = new PartsPanel(configuration, this);
         packagesPanel = new PackagesPanel(configuration, this);
         feedersPanel = new FeedersPanel(configuration, this);
-        machineSetupPanel = new MachineSetupPanel();
+        machineSetupPanel = new MachineSetupPanel(configuration);
         issuesAndSolutionsPanel = new IssuesAndSolutionsPanel(configuration, this);
-        visionSettingsPanel = new VisionSettingsPanel(this);
+        visionSettingsPanel = new VisionSettingsPanel(configuration, this);
 
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);

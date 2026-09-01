@@ -180,7 +180,7 @@ public class JobPlacementsPanel extends JPanel {
         
         setLayout(new BorderLayout(0, 0));
 
-        tableModel = new PlacementsHolderPlacementsTableModel(this) {
+        tableModel = new PlacementsHolderPlacementsTableModel(configuration, this) {
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return (columnIndex != 1 && columnIndex != 9) && ((topLevel && singleInstance && 

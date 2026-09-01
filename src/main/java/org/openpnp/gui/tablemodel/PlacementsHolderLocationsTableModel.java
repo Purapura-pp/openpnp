@@ -346,7 +346,7 @@ public class PlacementsHolderLocationsTableModel extends AbstractObjectTableMode
             propName = propertyNames[column];
             newValue = getValueAt(row, column);
         }
-        Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(
+        configuration.getBus().post(new PlacementsHolderLocationChangedEvent(
                 getPlacementsHolderLocation(row),
                 propName,
                 null, newValue, this));
@@ -369,7 +369,7 @@ public class PlacementsHolderLocationsTableModel extends AbstractObjectTableMode
             propName = propertyNames[column];
             newValue = getValueAt(row, column);
         }
-        Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(
+        configuration.getBus().post(new PlacementsHolderLocationChangedEvent(
                 getPlacementsHolderLocation(row),
                 propName,
                 null, newValue, this));

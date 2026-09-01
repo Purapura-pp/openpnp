@@ -110,7 +110,7 @@ public class ChildFiducialSelectorDialog extends JDialog {
     /**
      * Create the dialog.
      */
-    public ChildFiducialSelectorDialog(PanelLocation panelLocation) {
+    public ChildFiducialSelectorDialog(Configuration configuration, PanelLocation panelLocation) {
         super(MainFrame.get(), panelLocation.getPanel().getName() + 
                 Translations.getString("ChildFiducialSelectorDialog.Frame.Title"), //$NON-NLS-1$
             ModalityType.APPLICATION_MODAL);
@@ -120,7 +120,7 @@ public class ChildFiducialSelectorDialog extends JDialog {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                Configuration.get().getBus().unregister(tableModel);
+                configuration.getBus().unregister(tableModel);
             }
         });
 
@@ -274,7 +274,7 @@ public class ChildFiducialSelectorDialog extends JDialog {
                 radioPanel.add(btnSelectGood);
             }
             
-            tableModel = new PlacementsHolderPlacementsTableModel(this) {
+            tableModel = new PlacementsHolderPlacementsTableModel(configuration, this) {
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return columnIndex == 0; //Only the enabled setting is editable

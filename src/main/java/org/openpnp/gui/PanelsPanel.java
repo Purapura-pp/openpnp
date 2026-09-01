@@ -265,7 +265,7 @@ public class PanelsPanel extends JPanel {
         pnlPanels.add(new JScrollPane(panelsTable));
         splitPane.setLeftComponent(pnlPanels);
         
-        panelDefinitionPanel = new PanelDefinitionPanel(this);
+        panelDefinitionPanel = new PanelDefinitionPanel(configuration, this);
         splitPane.setRightComponent(panelDefinitionPanel);
         
         add(splitPane);

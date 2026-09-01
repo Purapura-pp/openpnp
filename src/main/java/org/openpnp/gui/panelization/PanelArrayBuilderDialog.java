@@ -95,7 +95,8 @@ public class PanelArrayBuilderDialog extends JDialog {
         }
     }
     
-    private LengthUnit systemUnit = Configuration.get().getSystemUnits();
+    private final Configuration configuration;
+    private final LengthUnit systemUnit;
 
     private List<PlacementsHolderLocation<?>> newChildren = new ArrayList<>();
     private ArrayType arrayType = ArrayType.Rectangular;
@@ -135,11 +136,13 @@ public class PanelArrayBuilderDialog extends JDialog {
     /**
      * Create the dialog.
      */
-    public PanelArrayBuilderDialog(PanelLocation panelLocation, 
+    public PanelArrayBuilderDialog(Configuration configuration, PanelLocation panelLocation, 
             PlacementsHolderLocation<?> rootChildLocation, Runnable refresh) {
         super(MainFrame.get(), 
                 Translations.getString("PanelArrayBuilderDialog.Frame.Title"), //$NON-NLS-1$
                 ModalityType.APPLICATION_MODAL);
+        this.configuration = configuration;
+        this.systemUnit = configuration.getSystemUnits();
         this.panelLocation = panelLocation;
         this.rootChildLocation = rootChildLocation;
         this.refresh = refresh;
@@ -609,7 +612,8 @@ public class PanelArrayBuilderDialog extends JDialog {
                 }
             }
             {
-                panelLayout = new PlacementsHolderLocationViewer(panelLocation, false, null);
+                panelLayout = new PlacementsHolderLocationViewer(configuration, panelLocation,
+                        false, null);
                 panelLayout.setArrayRoot(rootChildLocation);
                 panelLayout.setShowLocations(false);
                 panelLayout.setShowReticle(false);

@@ -1567,7 +1567,8 @@ public class JobPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {            
             if (jobViewer == null) {
-                jobViewer = new PlacementsHolderLocationViewerDialog(job.getRootPanelLocation(), true, getSelections());
+                jobViewer = new PlacementsHolderLocationViewerDialog(configuration,
+                        job.getRootPanelLocation(), true, getSelections());
                 jobViewer.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {

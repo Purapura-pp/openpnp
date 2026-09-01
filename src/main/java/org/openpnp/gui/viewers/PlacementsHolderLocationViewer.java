@@ -120,6 +120,8 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
     private static final int VERTICAL_SCALE_WIDTH = 45;
     private static final int SCALE_TICK_LENGTH = 5;
 
+    private final Configuration configuration;
+
     private Color reticleColor = new Color(255, 255, 255, 128);
     private Color maskColor = new Color(29, 1, 43, 230); //OSHPARK dark purple solder mask
     private Color substrateColor = Color.GRAY;
@@ -220,7 +222,8 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
     /**
      * Create the Panel.
      */
-    public PlacementsHolderLocationViewer(PlacementsHolderLocation<?> placementsHolderLocation, boolean isJob, List<PlacementsHolderLocation<?>> selections) {
+    public PlacementsHolderLocationViewer(Configuration configuration, PlacementsHolderLocation<?> placementsHolderLocation, boolean isJob, List<PlacementsHolderLocation<?>> selections) {
+        this.configuration = configuration;
         this.placementsHolderLocation = placementsHolderLocation;
         this.selections = selections;
         this.isJob = isJob;
@@ -256,7 +259,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
                     + placementsHolder.getClass().getSimpleName() + " types is not currently supported"); //$NON-NLS-1$
         }
         
-        units = Configuration.get().getSystemUnits();
+        units = configuration.getSystemUnits();
         
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(new BorderLayout(0, 0));
@@ -499,7 +502,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
 
         setPlacementsHolder(placementsHolder, selections);
         
-        Configuration.get().getBus().register(this);
+        configuration.getBus().register(this);
     }
     
     @Subscribe
@@ -1370,7 +1373,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
     }
 
     public void cancel() {
-        Configuration.get().getBus().unregister(this);
+        configuration.getBus().unregister(this);
     }
     
     private void displayPopupMenu(MouseEvent e) {
@@ -1468,7 +1471,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
             public void actionPerformed(ActionEvent e) {
                 Object oldValue = plmt.isEnabled();
                 plmt.setEnabled(mnItmEnabled.isSelected());
-                Configuration.get().getBus().post(new PlacementChangedEvent(phl.getPlacementsHolder(), plmt, "enabled", oldValue, mnItmEnabled.isSelected(), PlacementsHolderLocationViewer.this)); //$NON-NLS-1$
+                configuration.getBus().post(new PlacementChangedEvent(phl.getPlacementsHolder(), plmt, "enabled", oldValue, mnItmEnabled.isSelected(), PlacementsHolderLocationViewer.this)); //$NON-NLS-1$
             }
             
         });
@@ -1486,7 +1489,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
                 public void actionPerformed(ActionEvent e) {
                     Object oldValue = MainFrame.get().getJobTab().getJob().retrievePlacedStatus(phl, plmt.getId());
                     MainFrame.get().getJobTab().getJob().storePlacedStatus(phl, plmt.getId(), mnItmPlaced.isSelected());
-                    Configuration.get().getBus().post(new PlacementChangedEvent(phl.getPlacementsHolder(), plmt, "placed", oldValue, mnItmPlaced.isSelected(), PlacementsHolderLocationViewer.this)); //$NON-NLS-1$
+                    configuration.getBus().post(new PlacementChangedEvent(phl.getPlacementsHolder(), plmt, "placed", oldValue, mnItmPlaced.isSelected(), PlacementsHolderLocationViewer.this)); //$NON-NLS-1$
                 }
                 
             });
@@ -1515,7 +1518,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
 
                         Map<String, Object> globals = new HashMap<>();
                         globals.put("camera", camera); //$NON-NLS-1$
-                        Configuration.get().getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
+                        configuration.getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
                     });
                 }});
             popUp.add(mnItemMoveCamera);
@@ -1551,7 +1554,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
             public void actionPerformed(ActionEvent e) {
                 Object oldValue = phl.isLocallyEnabled();
                 phl.setLocallyEnabled(mnItmEnabled.isSelected());
-                Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(phl, 
+                configuration.getBus().post(new PlacementsHolderLocationChangedEvent(phl, 
                         "locallyEnabled", oldValue, mnItmEnabled.isSelected(), //$NON-NLS-1$
                         PlacementsHolderLocationViewer.this));
             }
@@ -1569,7 +1572,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
             public void actionPerformed(ActionEvent e) {
                 Object oldValue = phl.isCheckFiducials();
                 phl.setCheckFiducials(mnItmCheckFids.isSelected());
-                Configuration.get().getBus().post(new PlacementsHolderLocationChangedEvent(phl, 
+                configuration.getBus().post(new PlacementsHolderLocationChangedEvent(phl, 
                         "checkFiducials", oldValue, mnItmCheckFids.isSelected(), //$NON-NLS-1$
                         PlacementsHolderLocationViewer.this));
             }
@@ -1608,7 +1611,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
 
                         Map<String, Object> globals = new HashMap<>();
                         globals.put("camera", camera); //$NON-NLS-1$
-                        Configuration.get().getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
+                        configuration.getScripting().on("Camera.AfterPosition", globals); //$NON-NLS-1$
                     });
                 }});
             popUp.add(mnItemMoveCamera);
@@ -1624,7 +1627,7 @@ public class PlacementsHolderLocationViewer extends JPanel implements PropertyCh
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     UiUtils.submitUiMachineTask(() -> {
-                        Location location = Configuration.get().getMachine().getFiducialLocator()
+                        Location location = configuration.getMachine().getFiducialLocator()
                                 .locatePlacementsHolder(phl);
                         
                         /**

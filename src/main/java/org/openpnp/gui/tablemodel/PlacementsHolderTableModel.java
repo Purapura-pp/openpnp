@@ -106,7 +106,7 @@ public class PlacementsHolderTableModel extends AbstractObjectTableModel impleme
                 Object oldValue = placementsHolder.getName();
                 placementsHolder.setName((String) aValue);
                 fireTableCellUpdated(rowIndex, columnIndex);
-                Configuration.get().getBus().post(
+                configuration.getBus().post(
                         new PlacementsHolderChangedEvent(placementsHolder, "name", oldValue, aValue, this)); //$NON-NLS-1$
             }
             else if (columnIndex == 1) {
@@ -116,7 +116,7 @@ public class PlacementsHolderTableModel extends AbstractObjectTableModel impleme
                 Location dims = Length.setLocationField(configuration, oldValue, length, Length.Field.X);
                 placementsHolder.setDimensions(dims);
                 fireTableCellUpdated(rowIndex, columnIndex);
-                Configuration.get().getBus().post(
+                configuration.getBus().post(
                         new PlacementsHolderChangedEvent(placementsHolder, "dimensions", oldValue, dims, this)); //$NON-NLS-1$
             }
             else if (columnIndex == 2) {
@@ -126,7 +126,7 @@ public class PlacementsHolderTableModel extends AbstractObjectTableModel impleme
                 Location dims = Length.setLocationField(configuration, oldValue, length, Length.Field.Y);
                 placementsHolder.setDimensions(dims);
                 fireTableCellUpdated(rowIndex, columnIndex);
-                Configuration.get().getBus().post(
+                configuration.getBus().post(
                         new PlacementsHolderChangedEvent(placementsHolder, "dimensions", oldValue, dims, this)); //$NON-NLS-1$
             }
         }

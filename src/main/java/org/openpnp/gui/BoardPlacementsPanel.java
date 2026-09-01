@@ -191,7 +191,7 @@ public class BoardPlacementsPanel extends JPanel {
         JComboBox<ErrorHandling> errorHandlingComboBox = new JComboBox<>(ErrorHandling.values());
         
         setLayout(new BorderLayout(0, 0));
-        tableModel = new PlacementsHolderPlacementsTableModel(this);
+        tableModel = new PlacementsHolderPlacementsTableModel(configuration, this);
         tableSorter = new TableRowSorter<>(tableModel);
         
         table = new AutoSelectTextTable(tableModel) {
@@ -664,7 +664,8 @@ public class BoardPlacementsPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (boardViewer == null) {
-                boardViewer = new PlacementsHolderLocationViewerDialog(new BoardLocation(board), false, null);
+                boardViewer = new PlacementsHolderLocationViewerDialog(configuration,
+                        new BoardLocation(board), false, null);
                 boardViewer.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {

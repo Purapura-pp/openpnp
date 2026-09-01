@@ -54,10 +54,12 @@ public class PartsTableModel extends AbstractObjectTableModel implements Propert
             Package.class, String.class, BottomVisionSettings.class, FiducialVisionSettings.class, Integer.class, Integer.class};
     private List<Part> parts;
     private PercentConverter percentConverter = new PercentConverter();
+    private final Configuration configuration;
 
-    public PartsTableModel() {
-        Configuration.get().addPropertyChangeListener("parts", this);
-        parts = new ArrayList<>(Configuration.get().getParts());
+    public PartsTableModel(Configuration configuration) {
+        this.configuration = configuration;
+        configuration.addPropertyChangeListener("parts", this);
+        parts = new ArrayList<>(configuration.getParts());
     }
 
     @Override
@@ -108,7 +110,7 @@ public class PartsTableModel extends AbstractObjectTableModel implements Propert
                 if (oldLength != null) {
                     length = length.changeUnitsIfUnspecified(oldLength.getUnits());
                 }
-                length = length.changeUnitsIfUnspecified(Configuration.get().getSystemUnits());
+                length = length.changeUnitsIfUnspecified(configuration.getSystemUnits());
                 part.setHeight(length);
             }
             else if (columnIndex == 3) {
@@ -119,7 +121,7 @@ public class PartsTableModel extends AbstractObjectTableModel implements Propert
                 if (oldDepth != null) {
                     length = length.changeUnitsIfUnspecified(oldDepth.getUnits());
                 }
-                length = length.changeUnitsIfUnspecified(Configuration.get().getSystemUnits());
+                length = length.changeUnitsIfUnspecified(configuration.getSystemUnits());
                 part.setThroughBoardDepth(length);
             }
             else if (columnIndex == 4) {
@@ -212,7 +214,7 @@ public class PartsTableModel extends AbstractObjectTableModel implements Propert
         }
         else  {
             // Parts list itself changed
-            List<Part> newParts = new ArrayList<>(Configuration.get().getParts());
+            List<Part> newParts = new ArrayList<>(configuration.getParts());
             
             //Compute the indices of those parts to remove and those to add
             List<int[]> indicesToRemove = new ArrayList<>();

@@ -125,7 +125,7 @@ public class PartsPanel extends JPanel implements WizardContainer {
         multiSelectionActionGroup.setEnabled(false);
 
         setLayout(new BorderLayout(0, 0));
-        tableModel = new PartsTableModel();
+        tableModel = new PartsTableModel(configuration);
         tableSorter = new TableRowSorter<>(tableModel);
 
         JPanel toolbarAndSearch = new JPanel();

@@ -33,6 +33,7 @@ import javax.swing.SwingUtilities;
 import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.model.Board;
+import org.openpnp.model.Configuration;
 import org.openpnp.model.Panel;
 import org.openpnp.model.PlacementsHolder;
 import org.openpnp.model.PlacementsHolderLocation;
@@ -57,7 +58,7 @@ public class PlacementsHolderLocationViewerDialog extends JFrame {
     /**
      * Create the frame with filter.
      */
-    public PlacementsHolderLocationViewerDialog(PlacementsHolderLocation<?> placementsHolderLocation, boolean isJob, List<PlacementsHolderLocation<?>> selections) {
+    public PlacementsHolderLocationViewerDialog(Configuration configuration, PlacementsHolderLocation<?> placementsHolderLocation, boolean isJob, List<PlacementsHolderLocation<?>> selections) {
 
         this.isJob = isJob;
         
@@ -106,7 +107,8 @@ public class PlacementsHolderLocationViewerDialog extends JFrame {
             }
         });
 
-        contentPane = new PlacementsHolderLocationViewer(placementsHolderLocation, isJob, selections);
+        contentPane = new PlacementsHolderLocationViewer(configuration, placementsHolderLocation,
+                isJob, selections);
         setContentPane(contentPane);
     }
 
