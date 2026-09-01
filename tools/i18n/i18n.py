@@ -878,6 +878,75 @@ def consistency_report(lang, family, max_len):
     return findings
 
 
+def collision_report(lang, family, max_len):
+    """The inverse of consistency: distinct English strings that share one rendering.
+
+    Consistency asks whether a language says one thing two ways. This asks whether it says two
+    things the same way, which is the worse defect of the pair: the user is looking at two controls
+    that do different things under one label. It found the Italian jog increment buttons, where
+    Second and Fourth both read "Incrementa di Quattro".
+    """
+    english = Bundle(bundle_path(family)).entries
+    target_path = bundle_path(family, lang)
+    if not target_path.exists():
+        return []
+    target = Bundle(target_path).entries
+
+    by_rendering = {}
+    for key, value in english.items():
+        if key not in target or len(value) > max_len or "<" in value:
+            continue
+        rendering = target[key].strip()
+        if not rendering:
+            continue
+        by_rendering.setdefault(rendering, {})[key] = value.strip()
+
+    findings = []
+    for rendering, sources in sorted(by_rendering.items()):
+        if len({_collision_form(v) for v in sources.values()}) > 1:
+            findings.append((rendering, sources))
+    return findings
+
+
+def _collision_form(english):
+    """Reduce English to the distinction a translation is obliged to keep.
+
+    Most collisions are not defects. Chinese marks no plural, so Offset and Offsets must land on
+    the same word; "Assigned To" and "Assigned to" differ only in how someone capitalised them.
+    Reporting those buries the real finding, which is two unrelated strings sharing a rendering.
+    """
+    form = english.lower().rstrip(":?.").strip()
+    if form.endswith("(s)"):
+        form = form[:-3]
+    elif form.endswith("es") and not form.endswith("ses"):
+        form = form[:-2]
+    elif form.endswith("s") and not form.endswith("ss"):
+        form = form[:-1]
+    return form.strip()
+
+
+def cmd_collisions(args):
+    langs = discover_languages() if args.lang in (None, "all") else [args.lang]
+    total = 0
+    for lang in langs:
+        for family in FAMILIES:
+            findings = collision_report(lang, family, args.max_len)
+            total += len(findings)
+            if not findings or args.quiet:
+                continue
+            print("{}_{}.properties".format(family, lang))
+            for rendering, sources in findings[:args.limit]:
+                print("  {!r} stands for {} different English strings".format(
+                    rendering, len(set(sources.values()))))
+                for key, value in sorted(sources.items(), key=lambda kv: kv[1]):
+                    print("    {:32s} {}".format(value, key))
+            if len(findings) > args.limit:
+                print("  ... {} more".format(len(findings) - args.limit))
+            print()
+    print("{}: {} renderings cover more than one English string".format(", ".join(langs), total))
+    return 0
+
+
 def cmd_consistency(args):
     langs = discover_languages() if args.lang in (None, "all") else [args.lang]
     total = 0
@@ -1260,6 +1329,14 @@ def main():
     p.add_argument("--quiet", action="store_true", help="the count only")
     p.add_argument("--limit", type=int, default=40)
     p.set_defaults(func=cmd_consistency)
+
+    p = sub.add_parser("collisions", help="one rendering standing for several English strings")
+    p.add_argument("--lang", default="all")
+    p.add_argument("--max-len", type=int, default=40,
+                   help="ignore English longer than this; sentences vary with context")
+    p.add_argument("--quiet", action="store_true", help="the count only")
+    p.add_argument("--limit", type=int, default=40)
+    p.set_defaults(func=cmd_collisions)
 
     p = sub.add_parser("normalize", help="rewrite bundles in normalised escaped form")
     p.add_argument("--lang", default="all", help="a language code, en, or all")

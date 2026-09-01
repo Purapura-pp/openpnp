@@ -199,8 +199,12 @@ python tools/i18n/i18n.py consistency --lang sv
 ```
 
 It lists short English strings that your language renders more than one way, and it is worth a look
-before you call a language finished. It found the Cancel button in Italian carrying the word for
-"delete" on all thirty of its keys, which had survived a full review pass.
+before you call a language finished.
+
+Note what it cannot do. The Italian bundle had the word for "delete" on all thirty of its Cancel
+buttons; the report said nothing, because the thirty agreed with each other. A consistency check
+finds disagreement, and a mistake applied everywhere is perfectly consistent. That one was caught by
+reading a sample of entries against their English. Run both.
 
 Expect findings you should keep, and say so in the commit rather than flattening them. The Chinese
 bundle uses two different words for Nozzle and Nozzle Tip, which is a distinction the English makes
