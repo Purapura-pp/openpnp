@@ -117,6 +117,19 @@ requires that:
 - the markup still matches, so a dropped `<br/>` or `\n` cannot silently reflow a dialog;
 - no cell contains a tab.
 
+Before handing out the first batch, run
+
+```
+python tools/i18n/i18n.py reuse --lang sv --apply
+```
+
+The bundles repeat themselves heavily - the same explanation of "Rotation in Tape" sits under four
+keys, "Feed Count" under six - and `reuse` fills any entry whose English is already translated
+under another key. It only fills English that is unambiguous: where two keys share the English but
+were translated differently, it leaves the entry alone rather than picking one. Running it first
+keeps the translator from paying for the same sentence twice, and keeps the copies from drifting
+apart.
+
 A row whose translation is `SKIP` is left in English on purpose. That exit matters: an
 untranslated string is harmless because it falls back to English, whereas a guessed translation
 of something the translator did not understand is not. Prefer `SKIP` to guessing.
@@ -206,7 +219,8 @@ of that kind should do the same.
 ## Where the work stands
 
 `python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As a rough
-picture, against 2065 English keys: Simplified Chinese is essentially complete, Russian is around
-80 percent, and German, French, Spanish and Italian are all under 6 percent. Beyond that there
-are still several hundred strings hardcoded in the Java sources that no language can reach yet;
-`i18n.py hardcoded` counts them by area.
+picture, against 2670 English keys plus 112 Issues and Solutions descriptions: Simplified Chinese
+is complete, Russian is around 60 percent, and German, French, Spanish and Italian are all under
+5 percent. The English that used to be hardcoded in the configuration wizards has been
+externalised, so a language that is complete today is complete; `i18n.py hardcoded` reports what
+is left, which is mostly log and exception wording that stays English on purpose.
