@@ -83,8 +83,8 @@ git worktree add ../openpnp-sv i18n/sv
 Translation proceeds in rounds. A round takes the English bundle as it stands, everyone
 translates against that, and the round is integrated. Externalisation runs alongside and its new
 keys go into the next round, so translators are never chasing a moving baseline. There is no need
-to wait for it: German, French, Spanish and Italian are each missing over 1900 of the existing
-keys today.
+to wait for it, and there was none in the first round, when German, French, Spanish and Italian
+were each missing over 2500 of the existing keys.
 
 ## Handing work to a translator
 
@@ -276,9 +276,19 @@ of that kind should do the same.
 
 ## Where the work stands
 
-`python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As a rough
-picture, against 2670 English keys plus 112 Issues and Solutions descriptions: Simplified Chinese,
-Russian, French and Spanish are complete, and German and Italian are within a few dozen entries of
-it. The English that used to be hardcoded in the configuration wizards has been
-externalised, so a language that is complete today is complete; `i18n.py hardcoded` reports what
-is left, which is mostly log and exception wording that stays English on purpose.
+`python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. As of this
+round all six are complete: Simplified Chinese, Russian, German, Spanish, French and Italian each
+cover all 2696 English keys and all 112 Issues and Solutions descriptions.
+
+A language being complete now means what it says. The English that used to be hardcoded in the
+configuration wizards, the dialogs and the camera view popup menu has been externalised, so there
+is no longer a body of English sitting outside the bundles waiting to appear in a translated
+interface. `i18n.py hardcoded` reports what remains, which is mostly log and exception wording that
+stays English on purpose.
+
+`gap` also counts entries whose translation is identical to the English, and that number varies far
+more than it looks like it should: 131 in French against 19 in Russian. It is not a measure of work
+left undone. French shares a great deal of vocabulary with English - Rotation, Configuration,
+Vision, Distance, Machine, Saturation, Options and Description are all correct French - so a high
+count in a language with Latin roots is expected. Read the list before concluding anything from the
+number.
