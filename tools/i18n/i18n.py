@@ -6,6 +6,7 @@ Subcommands:
   gap        what is left to translate for one language, graded by difficulty
   batch      write the gap out as small tab separated files for a translator to fill in
   import     validate a filled in batch against its contract and merge it into the bundle
+  reuse      fill entries whose English is already translated under another key
   check      the invariants that fail silently at runtime: placeholders, duplicates, orphans
   normalize  rewrite a bundle in the escaped form Properties.store produces
   hardcoded  English still baked into the Java sources, which no bundle can reach
@@ -677,6 +678,50 @@ def cmd_import(args):
 
 
 # ---------------------------------------------------------------------------
+# reuse
+# ---------------------------------------------------------------------------
+
+def cmd_reuse(args):
+    """Fill entries whose English already has a translation under a different key.
+
+    The bundles repeat themselves heavily - the same "Rotation in Tape" explanation appears under
+    four keys, "Feed Count" under six - and translating each copy again is both wasted work and a
+    way for the copies to drift apart. Only unambiguous English is filled: if two keys share the
+    English but were translated differently, the text is left alone rather than guessed at.
+    """
+    english = source_entries(args.family)
+    target = Bundle(bundle_path(args.family, args.lang))
+
+    by_english = {}
+    for key, value in english.items():
+        if key in target.entries and target.entries[key] != value:
+            by_english.setdefault(value, set()).add(target.entries[key])
+
+    filled = 0
+    ambiguous = []
+    for key, value in english.items():
+        if key in target.entries:
+            continue
+        candidates = by_english.get(value)
+        if not candidates:
+            continue
+        if len(candidates) > 1:
+            ambiguous.append(key)
+            continue
+        target.entries[key] = next(iter(candidates))
+        filled += 1
+
+    if args.apply:
+        target.save()
+    print("{}: {} entries {} from an identical English string, {} ambiguous and left alone"
+          .format(bundle_path(args.family, args.lang).name, filled,
+                  "filled" if args.apply else "fillable", len(ambiguous)))
+    for key in ambiguous[:args.limit]:
+        print("  ambiguous: {}".format(key[:90]))
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # check
 # ---------------------------------------------------------------------------
 
@@ -1102,6 +1147,13 @@ def main():
     p.add_argument("--batch", required=True)
     p.add_argument("--family", choices=FAMILIES, default="translations")
     p.set_defaults(func=cmd_import)
+
+    p = sub.add_parser("reuse", help="fill entries whose English is already translated elsewhere")
+    p.add_argument("--lang", required=True)
+    p.add_argument("--family", choices=FAMILIES, default="translations")
+    p.add_argument("--apply", action="store_true", help="write; otherwise only count")
+    p.add_argument("--limit", type=int, default=20)
+    p.set_defaults(func=cmd_reuse)
 
     p = sub.add_parser("check", help="the invariants that otherwise fail silently")
     p.add_argument("--lang", default="all")
