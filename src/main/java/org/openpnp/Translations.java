@@ -5,6 +5,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,20 @@ public class Translations {
 
     private static final String TEXT_BUNDLE_NAME = "org.openpnp.texts"; //$NON-NLS-1$
 
+    private static final String PATTERN_BUNDLE_NAME = "org.openpnp.patterns"; //$NON-NLS-1$
+
+    /** Keys under this prefix are words a template may substitute, not templates themselves. */
+    private static final String VOCABULARY_PREFIX = "Word."; //$NON-NLS-1$
+
+    /**
+     * A template needs one unbroken run of literal text at least this long before it is allowed to
+     * match anything, so that a careless entry such as "%s." cannot swallow every string that
+     * reaches it.
+     */
+    private static final int MINIMUM_LITERAL_RUN = 6;
+
+    private static final Pattern PLACEHOLDER = Pattern.compile("%(?:\\d+\\$)?s"); //$NON-NLS-1$
+
     /** Where the bundles live, as a resource path rather than a package name. */
     private static final String BUNDLE_PATH = "org/openpnp"; //$NON-NLS-1$
 
@@ -28,6 +43,13 @@ public class Translations {
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, new UTF8Control());
 
     private static final ResourceBundle TEXT_BUNDLE = loadTextBundle();
+
+    private static final Map<String, String> VOCABULARY = loadVocabulary();
+
+    private static final List<ProsePattern> PROSE_PATTERNS = loadProsePatterns();
+
+    /** Matching runs on every repaint of the issues table, so each answer is worked out once. */
+    private static final Map<String, String> PROSE_CACHE = new ConcurrentHashMap<>();
 
     private static List<Locale> availableLocales;
 
@@ -51,6 +73,79 @@ public class Translations {
         }
     }
 
+    private static ResourceBundle patternBundle(Locale locale) {
+        try {
+            return ResourceBundle.getBundle(PATTERN_BUNDLE_NAME, locale, new NoFallbackControl());
+        }
+        catch (MissingResourceException e) {
+            return null;
+        }
+    }
+
+    /**
+     * The English words a template is allowed to substitute, mapped to the display language.
+     * <p>
+     * These are the roles the sources name themselves - the pump control actuator, the primary
+     * fiducial - as opposed to the names a user gave their nozzles and cameras, which have no entry
+     * here and are therefore left as they wrote them.
+     */
+    private static Map<String, String> loadVocabulary() {
+        ResourceBundle english = patternBundle(Locale.ROOT);
+        ResourceBundle localised = patternBundle(Locale.getDefault());
+        if (english == null || localised == null) {
+            return Collections.emptyMap();
+        }
+        Map<String, String> vocabulary = new HashMap<>();
+        for (String key : english.keySet()) {
+            if (!key.startsWith(VOCABULARY_PREFIX)) {
+                continue;
+            }
+            try {
+                vocabulary.put(english.getString(key), localised.getString(key));
+            }
+            catch (MissingResourceException e) {
+                // The display language has not taken this word on. It stays English.
+            }
+        }
+        return Collections.unmodifiableMap(vocabulary);
+    }
+
+    private static List<ProsePattern> loadProsePatterns() {
+        ResourceBundle english = patternBundle(Locale.ROOT);
+        ResourceBundle localised = patternBundle(Locale.getDefault());
+        if (english == null || localised == null) {
+            return Collections.emptyList();
+        }
+        List<ProsePattern> patterns = new ArrayList<>();
+        for (String key : english.keySet()) {
+            if (key.startsWith(VOCABULARY_PREFIX)) {
+                continue;
+            }
+            String source = english.getString(key);
+            String target;
+            try {
+                target = localised.getString(key);
+            }
+            catch (MissingResourceException e) {
+                continue;
+            }
+            if (target.equals(source)) {
+                // English itself, or a language that has not taken this template on. Either way
+                // matching it would cost time and change nothing.
+                continue;
+            }
+            ProsePattern pattern = ProsePattern.of(key, source, target);
+            if (pattern != null) {
+                patterns.add(pattern);
+            }
+        }
+        // Most literal text first. "The %s actuator %s has no driver assigned." and
+        // "The %s actuator %s has no %s assigned." both match the same string, and the one that
+        // spells out what is missing is the one that should win.
+        patterns.sort(Comparator.comparingInt((ProsePattern p) -> p.literalLength).reversed());
+        return Collections.unmodifiableList(patterns);
+    }
+
     /**
      * Translates a string the source code carries as English prose instead of as a key, keyed by
      * that English. The Issues and Solutions descriptions are written that way, and their English
@@ -58,19 +153,125 @@ public class Translations {
      * cannot be turned into keys without invalidating every issue a user has already dismissed or
      * marked as solved, and without the identity shifting whenever the display language changes.
      * <p>
-     * Returns the English unchanged when nothing matches. That is the normal outcome for the
-     * descriptions that are assembled from variables at runtime, since only whole strings are
-     * looked up.
+     * A description the source assembles from variables is a different string on every machine, so
+     * no whole-string key can reach it. Those are matched against the templates in
+     * patterns_&lt;lang&gt;.properties instead, which lift the variable parts out and put them back
+     * into the translation. Anything neither mechanism knows is returned unchanged.
      */
     public static String translateText(String english) {
-        if (TEXT_BUNDLE == null || english == null || english.isEmpty()) {
+        if (english == null || english.isEmpty()) {
             return english;
         }
-        try {
-            return TEXT_BUNDLE.getString(english);
+        if (TEXT_BUNDLE != null) {
+            try {
+                return TEXT_BUNDLE.getString(english);
+            }
+            catch (MissingResourceException e) {
+                // Not prose anyone translated whole. It may still be prose the source assembled.
+            }
         }
-        catch (MissingResourceException e) {
+        if (PROSE_PATTERNS.isEmpty()) {
             return english;
+        }
+        return PROSE_CACHE.computeIfAbsent(english, Translations::translateByTemplate);
+    }
+
+    private static String translateByTemplate(String english) {
+        for (ProsePattern pattern : PROSE_PATTERNS) {
+            String translated = pattern.apply(english, VOCABULARY);
+            if (translated != null) {
+                return translated;
+            }
+        }
+        return english;
+    }
+
+    /**
+     * One entry of patterns.properties paired with its translation, ready to match.
+     *
+     * The English side is turned into a regular expression by quoting the literal runs and letting
+     * each placeholder capture whatever sits between them, so the same sentence can be recognised
+     * whatever the machine happens to call its nozzles and cameras.
+     */
+    static final class ProsePattern {
+        private final Pattern matcher;
+        private final String localised;
+        private final int placeholders;
+        private final int literalLength;
+
+        private ProsePattern(Pattern matcher, String localised, int placeholders,
+                int literalLength) {
+            this.matcher = matcher;
+            this.localised = localised;
+            this.placeholders = placeholders;
+            this.literalLength = literalLength;
+        }
+
+        /** Returns null, having said why, when the entry could not be made into a safe matcher. */
+        static ProsePattern of(String key, String english, String localised) {
+            StringBuilder regex = new StringBuilder("^"); //$NON-NLS-1$
+            Matcher placeholder = PLACEHOLDER.matcher(english);
+            int consumed = 0;
+            int placeholders = 0;
+            int literalLength = 0;
+            int longestRun = 0;
+            while (placeholder.find()) {
+                String literal = english.substring(consumed, placeholder.start());
+                regex.append(Pattern.quote(literal)).append("(.+?)"); //$NON-NLS-1$
+                literalLength += literal.length();
+                longestRun = Math.max(longestRun, literal.length());
+                consumed = placeholder.end();
+                placeholders++;
+            }
+            String tail = english.substring(consumed);
+            regex.append(Pattern.quote(tail)).append("$"); //$NON-NLS-1$
+            literalLength += tail.length();
+            longestRun = Math.max(longestRun, tail.length());
+
+            if (placeholders == 0) {
+                Logger.warn("Translation template {} has no placeholder, so it is whole prose and " //$NON-NLS-1$
+                        + "belongs in texts instead. Ignored.", key); //$NON-NLS-1$
+                return null;
+            }
+            if (longestRun < MINIMUM_LITERAL_RUN) {
+                Logger.warn("Translation template {} has no run of {} literal characters, so it is " //$NON-NLS-1$
+                        + "too loose to match on safely. Ignored.", key, MINIMUM_LITERAL_RUN); //$NON-NLS-1$
+                return null;
+            }
+            // DOTALL because some of these descriptions run to several lines.
+            ProsePattern pattern = new ProsePattern(Pattern.compile(regex.toString(), Pattern.DOTALL),
+                    localised, placeholders, literalLength);
+            if (pattern.format(new Object[placeholders]) == null) {
+                Logger.warn("Translation template {} does not accept the {} values its English " //$NON-NLS-1$
+                        + "takes. Ignored.", key, placeholders); //$NON-NLS-1$
+                return null;
+            }
+            return pattern;
+        }
+
+        /** The translated sentence, or null when this template does not describe that string. */
+        String apply(String english, Map<String, String> vocabulary) {
+            Matcher match = matcher.matcher(english);
+            if (!match.matches()) {
+                return null;
+            }
+            Object[] values = new Object[placeholders];
+            for (int i = 0; i < placeholders; i++) {
+                String value = match.group(i + 1);
+                // A role the source names in English is translated; a name the user chose is not
+                // in the vocabulary and so passes through as they wrote it.
+                values[i] = vocabulary.getOrDefault(value, value);
+            }
+            return format(values);
+        }
+
+        private String format(Object[] values) {
+            try {
+                return String.format(localised, values);
+            }
+            catch (IllegalFormatException e) {
+                return null;
+            }
         }
     }
 
@@ -147,6 +348,19 @@ public class Translations {
             }
         }
         return Locale.US;
+    }
+
+    /**
+     * ResourceBundle answers a request it cannot satisfy with the default locale's bundle. That is
+     * the right thing for the interface, but not here: the templates are recognised by comparing a
+     * language against its own English, and a silent substitution would make every template in
+     * every language look already translated.
+     */
+    private static class NoFallbackControl extends UTF8Control {
+        @Override
+        public Locale getFallbackLocale(String baseName, Locale locale) {
+            return null;
+        }
     }
 
     public static class UTF8Control extends ResourceBundle.Control {
