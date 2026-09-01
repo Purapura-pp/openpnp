@@ -49,7 +49,6 @@ import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.reference.feeder.BlindsFeeder;
 import org.openpnp.machine.reference.feeder.BlindsFeeder.OcrAction;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -378,8 +377,8 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get()
-                .getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         MutableLocationProxy location = new MutableLocationProxy();
         bind(UpdateStrategy.READ_WRITE, feeder, "location", location, "location");
@@ -523,8 +522,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         public void actionPerformed(ActionEvent e) {
             applyAction.actionPerformed(e);
             UiUtils.submitUiMachineTask(() -> {
-                Camera camera = Configuration.get()
-                        .getMachine()
+                Camera camera = getMachine()
                         .getDefaultHead()
                         .getDefaultCamera();
 

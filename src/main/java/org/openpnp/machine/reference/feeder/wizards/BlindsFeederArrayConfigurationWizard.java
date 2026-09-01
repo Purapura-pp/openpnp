@@ -54,7 +54,6 @@ import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.machine.reference.feeder.BlindsFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Camera;
 import org.openpnp.util.OcrUtils;
 import org.openpnp.util.UiUtils;
@@ -363,8 +362,8 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         //IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get()
-                .getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(feeder, "feederGroupName", feederGroupName, "selectedItem");
 

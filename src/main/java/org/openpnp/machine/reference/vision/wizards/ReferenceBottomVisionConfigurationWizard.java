@@ -23,8 +23,6 @@ import org.openpnp.gui.support.NamedListCellRenderer;
 import org.openpnp.gui.support.VisionSettingsComboBoxModel;
 import org.openpnp.machine.reference.vision.ReferenceBottomVision;
 import org.openpnp.model.BottomVisionSettings;
-import org.openpnp.model.Configuration;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -159,8 +157,8 @@ public class ReferenceBottomVisionConfigurationWizard extends AbstractConfigurat
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get()
-                                                                           .getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(bottomVision, "bottomVisionSettings", visionSettings, "selectedItem");
         addWrappedBinding(bottomVision, "enabled", enabledCheckbox, "selected");

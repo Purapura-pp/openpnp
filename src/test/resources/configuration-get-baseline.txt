@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 463 calls in 157 files.
+# 451 calls in 153 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/BoardsPanel.java	5
@@ -57,7 +57,6 @@ org/openpnp/gui/tablemodel/PlacementsHolderPlacementsTableModel.java	2
 org/openpnp/gui/tablemodel/PlacementsHolderTableModel.java	3
 org/openpnp/gui/tablemodel/VisionSettingsTableModel.java	3
 org/openpnp/gui/viewers/PlacementsHolderLocationViewer.java	10
-org/openpnp/gui/wizards/CameraConfigurationWizard.java	3
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
 org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	3
 org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	5
@@ -94,11 +93,9 @@ org/openpnp/machine/reference/feeder/ReferenceSlotAutoFeeder.java	4
 org/openpnp/machine/reference/feeder/ReferenceStripFeeder.java	2
 org/openpnp/machine/reference/feeder/SchultzFeeder.java	1
 org/openpnp/machine/reference/feeder/SlotSchultzFeeder.java	5
-org/openpnp/machine/reference/feeder/wizards/BlindsFeederArrayConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/BlindsFeederConfigurationWizard.java	2
 org/openpnp/machine/reference/feeder/wizards/ReferenceHeapFeederConfigurationWizard.java	2
 org/openpnp/machine/reference/feeder/wizards/ReferencePushPullFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/ReferenceStripFeederConfigurationWizard.java	5
+org/openpnp/machine/reference/feeder/wizards/ReferenceStripFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/psh/ActuatorsPropertySheetHolder.java	2
 org/openpnp/machine/reference/psh/AxesPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/CamerasPropertySheetHolder.java	2
@@ -119,8 +116,7 @@ org/openpnp/machine/reference/solutions/VisionSolutions.java	4
 org/openpnp/machine/reference/vision/ReferenceBottomVision.java	3
 org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	2
 org/openpnp/machine/reference/vision/wizards/BottomVisionSettingsConfigurationWizard.java	3
-org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	4
-org/openpnp/machine/reference/vision/wizards/ReferenceBottomVisionConfigurationWizard.java	1
+org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	3
 org/openpnp/model/AbstractPartSettingsHolder.java	6
 org/openpnp/model/AbstractVisionSettings.java	1
 org/openpnp/model/BottomVisionSettings.java	2

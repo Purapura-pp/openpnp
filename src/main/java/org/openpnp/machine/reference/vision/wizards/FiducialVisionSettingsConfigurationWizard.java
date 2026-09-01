@@ -349,8 +349,8 @@ public class FiducialVisionSettingsConfigurationWizard extends AbstractConfigura
 
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get()
-                .getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         addWrappedBinding(visionSettings, "name", name, "text");
         bind(UpdateStrategy.READ, visionSettings, "usedFiducialVisionIn", usedIn, "text", 

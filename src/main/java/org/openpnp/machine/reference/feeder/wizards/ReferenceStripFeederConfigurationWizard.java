@@ -459,8 +459,8 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get()
-                                                                           .getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
 
         MutableLocationProxy location = new MutableLocationProxy();
         bind(UpdateStrategy.READ_WRITE, feeder, "location", location, "location");
@@ -543,10 +543,8 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                autoSetupCamera = Configuration.get()
-                                               .getMachine()
-                                               .getDefaultHead()
-                                               .getDefaultCamera();
+                autoSetupCamera = getMachine().getDefaultHead()
+                                              .getDefaultCamera();
                 if (autoSetupCamera.isUnitsPerPixelAtZCalibrated()) {
                     // We need 3D units per pixel, make sure the Z is set first.
                     LengthConverter lengthConverter = new LengthConverter();
@@ -625,9 +623,7 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                                                    .getCameraViews()
                                                    .getCameraView(autoSetupCamera);
             cameraView.removeActionListener(this);
-            Configuration.get()
-                         .getMachine()
-                         .submit(new Callable<Void>() {
+            getMachine().submit(new Callable<Void>() {
                              public Void call() throws Exception {
                                  cameraView.setText("Checking first part...");
                                  autoSetupCamera.moveTo(firstPartLocation);
@@ -672,9 +668,7 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                                                    .getCameraViews()
                                                    .getCameraView(autoSetupCamera);
             cameraView.removeActionListener(this);
-            Configuration.get()
-                         .getMachine()
-                         .submit(new Callable<Void>() {
+            getMachine().submit(new Callable<Void>() {
                              public Void call() throws Exception {
                                  cameraView.setText("Checking second part...");
                                  autoSetupCamera.moveTo(secondPartLocation);

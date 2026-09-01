@@ -56,7 +56,6 @@ import org.openpnp.machine.reference.axis.ReferenceVirtualAxis;
 import org.openpnp.machine.reference.camera.AbstractBroadcastingCamera;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
 import org.openpnp.machine.reference.camera.ReferenceCamera.FocusSensingMethod;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -92,9 +91,8 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
     protected Location measurementLocation;
 
     public CameraConfigurationWizard(AbstractBroadcastingCamera camera) {
-        AbstractMachine machine = (AbstractMachine) Configuration.get()
-                                                                 .getMachine();
         this.camera = camera;
+        AbstractMachine machine = getMachine();
 
         panel = new JPanel();
         panel.setBorder(new TitledBorder(null, Translations.getString(
@@ -733,8 +731,7 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
     }
 
     protected void measure(int measurement) throws Exception {
-        LengthUnit units = Configuration.get()
-                .getSystemUnits();
+        LengthUnit units = getDisplayPreferences().getSystemUnits();
         Nozzle nozzle = MainFrame.get()
                 .getMachineControls()
                 .getSelectedNozzle();
@@ -807,8 +804,7 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
     }
 
     protected void confirmMeasure(int measurement) throws NumberFormatException {
-        LengthUnit units = Configuration.get()
-                                        .getSystemUnits();
+        LengthUnit units = getDisplayPreferences().getSystemUnits();
         LengthConverter uppLengthConverter = new LengthConverter(uppFormat);
         LengthConverter lengthConverter = new LengthConverter();
         CameraView cameraView = MainFrame.get()
