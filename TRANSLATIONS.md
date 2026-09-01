@@ -215,11 +215,41 @@ answer. Where it is one word for one object, they should match, and the majority
 Long values are left out on purpose: a sentence varies with its surroundings, and reporting those
 would bury the labels that matter. Raise `--max-len` if you want to see them anyway.
 
+## When two things come out one way
+
+The inverse, and the worse of the two:
+
+```
+python tools/i18n/i18n.py collisions --lang sv
+```
+
+This reports one rendering standing for several distinct English strings. An inconsistency leaves a
+user unsure whether two labels mean the same thing. A collision leaves them looking at two controls
+that do different things under one label, with nothing on screen to tell them apart.
+
+The Italian bundle had the five jog increment buttons rendered as amounts rather than ordinals, and
+`Second` and `Fourth` both came out "Incrementa di Quattro": two adjacent buttons in one panel,
+identical label. The consistency report cannot see that, because those two keys hold different
+English and are entitled to differ.
+
+Read the key names, not just the values. A collision between two unrelated wizards is usually
+harmless, because the two labels are never on screen together. A collision inside one panel is
+nearly always a bug. The other kind worth hunting is a rendering that is right for one of its keys
+and simply wrong for the other, which is how a nozzle Settings panel was found carrying the nozzle
+tip's "Pick & Place" title in Chinese.
+
+Most collisions are legitimate and are left alone. English is compared in a reduced form that drops
+plurals, case and trailing punctuation, because Chinese marks no plural and has to land `Offset` and
+`Offsets` on one word; reporting those would bury the rest. Beyond that, English often distinguishes
+where your language should not, and forcing a difference to quiet the report makes the translation
+worse. Write the ones you keep into the terminology block.
+
 ## Before you commit
 
 ```
 python tools/i18n/i18n.py check --lang sv
 python tools/i18n/i18n.py consistency --lang sv
+python tools/i18n/i18n.py collisions --lang sv
 mvn -o test
 ```
 
