@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+NeoDen4FeederActuatorConfigurationWizard.lblDriver.text	Driver	
+NeoDen4FeederActuatorConfigurationWizard.lblFeedLength.text	Feed length	
+NeoDen4FeederActuatorConfigurationWizard.lblFeedStrength.text	Feed Strength	
+NeoDen4FeederActuatorConfigurationWizard.lblFeederId.text	Feeder ID	
+NeoDen4FeederActuatorConfigurationWizard.lblName.text	Name	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelLength.text	Peel length	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelStrength.text	Peel Strength	
+NeoDen4FeederActuatorConfigurationWizard.lblPeelerId.text	Peeler ID	
+NeoDen4FeederActuatorConfigurationWizard.panelProperties.Border.title	Properties	
+Neoden4CameraConfigurationWizard.lblImageHeight.text	Height	
+Neoden4CameraConfigurationWizard.lblImageWidth.text	Width	
+Neoden4CameraConfigurationWizard.lblShiftX.text	Shift X	
+Neoden4CameraConfigurationWizard.lblShiftY.text	Shift Y	
+Neoden4CameraConfigurationWizard.lblTimeout.text	Timeout	
+Neoden4CameraConfigurationWizard.panelGeneral.Border.title	General	
+Neoden4CameraConfigurationWizard.panelImage.Border.title	Image settings	
+Neoden4DriverConfigurationWizard.lblHomeCoordinateX.text	Home Coordinate X	
+Neoden4DriverConfigurationWizard.lblHomeCoordinateY.text	Home Coordinate Y	
+Neoden4DriverConfigurationWizard.lblScaleFactorX.text	Scale Factor - X	
+Neoden4DriverConfigurationWizard.lblScaleFactorY.text	Scale Factor - Y	
+Neoden4DriverConfigurationWizard.panelMachineDetails.Border.title	Machine Details	
+Neoden4FeederConfigurationWizard.btnCancelChangeAoi.text	Cancel	
+Neoden4FeederConfigurationWizard.btnChangeAoi.text	Change	
+Neoden4FeederConfigurationWizard.btnResetVisionOffsets.text	Reset offsets	
+Neoden4FeederConfigurationWizard.chckbxVisionEnabled.text	Vision Enabled?	
+Neoden4FeederConfigurationWizard.lblActuatorId.text	Actuator Name	
+Neoden4FeederConfigurationWizard.lblFeedCount.text	Feed Count	
+Neoden4FeederConfigurationWizard.lblHeight.text	Height	
+Neoden4FeederConfigurationWizard.lblPartPitchInTape.text	Pitch In Tape [mm]	
+Neoden4FeederConfigurationWizard.lblPartRotationInTape.text	Rotation In Tape [deg]	
+Neoden4FeederConfigurationWizard.lblWidth.text	Width	
+Neoden4FeederConfigurationWizard.panelAoE.Border.title	Area of Interest	
+Neoden4FeederConfigurationWizard.panelOther.Border.title	Other	
+Neoden4FeederConfigurationWizard.panelTemplate.Border.title	Template Image	
+Neoden4FeederConfigurationWizard.panelVision.Border.title	Vision	
+Neoden4SwitcherCameraConfigurationWizard.SourceCamera.text	Source Camera	
+Neoden4SwitcherCameraConfigurationWizard.SwitcherNumber.text	Switcher Number	
+Neoden4SwitcherCameraConfigurationWizard.lblExposure.text	Exposure	
+Neoden4SwitcherCameraConfigurationWizard.lblGain.text	Gain	
+OnvifIPCameraConfigurationWizard.lblIP.text	Camera IP	
+OnvifIPCameraConfigurationWizard.lblPassword.text	Password	
+OnvifIPCameraConfigurationWizard.lblResizeHeight.text	Target Height	
+OnvifIPCameraConfigurationWizard.lblResizeWidth.text	Target Width	
+OnvifIPCameraConfigurationWizard.lblSupportedResolutions.text	Resolution	
+OnvifIPCameraConfigurationWizard.lblUsername.text	Username	
+OnvifIPCameraConfigurationWizard.panelGeneral.Border.title	General	
+OpenCvCameraConfigurationWizard.PropertiesExperimental.Border.title	Properties (Experimental)	
+OpenCvCameraConfigurationWizard.lblDeviceId.text	USB Device Index	
+OpenCvCameraConfigurationWizard.lblPreferredHeight.text	Preferred Height	
+OpenCvCameraConfigurationWizard.lblPreferredWidth.text	Preferred Width	

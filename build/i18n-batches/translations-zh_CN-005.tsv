@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+OpenCvCameraConfigurationWizard.lblProperty.text	Property	
+OpenCvCameraConfigurationWizard.lblValue.text	Value	
+OpenCvCameraConfigurationWizard.panelGeneral.Border.title	General	
+OpenCvCameraConfigurationWizard.setAfterOpenCk.text	Set After Open	
+OpenCvCameraConfigurationWizard.setBeforeOpenCk.text	Set Before Open	
+OpenPnpCaptureCameraConfigurationWizard.backLightCompensationDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.backLightCompensationMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.brightnessDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.brightnessMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.brightnessMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.contrastDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.contrastMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.contrastMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.exposureDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.exposureMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.exposureMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.focusDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.focusMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.focusMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.gainDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.gainMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.gainMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.gammaDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.gammaMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.gammaMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.hueDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.hueMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.hueMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.powerLineFrequencyMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.saturationDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.saturationMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.saturationMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.sharpnessDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.sharpnessMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.sharpnessMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.whiteBalanceDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.whiteBalanceMin.text	min	
+OpenPnpCaptureCameraConfigurationWizard.zoomDefault.text	def	
+OpenPnpCaptureCameraConfigurationWizard.zoomMax.text	max	
+OpenPnpCaptureCameraConfigurationWizard.zoomMin.text	min	
+ProgramFeederSlotWizard.wizardButton.text	Next	
+RapidFeederConfigurationWizard.Address.text	Address	
+RapidFeederConfigurationWizard.Pitch.text	Pitch	
+RapidFeederConfigurationWizard.ScanEndLocation.text	Scan End Location	
+RapidFeederConfigurationWizard.ScanIncrement.text	Scan Increment	
+RapidFeederConfigurationWizard.ScanStartLocation.text	Scan Start Location	

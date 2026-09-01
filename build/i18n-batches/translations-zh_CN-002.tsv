@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.text	Move before feed	
+BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.text	Normalize?	
+BambooFeederAutoVisionConfigurationWizard.lblPartPitch.text	Part Pitch	
+BambooFeederAutoVisionConfigurationWizard.lblPickLocation.text	Pick Location	
+BambooFeederAutoVisionConfigurationWizard.lblPostPick.text	Post Pick	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.text	Precision Average	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.text	Precision Confidence Limit	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.text	Precision wanted	
+BambooFeederAutoVisionConfigurationWizard.lblRotation.text	Rotation in Tape	
+BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.text	Snap to Axis?	
+BambooFeederAutoVisionConfigurationWizard.lblVisionType.text	Vision Type	
+BambooFeederAutoVisionConfigurationWizard.panelActuator.Border.title	Actuators	
+BambooFeederAutoVisionConfigurationWizard.panelLocations.Border.title	Tape Settings	
+BambooFeederAutoVisionConfigurationWizard.panelLocations2.Border.title	Locations	
+BambooFeederAutoVisionConfigurationWizard.panelTape.Border.title	Tape Settings	
+BambooFeederAutoVisionConfigurationWizard.panelVision.Border.title	Vision	
+BambooFeederAutoVisionConfigurationWizard.textFieldFeedCount.toolTipText	Total feed count of the feeder.	
+BlindsFeederArrayConfigurationWizard.lblFiducial1Location.text	Fiducial 1	
+BlindsFeederArrayConfigurationWizard.lblFiducial2Location.text	Fiducial 2	
+BlindsFeederArrayConfigurationWizard.lblFiducial3Location.text	Fiducial 3	
+BlindsFeederArrayConfigurationWizard.lblFontSizept.text	Font Size [pt]	
+BlindsFeederArrayConfigurationWizard.lblGroupName.text	Feeder Group Name	
+BlindsFeederArrayConfigurationWizard.lblNormalize.text	Normalize	
+BlindsFeederArrayConfigurationWizard.lblOcrAction.text	OCR Action	
+BlindsFeederArrayConfigurationWizard.lblOcrFontName.text	OCR Font	
+BlindsFeederArrayConfigurationWizard.lblOcrMargin.text	OCR Margin	
+BlindsFeederArrayConfigurationWizard.lblOcrTextOrientation.text	OCR Text Orientation	
+BlindsFeederArrayConfigurationWizard.lblUseVision.text	Use Fiducial Vision?	
+BlindsFeederArrayConfigurationWizard.panelArray.Border.title	Array	
+BlindsFeederArrayConfigurationWizard.panelLocations.Border.title	Locations	
+BlindsFeederArrayConfigurationWizard.panelVision.Border.title	Vision Settings	
+BlindsFeederConfigurationWizard.lblCoverOpenClose.text	Cover Open/Close	
+BlindsFeederConfigurationWizard.lblCoverType.text	Cover Type	
+BlindsFeederConfigurationWizard.lblEdgeBeginDistance.text	Edge Distance Open	
+BlindsFeederConfigurationWizard.lblEdgeEnd.text	Edge Distance Closed	
+BlindsFeederConfigurationWizard.lblFeedCount.text	Feed Count	
+BlindsFeederConfigurationWizard.lblFeederExtent.text	Feeder Extent	
+BlindsFeederConfigurationWizard.lblFeederExtent.toolTipText	Total feeder holder extent (all tapes).	
+BlindsFeederConfigurationWizard.lblFeederNo.text	Feeder No.	
+BlindsFeederConfigurationWizard.lblFeedersTotal.text	Feeders Total	
+BlindsFeederConfigurationWizard.lblFirstPocket.text	First Pocket	
+BlindsFeederConfigurationWizard.lblLastPocket.text	Last Pocket	
+BlindsFeederConfigurationWizard.lblPart.text	Part	
+BlindsFeederConfigurationWizard.lblPartSize.text	Pocket Size	
+BlindsFeederConfigurationWizard.lblPartSize.toolTipText	Size of the pocket across the tape.	
+BlindsFeederConfigurationWizard.lblPartTopZ.text	Part Z	
+BlindsFeederConfigurationWizard.lblPartTopZ.toolTipText	Part pickup Z	
+BlindsFeederConfigurationWizard.lblPocketCenterline.text	Pocket Centerline	
+BlindsFeederConfigurationWizard.lblPocketCount.text	Pocket Count	
+BlindsFeederConfigurationWizard.lblPocketPitch.text	Pocket Pitch	

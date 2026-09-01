@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+SwitcherCameraConfigurationWizard.ActuatorValue.text	Actuator Value	
+SwitcherCameraConfigurationWizard.SourceCamera.text	Source Camera	
+SwitcherCameraConfigurationWizard.SwitcherNumber.text	Switcher Number	
+ThermistorToLinearSensorActuatorTransforms.ADC.Border.title	ADC	
+ThermistorToLinearSensorActuatorTransforms.LinearTransform.Border.title	Linear Transform	
+ThermistorToLinearSensorActuatorTransforms.MaximumValue.text	Maximum Value	
+ThermistorToLinearSensorActuatorTransforms.Offset.text	Offset	
+ThermistorToLinearSensorActuatorTransforms.Scale.text	Scale	
+ThermistorToLinearSensorActuatorTransforms.Thermistor.Border.title	Thermistor	
+ThermistorToLinearSensorActuatorTransforms.VoltageReference.text	Voltage Reference	
+WebcamConfigurationWizard.chckbxGray.text	Force Grayscale?	
+WebcamConfigurationWizard.lblDeviceId.text	Device ID	
+WebcamConfigurationWizard.panelGeneral.Border.title	General	
+BlindsFeederConfigurationWizard.btnCloseAll.toolTipText	Close the opened covers of all the feeders of the machine (including those of enabled feeders where the cover state is unknown).	
+SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.toolTipText	Simulates Vibration, the amplitude is given in relation to the past acceleration at Eigenfrequency (try 0.1 for a strong vibration).	
+ActuatorInterlockMonitorConfigurationWizard.lblActuator.toolTipText	The interlock is only active if this actuator has the chosen known or unknown state.	
+ActuatorInterlockMonitorConfigurationWizard.lblRegex.toolTipText	Use a regular expression to match the pattern.	
+AdvancedLoosePartFeederConfigurationWizard.lblWarningThisFeeder.text	Warning: This feeder is incomplete and experimental. Use at your own risk.	
+AutoFocusProviderConfigurationWizard.lblAveragedFrames.toolTipText	Number of camera frames captured and averaged to reduce camera noise and improve the auto focus.	
+AutoFocusProviderConfigurationWizard.lblFocalResolution.toolTipText	Finest step length to seek the best focus.	
+AutoFocusProviderConfigurationWizard.lblShowDiagnostics.toolTipText	Show detected edges and Auto Focus status text in the camera view.	
+BambooFeederAutoVisionConfigurationWizard.btnShowVisionFeatures.toolTipText	Preview the features recognized by Computer Vision.	
+BambooFeederAutoVisionConfigurationWizard.checkBoxNormalizePickLocation.toolTipText	Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.	
+BambooFeederAutoVisionConfigurationWizard.checkBoxSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
+BambooFeederAutoVisionConfigurationWizard.ckBoxMoveBeforeFeed.toolTipText	Move nozzle to pick location before actuating the feed actuator	
+BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
+BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.toolTipText	Move nozzle to pick location before actuating the feed actuator	
+BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.toolTipText	Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.	
+BambooFeederAutoVisionConfigurationWizard.lblPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.toolTipText	Precision obtained with 95% confidence (assuming normal distribution)	
+BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
+BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
+BambooFeederAutoVisionConfigurationWizard.textFieldFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
+BambooFeederAutoVisionConfigurationWizard.textFieldPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
+BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
+BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
+BlindsFeederArrayConfigurationWizard.lblFiducial3Location.toolTipText	The location of the third diamond shaped fiducial counter-clockwise from the first.	
+BlindsFeederConfigurationWizard.btnAutoSetup.toolTipText	Capture the pocket pitch, size and centerline from the current camera position.	
+BlindsFeederConfigurationWizard.lblEdgeBeginDistance.toolTipText	Distance from sprocket to the edge used for opening the cover (default: 2mm).	
+BlindsFeederConfigurationWizard.lblEdgeEnd.toolTipText	Distance from sprocket to the edge used for closing the cover (default: 2mm).	
+BlindsFeederConfigurationWizard.lblFeederNo.toolTipText	Feeder lane number inside the same holder.	
+BlindsFeederConfigurationWizard.lblFeedersTotal.toolTipText	Total number of feeder lanes in the same holder. 	
+BlindsFeederConfigurationWizard.lblFirstPocket.toolTipText	First pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.	
+BlindsFeederConfigurationWizard.lblLastPocket.toolTipText	Last pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.	
+BlindsFeederConfigurationWizard.lblPocketCenterline.toolTipText	Centerline of the pockets i.e. the perpendicular distance between the tape pocket centerline and fiducial 1.	
+CameraViewPopupMenu.menuItem.toolTipText	One mouse wheel tick changes the zoom by 2x.	
+CameraViewPopupMenu.menuItem2.toolTipText	Two mouse wheel ticks change the zoom by 2x.	
+CameraViewPopupMenu.menuItem3.toolTipText	Four mouse wheel ticks change the zoom by 2x.	
+ClassSelectionDialog.lblDescription.text	Please select an implemention class from the list.	

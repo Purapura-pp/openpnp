@@ -77,7 +77,7 @@ public class ActuatorControlDialog extends JDialog {
         lblBoolean = new JLabel(Translations.getString("ActuatorControlDialog.lblBoolean.text")); //$NON-NLS-1$
         getContentPane().add(lblBoolean, "2, 2");
 
-        onBtn = new JButton("On");
+        onBtn = new JButton(Translations.getString("ActuatorControlDialog.onBtn.text")); //$NON-NLS-1$
         getContentPane().add(onBtn, "4, 2");
         onBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

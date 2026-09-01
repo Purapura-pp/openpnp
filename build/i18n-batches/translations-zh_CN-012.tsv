@@ -1,0 +1,50 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+ContactProbeNozzleWizard.lblProbeDepth.toolTipText	Maximum contact probing depth in Z, from the Start Offset.	
+GlobalConfigConfigurationWizard.IfYouVeBuilt.text	If you've built your own slots and need to program them, use this wizard.	
+OpenCvVisionProviderConfigurationWizard.lblOpencvvisionproviderconfigurationwizardPlaceholder.text	OpenCvVisionProviderConfigurationWizard Placeholder	
+ReferenceHeapFeederConfigurationWizard.cbDummyPartForUnknownParts.toolTipText	Dummy part for moving unknown parts (e.g. to the trash). Is also used to determine the used nozzle.	
+ReferenceHeapFeederConfigurationWizard.chckbxPokeForParts.toolTipText	If enabled the nozzle is lifted for each move inside the heap. Reduces the risk to damage (large) parts, but slower.	
+ReferenceHeapFeederConfigurationWizard.maxFlipAttemptsTf.toolTipText	After this numer of feed, mark the parts as disposable. So the next feed is done with new parts.	
+ReferenceLoosePartFeederConfigurationWizard.lblWarningThisFeeder.text	Warning: This feeder is incomplete and experimental. Use at your own risk.	
+ReferencePushPullFeederConfigurationWizard.btnShowVisionFeatures.toolTipText	Preview the features recognized by Computer Vision.	
+ReferencePushPullFeederConfigurationWizard.checkBoxCloneLocationSettings.toolTipText	Clone the X/Y-invariable Location settings, i.e. Pick Location Z and options. 	
+ReferencePushPullFeederConfigurationWizard.checkBoxCloneVisionSettings.toolTipText	Clone the Vision settings, including the pipeline.	
+ReferencePushPullFeederConfigurationWizard.checkBoxSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
+ReferencePushPullFeederConfigurationWizard.lblCloneLocationSettings.toolTipText	Clone the X/Y-invariable Location settings, i.e. Pick Location Z and options. 	
+ReferencePushPullFeederConfigurationWizard.lblCloneVisionSettings.toolTipText	Clone the Vision settings, including the pipeline.	
+ReferencePushPullFeederConfigurationWizard.lblFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
+ReferencePushPullFeederConfigurationWizard.lblFontSizept.toolTipText	The OCR font size in typographic points (1 pt = 1/72 in).	
+ReferencePushPullFeederConfigurationWizard.lblMultiplier.toolTipText	To improve efficiency you can actuate the feeder multiple times to feed more parts per feed cycle.	
+ReferencePushPullFeederConfigurationWizard.lblNormalizePickLocation.toolTipText	Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.	
+ReferencePushPullFeederConfigurationWizard.lblPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
+ReferencePushPullFeederConfigurationWizard.lblPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
+ReferencePushPullFeederConfigurationWizard.lblPrecisionConfidenceLimit.toolTipText	Precision obtained with 95% confidence (assuming normal distribution)	
+ReferencePushPullFeederConfigurationWizard.lblPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
+ReferencePushPullFeederConfigurationWizard.lblSnapToAxis.toolTipText	Snap rows of sprocket holes to the Axis parallel.	
+ReferencePushPullFeederConfigurationWizard.textFieldFeedMultiplier.toolTipText	To improve efficiency you can actuate the feeder multiple times to feed more parts per feed cycle.	
+ReferencePushPullFeederConfigurationWizard.textFieldFeedPitch.toolTipText	How much the tape will be advanced by one lever actuation (usually multiples of 4mm)	
+ReferencePushPullFeederConfigurationWizard.textFieldPartPitch.toolTipText	Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)	
+ReferencePushPullFeederConfigurationWizard.textFieldPrecisionAverage.toolTipText	Obtained precision average i.e. offset of the pick location, as detected by the calibration	
+ReferencePushPullFeederConfigurationWizard.textFieldPrecisionWanted.toolTipText	Precision wanted i.e. the tolerable pick location offset	
+ReferencePushPullMotionConfigurationWizard.chckbxMulti0.toolTipText	Include the Start Location in multi-actuating motion (if the pull switch is also set).	
+ReferencePushPullMotionConfigurationWizard.chckbxMulti1.toolTipText	Include the Mid 1 Location in multi-actuation motion (if the push/pull switch is also set).	
+ReferencePushPullMotionConfigurationWizard.chckbxMulti2.toolTipText	Include the Mid 2 Location in multi-actuation motion (if the push/pull switch is also set).	
+ReferencePushPullMotionConfigurationWizard.chckbxMulti3.toolTipText	Include the Mid 3 Location in multi-actuation motion (if the push/pull switch is also set).	
+ReferencePushPullMotionConfigurationWizard.chckbxMultiEnd.toolTipText	Include the End Location in multi-actuation motion (if the push switch is also set).	
+ReferencePushPullMotionConfigurationWizard.lblCalibrate.toolTipText	Apply the offsets obtained from Vision Calibration	
+ReferencePushPullMotionConfigurationWizard.lblPeelOffActuatorId.toolTipText	Actuator for auxiliary purpose (e.g. peeling).	
+ReferencePushPullMotionConfigurationWizard.lblPull.toolTipText	Locations that are included when pulling.	
+ReferencePushPullMotionConfigurationWizard.lblPush.toolTipText	Locations that are included when pushing.	
+ReferencePushPullMotionConfigurationWizard.textFieldDelay0.toolTipText	The delay (in milliseconds) after reaching this location	
+ReferencePushPullMotionConfigurationWizard.textFieldDelay1.toolTipText	The delay (in milliseconds) after reaching this location	
+ReferencePushPullMotionConfigurationWizard.textFieldDelay2.toolTipText	The delay (in milliseconds) after reaching this location	
+ReferencePushPullMotionConfigurationWizard.textFieldDelay3.toolTipText	The delay (in milliseconds) after reaching this location	
+ReferencePushPullMotionConfigurationWizard.textFieldDelay4.toolTipText	The delay (in milliseconds) after reaching this location	
+ReferenceSlotAutoFeederConfigurationWizard.lblMoveBeforeFeed.toolTipText	Move nozzle to pick location before actuating feed actuator	
+SimulationModeMachineConfigurationWizard.lblDuration.toolTipText	Vibration duration in seconds (exponential decay to ~1%).	
+SimulationModeMachineConfigurationWizard.lblNonsquarenessFactor.toolTipText	Creates simulated Non-Squareness by that factor. 	
+SimulationModeMachineConfigurationWizard.lblNozzleTipRunout.toolTipText	Simulates runout of that radius on all nozzle tips.	
+SubmitDiagnosticsDialog.includeJobChk.text	Current Job Data (Job Will Be Saved First)	

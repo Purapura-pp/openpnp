@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+BlindsFeederConfigurationWizard.lblPocketPitch.toolTipText	Picth of the part pockets in the tape.	
+BlindsFeederConfigurationWizard.lblPushSpeed.text	Push speed	
+BlindsFeederConfigurationWizard.lblPushSpeed.toolTipText	Speed factor when pushing the cover.	
+BlindsFeederConfigurationWizard.lblPushZOffset.text	Push Z Offset	
+BlindsFeederConfigurationWizard.lblRetryCount.text	Retry Count	
+BlindsFeederConfigurationWizard.lblRotationInTape.text	Rotation in Tape	
+BlindsFeederConfigurationWizard.lblTapeLength.text	Tape Length	
+BlindsFeederConfigurationWizard.lblTapeLength.toolTipText	Length of the tape.	
+BlindsFeederConfigurationWizard.panelCover.Border.title	Cover Settings	
+BlindsFeederConfigurationWizard.panelPart.Border.title	General Settings	
+BlindsFeederConfigurationWizard.panelTapeSettings.Border.title	Tape Settings	
+ContactProbeNozzleWizard.ContactProbing.Border.title	Contact Probing	
+ContactProbeNozzleWizard.lblContactProbeActuator.text	Contact Sense Actuator	
+ContactProbeNozzleWizard.lblDiscardProbing.text	Discard Probing	
+ContactProbeNozzleWizard.lblFeederHeightProbing.text	Feeder Height Probing	
+ContactProbeNozzleWizard.lblFinalAdjustment.text	Final Adjustment	
+ContactProbeNozzleWizard.lblMethod.text	Method	
+ContactProbeNozzleWizard.lblPartHeightProbing.text	Placement Height Probing	
+ContactProbeNozzleWizard.lblProbeDepth.text	Probe Depth	
+ContactProbeNozzleWizard.lblProbeSpeed.text	Probe Speed	
+ContactProbeNozzleWizard.lblSniffleDwellTime.text	Sniffle Dwell Time [ms]	
+ContactProbeNozzleWizard.lblSniffleIncrement.text	Sniffle Increment	
+ContactProbeNozzleWizard.lblStartOffset.text	Start Offset	
+ContactProbeNozzleWizard.lblZCalibration.text	Calibration Z Offset	
+FeederSlotUpdateStep.CurrentSlotAddress.text	Current Slot Address	
+GlobalConfigConfigurationWizard.btnStartFeedSlotsWizard.text	Start Wizard	
+GlobalConfigConfigurationWizard.lblMaxFeeder.text	Maximum Feeder Address To Scan	
+GlobalConfigConfigurationWizard.programFeederSlotsPanel.Border.title	Program Feeder Slots	
+GlobalConfigConfigurationWizard.searchButton.text	Search	
+GlobalConfigConfigurationWizard.searchPanel.Border.title	Search	
+GstreamerCameraConfigurationWizard.lblPipeline.text	Pipeline launch string	
+GstreamerCameraConfigurationWizard.panelPipe.Border.title	GStreamer Pipeline	
+HttpActuatorConfigurationWizard.lblName.text	Name	
+HttpActuatorConfigurationWizard.lblOffUrl.text	Off URL	
+HttpActuatorConfigurationWizard.lblOnUrl.text	On URL	
+HttpActuatorConfigurationWizard.lblParametricUrl.text	Parametric URL	
+HttpActuatorConfigurationWizard.lblReadUrl.text	Read URL	
+HttpActuatorConfigurationWizard.lblRegex.text	Regular Expression	
+HttpActuatorConfigurationWizard.panelProperties.Border.title	Properties	
+IconViewer.btnRefresh.text	Refresh	
+IconViewer.chckbxGray.text	Gray?	
+IconViewer.lblDirectory.text	Directory	
+IssuePanel.Templates.text	Templates: 	
+JogControlsPanel.lblXy.text	X/Y	
+KicadPosImporterDialog.chckbxCreateMissingParts.toolTipText	PartId = 'Package'-'Value'	
+MjpgCaptureCameraWizard.lblIP.text	Camera IP Address and Port Number	
+MjpgCaptureCameraWizard.lblTimeout.text	Timeout [ms]	
+MjpgCaptureCameraWizard.panelGeneral.Border.title	General	
+NeoDen4FeederActuatorConfigurationWizard.NewID.text	New ID	
+NeoDen4FeederActuatorConfigurationWizard.lblChangeId.text	Change Feeder ID	

@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+ReferenceHeapFeederConfigurationWizard.lblHeapCenter.text	Center (Top)	
+ReferenceHeapFeederConfigurationWizard.lblLastFeedDepth.text	Last Feed Depth	
+ReferenceHeapFeederConfigurationWizard.lblMove1.text	Move 1	
+ReferenceHeapFeederConfigurationWizard.lblMove2.text	Move 2	
+ReferenceHeapFeederConfigurationWizard.lblMove3.text	Move 3	
+ReferenceHeapFeederConfigurationWizard.lblPart.text	Part	
+ReferenceHeapFeederConfigurationWizard.lblPartsPipeline.text	Parts Pipeline	
+ReferenceHeapFeederConfigurationWizard.lblPickRetryCount.text	Pick Retry Count	
+ReferenceHeapFeederConfigurationWizard.lblTemplatePipeline.text	Template Pipeline	
+ReferenceHeapFeederConfigurationWizard.lblVacuumDifference.text	Vacuum Difference	
+ReferenceLeverFeederConfigurationWizard.btnCancelChangeAoi.text	Cancel	
+ReferenceLeverFeederConfigurationWizard.btnChangeAoi.text	Change	
+ReferenceLeverFeederConfigurationWizard.btnResetVisionOffsets.text	Reset offsets	
+ReferenceLeverFeederConfigurationWizard.chckbxVisionEnabled.text	Vision Enabled?	
+ReferenceLeverFeederConfigurationWizard.lblActuatorId.text	Actuator Name	
+ReferenceLeverFeederConfigurationWizard.lblFeedEndLocation.text	Feed End Location	
+ReferenceLeverFeederConfigurationWizard.lblFeedRate.text	Feed Speed %	
+ReferenceLeverFeederConfigurationWizard.lblFeedStartLocation.text	Feed Start Location	
+ReferenceLeverFeederConfigurationWizard.lblHeight.text	Height	
+ReferenceLeverFeederConfigurationWizard.lblPartPitch.text	Part Pitch	
+ReferenceLeverFeederConfigurationWizard.lblPeelOffActuatorId.text	Peel Off Actuator Name	
+ReferenceLeverFeederConfigurationWizard.lblWidth.text	Width	
+ReferenceLeverFeederConfigurationWizard.panelAoE.Border.title	Area of Interest	
+ReferenceLeverFeederConfigurationWizard.panelGeneral.Border.title	General Settings	
+ReferenceLeverFeederConfigurationWizard.panelLocations.Border.title	Locations	
+ReferenceLeverFeederConfigurationWizard.panelTemplate.Border.title	Template Image	
+ReferenceLeverFeederConfigurationWizard.panelVision.Border.title	Vision	
+ReferenceLinearTransformAxisConfigurationWizard.lblCompensation.text	Compensation?	
+ReferenceLinearTransformAxisConfigurationWizard.lblFactor.text	Factor	
+ReferenceLinearTransformAxisConfigurationWizard.lblInput.text	Input	
+ReferenceLinearTransformAxisConfigurationWizard.lblInputAxisRotation.text	Rotation	
+ReferenceLinearTransformAxisConfigurationWizard.lblOffset.text	Offset	
+ReferenceLinearTransformAxisConfigurationWizard.panelTransformation.Border.title	Linear Transformation	
+ReferenceLoosePartFeederConfigurationWizard.Vision.Border.title	Vision	
+ReferenceLoosePartFeederConfigurationWizard.btnEditPipeline.text	Edit Pipeline	
+ReferenceLoosePartFeederConfigurationWizard.btnResetPipeline.text	Reset Pipeline	
+ReferenceMappedAxisConfigurationWizard.lblFrom.text	Input	
+ReferenceMappedAxisConfigurationWizard.lblInputAxis.text	Input Axis	
+ReferenceMappedAxisConfigurationWizard.lblMapPointA.text	Map Point A	
+ReferenceMappedAxisConfigurationWizard.lblMapPointB.text	Map Point B	
+ReferenceMappedAxisConfigurationWizard.lblTo.text	Output	
+ReferenceMappedAxisConfigurationWizard.panelTransformation.Border.title	Axis Mapping	
+ReferencePushPullFeederConfigurationWizard.checkBoxClonePushPullSettings.toolTipText	Clone the Push-Pull Motion Settings.	
+ReferencePushPullFeederConfigurationWizard.checkBoxCloneTapeSettings.toolTipText	Clone the Tape Settings. 	
+ReferencePushPullFeederConfigurationWizard.lblCalibrationCount.text	Calibration Count	
+ReferencePushPullFeederConfigurationWizard.lblCalibrationTrigger.text	Calibration Trigger	
+ReferencePushPullFeederConfigurationWizard.lblCloneLocationSettings.text	Clone Location Settings?	
+ReferencePushPullFeederConfigurationWizard.lblClonePushpullSettings.text	Clone Push-Pull Settings?	
+ReferencePushPullFeederConfigurationWizard.lblClonePushpullSettings.toolTipText	Clone the Push-Pull Motion Settings.	
+ReferencePushPullFeederConfigurationWizard.lblCloneTapeSetting.text	Clone Tape Setting?	

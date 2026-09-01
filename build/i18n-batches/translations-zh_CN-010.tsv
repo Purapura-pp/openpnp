@@ -1,0 +1,54 @@
+# Fill in the third column only. Do not change the first two.
+# Keep every %s / %1$s and every <br/> and \n that the English has.
+# Put SKIP in the third column for anything you are unsure of; it stays English.
+# key	english	translation
+SimulationModeMachineConfigurationWizard.lblCameraNoise.text	Camera Noise	
+SimulationModeMachineConfigurationWizard.lblDiscardPoint.text	Homing Error	
+SimulationModeMachineConfigurationWizard.lblDuration.text	Vibration Duration [s]	
+SimulationModeMachineConfigurationWizard.lblMachineTableZ.text	Machine Table Z	
+SimulationModeMachineConfigurationWizard.lblNonsquarenessFactor.text	Non-Squareness Factor	
+SimulationModeMachineConfigurationWizard.lblNozzleTipRunout.text	Nozzle Tip Runout	
+SimulationModeMachineConfigurationWizard.lblPickPlace.text	Pick & Place Checking?	
+SimulationModeMachineConfigurationWizard.lblReplaceDrivers.text	Replace Drivers?	
+SimulationModeMachineConfigurationWizard.lblRunoutPhase.text	Runout Phase	
+SimulationModeMachineConfigurationWizard.lblRunoutPhase.toolTipText	Phase angle for the simulated runout.	
+SimulationModeMachineConfigurationWizard.lblSimulationMode.text	Simulation Mode	
+SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.text	Vibration Amplitude	
+SimulationModeMachineConfigurationWizard.panelGeneral.Border.title	General	
+SimulationModeMachineConfigurationWizard.panelLocations.Border.title	Simulated Imperfections	
+SlotSchultzFeederConfigurationWizard.deleteFeederBtn.toolTipText	Remove selected feeder from database.	
+SlotSchultzFeederConfigurationWizard.feederPanel.Border.title	Feeder	
+SlotSchultzFeederConfigurationWizard.fiducialAlign.toolTipText	Update feeder location based on fiducial	
+SlotSchultzFeederConfigurationWizard.lblActuator.text	Actuator	
+SlotSchultzFeederConfigurationWizard.lblActuatorValue.text	Feeder Number:	
+SlotSchultzFeederConfigurationWizard.lblBank.text	Bank	
+SlotSchultzFeederConfigurationWizard.lblClearCount.text	Clear Feed Count	
+SlotSchultzFeederConfigurationWizard.lblFeed.text	Pre Pick	
+SlotSchultzFeederConfigurationWizard.lblFeedCount.text	Get Feed Count	
+SlotSchultzFeederConfigurationWizard.lblFeedRetryCount.text	Feed Retry Count	
+SlotSchultzFeederConfigurationWizard.lblFeeder.text	Feeder	
+SlotSchultzFeederConfigurationWizard.lblFiducialPart.text	Fiducial Part	
+SlotSchultzFeederConfigurationWizard.lblGetID.text	Get ID	
+SlotSchultzFeederConfigurationWizard.lblGetPitch.text	Get Pitch	
+SlotSchultzFeederConfigurationWizard.lblGetStatus.text	Get Status	
+SlotSchultzFeederConfigurationWizard.lblOffsets.text	Offsets	
+SlotSchultzFeederConfigurationWizard.lblPart.text	Part	
+SlotSchultzFeederConfigurationWizard.lblPickLocation.text	Location	
+SlotSchultzFeederConfigurationWizard.lblPickRetryCount.text	Pick Retry Count	
+SlotSchultzFeederConfigurationWizard.lblPostPick.text	Post Pick	
+SlotSchultzFeederConfigurationWizard.lblRotation.text	Rotation	
+SlotSchultzFeederConfigurationWizard.lblRotation_1.text	Rotation	
+SlotSchultzFeederConfigurationWizard.lblTogglePitch.text	Toggle Pitch	
+SlotSchultzFeederConfigurationWizard.lblTogglePitchDesc.text	Toggle between 2 MM and 4 MM	
+SlotSchultzFeederConfigurationWizard.loadFeederBtn.toolTipText	Load installed feeder to slot.	
+SlotSchultzFeederConfigurationWizard.panelActuator.Border.title	Actuators	
+SlotSchultzFeederConfigurationWizard.slotPanel.Border.title	Slot	
+SubmitDiagnosticsDialog.includeLogChk.text	Latest Log File	
+SubmitDiagnosticsDialog.includeScreenShotChk.text	OpenPnP Window Screen Shot	
+SubmitDiagnosticsDialog.includeSystemInfoChk.text	Anonymous System Information	
+SubmitDiagnosticsDialog.includeVisionChk.text	Vision Debug Images (10 Newest)	
+SubmitDiagnosticsDialog.lblComments.text	Please Describe The Issue	
+SubmitDiagnosticsDialog.lblInclude.text	Include	
+SubmitDiagnosticsDialog.lblSubmitAHelp.text	Submit Diagnostics	
+SwitcherCameraConfigurationWizard.Actuator.text	Actuator	
+SwitcherCameraConfigurationWizard.ActuatorDelayMs.text	Actuator Delay (ms)	

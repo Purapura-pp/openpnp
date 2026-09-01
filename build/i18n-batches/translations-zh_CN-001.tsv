@@ -1,0 +1,51 @@
+# key	english	translation
+AbstractReferenceFeederConfigurationWizard.lblRotation.text	Rotation	旋转
+ActuatorControlDialog.closeBtn.text	Close	关闭
+ActuatorControlDialog.lblBoolean.text	Set Boolean Value	设置 Boolean 值
+ActuatorControlDialog.lblRead.text	Read Value	读取值
+ActuatorControlDialog.lblSetProfile.text	Set Profile	设置 Profile
+ActuatorControlDialog.lblValue.text	Set Value	设置值
+ActuatorControlDialog.lblWith.text	With	传入值
+ActuatorControlDialog.offBtn.text	Off	关
+ActuatorControlDialog.readBtn.text	Read	读取
+ActuatorControlDialog.readWithDoubleBtn.text	Read with Double	带参读取
+ActuatorControlDialog.setBtn.text	Set	设置
+ActuatorControlDialog.setProfileBtn.text	Set	设置
+ActuatorInterlockMonitorConfigurationWizard.lblActuator.text	Boolean Actuator	Boolean 执行器
+ActuatorInterlockMonitorConfigurationWizard.lblAxis.text	Axis 3	轴 3
+ActuatorInterlockMonitorConfigurationWizard.lblAxis1.text	Axis 1	轴 1
+ActuatorInterlockMonitorConfigurationWizard.lblAxis2.text	Axis 2	轴 2
+ActuatorInterlockMonitorConfigurationWizard.lblAxis_1.text	Axis 4	轴 4
+ActuatorInterlockMonitorConfigurationWizard.lblConfirmationGoodRange.text	Confirmation range	确认范围
+ActuatorInterlockMonitorConfigurationWizard.lblConfirmationPattern.text	Confirmation pattern	确认模式串
+ActuatorInterlockMonitorConfigurationWizard.lblFunction.text	Interlock Type	互锁类型
+ActuatorInterlockMonitorConfigurationWizard.lblRegex.text	Regex?	正则表达式？
+ActuatorInterlockMonitorConfigurationWizard.lblSpeed.text	Speed [%]	速度 [%]
+ActuatorInterlockMonitorConfigurationWizard.panelCondition.Border.title	Interlock Conditions	互锁条件
+ActuatorInterlockMonitorConfigurationWizard.panelInterlock.Border.title	Axis Interlock	轴互锁
+AdvancedLoosePartFeederConfigurationWizard.Vision.Border.title	Vision	视觉
+AdvancedLoosePartFeederConfigurationWizard.btnEditPipeline.text	Edit	编辑
+AdvancedLoosePartFeederConfigurationWizard.btnEditTrainingPipeline.text	Edit	编辑
+AdvancedLoosePartFeederConfigurationWizard.btnResetPipeline.text	Reset	重置
+AdvancedLoosePartFeederConfigurationWizard.btnResetTrainingPipeline.text	Reset	重置
+AdvancedLoosePartFeederConfigurationWizard.lblFeedPipeline.text	Feed Pipeline	送料管线
+AdvancedLoosePartFeederConfigurationWizard.lblTrainingPipeline.text	Training Pipeline	训练管线
+AutoFocusProviderConfigurationWizard.lblAveragedFrames.text	Averaged Frames	平均帧数
+AutoFocusProviderConfigurationWizard.lblFocalResolution.text	Focal Resolution	对焦分辨率
+AutoFocusProviderConfigurationWizard.lblFocusSpeed.text	Focus Speed	对焦速度
+AutoFocusProviderConfigurationWizard.lblFocusSpeed.toolTipText	Focus motion speed factor.	对焦运动的速度因数。
+AutoFocusProviderConfigurationWizard.lblLastFocusDistance.text	Last Focus Distance	上次对焦距离
+AutoFocusProviderConfigurationWizard.lblShowDiagnostics.text	Show Diagnostics?	显示诊断信息？
+AutoFocusProviderConfigurationWizard.panelGeneral.Border.title	Auto Focus Settings	自动对焦设置
+BambooFeederAutoVisionConfigurationWizard.comboBoxFeedActuator.toolTipText	Select the actuator for the feed action	选择执行送料动作的执行器
+BambooFeederAutoVisionConfigurationWizard.lblActuator.text	Actuator	执行器
+BambooFeederAutoVisionConfigurationWizard.lblActuatorValue.text	Actuator Value	执行器值
+BambooFeederAutoVisionConfigurationWizard.lblCalibrationCount.text	Calibration Count	校准次数
+BambooFeederAutoVisionConfigurationWizard.lblCalibrationTrigger.text	Calibration Trigger	校准触发条件
+BambooFeederAutoVisionConfigurationWizard.lblFeed.text	Feed	送料
+BambooFeederAutoVisionConfigurationWizard.lblFeed.toolTipText	Select the actuator for the feed action	选择执行送料动作的执行器
+BambooFeederAutoVisionConfigurationWizard.lblFeedCount.text	Feed Count	送料次数
+BambooFeederAutoVisionConfigurationWizard.lblFeedCount.toolTipText	Total feed count of the feeder.	该供料器的累计送料次数。
+BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.text	Feed Pitch	送料间距
+BambooFeederAutoVisionConfigurationWizard.lblHole1Location.text	Hole 1 Location	孔 1 位置
+BambooFeederAutoVisionConfigurationWizard.lblHole2Location.text	Hole 2 Location	孔 2 位置
