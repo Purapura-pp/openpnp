@@ -71,6 +71,7 @@ import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.SimpleGraph;
 import org.openpnp.util.SimpleGraph.DataRow;
 import org.openpnp.util.UiUtils;
@@ -159,7 +160,7 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
     public ReferenceCameraCalibrationWizard(ReferenceCamera referenceCamera) {
         this.referenceCamera = referenceCamera;
         
-        machine = Configuration.get().getMachine();
+        machine = getMachine();
         props = (CameraCalibrationProcessProperties) machine.getProperty("CameraCalibrationProcessProperties");
         
         if (props == null) {
@@ -802,6 +803,11 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return referenceCamera.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         IntegerConverter intConverter = new IntegerConverter();
         LengthConverter lengthConverter = new LengthConverter();
@@ -943,7 +949,7 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
         @Override
         public void actionPerformed(ActionEvent e) {
             //Pre-calibration checks
-            if (!Configuration.get().getMachine().isHomed()) {
+            if (!getMachine().isHomed()) {
                 MessageBoxes.errorBox(MainFrame.get(),
                         Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString( //$NON-NLS-1$
@@ -1143,7 +1149,7 @@ public class ReferenceCameraCalibrationWizard extends AbstractConfigurationWizar
                     JOptionPane.YES_NO_OPTION);
             if (ans == JOptionPane.YES_OPTION) {
                 UiUtils.submitUiMachineTask(() -> {
-                    Machine machine = Configuration.get().getMachine();
+                    Machine machine = getMachine();
                     machine.home();
                 });
             }

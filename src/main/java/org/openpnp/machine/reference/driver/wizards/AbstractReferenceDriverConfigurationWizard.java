@@ -19,11 +19,11 @@ import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.IntegerConverter;
+import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.driver.AbstractReferenceDriver;
 import org.openpnp.machine.reference.driver.AbstractReferenceDriver.CommunicationsType;
 import org.openpnp.machine.reference.driver.ReferenceDriverCommunications.LineEndingType;
 import org.openpnp.machine.reference.driver.SerialPortCommunications;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Machine;
 import org.openpnp.util.UiUtils;
 
@@ -359,6 +359,11 @@ public class AbstractReferenceDriverConfigurationWizard extends AbstractConfigur
     }
 
     @Override
+    protected ReferenceMachine getMachine() {
+        return driver.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         IntegerConverter integerConverter = new IntegerConverter();
 
@@ -396,7 +401,7 @@ public class AbstractReferenceDriverConfigurationWizard extends AbstractConfigur
         super.saveToModel();
         if (driver.isSyncInitialLocation()) {
             // Make sure we're synced, in case this was enabled just now.
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             if (machine.isEnabled()) {
                 UiUtils.submitUiMachineTask(() -> {
                     driver.getReportedLocation(-1);

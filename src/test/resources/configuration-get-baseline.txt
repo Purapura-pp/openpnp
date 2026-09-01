@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 611 calls in 201 files.
+# 516 calls in 186 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/BoardsPanel.java	5
@@ -37,7 +37,7 @@ org/openpnp/gui/panelization/ChildFiducialSelectorDialog.java	1
 org/openpnp/gui/panelization/PanelArrayBuilderDialog.java	1
 org/openpnp/gui/processes/CalibrateCameraProcess.java	4
 org/openpnp/gui/processes/MultiPlacementBoardLocationProcess.java	2
-org/openpnp/gui/support/AbstractConfigurationWizard.java	1
+org/openpnp/gui/support/AbstractConfigurationWizard.java	2
 org/openpnp/gui/support/AreaConverter.java	3
 org/openpnp/gui/support/Helpers.java	5
 org/openpnp/gui/support/LengthConverter.java	2
@@ -57,22 +57,18 @@ org/openpnp/gui/tablemodel/PlacementsHolderPlacementsTableModel.java	2
 org/openpnp/gui/tablemodel/PlacementsHolderTableModel.java	3
 org/openpnp/gui/tablemodel/VisionSettingsTableModel.java	3
 org/openpnp/gui/viewers/PlacementsHolderLocationViewer.java	10
-org/openpnp/gui/wizards/CameraConfigurationWizard.java	5
-org/openpnp/gui/wizards/CameraVisionConfigurationWizard.java	3
-org/openpnp/gui/wizards/PackageCompositingWizard.java	2
-org/openpnp/gui/wizards/PackageNozzleTipsWizard.java	1
-org/openpnp/gui/wizards/PackageVisionWizard.java	3
+org/openpnp/gui/wizards/CameraConfigurationWizard.java	4
+org/openpnp/gui/wizards/CameraVisionConfigurationWizard.java	1
+org/openpnp/gui/wizards/PackageCompositingWizard.java	1
+org/openpnp/gui/wizards/PackageVisionWizard.java	1
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
-org/openpnp/machine/neoden4/wizards/Neoden4FeederConfigurationWizard.java	2
-org/openpnp/machine/neoden4/wizards/Neoden4SwitcherCameraConfigurationWizard.java	1
 org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	3
 org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	5
-org/openpnp/machine/pandaplacer/BambooFeederAutoVisionConfigurationWizard.java	6
+org/openpnp/machine/pandaplacer/BambooFeederAutoVisionConfigurationWizard.java	1
 org/openpnp/machine/photon/PhotonFeeder.java	7
 org/openpnp/machine/photon/sheets/gui/FeederConfigurationWizard.java	1
 org/openpnp/machine/photon/sheets/gui/FeederSlotUpdateStep.java	1
-org/openpnp/machine/photon/sheets/gui/GlobalConfigConfigurationWizard.java	2
-org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	2
+org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/ActuatorInterlockMonitor.java	3
 org/openpnp/machine/reference/ContactProbeNozzle.java	8
 org/openpnp/machine/reference/ReferenceActuator.java	2
@@ -86,8 +82,6 @@ org/openpnp/machine/reference/ReferencePnpJobProcessor.java	19
 org/openpnp/machine/reference/ScriptActuator.java	1
 org/openpnp/machine/reference/SimulationModeMachine.java	2
 org/openpnp/machine/reference/axis/ReferenceLinearTransformAxis.java	1
-org/openpnp/machine/reference/axis/wizards/BacklashCompensationConfigurationWizard.java	2
-org/openpnp/machine/reference/axis/wizards/ReferenceControllerAxisConfigurationWizard.java	2
 org/openpnp/machine/reference/camera/AbstractBroadcastingCamera.java	3
 org/openpnp/machine/reference/camera/AbstractSettlingCamera.java	3
 org/openpnp/machine/reference/camera/AutoFocusProvider.java	1
@@ -97,13 +91,10 @@ org/openpnp/machine/reference/camera/wizards/AutoFocusProviderConfigurationWizar
 org/openpnp/machine/reference/camera/wizards/ImageCameraConfigurationWizard.java	1
 org/openpnp/machine/reference/camera/wizards/OpenPnpCaptureCameraConfigurationWizard.java	1
 org/openpnp/machine/reference/camera/wizards/SimulatedUpCameraConfigurationWizard.java	1
-org/openpnp/machine/reference/camera/wizards/SwitcherCameraConfigurationWizard.java	2
 org/openpnp/machine/reference/driver/AbstractMotionPlanner.java	3
 org/openpnp/machine/reference/driver/GcodeDriver.java	1
-org/openpnp/machine/reference/driver/wizards/AbstractReferenceDriverConfigurationWizard.java	1
-org/openpnp/machine/reference/driver/wizards/GcodeDriverConsole.java	2
-org/openpnp/machine/reference/driver/wizards/GcodeDriverGcodes.java	2
-org/openpnp/machine/reference/driver/wizards/ReferenceAdvancedMotionPlannerConfigurationWizard.java	2
+org/openpnp/machine/reference/driver/wizards/GcodeDriverConsole.java	1
+org/openpnp/machine/reference/driver/wizards/ReferenceAdvancedMotionPlannerConfigurationWizard.java	1
 org/openpnp/machine/reference/driver/wizards/ReferenceAdvancedMotionPlannerDiagnosticsWizard.java	1
 org/openpnp/machine/reference/feeder/BlindsFeeder.java	10
 org/openpnp/machine/reference/feeder/ReferenceAutoFeeder.java	1
@@ -116,21 +107,19 @@ org/openpnp/machine/reference/feeder/ReferenceStripFeeder.java	2
 org/openpnp/machine/reference/feeder/SchultzFeeder.java	1
 org/openpnp/machine/reference/feeder/SlotSchultzFeeder.java	5
 org/openpnp/machine/reference/feeder/wizards/AbstractReferenceFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/AdvancedLoosePartFeederConfigurationWizard.java	2
 org/openpnp/machine/reference/feeder/wizards/BlindsFeederArrayConfigurationWizard.java	1
 org/openpnp/machine/reference/feeder/wizards/BlindsFeederConfigurationWizard.java	2
-org/openpnp/machine/reference/feeder/wizards/ReferenceAutoFeederConfigurationWizard.java	5
+org/openpnp/machine/reference/feeder/wizards/ReferenceAutoFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/feeder/wizards/ReferenceDragFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/ReferenceHeapFeederConfigurationWizard.java	9
+org/openpnp/machine/reference/feeder/wizards/ReferenceHeapFeederConfigurationWizard.java	3
 org/openpnp/machine/reference/feeder/wizards/ReferenceLeverFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/ReferenceLoosePartFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/feeder/wizards/ReferencePushPullFeederConfigurationWizard.java	3
-org/openpnp/machine/reference/feeder/wizards/ReferencePushPullMotionConfigurationWizard.java	4
+org/openpnp/machine/reference/feeder/wizards/ReferencePushPullFeederConfigurationWizard.java	2
+org/openpnp/machine/reference/feeder/wizards/ReferencePushPullMotionConfigurationWizard.java	1
 org/openpnp/machine/reference/feeder/wizards/ReferenceRotatedTrayFeederConfigurationWizard.java	2
-org/openpnp/machine/reference/feeder/wizards/ReferenceSlotAutoFeederConfigurationWizard.java	5
-org/openpnp/machine/reference/feeder/wizards/ReferenceStripFeederConfigurationWizard.java	6
-org/openpnp/machine/reference/feeder/wizards/SchultzFeederConfigurationWizard.java	18
-org/openpnp/machine/reference/feeder/wizards/SlotSchultzFeederConfigurationWizard.java	18
+org/openpnp/machine/reference/feeder/wizards/ReferenceSlotAutoFeederConfigurationWizard.java	1
+org/openpnp/machine/reference/feeder/wizards/ReferenceStripFeederConfigurationWizard.java	5
+org/openpnp/machine/reference/feeder/wizards/SchultzFeederConfigurationWizard.java	1
+org/openpnp/machine/reference/feeder/wizards/SlotSchultzFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/psh/ActuatorsPropertySheetHolder.java	2
 org/openpnp/machine/reference/psh/AxesPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/CamerasPropertySheetHolder.java	2
@@ -140,7 +129,6 @@ org/openpnp/machine/reference/psh/NozzlesPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/SignalersPropertySheetHolder.java	1
 org/openpnp/machine/reference/signaler/ActuatorSignaler.java	1
 org/openpnp/machine/reference/signaler/SoundSignaler.java	1
-org/openpnp/machine/reference/signaler/wizards/ActuatorSignalerConfigurationWizard.java	1
 org/openpnp/machine/reference/solutions/ActuatorSolutions.java	1
 org/openpnp/machine/reference/solutions/AxisSolutions.java	2
 org/openpnp/machine/reference/solutions/CalibrationSolutions.java	3
@@ -152,18 +140,15 @@ org/openpnp/machine/reference/solutions/VisionSolutions.java	4
 org/openpnp/machine/reference/vision/ReferenceBottomVision.java	3
 org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	4
 org/openpnp/machine/reference/vision/wizards/BottomVisionSettingsConfigurationWizard.java	6
-org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	5
+org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	4
 org/openpnp/machine/reference/vision/wizards/ReferenceBottomVisionConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ContactProbeNozzleWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceActuatorProfilesWizard.java	2
-org/openpnp/machine/reference/wizards/ReferenceCameraCalibrationWizard.java	4
+org/openpnp/machine/reference/wizards/ReferenceCameraCalibrationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceCameraTransformsConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceMachineConfigurationWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceNozzleCompatibleNozzleTipsWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceNozzleTipCalibrationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceNozzleTipConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceNozzleTipPartDetectionWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceNozzleTipToolChangerWizard.java	3
+org/openpnp/machine/reference/wizards/ReferenceNozzleTipToolChangerWizard.java	1
 org/openpnp/machine/reference/wizards/SimulationModeMachineConfigurationWizard.java	1
 org/openpnp/model/AbstractPartSettingsHolder.java	6
 org/openpnp/model/AbstractVisionSettings.java	1

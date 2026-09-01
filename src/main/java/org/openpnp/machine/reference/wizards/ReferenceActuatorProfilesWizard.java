@@ -55,7 +55,6 @@ import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.ReferenceActuator;
 import org.openpnp.machine.reference.ReferenceActuatorProfiles;
 import org.openpnp.machine.reference.ReferenceActuatorProfiles.Profile;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
@@ -102,7 +101,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
     }
 
     protected void createUi() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         panelInterlock = new JPanel();
         panelInterlock.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Translations.getString("ReferenceActuatorProfilesWizard.panelInterlock.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(panelInterlock);
@@ -283,8 +282,13 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return actuator.getMachine();
+    }
+
+    @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         NamedConverter<Actuator> actuatorConverter = new NamedConverter<>((actuator.getHead() != null ? 
                 actuator.getHead().getActuators() : machine.getActuators())); 
 

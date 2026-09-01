@@ -30,7 +30,6 @@ import javax.swing.border.TitledBorder;
 import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.machine.reference.feeder.ReferenceLoosePartFeeder;
-import org.openpnp.model.Configuration;
 import org.openpnp.util.UiUtils;
 import org.openpnp.vision.pipeline.CvPipeline;
 import org.openpnp.vision.pipeline.ui.CvPipelineEditor;
@@ -92,7 +91,7 @@ public class ReferenceLoosePartFeederConfigurationWizard
             throw new Exception("Feeder "+feeder.getName()+" has no part.");
         }
         CvPipeline pipeline = feeder.getPipeline();
-        pipeline.setProperty("camera", Configuration.get().getMachine().getDefaultHead().getDefaultCamera());
+        pipeline.setProperty("camera", getMachine().getDefaultHead().getDefaultCamera());
         pipeline.setProperty("feeder", feeder);
         CvPipelineEditor editor = new CvPipelineEditor(pipeline);
         JDialog dialog = new CvPipelineEditorDialog(MainFrame.get(), feeder.getPart().getId() + " Pipeline", editor);

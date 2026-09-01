@@ -271,7 +271,7 @@ public class RapidFeederConfigurationWizard
                  */
                 Set<QrCodeLocation> qrCodes = new HashSet<QrCodeLocation>();
                 
-                Machine machine = Configuration.get().getMachine();
+                Machine machine = getMachine();
                 Camera camera = machine.getDefaultHead().getDefaultCamera();
 
                 /**

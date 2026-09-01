@@ -32,9 +32,9 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.gui.support.LongConverter;
 import org.openpnp.machine.reference.camera.SwitcherCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.base.AbstractMachine;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -110,13 +110,18 @@ public class SwitcherCameraConfigurationWizard extends AbstractConfigurationWiza
         contentPanel.add(actuatorDoubleValue, "4, 10, fill, default");
         actuatorDoubleValue.setColumns(10);
         
-        for (Camera camera : Configuration.get().getMachine().getCameras()) {
+        for (Camera camera : getMachine().getCameras()) {
             sourceCamera.addItem(camera);
         }
         
-        for (Actuator actuator : Configuration.get().getMachine().getActuators()) {
+        for (Actuator actuator : getMachine().getActuators()) {
             this.actuator.addItem(actuator);
         }
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return camera.getMachine();
     }
 
     @Override

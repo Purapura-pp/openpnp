@@ -41,6 +41,7 @@ import org.openpnp.gui.support.DoubleConverter;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.PercentConverter;
+import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.driver.ReferenceAdvancedMotionPlanner;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.Machine;
@@ -55,7 +56,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 @SuppressWarnings("serial")
 public class ReferenceAdvancedMotionPlannerConfigurationWizard extends AbstractConfigurationWizard {
-    private final MotionPlanner motionPlanner;
+    private final ReferenceAdvancedMotionPlanner motionPlanner;
     private JPanel panelSettings;
     private JCheckBox allowContinuousMotion;
     private JCheckBox allowUncoordinated;
@@ -233,7 +234,7 @@ public class ReferenceAdvancedMotionPlannerConfigurationWizard extends AbstractC
 
         Machine myMachine = null;
         try {
-            myMachine = Configuration.get().getMachine();
+            myMachine = getMachine();
         }
         catch (Exception e){
             Logger.error(e, "Cannot determine Name of machine.");
@@ -429,6 +430,11 @@ public class ReferenceAdvancedMotionPlannerConfigurationWizard extends AbstractC
                 textFieldEndY, textFieldEndZ, (JTextField) null);
         endLocationButtonsPanel.setShowPositionToolNoSafeZ(true);
         panel.add(endLocationButtonsPanel, "14, 16, 1, 3, fill, default");
+    }
+
+    @Override
+    protected ReferenceMachine getMachine() {
+        return motionPlanner.getMachine();
     }
 
     @Override

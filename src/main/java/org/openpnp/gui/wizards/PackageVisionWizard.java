@@ -256,9 +256,9 @@ public class PackageVisionWizard extends AbstractConfigurationWizard {
     private void showReticle() {
         try {
             // Add the reticle to the top camera
-            showReticleCamera(Configuration.get().getMachine().getDefaultHead().getDefaultCamera());
+            showReticleCamera(getMachine().getDefaultHead().getDefaultCamera());
             // Add the reticle to the bottom camera
-            for (Camera camera : Configuration.get().getMachine().getCameras()) { showReticleCamera(camera); }
+            for (Camera camera : getMachine().getCameras()) { showReticleCamera(camera); }
         }
         catch (Exception e) {
             Logger.error(e, "Failed to show the footprint reticle in the camera views.");

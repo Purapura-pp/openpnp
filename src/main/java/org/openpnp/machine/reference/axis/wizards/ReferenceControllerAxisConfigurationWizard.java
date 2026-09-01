@@ -48,7 +48,6 @@ import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.spi.Axis.Type;
 import org.openpnp.spi.Driver;
@@ -296,7 +295,7 @@ public class ReferenceControllerAxisConfigurationWizard extends AbstractAxisConf
         ));
         panelControllerSettings.add(lblDriver, "2, 2, right, default");
 
-        driver = new JComboBox(new DriversComboBoxModel((AbstractMachine) Configuration.get().getMachine(), true));
+        driver = new JComboBox(new DriversComboBoxModel(getMachine(), true));
         driver.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 adaptDialog();
@@ -649,7 +648,7 @@ public class ReferenceControllerAxisConfigurationWizard extends AbstractAxisConf
         panelKinematics.add(jerkPerSecond3, "4, 16, fill, default");
         jerkPerSecond3.setColumns(10);
 
-        driverConverter = new NamedConverter<>(Configuration.get().getMachine().getDrivers()); 
+        driverConverter = new NamedConverter<>(getMachine().getDrivers()); 
         // Also adapt if the type of the axis changes
         type.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {

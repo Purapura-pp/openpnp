@@ -64,6 +64,7 @@ import org.openpnp.machine.reference.feeder.ReferenceHeapFeeder.DropBox;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
 import org.openpnp.spi.Feeder;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
 import org.openpnp.vision.pipeline.CvPipeline;
 import org.openpnp.vision.pipeline.ui.CvPipelineEditor;
@@ -445,6 +446,11 @@ public class ReferenceHeapFeederConfigurationWizard
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return feeder.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
@@ -564,7 +570,7 @@ public class ReferenceHeapFeederConfigurationWizard
 
     private void editFeederPipeline() throws Exception {
         CvPipeline pipeline = feeder.getFeederPipeline();
-        pipeline.setProperty("camera", Configuration.get().getMachine().getDefaultHead().getDefaultCamera());
+        pipeline.setProperty("camera", getMachine().getDefaultHead().getDefaultCamera());
         pipeline.setProperty("feeder", feeder);
         CvPipelineEditor editor = new CvPipelineEditor(pipeline);
         JDialog dialog = new CvPipelineEditorDialog(MainFrame.get(), feeder.getPart().getId() + " Feeder-Pipeline", editor);
@@ -592,7 +598,7 @@ public class ReferenceHeapFeederConfigurationWizard
     
     private void editTrainingPipeline() throws Exception {
         CvPipeline pipeline = feeder.getTrainingPipeline();
-        pipeline.setProperty("camera", Configuration.get().getMachine().getDefaultHead().getDefaultCamera());
+        pipeline.setProperty("camera", getMachine().getDefaultHead().getDefaultCamera());
         pipeline.setProperty("feeder", feeder);
         CvPipelineEditor editor = new CvPipelineEditor(pipeline);
         JDialog dialog = new CvPipelineEditorDialog(MainFrame.get(), feeder.getPart().getId() + " Training-Pipeline", editor);
@@ -618,7 +624,7 @@ public class ReferenceHeapFeederConfigurationWizard
 
     private void editPartsPipeline() throws Exception {
         CvPipeline pipeline = ((DropBox)dropBoxCb.getSelectedItem()).getPartPipeline();
-        pipeline.setProperty("camera", Configuration.get().getMachine().getDefaultHead().getDefaultCamera());
+        pipeline.setProperty("camera", getMachine().getDefaultHead().getDefaultCamera());
         pipeline.setProperty("dropBox", ((DropBox)dropBoxCb.getSelectedItem()));
         CvPipelineEditor editor = new CvPipelineEditor(pipeline);
         JDialog dialog = new CvPipelineEditorDialog(MainFrame.get(), ((DropBox)dropBoxCb.getSelectedItem()).getId() + " Part-Pipeline", editor);
@@ -658,7 +664,7 @@ public class ReferenceHeapFeederConfigurationWizard
         public void actionPerformed(ActionEvent e) {
             UiUtils.submitUiMachineTask(() -> {
                 //Feeder feeder = getSelection();
-                feeder.getDropBox().clean(Configuration.get().getMachine().getHeads().get(0).getDefaultNozzle());
+                feeder.getDropBox().clean(getMachine().getHeads().get(0).getDefaultNozzle());
                 });
         }
     };
@@ -668,7 +674,7 @@ public class ReferenceHeapFeederConfigurationWizard
         public void actionPerformed(ActionEvent e) {
             UiUtils.submitUiMachineTask(() -> {
                 //Feeder feeder = getSelection();
-                feeder.getSamples(Configuration.get().getMachine().getHeads().get(0).getDefaultNozzle());
+                feeder.getSamples(getMachine().getHeads().get(0).getDefaultNozzle());
                 });
         }
     };
@@ -696,7 +702,7 @@ public class ReferenceHeapFeederConfigurationWizard
                                 "ReferenceHeapFeederConfigurationWizard.DeleteDropBox.LastOne"));
             }
             boolean isUsed = false;
-            for (Feeder tFeeder: Configuration.get().getMachine().getFeeders()) {
+            for (Feeder tFeeder: getMachine().getFeeders()) {
                 if (tFeeder != feeder && tFeeder instanceof ReferenceHeapFeeder && ((ReferenceHeapFeeder)tFeeder).getDropBox() == box) {
                     isUsed = true;
                 }

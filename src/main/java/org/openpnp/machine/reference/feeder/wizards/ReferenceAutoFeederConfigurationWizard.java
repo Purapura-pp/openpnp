@@ -101,7 +101,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
         panelActuator.add(lblFeed, "2, 4, right, default");
 
         comboBoxFeedActuator = new JComboBox();
-        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxFeedActuator, "4, 4, fill, default");
 
         actuatorValue = new JTextField();
@@ -116,7 +116,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
         panelActuator.add(lblPostPick, "2, 6, right, default");
 
         comboBoxPostPickActuator = new JComboBox();
-        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxPostPickActuator, "4, 6, fill, default");
 
         postPickActuatorValue = new JTextField();
@@ -170,7 +170,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
                     Logger.warn("No actuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine().getActuatorByName(feeder.getActuatorName());
+                Actuator actuator = getMachine().getActuatorByName(feeder.getActuatorName());
 
                 if (actuator == null) {
                     throw new Exception("Feed failed. Unable to find an actuator named " + feeder.getActuatorName());
@@ -189,7 +189,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
                     Logger.warn("No postPickActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getPostPickActuatorName());
 
                 if (actuator == null) {

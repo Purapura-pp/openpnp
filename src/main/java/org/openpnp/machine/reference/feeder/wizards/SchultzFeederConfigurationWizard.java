@@ -147,7 +147,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblGetID, "2, 6, right, default");
 
         comboBoxIdActuator = new JComboBox();
-        comboBoxIdActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxIdActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxIdActuator, "4, 6, fill, default");
 
         btnIdActuator = new JButton(getIdActuatorAction);
@@ -161,7 +161,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblFeed, "2, 8, right, default");
 
         comboBoxFeedActuator = new JComboBox();
-        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxFeedActuator, "4, 8, fill, default");
 
         btnTestFeedActuator = new JButton(testFeedActuatorAction);
@@ -171,7 +171,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblPostPick, "2, 10, right, default");
 
         comboBoxPostPickActuator = new JComboBox();
-        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxPostPickActuator, "4, 10, fill, default");
 
         btnTestPostPickActuator = new JButton(testPostPickActuatorAction);
@@ -181,7 +181,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblFeedCount, "2, 12, right, default");
 
         comboBoxFeedCountActuator = new JComboBox();
-        comboBoxFeedCountActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxFeedCountActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxFeedCountActuator, "4, 12, fill, default");
 
         btnGetFeedCountActuator = new JButton(getFeedCountActuatorAction);
@@ -195,7 +195,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblClearCount, "2, 14, right, default");
 
         comboBoxClearCountActuator = new JComboBox();
-        comboBoxClearCountActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxClearCountActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxClearCountActuator, "4, 14, fill, default");
 
         btnClearCountActuator = new JButton(clearCountActuatorAction);
@@ -205,7 +205,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblGetPitch, "2, 16, right, default");
 
         comboBoxPitchActuator = new JComboBox();
-        comboBoxPitchActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxPitchActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxPitchActuator, "4, 16, fill, default");
 
         btnPitchActuator = new JButton(pitchActuatorAction);
@@ -219,7 +219,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblTogglePitch, "2, 18, right, default");
 
         comboBoxTogglePitchActuator = new JComboBox();
-        comboBoxTogglePitchActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxTogglePitchActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxTogglePitchActuator, "4, 18, fill, default");
 
         btnTogglePitchActuator = new JButton(togglePitchActuatorAction);
@@ -232,7 +232,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         panelActuator.add(lblGetStatus, "2, 20, right, default");
 
         comboBoxStatusActuator = new JComboBox();
-        comboBoxStatusActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxStatusActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxStatusActuator, "4, 20, fill, default");
 
         btnStatusActuator = new JButton(statusActuatorAction);
@@ -242,7 +242,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
         statusText.setColumns(50);
         panelActuator.add(statusText, "8, 20");
 
-        if(Configuration.get().getMachine().isEnabled()){
+        if(getMachine().isEnabled()){
             getIdActuatorAction.actionPerformed(null);
             getFeedCountActuatorAction.actionPerformed(null);
             pitchActuatorAction.actionPerformed(null);
@@ -280,7 +280,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No getIdActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getIdActuatorName());
 
                 if (actuator == null) {
@@ -303,7 +303,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No actuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine().getActuatorByName(feeder.getActuatorName());
+                Actuator actuator = getMachine().getActuatorByName(feeder.getActuatorName());
 
                 if (actuator == null) {
                     throw new Exception("Feed failed. Unable to find an actuator named " + feeder.getActuatorName());
@@ -322,7 +322,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No postPickActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getPostPickActuatorName());
 
                 if (actuator == null) {
@@ -344,7 +344,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No feedCountActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getFeedCountActuatorName());
 
                 if (actuator == null) {
@@ -367,7 +367,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No clearCountActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getClearCountActuatorName());
 
                 if (actuator == null) {
@@ -392,7 +392,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No pitchActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getPitchActuatorName());
 
                 if (actuator == null) {
@@ -415,7 +415,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No togglePitchActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getTogglePitchActuatorName());
 
                 if (actuator == null) {
@@ -437,7 +437,7 @@ public class SchultzFeederConfigurationWizard extends AbstractReferenceFeederCon
                     Logger.warn("No statusActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getStatusActuatorName());
 
                 if (actuator == null) {

@@ -41,6 +41,7 @@ import org.openpnp.gui.support.JBindings.WrappedBinding;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.DisplayPreferences;
 import org.openpnp.model.Identifiable;
+import org.openpnp.spi.Machine;
 import org.openpnp.util.BeanUtils;
 
 public abstract class AbstractConfigurationWizard extends JPanel implements Wizard, Identifiable {
@@ -196,6 +197,20 @@ public abstract class AbstractConfigurationWizard extends JPanel implements Wiza
      */
     protected DisplayPreferences getDisplayPreferences() {
         return Configuration.get();
+    }
+
+    /**
+     * The machine the object being configured belongs to.
+     * <p>
+     * Most wizards are built for one feeder, camera, axis, driver or nozzle tip, and each of those
+     * knows its own machine, so those wizards override this. The rest configure something that is
+     * not part of a machine - a package, a set of vision settings - and have only the machine of
+     * the moment to go on, which is what every wizard used to ask for.
+     * 
+     * @return
+     */
+    protected Machine getMachine() {
+        return Configuration.get().getMachine();
     }
 
     @Override

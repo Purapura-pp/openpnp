@@ -52,13 +52,13 @@ import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis;
 import org.openpnp.machine.reference.axis.ReferenceControllerAxis.BacklashCompensationMethod;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Axis.Type;
 import org.openpnp.spi.Camera.Looking;
 import org.openpnp.spi.Driver;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.base.AbstractControllerAxis;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -115,8 +115,8 @@ public class BacklashCompensationConfigurationWizard extends AbstractConfigurati
                 if (hm instanceof ReferenceCamera) {
                     ReferenceCamera camera = (ReferenceCamera) hm;
                     if (camera.getHead() != null && camera.getLooking() == Looking.Down) {
-                        if (Configuration.get().getMachine() instanceof ReferenceMachine) {
-                            ReferenceMachine refMachine = (ReferenceMachine) Configuration.get().getMachine();
+                        if (getMachine() instanceof ReferenceMachine) {
+                            ReferenceMachine refMachine = (ReferenceMachine) getMachine();
                             refMachine.getCalibrationSolutions()
                             .calibrateAxisBacklash((ReferenceHead)(camera.getHead()), camera,
                                     camera, (ReferenceControllerAxis)axis);
@@ -263,6 +263,11 @@ public class BacklashCompensationConfigurationWizard extends AbstractConfigurati
         backlashDistanceTestGraph.setVisible(showCalibration);
         lblBacklashSpeedTest.setVisible(showCalibration);
         backlashSpeedTestGraph.setVisible(showCalibration);
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return axis.getMachine();
     }
 
     @Override

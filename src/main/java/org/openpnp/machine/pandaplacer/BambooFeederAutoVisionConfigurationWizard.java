@@ -411,7 +411,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
 
         comboBoxFeedActuator = new JComboBox();
-        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxFeedActuator, "4, 4, fill, default");
         comboBoxFeedActuator.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.comboBoxFeedActuator.toolTipText")); //$NON-NLS-1$
 
@@ -431,7 +431,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
 
         comboBoxPostPickActuator = new JComboBox();
-        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxPostPickActuator, "4, 6, fill, default");
         comboBoxPostPickActuator.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.comboBoxPostPickActuator.toolTipText")); //$NON-NLS-1$
 
@@ -468,7 +468,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         LongConverter longConverter = new LongConverter();
         DoubleConverter doubleConverter =
                 new DoubleConverter(Configuration.get().getLengthDisplayFormat());
-        actuatorConverter = (new NamedConverter<>(Configuration.get().getMachine().getActuators()));
+        actuatorConverter = (new NamedConverter<>(getMachine().getActuators()));
 
         MutableLocationProxy firstPickLocation = new MutableLocationProxy();
         bind(UpdateStrategy.READ_WRITE, feeder, "location", firstPickLocation, "location");
@@ -691,7 +691,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 if (feeder.getFeedActuatorName() == null || feeder.getFeedActuatorName().equals("")) {
                   throw new Exception("No feedActuatorName specified for feeder " + feeder.getName() + ".");
                 }
-                Actuator actuator = Configuration.get().getMachine().getActuatorByName(feeder.getFeedActuatorName());
+                Actuator actuator = getMachine().getActuatorByName(feeder.getFeedActuatorName());
 
                 if (actuator == null) {
                     throw new Exception("Feed failed. Unable to find an actuator named " + feeder.getFeedActuatorName());
@@ -709,7 +709,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 if (feeder.getPostPickActuatorName() == null || feeder.getPostPickActuatorName().equals("")) {
                   throw new Exception("No postPickActuatorName specified for feeder " + feeder.getName() + ".");
                 }
-                Actuator actuator = Configuration.get().getMachine().getActuatorByName(feeder.getPostPickActuatorName());
+                Actuator actuator = getMachine().getActuatorByName(feeder.getPostPickActuatorName());
 
                 if (actuator == null) {
                     throw new Exception("Feed failed. Unable to find an actuator named " + feeder.getPostPickActuatorName());

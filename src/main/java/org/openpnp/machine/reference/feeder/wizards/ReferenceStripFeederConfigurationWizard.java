@@ -71,6 +71,7 @@ import org.openpnp.model.Location;
 import org.openpnp.model.Part;
 import org.openpnp.model.Placement;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.HslColor;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.OpenCvUtils;
@@ -447,6 +448,11 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
                 null, //textFieldFeedEndZ, 
                 null);
         panelLocations.add(locationButtonsPanelFeedEnd, "10, 6");
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return feeder.getMachine();
     }
 
     @Override
@@ -1064,7 +1070,7 @@ public class ReferenceStripFeederConfigurationWizard extends AbstractConfigurati
     }
 
     private void editPipeline() throws Exception {
-        Camera camera = Configuration.get().getMachine().getDefaultHead().getDefaultCamera();
+        Camera camera = getMachine().getDefaultHead().getDefaultCamera();
         CvPipeline pipeline = getCvPipeline(camera, false);
         CvPipelineEditor editor = new CvPipelineEditor(pipeline);
         JDialog dialog = new CvPipelineEditorDialog(MainFrame.get(), feeder.getName() + " Pipeline", editor);

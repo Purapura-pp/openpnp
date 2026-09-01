@@ -520,6 +520,11 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return camera.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         if (camera instanceof ReferenceCamera) {
             addWrappedBinding(((ReferenceCamera) camera).getAdvancedCalibration(), 
@@ -527,7 +532,7 @@ public class CameraConfigurationWizard extends AbstractConfigurationWizard {
                 this, "overriddenClassicTransforms");
         }
 
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         LengthConverter uppLengthConverter = new LengthConverter(uppFormat);
         LengthConverter lengthConverter = new LengthConverter();
         DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());

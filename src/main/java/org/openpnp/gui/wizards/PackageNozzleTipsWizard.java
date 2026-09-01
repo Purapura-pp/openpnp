@@ -29,7 +29,6 @@ import javax.swing.table.AbstractTableModel;
 
 import org.openpnp.Translations;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.NozzleTip;
 import java.awt.BorderLayout;
 
@@ -60,7 +59,7 @@ public class PackageNozzleTipsWizard extends AbstractConfigurationWizard /*JPane
         }
 
         public void refresh() {
-            nozzleTips = new ArrayList<>(Configuration.get().getMachine().getNozzleTips());
+            nozzleTips = new ArrayList<>(getMachine().getNozzleTips());
             fireTableDataChanged();
         }
 

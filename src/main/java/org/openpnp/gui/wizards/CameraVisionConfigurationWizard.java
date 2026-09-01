@@ -69,8 +69,8 @@ public class CameraVisionConfigurationWizard extends AbstractConfigurationWizard
     private final AbstractSettlingCamera camera;
     
     public CameraVisionConfigurationWizard(AbstractSettlingCamera camera) {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         this.camera = camera;
+        AbstractMachine machine = getMachine();
 
 
         panelVision = new JPanel();
@@ -312,8 +312,13 @@ public class CameraVisionConfigurationWizard extends AbstractConfigurationWizard
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return camera.getMachine();
+    }
+
+    @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         LongConverter longConverter = new LongConverter();
         IntegerConverter intConverter = new IntegerConverter();
         DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());

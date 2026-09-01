@@ -12,7 +12,6 @@ import org.openpnp.gui.support.JBindings;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.machine.photon.PhotonFeeder;
 import org.openpnp.machine.photon.PhotonProperties;
-import org.openpnp.model.Configuration;
 import org.openpnp.util.UiUtils;
 
 import javax.swing.*;
@@ -35,7 +34,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
      * Create the panel.
      */
     public GlobalConfigConfigurationWizard() {
-        photonProperties = new PhotonProperties(Configuration.get().getMachine());
+        photonProperties = new PhotonProperties(getMachine());
 
         JPanel searchPanel = new JPanel();
         searchPanel.setBorder(new TitledBorder(null, Translations.getString("GlobalConfigConfigurationWizard.searchPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
@@ -96,7 +95,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
         btnStartFeedSlotsWizard = new JButton(Translations.getString("GlobalConfigConfigurationWizard.btnStartFeedSlotsWizard.text")); //$NON-NLS-1$
         btnStartFeedSlotsWizard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                if(! Configuration.get().getMachine().isEnabled()) {
+                if(! getMachine().isEnabled()) {
                     UiUtils.showError(new Exception("Please connect to the machine before running this wizard."));
                     return;
                 }

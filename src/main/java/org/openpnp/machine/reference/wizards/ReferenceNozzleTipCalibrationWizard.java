@@ -54,13 +54,13 @@ import org.openpnp.machine.reference.ReferenceNozzleTipCalibration;
 import org.openpnp.machine.reference.ReferenceNozzleTipCalibration.BackgroundCalibrationMethod;
 import org.openpnp.machine.reference.ReferenceNozzleTipCalibration.RecalibrationTrigger;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Nozzle;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
 import org.openpnp.util.VisionUtils;
@@ -313,7 +313,7 @@ public class ReferenceNozzleTipCalibrationWizard extends AbstractConfigurationWi
         MainFrame.get().getMachineControls().addPropertyChangeListener("selectedTool", e -> {
             firePropertyChange("calibrationStatus", null, null);;
         });
-        for (Head head : Configuration.get().getMachine().getHeads()) {
+        for (Head head : getMachine().getHeads()) {
             for (Nozzle nozzle : head.getNozzles()) {
                 if (nozzle instanceof ReferenceNozzle) {
                     ReferenceNozzle refNozzle = (ReferenceNozzle)nozzle;
@@ -678,6 +678,11 @@ public class ReferenceNozzleTipCalibrationWizard extends AbstractConfigurationWi
             nozzleTip.getCalibration()
             .calibrateCamera(getUiCalibrationNozzle(nozzleTip));
         });
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return nozzleTip.getMachine();
     }
 
     @Override

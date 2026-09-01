@@ -37,7 +37,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.machine.neoden4.Neoden4Feeder;
 import org.openpnp.machine.reference.feeder.wizards.AbstractReferenceFeederConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
@@ -374,7 +373,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 
 			UiUtils.messageBoxOnException(() -> {
 				String actuatorName = feeder.getActuatorName();
-				Actuator actuator = Configuration.get().getMachine().getActuatorByName(actuatorName);
+				Actuator actuator = getMachine().getActuatorByName(actuatorName);
 
 				if (actuator == null) {
 					MessageBoxes.errorBox(contentPanel,
@@ -389,7 +388,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 						actuator.actuate(feeder.getPartPitchInTape().getValue());
 
 						// Refresh camera after 1s
-						Camera cam = Configuration.get().getMachine().getDefaultHead().getDefaultCamera();
+						Camera cam = getMachine().getDefaultHead().getDefaultCamera();
 						if (cam != null) {
 							Timer timer = new Timer(1000, new ActionListener() {
 

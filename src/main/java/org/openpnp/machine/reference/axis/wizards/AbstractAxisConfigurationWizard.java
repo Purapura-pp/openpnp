@@ -32,6 +32,7 @@ import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.base.AbstractAxis;
+import org.openpnp.spi.base.AbstractMachine;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -84,6 +85,11 @@ public abstract class AbstractAxisConfigurationWizard extends AbstractConfigurat
 
     protected AbstractAxis getAxis() {
         return axis;
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return axis.getMachine();
     }
     
     @Override

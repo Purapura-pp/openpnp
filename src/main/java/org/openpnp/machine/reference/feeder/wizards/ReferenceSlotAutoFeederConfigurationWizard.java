@@ -54,6 +54,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import org.openpnp.spi.Actuator;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
 import org.pmw.tinylog.Logger;
 
@@ -274,7 +275,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         panelActuator.add(lblFeed, "2, 4, right, default");
 
         comboBoxFeedActuator = new JComboBox();
-        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxFeedActuator, "4, 4, fill, default");
 
         actuatorValue = new JTextField();
@@ -291,7 +292,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         panelActuator.add(lblPostPick, "2, 6, right, default");
 
         comboBoxPostPickActuator = new JComboBox();
-        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
+        comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(getMachine()));
         panelActuator.add(comboBoxPostPickActuator, "4, 6, fill, default");
 
         postPickActuatorValue = new JTextField();
@@ -383,6 +384,11 @@ public class ReferenceSlotAutoFeederConfigurationWizard
                 feederCb.addItem(f);
             }
         }
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return feeder.getMachine();
     }
 
     @Override
@@ -534,7 +540,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
                     Logger.warn("No actuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine().getActuatorByName(feeder.getActuatorName());
+                Actuator actuator = getMachine().getActuatorByName(feeder.getActuatorName());
 
                 if (actuator == null) {
                     throw new Exception("Feed failed. Unable to find an actuator named " + feeder.getActuatorName());
@@ -553,7 +559,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
                     Logger.warn("No postPickActuatorName specified for feeder {}.", feeder.getName());
                     return;
                 }
-                Actuator actuator = Configuration.get().getMachine()
+                Actuator actuator = getMachine()
                         .getActuatorByName(feeder.getPostPickActuatorName());
 
                 if (actuator == null) {

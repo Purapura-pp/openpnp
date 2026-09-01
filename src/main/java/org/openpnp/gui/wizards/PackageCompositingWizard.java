@@ -212,7 +212,7 @@ public class PackageCompositingWizard extends AbstractConfigurationWizard {
 
     private VisionCompositing.Composite computePreviewComposite() {
         try {
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             Camera camera = VisionUtils.getBottomVisionCamera();
             Nozzle nozzle = null;
             NozzleTip nozzleTip = null;

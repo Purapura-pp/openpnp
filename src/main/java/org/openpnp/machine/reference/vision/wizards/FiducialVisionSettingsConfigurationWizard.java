@@ -71,7 +71,7 @@ public class FiducialVisionSettingsConfigurationWizard extends AbstractConfigura
             PartSettingsHolder settingsHolder) {
         this.visionSettings = visionSettings;
         this.settingsHolder = settingsHolder;
-        this.fiducialLocator = (ReferenceFiducialLocator) Configuration.get().getMachine().getFiducialLocator();
+        this.fiducialLocator = (ReferenceFiducialLocator) getMachine().getFiducialLocator();
         createUi();
     }
 

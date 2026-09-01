@@ -10,8 +10,8 @@ import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.IntegerConverter;
 import org.openpnp.machine.neoden4.Neoden4SwitcherCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.base.AbstractMachine;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -70,7 +70,7 @@ public class Neoden4SwitcherCameraConfigurationWizard extends AbstractConfigurat
         contentPanel.add(switcher, "4, 4, fill, default");
         switcher.setColumns(10);
         
-        for (Camera camera : Configuration.get().getMachine().getCameras()) {
+        for (Camera camera : getMachine().getCameras()) {
             sourceCamera.addItem(camera);
         }
         
@@ -90,6 +90,11 @@ public class Neoden4SwitcherCameraConfigurationWizard extends AbstractConfigurat
         cameraGainTextField = new JTextField();
         cameraGainTextField.setColumns(16);
         contentPanel.add(cameraGainTextField, "4, 8, fill, default");
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return camera.getMachine();
     }
 
     @Override

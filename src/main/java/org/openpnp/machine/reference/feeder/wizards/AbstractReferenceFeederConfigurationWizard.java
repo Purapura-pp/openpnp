@@ -38,6 +38,7 @@ import org.openpnp.gui.support.PartsComboBoxModel;
 import org.openpnp.machine.reference.ReferenceFeeder;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Part;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.Translations;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -188,6 +189,15 @@ public abstract class AbstractReferenceFeederConfigurationWizard
                     textFieldLocationZ, textFieldLocationC);
             panelLocation.add(locationButtonsPanel, "10, 4");
         }
+    }
+
+    /**
+     * Every feeder wizard configures a feeder, and a feeder knows its machine, so this covers all
+     * of them.
+     */
+    @Override
+    protected AbstractMachine getMachine() {
+        return feeder.getMachine();
     }
 
     @Override

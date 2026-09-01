@@ -25,9 +25,9 @@ import javax.swing.JLabel;
 import org.openpnp.Translations;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.machine.reference.signaler.ActuatorSignaler;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.base.AbstractJobProcessor;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.spi.base.AbstractJobProcessor.State;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -71,7 +71,7 @@ public class ActuatorSignalerConfigurationWizard extends AbstractConfigurationWi
         jobState = new JComboBox<State>();
         contentPanel.add(jobState, "4, 4, fill, default");
         
-        for (Actuator actuator : Configuration.get().getMachine().getActuators()) {
+        for (Actuator actuator : getMachine().getActuators()) {
             this.actuator.addItem(actuator);
         }
         
@@ -79,6 +79,11 @@ public class ActuatorSignalerConfigurationWizard extends AbstractConfigurationWi
         for (AbstractJobProcessor.State state : AbstractJobProcessor.State.values()) {
             this.jobState.addItem(state);
         }
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return signaler.getMachine();
     }
 
     @Override

@@ -34,6 +34,7 @@ import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.MessageBoxes;
+import org.openpnp.machine.reference.ReferenceMachine;
 import org.openpnp.machine.reference.driver.GcodeDriver;
 import org.openpnp.machine.reference.driver.GcodeDriver.Command;
 import org.openpnp.machine.reference.driver.GcodeDriver.CommandType;
@@ -83,7 +84,7 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
         gcodePanel.add(comboBoxHm, "2, 4, fill, default");
 
         comboBoxHm.addItem(new HeadMountableItem(null));
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = getMachine();
         for (Head head : machine.getHeads()) {
             for (Nozzle hm : head.getNozzles()) {
                 if (!hm.getMappedAxes(machine).drivenBy(driver).isEmpty()) {
@@ -101,7 +102,7 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
                 }
             }
         }
-        for (Actuator actuator : Configuration.get().getMachine().getActuators()) {
+        for (Actuator actuator : getMachine().getActuators()) {
             if (actuator.getDriver() == driver) {
                 comboBoxHm.addItem(new HeadMountableItem(actuator));
             }
@@ -273,6 +274,11 @@ public class GcodeDriverGcodes extends AbstractConfigurationWizard {
             driver.setCommand(key.hm, key.command, text);
         }
         changes.clear();
+    }
+
+    @Override
+    protected ReferenceMachine getMachine() {
+        return driver.getMachine();
     }
 
     @Override

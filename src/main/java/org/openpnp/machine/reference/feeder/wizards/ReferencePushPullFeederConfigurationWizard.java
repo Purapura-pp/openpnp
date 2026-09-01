@@ -283,7 +283,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
         Head head = null;
         try {
-            head = Configuration.get().getMachine().getDefaultHead();
+            head = getMachine().getDefaultHead();
         }
         catch (Exception e) {
             Logger.error(e, "Cannot determine default head of machine.");

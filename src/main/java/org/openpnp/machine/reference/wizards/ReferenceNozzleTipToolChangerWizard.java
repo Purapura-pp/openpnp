@@ -62,6 +62,7 @@ import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.NozzleTip;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
 import org.openpnp.vision.TemplateImage;
@@ -131,7 +132,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
 
         Machine myMachine = null;
         try {
-            myMachine = Configuration.get().getMachine();
+            myMachine = getMachine();
         }
         catch (Exception e){
             Logger.error(e, "Cannot determine Name of machine.");
@@ -691,6 +692,11 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return nozzleTip.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
@@ -933,7 +939,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
         public void actionPerformed(ActionEvent e) {
             applyAction.actionPerformed(e);
             UiUtils.messageBoxOnException(() -> {
-                for (NozzleTip nt : Configuration.get().getMachine().getNozzleTips()) {
+                for (NozzleTip nt : getMachine().getNozzleTips()) {
                     if (nt != nozzleTip 
                             && nt instanceof ReferenceNozzleTip) {
                         ((ReferenceNozzleTip) nt).assignNozzleTipChangerSettings(nozzleTip, 

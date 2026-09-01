@@ -30,10 +30,10 @@ import javax.swing.table.AbstractTableModel;
 import org.openpnp.Translations;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.machine.reference.ReferenceNozzle;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.NozzleTip;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
 
@@ -61,6 +61,11 @@ public class ReferenceNozzleCompatibleNozzleTipsWizard extends AbstractConfigura
         tableModel = new NozzleTipsTableModel();
         table = new JTable(tableModel);
         scrollPane.setViewportView(table);
+    }
+
+    @Override
+    protected AbstractMachine getMachine() {
+        return nozzle.getMachine();
     }
 
     @Override
@@ -93,7 +98,7 @@ public class ReferenceNozzleCompatibleNozzleTipsWizard extends AbstractConfigura
         }
 
         public void refresh() {
-            nozzleTips = new ArrayList<>(Configuration.get().getMachine().getNozzleTips());
+            nozzleTips = new ArrayList<>(getMachine().getNozzleTips());
             fireTableDataChanged();
         }
 

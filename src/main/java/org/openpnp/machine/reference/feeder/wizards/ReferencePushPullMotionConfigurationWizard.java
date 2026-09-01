@@ -61,6 +61,7 @@ import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
 import org.pmw.tinylog.Logger;
 
@@ -222,7 +223,7 @@ extends AbstractConfigurationWizard {
 
         Head head = null;
         try {
-            head = Configuration.get().getMachine().getDefaultHead();
+            head = getMachine().getDefaultHead();
         }
         catch (Exception e) {
             Logger.error(e, "Cannot determine default head of machine.");
@@ -584,6 +585,11 @@ extends AbstractConfigurationWizard {
     }
 
     @Override
+    protected AbstractMachine getMachine() {
+        return feeder.getMachine();
+    }
+
+    @Override
     public void createBindings() {
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
@@ -592,7 +598,7 @@ extends AbstractConfigurationWizard {
                 new DoubleConverter(Configuration.get().getLengthDisplayFormat());
         Head head = null;
         try {
-            head = Configuration.get().getMachine().getDefaultHead();
+            head = getMachine().getDefaultHead();
         }
         catch (Exception e) {
             Logger.error(e, "Cannot determine default head of machine.");
@@ -731,7 +737,7 @@ extends AbstractConfigurationWizard {
         boolean additive = additiveRotation.isSelected();
         btnRotationReset.setVisible(additive);
         if (additive && actuatorConverter != null) {
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = getMachine();
             Actuator feedActuator = actuatorConverter.convertReverse((String) actuator.getSelectedItem());
             if (feedActuator != null
                     && feedActuator.getLocation().getRotation() != 0
