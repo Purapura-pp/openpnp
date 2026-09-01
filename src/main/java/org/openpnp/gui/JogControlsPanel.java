@@ -285,7 +285,7 @@ public class JogControlsPanel extends JPanel {
         homeButton.setToolTipText(Translations.getString("JogControlsPanel.homeButton.toolTipText")); //$NON-NLS-1$ //$NON-NLS-2$
         panelControls.add(homeButton, "2, 2"); //$NON-NLS-1$
 
-        JLabel lblXy = new JLabel("X/Y"); //$NON-NLS-1$
+        JLabel lblXy = new JLabel(Translations.getString("JogControlsPanel.lblXy.text")); //$NON-NLS-1$ //$NON-NLS-2$
         lblXy.setFont(new Font("Lucida Grande", Font.PLAIN, 22)); //$NON-NLS-1$
         lblXy.setHorizontalAlignment(SwingConstants.CENTER);
         panelControls.add(lblXy, "8, 2, fill, default"); //$NON-NLS-1$

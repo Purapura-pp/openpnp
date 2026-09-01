@@ -84,12 +84,12 @@ extends AbstractReferenceFeederConfigurationWizard {
 
 // Panel: Tape Settings
         panelLocations = new JPanel();
-        panelLocations.setBorder(new TitledBorder(null, "Tape Settings", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("BambooFeederAutoVisionConfigurationWizard.panelLocations.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         panelTape = new JPanel();
         panelFields.add(panelTape);
-        panelTape.setBorder(new TitledBorder(null, "Tape Settings", TitledBorder.LEADING, TitledBorder.TOP, null));
+        panelTape.setBorder(new TitledBorder(null, Translations.getString("BambooFeederAutoVisionConfigurationWizard.panelTape.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelTape.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
                 FormSpecs.DEFAULT_COLSPEC,
@@ -107,27 +107,27 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblPartPitch = new JLabel("Part Pitch");
+        lblPartPitch = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPartPitch.text")); //$NON-NLS-1$
         panelTape.add(lblPartPitch, "2, 2, right, default");
-        lblPartPitch.setToolTipText("Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)");
+        lblPartPitch.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPartPitch.toolTipText")); //$NON-NLS-1$
 
         textFieldPartPitch = new JComboBox<>(pitchValues);
         panelTape.add(textFieldPartPitch, "4, 2");
-        textFieldPartPitch.setToolTipText("Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)");
+        textFieldPartPitch.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldPartPitch.toolTipText")); //$NON-NLS-1$
 
-        lblFeedPitch = new JLabel("Feed Pitch");
+        lblFeedPitch = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.text")); //$NON-NLS-1$
         panelTape.add(lblFeedPitch, "6, 2, right, default");
-        lblFeedPitch.setToolTipText("How much the tape will be advanced by one lever actuation (usually multiples of 4mm)");
+        lblFeedPitch.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeedPitch.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedPitch = new JComboBox<>(pitchValues);
         panelTape.add(textFieldFeedPitch, "8, 2");
-        textFieldFeedPitch.setToolTipText("How much the tape will be advanced by one lever actuation (usually multiples of 4mm)");
+        textFieldFeedPitch.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldFeedPitch.toolTipText")); //$NON-NLS-1$
 
         btnDiscardParts = new JButton(discardPartsAction);
         btnDiscardParts.setToolTipText("<html>Discard parts left over in the (multi-part) feed cycle.<br/>\r\nStarts with a fresh feed cycle including vision calibration (if enabled). \r\n</html>");
         panelTape.add(btnDiscardParts, "10, 2");
 
-        lblRotation = new JLabel("Rotation in Tape");
+        lblRotation = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
         panelTape.add(lblRotation, "2, 4, right, default");
         lblRotation.setToolTipText("<html>Rotation of the part inside the tape as seen when the sprocket holes <br/>\r\nare on top. Your E-CAD part orientation is the reference.<br/>\r\nSee also: \r\n<ul>\r\n<li>EIA-481</li>\r\n<li>Component Zero Orientations for CAD Libraries</li>\r\n</ul>\r\n</html>");
 
@@ -136,13 +136,13 @@ extends AbstractReferenceFeederConfigurationWizard {
         textFieldRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
         textFieldRotationInTape.setColumns(10);
 
-        lblFeedCount = new JLabel("Feed Count");
+        lblFeedCount = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
         panelTape.add(lblFeedCount, "6, 4, right, default");
-        lblFeedCount.setToolTipText("Total feed count of the feeder.");
+        lblFeedCount.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeedCount.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedCount = new JTextField();
         panelTape.add(textFieldFeedCount, "8, 4");
-        textFieldFeedCount.setToolTipText("Total feed count of the feeder.");
+        textFieldFeedCount.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldFeedCount.toolTipText")); //$NON-NLS-1$
         textFieldFeedCount.setColumns(10);
 
         btnReset = new JButton(resetFeedCountAction);
@@ -152,7 +152,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
 // Panel: Locations
         panelLocations = new JPanel();
-        panelLocations.setBorder(new TitledBorder(null, "Locations", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("BambooFeederAutoVisionConfigurationWizard.panelLocations2.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         panelFields.add(panelLocations);
@@ -186,7 +186,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
         btnShowVisionFeatures = new JButton(showVisionFeaturesAction);
-        btnShowVisionFeatures.setToolTipText("Preview the features recognized by Computer Vision.");
+        btnShowVisionFeatures.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.btnShowVisionFeatures.toolTipText")); //$NON-NLS-1$
         btnShowVisionFeatures.setText("Preview Vision Features");
         panelLocations.add(btnShowVisionFeatures, "2, 2, default, fill");
 
@@ -202,7 +202,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         lblZ_1 = new JLabel("Z");
         panelLocations.add(lblZ_1, "8, 4, center, default");
 
-        lblPickLocation = new JLabel("Pick Location");
+        lblPickLocation = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPickLocation.text")); //$NON-NLS-1$
         lblPickLocation.setToolTipText("<html>Pick Location of the part. If multiple are produced by a feed operation<br/>\r\nthis must be the last one picked i.e. the one closest to the the tape reel.</html>");
         panelLocations.add(lblPickLocation, "2, 6, right, default");
 
@@ -221,7 +221,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelFirstPick = new LocationButtonsPanel(textFieldPickLocationX, textFieldPickLocationY, textFieldPickLocationZ, null);
         panelLocations.add(locationButtonsPanelFirstPick, "10, 6");
 
-        lblHole1Location = new JLabel("Hole 1 Location");
+        lblHole1Location = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole1Location.text")); //$NON-NLS-1$
         lblHole1Location.setToolTipText("<html>Choose Hole 1 closer to the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
         panelLocations.add(lblHole1Location, "2, 8, right, default");
 
@@ -236,7 +236,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelHole1 = new LocationButtonsPanel(textFieldHole1LocationX, textFieldHole1LocationY, (JTextField) null, (JTextField) null);
         panelLocations.add(locationButtonsPanelHole1, "10, 8");
 
-        lblHole2Location = new JLabel("Hole 2 Location");
+        lblHole2Location = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole2Location.text")); //$NON-NLS-1$
         lblHole2Location.setToolTipText("<html>Choose Hole 2 further away from the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
         panelLocations.add(lblHole2Location, "2, 10, right, default");
 
@@ -251,21 +251,21 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelHole2 = new LocationButtonsPanel(textFieldHole2LocationX, textFieldHole2LocationY, (JTextField) null, (JTextField) null);
         panelLocations.add(locationButtonsPanelHole2, "10, 10");
 
-        lblNormalizePickLocation = new JLabel("Normalize?");
+        lblNormalizePickLocation = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.text")); //$NON-NLS-1$
         panelLocations.add(lblNormalizePickLocation, "2, 12, right, default");
-        lblNormalizePickLocation.setToolTipText("Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.");
+        lblNormalizePickLocation.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblNormalizePickLocation.toolTipText")); //$NON-NLS-1$
 
         checkBoxNormalizePickLocation = new JCheckBox("");
         panelLocations.add(checkBoxNormalizePickLocation, "4, 12");
         checkBoxNormalizePickLocation.setSelected(true);
-        checkBoxNormalizePickLocation.setToolTipText("Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.");
+        checkBoxNormalizePickLocation.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.checkBoxNormalizePickLocation.toolTipText")); //$NON-NLS-1$
 
-        lblSnapToAxis = new JLabel("Snap to Axis?");
-        lblSnapToAxis.setToolTipText("Snap rows of sprocket holes to the Axis parallel.");
+        lblSnapToAxis = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.text")); //$NON-NLS-1$
+        lblSnapToAxis.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblSnapToAxis.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblSnapToAxis, "6, 12, right, default");
 
         checkBoxSnapToAxis = new JCheckBox("");
-        checkBoxSnapToAxis.setToolTipText("Snap rows of sprocket holes to the Axis parallel.");
+        checkBoxSnapToAxis.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.checkBoxSnapToAxis.toolTipText")); //$NON-NLS-1$
         panelLocations.add(checkBoxSnapToAxis, "8, 12");
 
 
@@ -274,7 +274,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
 // Panel: Vision
         panelVision = new JPanel();
-        panelVision.setBorder(new TitledBorder(null, "Vision", TitledBorder.LEADING,
+        panelVision.setBorder(new TitledBorder(null, Translations.getString("BambooFeederAutoVisionConfigurationWizard.panelVision.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelFields.add(panelVision);
         panelVision.setLayout(new BoxLayout(panelVision, BoxLayout.Y_AXIS));
@@ -306,7 +306,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblVisionType = new JLabel("Vision Type");
+        lblVisionType = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblVisionType.text")); //$NON-NLS-1$
         lblVisionType.setToolTipText("<html>\r\n<p>Choose the vision type, then press <strong>Reset Pipeline</strong> to assign the<br/>\r\ndefault pipeline of that type. Sprocket holes are detected as follows:</p>\r\n<ul>\r\n<li><strong>ColorKeyed</strong>: the background under the holes must be of a vivid color<br/>\r\n(green by default).</li>\r\n<li><strong>CircularSymmetry</strong>: the shape of the holes must be circular, their<br/>\r\ninside/outside must be plain.</li>\r\n</ul>\r\n<p>Both types of pipeline will further assess detected holes by size, alignment, pitch<br/>\r\nand expected distance.</p>\r\n</html>");
         panelVisionEnabled.add(lblVisionType, "2, 2, right, default");
 
@@ -324,23 +324,23 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnResetPipeline, "12, 2, 3, 1");
 
 
-        lblCalibrationTrigger = new JLabel("Calibration Trigger");
+        lblCalibrationTrigger = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblCalibrationTrigger.text")); //$NON-NLS-1$
         panelVisionEnabled.add(lblCalibrationTrigger, "2, 4, right, default");
 
         comboBoxCalibrationTrigger = new JComboBox(CalibrationTrigger.values());
         panelVisionEnabled.add(comboBoxCalibrationTrigger, "4, 4");
 
-        lblPrecisionAverage = new JLabel("Precision Average");
-        lblPrecisionAverage.setToolTipText("Obtained precision average i.e. offset of the pick location, as detected by the calibration");
+        lblPrecisionAverage = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.text")); //$NON-NLS-1$
+        lblPrecisionAverage.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionAverage.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionAverage, "8, 4, right, default");
 
         textFieldPrecisionAverage = new JTextField();
-        textFieldPrecisionAverage.setToolTipText("Obtained precision average i.e. offset of the pick location, as detected by the calibration");
+        textFieldPrecisionAverage.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionAverage.toolTipText")); //$NON-NLS-1$
         textFieldPrecisionAverage.setEditable(false);
         panelVisionEnabled.add(textFieldPrecisionAverage, "10, 4");
         textFieldPrecisionAverage.setColumns(10);
 
-        lblCalibrationCount = new JLabel("Calibration Count");
+        lblCalibrationCount = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblCalibrationCount.text")); //$NON-NLS-1$
         panelVisionEnabled.add(lblCalibrationCount, "12, 4, right, default");
 
         textFieldCalibrationCount = new JTextField();
@@ -348,17 +348,17 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(textFieldCalibrationCount, "14, 4");
         textFieldCalibrationCount.setColumns(10);
 
-        lblPrecisionWanted = new JLabel("Precision wanted");
-        lblPrecisionWanted.setToolTipText("Precision wanted i.e. the tolerable pick location offset");
+        lblPrecisionWanted = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.text")); //$NON-NLS-1$
+        lblPrecisionWanted.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionWanted.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionWanted, "2, 6, right, default");
 
         textFieldPrecisionWanted = new JTextField();
-        textFieldPrecisionWanted.setToolTipText("Precision wanted i.e. the tolerable pick location offset");
+        textFieldPrecisionWanted.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldPrecisionWanted.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(textFieldPrecisionWanted, "4, 6");
         textFieldPrecisionWanted.setColumns(10);
 
-        lblPrecisionConfidenceLimit = new JLabel("Precision Confidence Limit");
-        lblPrecisionConfidenceLimit.setToolTipText("Precision obtained with 95% confidence (assuming normal distribution)");
+        lblPrecisionConfidenceLimit = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.text")); //$NON-NLS-1$
+        lblPrecisionConfidenceLimit.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPrecisionConfidenceLimit.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionConfidenceLimit, "8, 6, right, default");
 
         textFieldPrecisionConfidenceLimit = new JTextField();
@@ -376,7 +376,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 // Panel: Actuators
         panelActuator = new JPanel();
         panelActuator.setBorder(new TitledBorder(null,
-                "Actuators", TitledBorder.LEADING, TitledBorder.TOP, null));
+                Translations.getString("BambooFeederAutoVisionConfigurationWizard.panelActuator.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelFields.add(panelActuator);
         panelActuator.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -399,21 +399,21 @@ extends AbstractReferenceFeederConfigurationWizard {
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblActuator = new JLabel("Actuator");
+        lblActuator = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblActuator.text")); //$NON-NLS-1$
         panelActuator.add(lblActuator, "4, 2, center, default");
 
-        lblActuatorValue = new JLabel("Actuator Value");
+        lblActuatorValue = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblActuatorValue.text")); //$NON-NLS-1$
         panelActuator.add(lblActuatorValue, "6, 2, center, default");
 
-        lblFeed = new JLabel("Feed");
+        lblFeed = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeed.text")); //$NON-NLS-1$
         panelActuator.add(lblFeed, "2, 4, right, default");
-        lblFeed.setToolTipText("Select the actuator for the feed action");
+        lblFeed.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeed.toolTipText")); //$NON-NLS-1$
 
 
         comboBoxFeedActuator = new JComboBox();
         comboBoxFeedActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
         panelActuator.add(comboBoxFeedActuator, "4, 4, fill, default");
-        comboBoxFeedActuator.setToolTipText("Select the actuator for the feed action");
+        comboBoxFeedActuator.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.comboBoxFeedActuator.toolTipText")); //$NON-NLS-1$
 
 
         feedActuatorValue = new JTextField();
@@ -425,7 +425,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         btnTestFeedActuator.setToolTipText("<html>Do atomic feed, i.e. not full feed based on <i>Part&Feed pitch</i>.</html>");
         panelActuator.add(btnTestFeedActuator, "8, 4");
 
-        lblPostPick = new JLabel("Post Pick");
+        lblPostPick = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPostPick.text")); //$NON-NLS-1$
         panelActuator.add(lblPostPick, "2, 6, right, default");
         lblPostPick.setToolTipText("<html>\r\n<p>Select the actuator for the post pick action<br/>\r\nThis is optional: blank selection will skip the post pick operation\r\n</p></html>");
 
@@ -445,13 +445,13 @@ extends AbstractReferenceFeederConfigurationWizard {
         btnTestPostPickActuator = new JButton(testPostPickActuatorAction);
         panelActuator.add(btnTestPostPickActuator, "8, 6");
 
-        lblMoveBeforeFeed = new JLabel("Move before feed");
+        lblMoveBeforeFeed = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.text")); //$NON-NLS-1$
         panelActuator.add(lblMoveBeforeFeed, "2, 8, right, default");
-        lblMoveBeforeFeed.setToolTipText("Move nozzle to pick location before actuating the feed actuator");
+        lblMoveBeforeFeed.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblMoveBeforeFeed.toolTipText")); //$NON-NLS-1$
 
         ckBoxMoveBeforeFeed = new JCheckBox();
         panelActuator.add(ckBoxMoveBeforeFeed, "4, 8, left, default");
-        ckBoxMoveBeforeFeed.setToolTipText("Move nozzle to pick location before actuating the feed actuator");
+        ckBoxMoveBeforeFeed.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.ckBoxMoveBeforeFeed.toolTipText")); //$NON-NLS-1$
 
 // Panel End: Actuators
 

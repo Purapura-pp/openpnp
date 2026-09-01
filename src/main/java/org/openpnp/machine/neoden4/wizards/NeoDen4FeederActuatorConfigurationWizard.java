@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.DriversComboBoxModel;
 import org.openpnp.gui.support.IntegerConverter;
@@ -89,7 +90,7 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
     @Override 
     protected void createUi(AbstractMachine machine) {
         panelProperties = new JPanel();
-        panelProperties.setBorder(new TitledBorder(null, "Properties", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelProperties.setBorder(new TitledBorder(null, Translations.getString("NeoDen4FeederActuatorConfigurationWizard.panelProperties.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelProperties);
         panelProperties.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -128,13 +129,13 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
                 FormSpecs.DEFAULT_ROWSPEC
         }));
         
-        lblDriver = new JLabel("Driver");
+        lblDriver = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblDriver.text")); //$NON-NLS-1$
         panelProperties.add(lblDriver, "2, 2, right, default");
         
         driver = new JComboBox(new DriversComboBoxModel(machine, true));
         panelProperties.add(driver, "4, 2, fill, default");
         
-        lblName = new JLabel("Name");
+        lblName = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblName.text")); //$NON-NLS-1$
         panelProperties.add(lblName, "2, 4, right, default");
         
         nameTf = new JTextField();
@@ -144,42 +145,42 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
         
         //===================
         
-        lblPeelerId = new JLabel("Peeler ID");
+        lblPeelerId = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblPeelerId.text")); //$NON-NLS-1$
         panelProperties.add(lblPeelerId, "2, 6, right, default");
         
         peelerIdTextField = new JTextField();
         panelProperties.add(peelerIdTextField, "4, 6, fill, default");
         peelerIdTextField.setColumns(16);
         
-        lblFeederId = new JLabel("Feeder ID");
+        lblFeederId = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblFeederId.text")); //$NON-NLS-1$
         panelProperties.add(lblFeederId, "2, 8, right, default");
         
         feederIdTextField = new JTextField();
         panelProperties.add(feederIdTextField, "4, 8, fill, default");
         feederIdTextField.setColumns(16);     
         
-        lblFeedStrength = new JLabel("Feed Strength");
+        lblFeedStrength = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblFeedStrength.text")); //$NON-NLS-1$
         panelProperties.add(lblFeedStrength, "2, 10, right, default");
         
         feedStrengthTextField = new JTextField();
         panelProperties.add(feedStrengthTextField, "4, 10, fill, default");
         feedStrengthTextField.setColumns(16);     
         
-        lblPeelStrength = new JLabel("Peel Strength");
+        lblPeelStrength = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblPeelStrength.text")); //$NON-NLS-1$
         panelProperties.add(lblPeelStrength, "2, 12, right, default");
         
         peelStrengthTextField = new JTextField();
         panelProperties.add(peelStrengthTextField, "4, 12, fill, default");
         peelStrengthTextField.setColumns(16);
         
-        lblFeedLength = new JLabel("Feed length");
+        lblFeedLength = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblFeedLength.text")); //$NON-NLS-1$
         panelProperties.add(lblFeedLength, "2, 14, right, default");
         
         feedLengthTextField = new JTextField();
         panelProperties.add(feedLengthTextField, "4, 14, fill, default");
         feedLengthTextField.setColumns(16);
         
-        lblPeelLength = new JLabel("Peel length");
+        lblPeelLength = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblPeelLength.text")); //$NON-NLS-1$
         panelProperties.add(lblPeelLength, "2, 16, right, default");
         
         peelLengthTextField = new JTextField();
@@ -190,7 +191,7 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
         panelProperties.add(lblPeelLengthPercent, "6, 16, right, default");
         
         
-        lblChangeId = new JLabel("Change Feeder ID");
+        lblChangeId = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.lblChangeId.text")); //$NON-NLS-1$
         panelProperties.add(lblChangeId, "2, 18, right, default");
         
         lblChangeIdNote = new JLabel("(Stored in Feeder NVMEM)");
@@ -200,7 +201,7 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
         for(int i = 0; i <= 99; i++) {
             newId.addItem(i);        }
 
-        lblNewText = new JLabel("New ID");
+        lblNewText = new JLabel(Translations.getString("NeoDen4FeederActuatorConfigurationWizard.NewID.text")); //$NON-NLS-1$
         panelProperties.add(lblNewText, "6, 18, right, default");
         
         panelProperties.add(newId, "8, 18, fill, default");

@@ -22,6 +22,7 @@ package org.openpnp.machine.reference.vision.wizards;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.machine.reference.vision.OpenCvVisionProvider;
 
@@ -35,7 +36,7 @@ public class OpenCvVisionProviderConfigurationWizard extends AbstractConfigurati
         this.visionProvider = visionProvider;
 
         JLabel lblOpencvvisionproviderconfigurationwizardPlaceholder =
-                new JLabel("OpenCvVisionProviderConfigurationWizard Placeholder");
+                new JLabel(Translations.getString("OpenCvVisionProviderConfigurationWizard.lblOpencvvisionproviderconfigurationwizardPlaceholder.text")); //$NON-NLS-1$
         contentPanel.add(lblOpencvvisionproviderconfigurationwizardPlaceholder);
     }
 

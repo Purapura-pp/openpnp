@@ -92,7 +92,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         this.feeder = feeder;
         
         JPanel slotPanel = new JPanel();
-        slotPanel.setBorder(new TitledBorder(null, "Slot", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        slotPanel.setBorder(new TitledBorder(null, Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.slotPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(slotPanel);
         slotPanel.setLayout(new BoxLayout(slotPanel, BoxLayout.Y_AXIS));
         
@@ -142,14 +142,14 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         JButton deleteFeederBtn = new JButton(deleteFeederAction);
         panel_1.add(deleteFeederBtn);
         
-        JLabel lblPickRetryCount = new JLabel("Pick Retry Count");
+        JLabel lblPickRetryCount = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblPickRetryCount.text")); //$NON-NLS-1$
         whateverPanel.add(lblPickRetryCount, "2, 10, right, default");
         
         pickRetryCount = new JTextField();
         pickRetryCount.setColumns(10);
         whateverPanel.add(pickRetryCount, "4, 10, fill, default");
         
-        JLabel lblBank = new JLabel("Bank");
+        JLabel lblBank = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblBank.text")); //$NON-NLS-1$
         whateverPanel.add(lblBank, "2, 12, right, default");
         
         bankCb = new JComboBox();
@@ -165,14 +165,14 @@ public class ReferenceSlotAutoFeederConfigurationWizard
             }
         });
         
-        JLabel lblFeeder = new JLabel("Feeder");
+        JLabel lblFeeder = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblFeeder.text")); //$NON-NLS-1$
         whateverPanel.add(lblFeeder, "2, 2, right, default");
         
         feederCb = new JComboBox();
         whateverPanel.add(feederCb, "4, 2, 3, 1");
         
         JPanel feederPanel = new JPanel();
-        feederPanel.setBorder(new TitledBorder(null, "Feeder", TitledBorder.LEADING, TitledBorder.TOP, null));
+        feederPanel.setBorder(new TitledBorder(null, Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.feederPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(feederPanel);
         FormLayout fl_feederPanel = new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -206,10 +206,10 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         JLabel lblZ_1 = new JLabel("Z");
         feederPanel.add(lblZ_1, "8, 2");
         
-        JLabel lblRotation_1 = new JLabel("Rotation");
+        JLabel lblRotation_1 = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblRotation_1.text")); //$NON-NLS-1$
         feederPanel.add(lblRotation_1, "10, 2");
         
-        JLabel lblOffsets = new JLabel("Offsets");
+        JLabel lblOffsets = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblOffsets.text")); //$NON-NLS-1$
         feederPanel.add(lblOffsets, "2, 4");
         
         xOffsetTf = new JTextField();
@@ -231,7 +231,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         offsetLocButtons = new LocationButtonsPanel(xOffsetTf, yOffsetTf, zOffsetTf, rotOffsetTf);
         feederPanel.add(offsetLocButtons, "12, 4");
         
-        JLabel lblPart = new JLabel("Part");
+        JLabel lblPart = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblPart.text")); //$NON-NLS-1$
         feederPanel.add(lblPart, "2, 6, right, default");
         
         feederPartCb = new JComboBox();
@@ -241,7 +241,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
 
         JPanel panelActuator = new JPanel();
         panelActuator.setBorder(new TitledBorder(null,
-                "Actuators", TitledBorder.LEADING, TitledBorder.TOP, null));
+                Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.panelActuator.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(panelActuator);
         panelActuator.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -264,13 +264,13 @@ public class ReferenceSlotAutoFeederConfigurationWizard
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        JLabel lblActuator = new JLabel("Actuator");
+        JLabel lblActuator = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblActuator.text")); //$NON-NLS-1$
         panelActuator.add(lblActuator, "4, 2, left, default");
 
-        JLabel lblActuatorValue = new JLabel("Actuator Value");
+        JLabel lblActuatorValue = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblActuatorValue.text")); //$NON-NLS-1$
         panelActuator.add(lblActuatorValue, "6, 2, left, default");
 
-        JLabel lblFeed = new JLabel("Feed");
+        JLabel lblFeed = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblFeed.text")); //$NON-NLS-1$
         panelActuator.add(lblFeed, "2, 4, right, default");
 
         comboBoxFeedActuator = new JComboBox();
@@ -281,13 +281,13 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         panelActuator.add(actuatorValue, "6, 4");
         actuatorValue.setColumns(10);
         
-        JLabel lblForBoolean = new JLabel("For Boolean: 1 = True, 0 = False");
+        JLabel lblForBoolean = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean.text")); //$NON-NLS-1$
         panelActuator.add(lblForBoolean, "8, 4");
 
         btnTestFeedActuator = new JButton(testFeedActuatorAction);
         panelActuator.add(btnTestFeedActuator, "10, 4");
 
-        JLabel lblPostPick = new JLabel("Post Pick");
+        JLabel lblPostPick = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblPostPick.text")); //$NON-NLS-1$
         panelActuator.add(lblPostPick, "2, 6, right, default");
 
         comboBoxPostPickActuator = new JComboBox();
@@ -298,15 +298,15 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         postPickActuatorValue.setColumns(10);
         panelActuator.add(postPickActuatorValue, "6, 6");
         
-        JLabel lblForBoolean_1 = new JLabel("For Boolean: 1 = True, 0 = False");
+        JLabel lblForBoolean_1 = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblForBoolean_1.text")); //$NON-NLS-1$
         panelActuator.add(lblForBoolean_1, "8, 6");
 
         btnTestPostPickActuator = new JButton(testPostPickActuatorAction);
         panelActuator.add(btnTestPostPickActuator, "10, 6");
         
-        JLabel lblMoveBeforeFeed = new JLabel("Move before feed");
+        JLabel lblMoveBeforeFeed = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblMoveBeforeFeed.text")); //$NON-NLS-1$
         panelActuator.add(lblMoveBeforeFeed, "2, 8, right, default");
-        lblMoveBeforeFeed.setToolTipText("Move nozzle to pick location before actuating feed actuator");
+        lblMoveBeforeFeed.setToolTipText(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblMoveBeforeFeed.toolTipText")); //$NON-NLS-1$
         
         ckBoxMoveBeforeFeed = new JCheckBox();
         panelActuator.add(ckBoxMoveBeforeFeed, "4, 8, left, default");
@@ -332,10 +332,10 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         JLabel lblZ = new JLabel("Z");
         whateverPanel.add(lblZ, "8, 4, center, default");
         
-        JLabel lblRotation = new JLabel("Rotation");
+        JLabel lblRotation = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
         whateverPanel.add(lblRotation, "10, 4, center, default");
         
-        JLabel lblPickLocation = new JLabel("Location");
+        JLabel lblPickLocation = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblPickLocation.text")); //$NON-NLS-1$
         whateverPanel.add(lblPickLocation, "2, 6, right, default");
         
         xPickLocTf = new JTextField();
@@ -357,7 +357,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         rotPickLocTf.setColumns(10);
         whateverPanel.add(pickLocButtons, "12, 6");
         
-        JLabel lblRetryCount = new JLabel("Feed Retry Count");
+        JLabel lblRetryCount = new JLabel(Translations.getString("ReferenceSlotAutoFeederConfigurationWizard.lblRetryCount.text")); //$NON-NLS-1$
         whateverPanel.add(lblRetryCount, "2, 8, right, default");
         
         retryCountTf = new JTextField();

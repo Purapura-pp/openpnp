@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.axis.ReferenceCamCounterClockwiseAxis;
@@ -51,7 +52,7 @@ public class ReferenceCamClockwiseAxisConfigurationWizard extends AbstractAxisCo
     public ReferenceCamClockwiseAxisConfigurationWizard(AbstractMachine machine, ReferenceCamClockwiseAxis axis) {
         super(axis);
         panelTransformation = new JPanel();
-        panelTransformation.setBorder(new TitledBorder(null, "Cam Clockwise Axis", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceCamClockwiseAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
         panelTransformation.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -84,7 +85,7 @@ public class ReferenceCamClockwiseAxisConfigurationWizard extends AbstractAxisCo
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblInputAxis = new JLabel("Counter-Clockwise Axis");
+        lblInputAxis = new JLabel(Translations.getString("ReferenceCamClockwiseAxisConfigurationWizard.lblInputAxis.text")); //$NON-NLS-1$
         panelTransformation.add(lblInputAxis, "2, 2, right, default");
 
         inputAxisModel = new AxesComboBoxModel(machine, ReferenceCamCounterClockwiseAxis.class, null, true);

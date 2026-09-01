@@ -116,7 +116,7 @@ public class ReferenceHeapFeederConfigurationWizard
         this.feeder = feeder;
         
         JPanel heapPanel = new JPanel();
-        heapPanel.setBorder(new TitledBorder(null, "Heap", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        heapPanel.setBorder(new TitledBorder(null, Translations.getString("ReferenceHeapFeederConfigurationWizard.heapPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(heapPanel);
         heapPanel.setLayout(new BoxLayout(heapPanel, BoxLayout.Y_AXIS));
         
@@ -176,7 +176,7 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout_1.setAlignment(FlowLayout.LEFT);
         whateverPanel.add(panel_1, "11, 2");
         
-        JLabel lblDropBox = new JLabel("DropBox");
+        JLabel lblDropBox = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDropBox.text")); //$NON-NLS-1$
         whateverPanel.add(lblDropBox, "2, 2, right, default");
         
         dropBoxCb = new JComboBox<DropBox>();
@@ -184,7 +184,7 @@ public class ReferenceHeapFeederConfigurationWizard
         whateverPanel.add(dropBoxCb, "4, 2, 2, 1");
         
         JPanel dropBoxPanel = new JPanel();
-        dropBoxPanel.setBorder(new TitledBorder(null, "DropBox", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        dropBoxPanel.setBorder(new TitledBorder(null, Translations.getString("ReferenceHeapFeederConfigurationWizard.dropBoxPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0))); //$NON-NLS-1$
         contentPanel.add(dropBoxPanel);
         FormLayout fl_dropBoxPanel = new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -225,7 +225,7 @@ public class ReferenceHeapFeederConfigurationWizard
         JLabel lblZ_1 = new JLabel("Z");
         dropBoxPanel.add(lblZ_1, "8, 2");
         
-        JLabel lblDropBoxCenterBottom = new JLabel("Center Bottom");
+        JLabel lblDropBoxCenterBottom = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDropBoxCenterBottom.text")); //$NON-NLS-1$
         dropBoxPanel.add(lblDropBoxCenterBottom, "2, 4, right, default");
         
         tfCenterBottomLocation_x = new JTextField();
@@ -245,7 +245,7 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout_5.setAlignment(FlowLayout.LEFT);
         dropBoxPanel.add(dropBoxLocButtons, "10, 4, default, fill");
         
-        lblDropLocation = new JLabel("Drop Location");
+        lblDropLocation = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDropLocation.text")); //$NON-NLS-1$
         dropBoxPanel.add(lblDropLocation, "2, 6");
         
         tfDropLocation_x = new JTextField();
@@ -265,7 +265,7 @@ public class ReferenceHeapFeederConfigurationWizard
         fl_dropBoxDropLocButtons.setAlignment(FlowLayout.LEFT);
         dropBoxPanel.add(dropBoxDropLocButtons, "10, 6, left, fill");
         
-        lblPartsPipeline = new JLabel("Parts Pipeline");
+        lblPartsPipeline = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblPartsPipeline.text")); //$NON-NLS-1$
         dropBoxPanel.add(lblPartsPipeline, "2, 8, right, default");
         
         btnEditPartsPipeline = new JButton(actionPipelineEditDropBox);
@@ -274,14 +274,14 @@ public class ReferenceHeapFeederConfigurationWizard
         btnResetPartsPipeline = new JButton(actionPipelineResetDropBox);
         dropBoxPanel.add(btnResetPartsPipeline, "6, 8");
         
-        lblDummyPart = new JLabel("Dummy Part");
+        lblDummyPart = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDummyPart.text")); //$NON-NLS-1$
         lblDummyPart.setToolTipText("");
         dropBoxPanel.add(lblDummyPart, "2, 10, right, default");
         
         cbDummyPartForUnknownParts = new JComboBox<Part>();
         cbDummyPartForUnknownParts.setModel(new PartsComboBoxModel());
         cbDummyPartForUnknownParts.setRenderer(new IdentifiableListCellRenderer<Part>());
-        cbDummyPartForUnknownParts.setToolTipText("Dummy part for moving unknown parts (e.g. to the trash). Is also used to determine the used nozzle.");
+        cbDummyPartForUnknownParts.setToolTipText(Translations.getString("ReferenceHeapFeederConfigurationWizard.cbDummyPartForUnknownParts.toolTipText")); //$NON-NLS-1$
         dropBoxPanel.add(cbDummyPartForUnknownParts, "4, 10, fill, default");
         
         btnCleanDropbox = new JButton(actionCleanDropbox);
@@ -296,7 +296,7 @@ public class ReferenceHeapFeederConfigurationWizard
         JLabel lblZ = new JLabel("Z");
         whateverPanel.add(lblZ, "8, 4, center, default");
         
-        JLabel lblHeapCenter = new JLabel("Center (Top)");
+        JLabel lblHeapCenter = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblHeapCenter.text")); //$NON-NLS-1$
         whateverPanel.add(lblHeapCenter, "2, 6, right, default");
         
         tfCenter_x = new JTextField();
@@ -316,7 +316,7 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout.setAlignment(FlowLayout.LEFT);
         whateverPanel.add(centerLocButtons, "10, 6");
         
-        JLabel lblMove1 = new JLabel("Move 1");
+        JLabel lblMove1 = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblMove1.text")); //$NON-NLS-1$
         whateverPanel.add(lblMove1, "2, 8, right, default");
         
         tfMove1_x = new JTextField();
@@ -332,7 +332,7 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout_2.setAlignment(FlowLayout.LEFT);
         whateverPanel.add(move1LocButtons, "10, 8, fill, default");
         
-        JLabel lblMove2 = new JLabel("Move 2");
+        JLabel lblMove2 = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblMove2.text")); //$NON-NLS-1$
         whateverPanel.add(lblMove2, "2, 10, right, default");
         
         tfMove2_x = new JTextField();
@@ -348,7 +348,7 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout_3.setAlignment(FlowLayout.LEFT);
         whateverPanel.add(move2LocButtons, "10, 10, fill, fill");
         
-        JLabel lblMove3 = new JLabel("Move 3");
+        JLabel lblMove3 = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblMove3.text")); //$NON-NLS-1$
         whateverPanel.add(lblMove3, "2, 12, right, default");
         
         tfMove3_x = new JTextField();
@@ -364,28 +364,28 @@ public class ReferenceHeapFeederConfigurationWizard
         flowLayout_4.setAlignment(FlowLayout.LEFT);
         whateverPanel.add(move3LocButtons, "10, 12, fill, fill");
         
-        JLabel lblFeedRetryCount = new JLabel("Feed Retry Count");
+        JLabel lblFeedRetryCount = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblFeedRetryCount.text")); //$NON-NLS-1$
         whateverPanel.add(lblFeedRetryCount, "2, 14, right, default");
         
         retryCountTf = new JTextField();
         whateverPanel.add(retryCountTf, "4, 14");
         retryCountTf.setColumns(10);
         
-        lblDepth = new JLabel("Depth");
+        lblDepth = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDepth.text")); //$NON-NLS-1$
         whateverPanel.add(lblDepth, "6, 14, right, default");
         
         binDepthTf = new JTextField();
         whateverPanel.add(binDepthTf, "8, 14, fill, default");
         binDepthTf.setColumns(10);
         
-        JLabel lblPickRetryCount = new JLabel("Pick Retry Count");
+        JLabel lblPickRetryCount = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblPickRetryCount.text")); //$NON-NLS-1$
         whateverPanel.add(lblPickRetryCount, "2, 16, right, default");
         
         pickRetryCount = new JTextField();
         pickRetryCount.setColumns(10);
         whateverPanel.add(pickRetryCount, "4, 16, fill, default");
         
-        lblLastFeedDepth = new JLabel("Last Feed Depth");
+        lblLastFeedDepth = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblLastFeedDepth.text")); //$NON-NLS-1$
         whateverPanel.add(lblLastFeedDepth, "6, 16, right, default");
         
         lastFeedDepthTf = new JTextField();
@@ -395,22 +395,22 @@ public class ReferenceHeapFeederConfigurationWizard
         btnResetLastFeedDepth = new JButton(actionLastFeedDepthReset);
         whateverPanel.add(btnResetLastFeedDepth, "10, 16");
         
-        JLabel lblFlipAttempts = new JLabel("Max flip attempts");
+        JLabel lblFlipAttempts = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblFlipAttempts.text")); //$NON-NLS-1$
         whateverPanel.add(lblFlipAttempts, "2, 18, right, default");
         
         maxFlipAttemptsTf = new JTextField();
-        maxFlipAttemptsTf.setToolTipText("After this numer of feed, mark the parts as disposable. So the next feed is done with new parts.");
+        maxFlipAttemptsTf.setToolTipText(Translations.getString("ReferenceHeapFeederConfigurationWizard.maxFlipAttemptsTf.toolTipText")); //$NON-NLS-1$
         whateverPanel.add(maxFlipAttemptsTf, "4, 18, fill, default");
         maxFlipAttemptsTf.setColumns(10);
         
-        lblVacuumDifference = new JLabel("Vacuum Difference");
+        lblVacuumDifference = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblVacuumDifference.text")); //$NON-NLS-1$
         whateverPanel.add(lblVacuumDifference, "6, 18, right, default");
         
         vacuumDifferenceTf = new JTextField();
         whateverPanel.add(vacuumDifferenceTf, "8, 18, fill, default");
         vacuumDifferenceTf.setColumns(10);
         
-        JLabel lblPart = new JLabel("Part");
+        JLabel lblPart = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblPart.text")); //$NON-NLS-1$
         whateverPanel.add(lblPart, "2, 20, right, default");
         
         partCb = new JComboBox<Part>();
@@ -418,11 +418,11 @@ public class ReferenceHeapFeederConfigurationWizard
         partCb.setRenderer(new IdentifiableListCellRenderer<Part>());
         whateverPanel.add(partCb, "4, 20");
         
-        chckbxPokeForParts = new JCheckBox("Poke for Parts");
-        chckbxPokeForParts.setToolTipText("If enabled the nozzle is lifted for each move inside the heap. Reduces the risk to damage (large) parts, but slower.");
+        chckbxPokeForParts = new JCheckBox(Translations.getString("ReferenceHeapFeederConfigurationWizard.chckbxPokeForParts.text")); //$NON-NLS-1$
+        chckbxPokeForParts.setToolTipText(Translations.getString("ReferenceHeapFeederConfigurationWizard.chckbxPokeForParts.toolTipText")); //$NON-NLS-1$
         whateverPanel.add(chckbxPokeForParts, "8, 20");
         
-        lblDetectionPipeline = new JLabel("Detection Pipeline");
+        lblDetectionPipeline = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblDetectionPipeline.text")); //$NON-NLS-1$
         whateverPanel.add(lblDetectionPipeline, "2, 22");
         
         btnEditDetectionPipeline = new JButton(actionPipelineEditFeeder);
@@ -431,7 +431,7 @@ public class ReferenceHeapFeederConfigurationWizard
         btnResetDetectionPipeline = new JButton(actionPipelineResetFeeder);
         whateverPanel.add(btnResetDetectionPipeline, "6, 22");
         
-        lblTemplatePipeline = new JLabel("Template Pipeline");
+        lblTemplatePipeline = new JLabel(Translations.getString("ReferenceHeapFeederConfigurationWizard.lblTemplatePipeline.text")); //$NON-NLS-1$
         whateverPanel.add(lblTemplatePipeline, "2, 24");
         
         btnEditTemplatePipeline = new JButton(actionPipelineEditTraining);

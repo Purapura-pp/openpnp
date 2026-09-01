@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.machine.reference.ScriptActuator;
 import org.openpnp.spi.base.AbstractMachine;
@@ -49,7 +50,7 @@ public class ScriptActuatorConfigurationWizard extends AbstractActuatorConfigura
     @Override 
     protected void createUi(AbstractMachine machine) {
         panelProperties = new JPanel();
-        panelProperties.setBorder(new TitledBorder(null, "Properties", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelProperties.setBorder(new TitledBorder(null, Translations.getString("ScriptActuatorConfigurationWizard.panelProperties.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelProperties);
         panelProperties.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -62,14 +63,14 @@ public class ScriptActuatorConfigurationWizard extends AbstractActuatorConfigura
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblName = new JLabel("Name");
+        lblName = new JLabel(Translations.getString("ScriptActuatorConfigurationWizard.lblName.text")); //$NON-NLS-1$
         panelProperties.add(lblName, "2, 2, right, default");
 
         nameTf = new JTextField();
         panelProperties.add(nameTf, "4, 2, fill, default");
         nameTf.setColumns(20);
 
-        lblScriptName = new JLabel("Script Name");
+        lblScriptName = new JLabel(Translations.getString("ScriptActuatorConfigurationWizard.lblScriptName.text")); //$NON-NLS-1$
         panelProperties.add(lblScriptName, "2, 4, right, default");
 
         scriptNameTf = new JTextField();

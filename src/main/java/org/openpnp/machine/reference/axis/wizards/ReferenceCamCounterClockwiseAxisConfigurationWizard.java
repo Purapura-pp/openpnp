@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.DoubleConverter;
@@ -69,7 +70,7 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
     public ReferenceCamCounterClockwiseAxisConfigurationWizard(AbstractMachine machine, ReferenceCamCounterClockwiseAxis axis) {
         super(axis);
         panelTransformation = new JPanel();
-        panelTransformation.setBorder(new TitledBorder(null, "Cam Counter-Clockwise Axis", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
         panelTransformation.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -94,21 +95,21 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("bottom:default"),}));
         
-        lblInputAxis = new JLabel("Input Axis");
+        lblInputAxis = new JLabel(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblInputAxis.text")); //$NON-NLS-1$
         panelTransformation.add(lblInputAxis, "2, 2, right, default");
         inputAxisModel = new AxesComboBoxModel(machine, AbstractControllerAxis.class, null, true);
         inputAxis = new JComboBox(inputAxisModel);
         panelTransformation.add(inputAxis, "4, 2, fill, default");
         
-        lblCamRadius = new JLabel("Cam Radius");
+        lblCamRadius = new JLabel(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamRadius.text")); //$NON-NLS-1$
         panelTransformation.add(lblCamRadius, "2, 4, right, default");
         
         camRadius = new JTextField();
         panelTransformation.add(camRadius, "4, 4, fill, default");
         camRadius.setColumns(10);
         
-        lblArmsAngle = new JLabel("Cam Arms Angle");
-        lblArmsAngle.setToolTipText("Angle between the two arms");
+        lblArmsAngle = new JLabel(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblArmsAngle.text")); //$NON-NLS-1$
+        lblArmsAngle.setToolTipText(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblArmsAngle.toolTipText")); //$NON-NLS-1$
         panelTransformation.add(lblArmsAngle, "2, 6, right, default");
         
         camArmsAngle = new JTextField();
@@ -118,7 +119,7 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
                 labelSpacer = new JLabel(" ");
                 panelTransformation.add(labelSpacer, "6, 6");
         
-        lblCamWheelRadius = new JLabel("Cam Wheel Radius");
+        lblCamWheelRadius = new JLabel(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamWheelRadius.text")); //$NON-NLS-1$
         lblCamWheelRadius.setEnabled(false);
         panelTransformation.add(lblCamWheelRadius, "2, 8, right, default");
         
@@ -130,7 +131,7 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
         lblDeprecated2.setForeground(Color.RED);
         panelTransformation.add(lblDeprecated2, "6, 8, 1, 3");
         
-        lblCamWheelGap = new JLabel("Cam Wheel Gap");
+        lblCamWheelGap = new JLabel(Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.lblCamWheelGap.text")); //$NON-NLS-1$
         lblCamWheelGap.setEnabled(false);
         panelTransformation.add(lblCamWheelGap, "2, 10, right, default");
         

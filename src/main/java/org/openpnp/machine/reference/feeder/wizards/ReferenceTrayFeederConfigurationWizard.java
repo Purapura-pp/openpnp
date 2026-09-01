@@ -87,7 +87,7 @@ public class ReferenceTrayFeederConfigurationWizard
         JLabel lblY = new JLabel("Y");
         panelFields.add(lblY, "6, 2");
 
-        JLabel lblFeedStartLocation = new JLabel("Offsets");
+        JLabel lblFeedStartLocation = new JLabel(Translations.getString("ReferenceTrayFeederConfigurationWizard.lblFeedStartLocation.text")); //$NON-NLS-1$
         panelFields.add(lblFeedStartLocation, "2, 4, right, default");
 
         textFieldOffsetsX = new JTextField();
@@ -98,7 +98,7 @@ public class ReferenceTrayFeederConfigurationWizard
         panelFields.add(textFieldOffsetsY, "6, 4, 2, 1, fill, default");
         textFieldOffsetsY.setColumns(10);
 
-        JLabel lblTrayCount = new JLabel("Tray Count");
+        JLabel lblTrayCount = new JLabel(Translations.getString("ReferenceTrayFeederConfigurationWizard.lblTrayCount.text")); //$NON-NLS-1$
         panelFields.add(lblTrayCount, "2, 6, right, default");
 
         textFieldTrayCountX = new JTextField();
@@ -112,7 +112,7 @@ public class ReferenceTrayFeederConfigurationWizard
         JSeparator separator = new JSeparator();
         panelFields.add(separator, "4, 8, 4, 1");
 
-        JLabel lblFeedCount = new JLabel("Feed Count");
+        JLabel lblFeedCount = new JLabel(Translations.getString("ReferenceTrayFeederConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
         panelFields.add(lblFeedCount, "2, 10, right, default");
 
         textFieldFeedCount = new JTextField();

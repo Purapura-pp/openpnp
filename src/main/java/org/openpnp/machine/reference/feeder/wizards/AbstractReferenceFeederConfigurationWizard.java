@@ -165,7 +165,7 @@ public abstract class AbstractReferenceFeederConfigurationWizard
             lblZ = new JLabel("Z");
             panelLocation.add(lblZ, "6, 2");
 
-            lblRotation = new JLabel("Rotation");
+            lblRotation = new JLabel(Translations.getString("AbstractReferenceFeederConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
             panelLocation.add(lblRotation, "8, 2");
 
             textFieldLocationX = new JTextField();

@@ -109,7 +109,7 @@ class KicadPosImporterDialog extends JDialog {
 
         chckbxCreateMissingParts = new JCheckBox(Translations.getString("KicadPosImporterDialog.OptionsPanel.createMissingPartsChkbox.text")); //$NON-NLS-1$
         chckbxCreateMissingParts.setSelected(false);
-        chckbxCreateMissingParts.setToolTipText("PartId = 'Package'-'Value'"); //$NON-NLS-1$
+        chckbxCreateMissingParts.setToolTipText(Translations.getString("KicadPosImporterDialog.chckbxCreateMissingParts.toolTipText")); //$NON-NLS-1$ //$NON-NLS-2$
         panel_1.add(chckbxCreateMissingParts, "2, 4"); //$NON-NLS-1$
 
         chckbxUseValueOnlyAsPartId = new JCheckBox(Translations.getString("KicadPosImporterDialog.OptionsPanel.useValueOnlyAsPartIdChkbox.text")); //$NON-NLS-1$

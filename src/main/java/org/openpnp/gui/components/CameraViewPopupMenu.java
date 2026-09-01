@@ -123,7 +123,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
                 == CameraView.zoomIncrements.get(ZoomSensitivity.High)) {
             menuItem.setSelected(true);
         }
-        menuItem.setToolTipText("One mouse wheel tick changes the zoom by 2x.");
+        menuItem.setToolTipText(Translations.getString("CameraViewPopupMenu.menuItem.toolTipText")); //$NON-NLS-1$
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,7 +138,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
                 == CameraView.zoomIncrements.get(ZoomSensitivity.Medium)) {
             menuItem.setSelected(true);
         }
-        menuItem.setToolTipText("Two mouse wheel ticks change the zoom by 2x.");
+        menuItem.setToolTipText(Translations.getString("CameraViewPopupMenu.menuItem2.toolTipText")); //$NON-NLS-1$
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -153,7 +153,7 @@ public class CameraViewPopupMenu extends JPopupMenu {
                 == CameraView.zoomIncrements.get(ZoomSensitivity.Low)) {
             menuItem.setSelected(true);
         }
-        menuItem.setToolTipText("Four mouse wheel ticks change the zoom by 2x.");
+        menuItem.setToolTipText(Translations.getString("CameraViewPopupMenu.menuItem3.toolTipText")); //$NON-NLS-1$
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

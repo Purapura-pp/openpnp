@@ -86,7 +86,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         this.feeder = feeder;
 
         panelLocations = new JPanel();
-        panelLocations.setBorder(new TitledBorder(null, "Locations", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("ReferencePushPullFeederConfigurationWizard.panelLocations.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         contentPanel.add(panelLocations);
@@ -120,7 +120,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
         btnShowVisionFeatures = new JButton(showVisionFeaturesAction);
-        btnShowVisionFeatures.setToolTipText("Preview the features recognized by Computer Vision.");
+        btnShowVisionFeatures.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.btnShowVisionFeatures.toolTipText")); //$NON-NLS-1$
         btnShowVisionFeatures.setText("Preview Vision Features");
         panelLocations.add(btnShowVisionFeatures, "2, 2, default, fill");
 
@@ -139,7 +139,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         lblZ_1 = new JLabel("Z");
         panelLocations.add(lblZ_1, "8, 4");
 
-        lblPickLocation = new JLabel("Pick Location");
+        lblPickLocation = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPickLocation.text")); //$NON-NLS-1$
         lblPickLocation.setToolTipText("<html>Pick Location of the part. If multiple are produced by a feed operation<br/>\r\nthis must be the last one picked i.e. the one closest to the the tape reel.</html>");
         panelLocations.add(lblPickLocation, "2, 6, right, default");
 
@@ -158,15 +158,15 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelFirstPick = new LocationButtonsPanel(textFieldPickLocationX, textFieldPickLocationY, textFieldPickLocationZ, null);
         panelLocations.add(locationButtonsPanelFirstPick, "10, 6");
 
-        lblNormalizePickLocation = new JLabel("Normalize?");
-        lblNormalizePickLocation.setToolTipText("Normalize the pick location relative to the sprocket holes according to the EIA-481 standard.");
+        lblNormalizePickLocation = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblNormalizePickLocation.text")); //$NON-NLS-1$
+        lblNormalizePickLocation.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblNormalizePickLocation.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblNormalizePickLocation, "2, 8, right, default");
 
         checkBoxNormalizePickLocation = new JCheckBox("");
         panelLocations.add(checkBoxNormalizePickLocation, "4, 8");
         checkBoxNormalizePickLocation.setSelected(true);
 
-        lblHole1Location = new JLabel("Hole 1 Location");
+        lblHole1Location = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole1Location.text")); //$NON-NLS-1$
         lblHole1Location.setToolTipText("<html>Choose Hole 1 closer to the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
         panelLocations.add(lblHole1Location, "2, 10, right, default");
 
@@ -181,7 +181,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelHole1 = new LocationButtonsPanel(textFieldHole1LocationX, textFieldHole1LocationY, (JTextField) null, (JTextField) null);
         panelLocations.add(locationButtonsPanelHole1, "10, 10");
 
-        lblHole2Location = new JLabel("Hole 2 Location");
+        lblHole2Location = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole2Location.text")); //$NON-NLS-1$
         lblHole2Location.setToolTipText("<html>Choose Hole 2 further away from the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
         panelLocations.add(lblHole2Location, "2, 12, right, default");
 
@@ -196,20 +196,20 @@ extends AbstractReferenceFeederConfigurationWizard {
         locationButtonsPanelHole2 = new LocationButtonsPanel(textFieldHole2LocationX, textFieldHole2LocationY, (JTextField) null, (JTextField) null);
         panelLocations.add(locationButtonsPanelHole2, "10, 12");
 
-        lblSnapToAxis = new JLabel("Snap to Axis?");
-        lblSnapToAxis.setToolTipText("Snap rows of sprocket holes to the Axis parallel.");
+        lblSnapToAxis = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblSnapToAxis.text")); //$NON-NLS-1$
+        lblSnapToAxis.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblSnapToAxis.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblSnapToAxis, "2, 14, right, default");
 
         checkBoxSnapToAxis = new JCheckBox("");
-        checkBoxSnapToAxis.setToolTipText("Snap rows of sprocket holes to the Axis parallel.");
+        checkBoxSnapToAxis.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxSnapToAxis.toolTipText")); //$NON-NLS-1$
         panelLocations.add(checkBoxSnapToAxis, "4, 14");
         panelLocations = new JPanel();
-        panelLocations.setBorder(new TitledBorder(null, "Tape Settings", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("ReferencePushPullFeederConfigurationWizard.panelLocations2.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         panelTape = new JPanel();
         contentPanel.add(panelTape);
-        panelTape.setBorder(new TitledBorder(null, "Tape Settings", TitledBorder.LEADING, TitledBorder.TOP, null));
+        panelTape.setBorder(new TitledBorder(null, Translations.getString("ReferencePushPullFeederConfigurationWizard.panelTape.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelTape.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
                 FormSpecs.DEFAULT_COLSPEC,
@@ -229,16 +229,16 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblPartPitch = new JLabel("Part Pitch");
+        lblPartPitch = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPartPitch.text")); //$NON-NLS-1$
         panelTape.add(lblPartPitch, "2, 2, right, default");
-        lblPartPitch.setToolTipText("Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)");
+        lblPartPitch.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPartPitch.toolTipText")); //$NON-NLS-1$
 
         textFieldPartPitch = new JTextField();
         panelTape.add(textFieldPartPitch, "4, 2");
-        textFieldPartPitch.setToolTipText("Pitch of the parts in the tape (2mm, 4mm, 8mm, 12mm, etc.)");
+        textFieldPartPitch.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldPartPitch.toolTipText")); //$NON-NLS-1$
         textFieldPartPitch.setColumns(5);
 
-        lblRotation = new JLabel("Rotation in Tape");
+        lblRotation = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
         panelTape.add(lblRotation, "6, 2, right, default");
         lblRotation.setToolTipText("<html>Rotation of the part inside the tape as seen when the sprocket holes <br/>\r\nare on top. Your E-CAD part orientation is the reference.<br/>\r\nSee also: \r\n<ul>\r\n<li>EIA-481</li>\r\n<li>Component Zero Orientations for CAD Libraries</li>\r\n</ul>\r\n</html>");
 
@@ -247,35 +247,35 @@ extends AbstractReferenceFeederConfigurationWizard {
         textFieldRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
         textFieldRotationInTape.setColumns(10);
 
-        lblFeedPitch = new JLabel("Feed Pitch");
+        lblFeedPitch = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedPitch.text")); //$NON-NLS-1$
         panelTape.add(lblFeedPitch, "2, 4, right, default");
-        lblFeedPitch.setToolTipText("How much the tape will be advanced by one lever actuation (usually multiples of 4mm)");
+        lblFeedPitch.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedPitch.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedPitch = new JTextField();
         panelTape.add(textFieldFeedPitch, "4, 4");
-        textFieldFeedPitch.setToolTipText("How much the tape will be advanced by one lever actuation (usually multiples of 4mm)");
+        textFieldFeedPitch.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldFeedPitch.toolTipText")); //$NON-NLS-1$
         textFieldFeedPitch.setColumns(10);
 
-        lblMultiplier = new JLabel("Multiplier");
+        lblMultiplier = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblMultiplier.text")); //$NON-NLS-1$
         panelTape.add(lblMultiplier, "6, 4, right, default");
-        lblMultiplier.setToolTipText("To improve efficiency you can actuate the feeder multiple times to feed more parts per feed cycle.");
+        lblMultiplier.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblMultiplier.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedMultiplier = new JTextField();
         panelTape.add(textFieldFeedMultiplier, "8, 4");
-        textFieldFeedMultiplier.setToolTipText("To improve efficiency you can actuate the feeder multiple times to feed more parts per feed cycle.");
+        textFieldFeedMultiplier.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldFeedMultiplier.toolTipText")); //$NON-NLS-1$
         textFieldFeedMultiplier.setColumns(10);
 
         btnDiscardParts = new JButton(discardPartsAction);
         btnDiscardParts.setToolTipText("<html>Discard parts left over in the (multi-part) feed cycle.<br/>\r\nStarts with a fresh feed cycle including vision calibration (if enabled). \r\n</html>");
         panelTape.add(btnDiscardParts, "10, 4");
 
-        lblFeedCount = new JLabel("Feed Count");
+        lblFeedCount = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
         panelTape.add(lblFeedCount, "6, 6, right, default");
-        lblFeedCount.setToolTipText("Total feed count of the feeder.");
+        lblFeedCount.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedCount.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedCount = new JTextField();
         panelTape.add(textFieldFeedCount, "8, 6");
-        textFieldFeedCount.setToolTipText("Total feed count of the feeder.");
+        textFieldFeedCount.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldFeedCount.toolTipText")); //$NON-NLS-1$
         textFieldFeedCount.setColumns(10);
 
         btnReset = new JButton(resetFeedCountAction);
@@ -291,7 +291,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
         //
         panelVision = new JPanel();
-        panelVision.setBorder(new TitledBorder(null, "Vision", TitledBorder.LEADING,
+        panelVision.setBorder(new TitledBorder(null, Translations.getString("ReferencePushPullFeederConfigurationWizard.panelVision.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         contentPanel.add(panelVision);
         panelVision.setLayout(new BoxLayout(panelVision, BoxLayout.Y_AXIS));
@@ -331,23 +331,23 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblCalibrationTrigger = new JLabel("Calibration Trigger");
+        lblCalibrationTrigger = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCalibrationTrigger.text")); //$NON-NLS-1$
         panelVisionEnabled.add(lblCalibrationTrigger, "2, 2, right, default");
 
         comboBoxCalibrationTrigger = new JComboBox(ReferencePushPullFeeder.CalibrationTrigger.values());
         panelVisionEnabled.add(comboBoxCalibrationTrigger, "4, 2");
 
-        lblPrecisionAverage = new JLabel("Precision Average");
-        lblPrecisionAverage.setToolTipText("Obtained precision average i.e. offset of the pick location, as detected by the calibration");
+        lblPrecisionAverage = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionAverage.text")); //$NON-NLS-1$
+        lblPrecisionAverage.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionAverage.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionAverage, "8, 2, right, default");
 
         textFieldPrecisionAverage = new JTextField();
-        textFieldPrecisionAverage.setToolTipText("Obtained precision average i.e. offset of the pick location, as detected by the calibration");
+        textFieldPrecisionAverage.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldPrecisionAverage.toolTipText")); //$NON-NLS-1$
         textFieldPrecisionAverage.setEditable(false);
         panelVisionEnabled.add(textFieldPrecisionAverage, "10, 2");
         textFieldPrecisionAverage.setColumns(10);
 
-        lblCalibrationCount = new JLabel("Calibration Count");
+        lblCalibrationCount = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCalibrationCount.text")); //$NON-NLS-1$
         panelVisionEnabled.add(lblCalibrationCount, "12, 2, right, default");
 
         textFieldCalibrationCount = new JTextField();
@@ -355,17 +355,17 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(textFieldCalibrationCount, "14, 2");
         textFieldCalibrationCount.setColumns(10);
 
-        lblPrecisionWanted = new JLabel("Precision wanted");
-        lblPrecisionWanted.setToolTipText("Precision wanted i.e. the tolerable pick location offset");
+        lblPrecisionWanted = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionWanted.text")); //$NON-NLS-1$
+        lblPrecisionWanted.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionWanted.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionWanted, "2, 4, right, default");
 
         textFieldPrecisionWanted = new JTextField();
-        textFieldPrecisionWanted.setToolTipText("Precision wanted i.e. the tolerable pick location offset");
+        textFieldPrecisionWanted.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldPrecisionWanted.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(textFieldPrecisionWanted, "4, 4");
         textFieldPrecisionWanted.setColumns(10);
 
-        lblPrecisionConfidenceLimit = new JLabel("Precision Confidence Limit");
-        lblPrecisionConfidenceLimit.setToolTipText("Precision obtained with 95% confidence (assuming normal distribution)");
+        lblPrecisionConfidenceLimit = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionConfidenceLimit.text")); //$NON-NLS-1$
+        lblPrecisionConfidenceLimit.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPrecisionConfidenceLimit.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblPrecisionConfidenceLimit, "8, 4, right, default");
 
         textFieldPrecisionConfidenceLimit = new JTextField();
@@ -376,7 +376,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         btnResetStatistics = new JButton(resetStatisticsAction);
         panelVisionEnabled.add(btnResetStatistics, "12, 4, 3, 1");
 
-        lblOcrWrongPart = new JLabel("OCR Wrong Part Action");
+        lblOcrWrongPart = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrWrongPart.text")); //$NON-NLS-1$
         lblOcrWrongPart.setToolTipText("<html>Determines what action should be taken when OCR detects the wrong Part ID in the feeder.<br/> \r\n<ul>\r\n<li>\r\n<strong>None</strong>: Use this setting if you don't want to use OCR.</li>\r\n<li>\r\n<strong>SwapFeeders</strong>: If a wrong part is detected but the right part is selected<br/>\r\nin a different ReferencePushPullFeeder, the locations of the two feeders are swapped. The<br/>\r\nswapped-in feeder will be enabled. This will happen, if you unload/reload/rearrange your<br/>\r\nfeeders on the machine.</li>\r\n<li>\r\n<strong>SwapOrCreate</strong>: Works like <strong>SwapFeeders</strong>, but if no<br/>\r\nother feeder with the right part is found, a new one will be created and swapped-in at the<br/>\r\ncurrent feeder's location. The current feeder is then disabled in turn (they are now sitting at<br/>\r\nthe same location and only one must be enabled).</li>\r\n<li>\r\n<strong>ChangePart</strong>: The part in the current feeder is changed. This will only<br/>\r\nwork correctly, if the tape settings etc. remain the same between the parts i.e. if you restrict<br/>\r\nany reloading/rearranging to groups of feeders with the same settings.</li>\r\n<li>\r\n<strong>ChangePartAndClone</strong>: The part in the current feeder is changed but<br/>\r\nsettings are cloned from a template feeder.</li>\r\n</ul>\r\n</html>\r\n");
         panelVisionEnabled.add(lblOcrWrongPart, "2, 8, right, default");
 
@@ -385,7 +385,7 @@ extends AbstractReferenceFeederConfigurationWizard {
 
         List<String> fontList = OcrUtils.createFontSelectionList(feeder.getOcrFontName(), true);
 
-        lblOcrFontName = new JLabel("OCR Font Name");
+        lblOcrFontName = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrFontName.text")); //$NON-NLS-1$
         lblOcrFontName.setToolTipText("<html>Name of the OCR font to be recognized or [Barcode].<br/>\r\nMonospace fonts work much better, allow lower resolution and therefore faster <br/>\r\noperation. Use a font where all the used characters are easily distinguishable.<br/>\r\nFonts with clear separation between glyphs are much preferred.</html>");
         panelVisionEnabled.add(lblOcrFontName, "8, 8, right, default");
         comboBoxFontName = new JComboBox(fontList.toArray());
@@ -394,14 +394,14 @@ extends AbstractReferenceFeederConfigurationWizard {
         btnSetupocrregion = new JButton(setupOcrRegionAction);
         panelVisionEnabled.add(btnSetupocrregion, "12, 8, 3, 1");
 
-        lblStopAfterWrong = new JLabel("Stop after wrong part?");
+        lblStopAfterWrong = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblStopAfterWrong.text")); //$NON-NLS-1$
         panelVisionEnabled.add(lblStopAfterWrong, "2, 10, right, default");
 
         checkBoxStopAfterWrongPart = new JCheckBox("");
         panelVisionEnabled.add(checkBoxStopAfterWrongPart, "4, 10");
 
-        lblFontSizept = new JLabel("OCR Font Size [pt]");
-        lblFontSizept.setToolTipText("The OCR font size in typographic points (1 pt = 1/72 in).");
+        lblFontSizept = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFontSizept.text")); //$NON-NLS-1$
+        lblFontSizept.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFontSizept.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblFontSizept, "8, 10, right, default");
 
         textFieldFontSizePt = new JTextField();
@@ -417,7 +417,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         btnSetPartByOcr = new JButton(performOcrAction);
         panelVisionEnabled.add(btnSetPartByOcr, "12, 10, 3, 1");
 
-        lblDiscoverOnJobStart = new JLabel("Check on Job Start?");
+        lblDiscoverOnJobStart = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblDiscoverOnJobStart.text")); //$NON-NLS-1$
         lblDiscoverOnJobStart.setToolTipText("<html>On Job Start, check that the correct parts are selected in OCR-enabled feeders at their locations. <br/>\r\nOtherwise the Job is stopped.<br/>\r\nThis will also vision-calibrate the feeders' locations, if calibration is enabled.</html>");
         panelVisionEnabled.add(lblDiscoverOnJobStart, "2, 12, right, default");
 
@@ -428,7 +428,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnOcrAllFeeders, "12, 12, 3, 1");
         panelVisionEnabled.add(btnEditPipeline, "2, 16");
 
-        lblVisionType = new JLabel("Vision Type");
+        lblVisionType = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblVisionType.text")); //$NON-NLS-1$
         lblVisionType.setToolTipText("<html>\r\n<p>Choose the vision type, then press <strong>Reset Pipeline</strong> to assign the<br/>\r\ndefault pipeline of that type. Sprocket holes are detected as follows:</p>\r\n<ul>\r\n<li><strong>ColorKeyed</strong>: the background under the holes must be of a vivid color<br/>\r\n(green by default).</li>\r\n<li><strong>CircularSymmetry</strong>: the shape of the holes must be circular, their<br/>\r\ninside/outside must be plain.</li>\r\n</ul>\r\n<p>Both types of pipeline will further assess detected holes by size, alignment, pitch<br/>\r\nand expected distance.</p>\r\n</html>");
         panelVisionEnabled.add(lblVisionType, "8, 16, right, default");
 
@@ -440,7 +440,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnResetPipeline, "12, 16, 3, 1");
 
         panelCloning = new JPanel();
-        panelCloning.setBorder(new TitledBorder(null, "Clone Settings", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelCloning.setBorder(new TitledBorder(null, Translations.getString("ReferencePushPullFeederConfigurationWizard.panelCloning.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelCloning);
         panelCloning.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -467,7 +467,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblUsedAsTemplate = new JLabel("Use this one as Template?");
+        lblUsedAsTemplate = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblUsedAsTemplate.text")); //$NON-NLS-1$
         panelCloning.add(lblUsedAsTemplate, "2, 2, right, default");
         lblUsedAsTemplate.setToolTipText("<html>Use this feeder as a template for cloning settings to other feeders. <br/>\r\nThe templates are matched by tape & reel specification or package of the parts <br/>\r\nloaded in feeders. <br/>\r\nWhen no template matches formally, the feeder \nwith the greatest similarities <br/>\r\nis taken (feed pitch, tape width, proximity, etc.).</html>");
 
@@ -483,19 +483,19 @@ extends AbstractReferenceFeederConfigurationWizard {
             }});
         panelCloning.add(checkBoxUsedAsTemplate, "4, 2");
 
-        lblCloneLocationSettings = new JLabel("Clone Location Settings?");
-        lblCloneLocationSettings.setToolTipText("Clone the X/Y-invariable Location settings, i.e. Pick Location Z and options. ");
+        lblCloneLocationSettings = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneLocationSettings.text")); //$NON-NLS-1$
+        lblCloneLocationSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneLocationSettings.toolTipText")); //$NON-NLS-1$
         panelCloning.add(lblCloneLocationSettings, "8, 2, right, default");
 
         checkBoxCloneLocationSettings = new JCheckBox("");
         checkBoxCloneLocationSettings.setSelected(true);
-        checkBoxCloneLocationSettings.setToolTipText("Clone the X/Y-invariable Location settings, i.e. Pick Location Z and options. ");
+        checkBoxCloneLocationSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxCloneLocationSettings.toolTipText")); //$NON-NLS-1$
         panelCloning.add(checkBoxCloneLocationSettings, "10, 2");
 
         btnSmartClone = new JButton(feeder.isUsedAsTemplate() ? feederCloneToAllAction : feederCloneFromTemplate);
         panelCloning.add(btnSmartClone, "14, 2, 1, 7");
 
-        lblTemplate = new JLabel("Template:");
+        lblTemplate = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblTemplate.text")); //$NON-NLS-1$
         panelCloning.add(lblTemplate, "2, 4, right, default");
 
         textPaneCloneTemplateStatus = new JTextPane();
@@ -508,30 +508,30 @@ extends AbstractReferenceFeederConfigurationWizard {
         textScrollPane.setPreferredSize(new Dimension(400, 70));
         panelCloning.add(textScrollPane, "4, 4, 1, 5, default, top");
 
-        lblCloneTapeSetting = new JLabel("Clone Tape Setting?");
-        lblCloneTapeSetting.setToolTipText("Clone the Tape Settings. ");
+        lblCloneTapeSetting = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneTapeSetting.text")); //$NON-NLS-1$
+        lblCloneTapeSetting.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneTapeSetting.toolTipText")); //$NON-NLS-1$
         panelCloning.add(lblCloneTapeSetting, "8, 4, right, default");
 
         checkBoxCloneTapeSettings = new JCheckBox("");
         checkBoxCloneTapeSettings.setSelected(true);
-        checkBoxCloneTapeSettings.setToolTipText("Clone the Tape Settings. ");
+        checkBoxCloneTapeSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxCloneTapeSettings.toolTipText")); //$NON-NLS-1$
         panelCloning.add(checkBoxCloneTapeSettings, "10, 4");
 
-        lblCloneVisionSettings = new JLabel("Clone Vision Settings?");
-        lblCloneVisionSettings.setToolTipText("Clone the Vision settings, including the pipeline.");
+        lblCloneVisionSettings = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneVisionSettings.text")); //$NON-NLS-1$
+        lblCloneVisionSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblCloneVisionSettings.toolTipText")); //$NON-NLS-1$
         panelCloning.add(lblCloneVisionSettings, "8, 6, right, default");
 
         checkBoxCloneVisionSettings = new JCheckBox("");
-        checkBoxCloneVisionSettings.setToolTipText("Clone the Vision settings, including the pipeline.");
+        checkBoxCloneVisionSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxCloneVisionSettings.toolTipText")); //$NON-NLS-1$
         checkBoxCloneVisionSettings.setSelected(true);
         panelCloning.add(checkBoxCloneVisionSettings, "10, 6");
 
-        lblClonePushpullSettings = new JLabel("Clone Push-Pull Settings?");
-        lblClonePushpullSettings.setToolTipText("Clone the Push-Pull Motion Settings.");
+        lblClonePushpullSettings = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblClonePushpullSettings.text")); //$NON-NLS-1$
+        lblClonePushpullSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblClonePushpullSettings.toolTipText")); //$NON-NLS-1$
         panelCloning.add(lblClonePushpullSettings, "8, 8, right, default");
 
         checkBoxClonePushPullSettings = new JCheckBox("");
-        checkBoxClonePushPullSettings.setToolTipText("Clone the Push-Pull Motion Settings.");
+        checkBoxClonePushPullSettings.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxClonePushPullSettings.toolTipText")); //$NON-NLS-1$
         checkBoxClonePushPullSettings.setSelected(true);
         panelCloning.add(checkBoxClonePushPullSettings, "10, 8");
     }

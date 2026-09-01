@@ -44,6 +44,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.AutoSelectTextTable;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
@@ -103,7 +104,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
     protected void createUi() {
         AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         panelInterlock = new JPanel();
-        panelInterlock.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Actuators", TitledBorder.LEADING, TitledBorder.TOP, null));
+        panelInterlock.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Translations.getString("ReferenceActuatorProfilesWizard.panelInterlock.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(panelInterlock);
         panelInterlock.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -130,7 +131,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblActuator_1 = new JLabel("Actuator 1");
+        lblActuator_1 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_1.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_1, "2, 2, right, default");
 
         actuator1 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -141,7 +142,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         });
         panelInterlock.add(actuator1, "4, 2, fill, default");
 
-        lblActuator_2 = new JLabel("Actuator 2");
+        lblActuator_2 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_2.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_2, "2, 4, right, default");
 
         actuator2 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -152,7 +153,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         });
         panelInterlock.add(actuator2, "4, 4, fill, default");
 
-        lblActuator_3 = new JLabel("Actuator 3");
+        lblActuator_3 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_3.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_3, "2, 6, right, default");
 
         actuator3 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -163,7 +164,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         });
         panelInterlock.add(actuator3, "4, 6, fill, default");
 
-        lblActuator_4 = new JLabel("Actuator 4");
+        lblActuator_4 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_4.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_4, "2, 8, right, default");
 
         actuator4 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -174,7 +175,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         });
         panelInterlock.add(actuator4, "4, 8, fill, default");
 
-        lblActuator_5 = new JLabel("Actuator 5");
+        lblActuator_5 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_5.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_5, "2, 10, right, default");
 
         actuator5 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -185,7 +186,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         });
         panelInterlock.add(actuator5, "4, 10, fill, default");
 
-        lblActuator_6 = new JLabel("Actuator 6");
+        lblActuator_6 = new JLabel(Translations.getString("ReferenceActuatorProfilesWizard.lblActuator_6.text")); //$NON-NLS-1$
         panelInterlock.add(lblActuator_6, "2, 12, right, default");
 
         actuator6 = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -197,7 +198,7 @@ public class ReferenceActuatorProfilesWizard extends AbstractConfigurationWizard
         panelInterlock.add(actuator6, "4, 12, fill, default");
 
         panelCondition = new JPanel();
-        panelCondition.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Profiles", TitledBorder.LEADING, TitledBorder.TOP, null));
+        panelCondition.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Translations.getString("ReferenceActuatorProfilesWizard.panelCondition.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(panelCondition);
         panelCondition.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,

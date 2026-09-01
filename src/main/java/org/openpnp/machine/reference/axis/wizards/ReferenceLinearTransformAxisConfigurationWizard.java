@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.DoubleConverter;
@@ -80,7 +81,7 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
         super(axis);
 
         panelTransformation = new JPanel();
-        panelTransformation.setBorder(new TitledBorder(null, "Linear Transformation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
         panelTransformation.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -125,10 +126,10 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblInput = new JLabel("Input");
+        lblInput = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblInput.text")); //$NON-NLS-1$
         panelTransformation.add(lblInput, "4, 2, center, default");
 
-        lblFactor = new JLabel("Factor");
+        lblFactor = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblFactor.text")); //$NON-NLS-1$
         panelTransformation.add(lblFactor, "8, 2, center, default");
 
         lblInputAxisX = new JLabel("X");
@@ -179,7 +180,7 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
         label_7 = new JLabel("+");
         panelTransformation.add(label_7, "8, 14, center, default");
 
-        lblInputAxisRotation = new JLabel("Rotation");
+        lblInputAxisRotation = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblInputAxisRotation.text")); //$NON-NLS-1$
         panelTransformation.add(lblInputAxisRotation, "2, 16, right, default");
 
         inputAxisRotation = new JComboBox(new AxesComboBoxModel(machine, LinearInputAxis.class, Axis.Type.Rotation, true));
@@ -195,14 +196,14 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
         label_8 = new JLabel("+");
         panelTransformation.add(label_8, "8, 18, center, default");
 
-        lblOffset = new JLabel("Offset");
+        lblOffset = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblOffset.text")); //$NON-NLS-1$
         panelTransformation.add(lblOffset, "4, 20, right, default");
 
         offset = new JTextField();
         panelTransformation.add(offset, "8, 20, fill, default");
         offset.setColumns(10);
 
-        lblCompensation = new JLabel("Compensation?");
+        lblCompensation = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblCompensation.text")); //$NON-NLS-1$
         lblCompensation.setToolTipText("<html>Determines, whether this transformation is a compensation transformation e.g. Non-Squareness Compensation.<br/>\r\nThis can be used by OpenPnP to optimize some motion where precision is not needed. Initial calibration <br/>and simulation are other applications. \r\n</html>");
         panelTransformation.add(lblCompensation, "2, 24, right, default");
 

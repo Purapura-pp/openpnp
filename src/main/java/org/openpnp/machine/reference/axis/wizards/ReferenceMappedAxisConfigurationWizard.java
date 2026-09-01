@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.LengthConverter;
@@ -63,7 +64,7 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
     public ReferenceMappedAxisConfigurationWizard(AbstractMachine machine, ReferenceMappedAxis axis) {
         super(axis);
         panelTransformation = new JPanel();
-        panelTransformation.setBorder(new TitledBorder(null, "Axis Mapping", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceMappedAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
         panelTransformation.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -88,20 +89,20 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("bottom:default:grow"),}));
 
-        lblInputAxis = new JLabel("Input Axis");
+        lblInputAxis = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblInputAxis.text")); //$NON-NLS-1$
         panelTransformation.add(lblInputAxis, "2, 2, right, default");
 
         inputAxisModel = new AxesComboBoxModel(machine, AbstractControllerAxis.class, null, true);
         inputAxis = new JComboBox(inputAxisModel);
         panelTransformation.add(inputAxis, "4, 2, fill, default");
         
-        lblFrom = new JLabel("Input");
+        lblFrom = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblFrom.text")); //$NON-NLS-1$
         panelTransformation.add(lblFrom, "4, 4, center, default");
         
-        lblTo = new JLabel("Output");
+        lblTo = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblTo.text")); //$NON-NLS-1$
         panelTransformation.add(lblTo, "8, 4, center, default");
         
-        lblMapPointA = new JLabel("Map Point A");
+        lblMapPointA = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblMapPointA.text")); //$NON-NLS-1$
         lblMapPointA.setToolTipText("<html>Choose two exemplary points on the axis that you like to map.<br/>\r\nSet the desired Input and Output to create an Offset, Scaling, Negating (etc.).<br/>\r\nNote, the range will not be limited to these points they are just examples.\r\n</html>");
         panelTransformation.add(lblMapPointA, "2, 6, right, default");
         
@@ -116,7 +117,7 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
         panelTransformation.add(mapOutput0, "8, 6, fill, default");
         mapOutput0.setColumns(10);
         
-        lblMapPointB = new JLabel("Map Point B");
+        lblMapPointB = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblMapPointB.text")); //$NON-NLS-1$
         panelTransformation.add(lblMapPointB, "2, 8, right, default");
         
         mapInput1 = new JTextField();

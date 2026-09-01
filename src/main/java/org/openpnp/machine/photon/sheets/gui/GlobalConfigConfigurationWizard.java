@@ -5,6 +5,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.JBindings;
@@ -37,7 +38,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
         photonProperties = new PhotonProperties(Configuration.get().getMachine());
 
         JPanel searchPanel = new JPanel();
-        searchPanel.setBorder(new TitledBorder(null, "Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        searchPanel.setBorder(new TitledBorder(null, Translations.getString("GlobalConfigConfigurationWizard.searchPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(searchPanel);
         searchPanel.setLayout(new FormLayout(new ColumnSpec[]{
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -54,7 +55,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
                         RowSpec.decode("10dlu"),
                         FormSpecs.RELATED_GAP_ROWSPEC,}));
 
-        JLabel lblMaxFeeder = new JLabel("Maximum Feeder Address To Scan");
+        JLabel lblMaxFeeder = new JLabel(Translations.getString("GlobalConfigConfigurationWizard.lblMaxFeeder.text")); //$NON-NLS-1$
         searchPanel.add(lblMaxFeeder, "2, 2");
 
         int initialMaxFeederAddress = photonProperties.getMaxFeederAddress();
@@ -64,7 +65,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
         maxFeederSpinner = new JSpinner(maxFeederSpinnerModel);
         searchPanel.add(maxFeederSpinner, "4, 2");
 
-        searchButton = new JButton("Search");
+        searchButton = new JButton(Translations.getString("GlobalConfigConfigurationWizard.searchButton.text")); //$NON-NLS-1$
         searchButton.addActionListener(searchAction);
         searchPanel.add(searchButton, "6, 2");
 
@@ -74,7 +75,7 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
         progressBarPanel.setNumberOfElements(initialMaxFeederAddress);
 
         JPanel programFeederSlotsPanel = new JPanel();
-        programFeederSlotsPanel.setBorder(new TitledBorder(null, "Program Feeder Slots", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        programFeederSlotsPanel.setBorder(new TitledBorder(null, Translations.getString("GlobalConfigConfigurationWizard.programFeederSlotsPanel.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(programFeederSlotsPanel);
         programFeederSlotsPanel.setLayout(new FormLayout(new ColumnSpec[]{
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -89,10 +90,10 @@ public class GlobalConfigConfigurationWizard extends AbstractConfigurationWizard
                         FormSpecs.DEFAULT_ROWSPEC,
                         FormSpecs.RELATED_GAP_ROWSPEC,}));
 
-        lblNewLabel = new JLabel("If you've built your own slots and need to program them, use this wizard.");
+        lblNewLabel = new JLabel(Translations.getString("GlobalConfigConfigurationWizard.IfYouVeBuilt.text")); //$NON-NLS-1$
         programFeederSlotsPanel.add(lblNewLabel, "2, 2, 3, 1");
 
-        btnStartFeedSlotsWizard = new JButton("Start Wizard");
+        btnStartFeedSlotsWizard = new JButton(Translations.getString("GlobalConfigConfigurationWizard.btnStartFeedSlotsWizard.text")); //$NON-NLS-1$
         btnStartFeedSlotsWizard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 if(! Configuration.get().getMachine().isEnabled()) {

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.support.SvgIcon;
 import org.pmw.tinylog.Logger;
 
@@ -35,7 +36,7 @@ public class IconViewer extends JFrame {
         getContentPane().add(panel, BorderLayout.NORTH);
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         
-        JLabel lblDirectory = new JLabel("Directory");
+        JLabel lblDirectory = new JLabel(Translations.getString("IconViewer.lblDirectory.text")); //$NON-NLS-1$
         panel.add(lblDirectory);
         
         textField = new JTextField();
@@ -43,10 +44,10 @@ public class IconViewer extends JFrame {
         panel.add(textField);
         textField.setColumns(30);
         
-        JButton btnRefresh = new JButton("Refresh");
+        JButton btnRefresh = new JButton(Translations.getString("IconViewer.btnRefresh.text")); //$NON-NLS-1$
         panel.add(btnRefresh);
         
-        chckbxGray = new JCheckBox("Gray?");
+        chckbxGray = new JCheckBox(Translations.getString("IconViewer.chckbxGray.text")); //$NON-NLS-1$
         chckbxGray.setAction(action);
         panel.add(chckbxGray);
         

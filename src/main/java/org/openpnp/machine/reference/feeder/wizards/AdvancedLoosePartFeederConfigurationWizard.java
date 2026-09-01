@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.machine.reference.feeder.AdvancedLoosePartFeeder;
 import org.openpnp.model.Configuration;
@@ -54,7 +55,7 @@ public class AdvancedLoosePartFeederConfigurationWizard
         this.feeder = feeder;
 
         JPanel panel = new JPanel();
-        panel.setBorder(new TitledBorder(null, "Vision", TitledBorder.LEADING, TitledBorder.TOP,
+        panel.setBorder(new TitledBorder(null, Translations.getString("AdvancedLoosePartFeederConfigurationWizard.Vision.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, //$NON-NLS-1$
                 null, null));
         contentPanel.add(panel);
         panel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -70,25 +71,25 @@ public class AdvancedLoosePartFeederConfigurationWizard
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        JButton btnEditPipeline = new JButton("Edit");
+        JButton btnEditPipeline = new JButton(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.btnEditPipeline.text")); //$NON-NLS-1$
         btnEditPipeline.addActionListener(new BtnEditPipelineActionListener());
         
-        JLabel lblFeedPipeline = new JLabel("Feed Pipeline");
+        JLabel lblFeedPipeline = new JLabel(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.lblFeedPipeline.text")); //$NON-NLS-1$
         panel.add(lblFeedPipeline, "2, 2");
         panel.add(btnEditPipeline, "4, 2");
 
-        JButton btnResetPipeline = new JButton("Reset");
+        JButton btnResetPipeline = new JButton(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.btnResetPipeline.text")); //$NON-NLS-1$
         btnResetPipeline.addActionListener(new BtnResetPipelineActionListener());
         panel.add(btnResetPipeline, "6, 2");
         
-        JLabel lblTrainingPipeline = new JLabel("Training Pipeline");
+        JLabel lblTrainingPipeline = new JLabel(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.lblTrainingPipeline.text")); //$NON-NLS-1$
         panel.add(lblTrainingPipeline, "2, 4");
         
-        JButton btnEditTrainingPipeline = new JButton("Edit");
+        JButton btnEditTrainingPipeline = new JButton(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.btnEditTrainingPipeline.text")); //$NON-NLS-1$
         btnEditTrainingPipeline.addActionListener(new BtnEditTrainingPipelineActionListener());
         panel.add(btnEditTrainingPipeline, "4, 4");
         
-        JButton btnResetTrainingPipeline = new JButton("Reset");
+        JButton btnResetTrainingPipeline = new JButton(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.btnResetTrainingPipeline.text")); //$NON-NLS-1$
         btnResetTrainingPipeline.addActionListener(new BtnResetTrainingPipelineActionListener());
         panel.add(btnResetTrainingPipeline, "6, 4");
         
@@ -96,7 +97,7 @@ public class AdvancedLoosePartFeederConfigurationWizard
         FlowLayout flowLayout = (FlowLayout) warningPanel.getLayout();
         contentPanel.add(warningPanel, 0);
         
-        JLabel lblWarningThisFeeder = new JLabel("Warning: This feeder is incomplete and experimental. Use at your own risk.");
+        JLabel lblWarningThisFeeder = new JLabel(Translations.getString("AdvancedLoosePartFeederConfigurationWizard.lblWarningThisFeeder.text")); //$NON-NLS-1$
         lblWarningThisFeeder.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
         lblWarningThisFeeder.setForeground(Color.RED);
         lblWarningThisFeeder.setHorizontalAlignment(SwingConstants.LEFT);

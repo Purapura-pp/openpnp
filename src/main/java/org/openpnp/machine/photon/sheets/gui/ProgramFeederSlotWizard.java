@@ -10,6 +10,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 
+import org.openpnp.Translations;
+
 public class ProgramFeederSlotWizard extends JDialog {
 
 	private final JPanel wizardSteps;
@@ -36,7 +38,7 @@ public class ProgramFeederSlotWizard extends JDialog {
 				RowSpec.decode("29px"),
 				FormSpecs.RELATED_GAP_ROWSPEC,}));
 
-		wizardButton = new JButton("Next");
+		wizardButton = new JButton(Translations.getString("ProgramFeederSlotWizard.wizardButton.text")); //$NON-NLS-1$
 		buttonsPanel.add(wizardButton, "4, 2, left, top");
 		wizardButton.addActionListener(wizardButtonAction);
 

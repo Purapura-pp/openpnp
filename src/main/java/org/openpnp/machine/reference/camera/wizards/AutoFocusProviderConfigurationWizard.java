@@ -71,7 +71,7 @@ public class AutoFocusProviderConfigurationWizard extends AbstractConfigurationW
 
         panelGeneral = new JPanel();
         contentPanel.add(panelGeneral);
-        panelGeneral.setBorder(new TitledBorder(null, "Auto Focus Settings", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        panelGeneral.setBorder(new TitledBorder(null, Translations.getString("AutoFocusProviderConfigurationWizard.panelGeneral.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0))); //$NON-NLS-1$
         panelGeneral.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("max(70dlu;default)"),
@@ -95,8 +95,8 @@ public class AutoFocusProviderConfigurationWizard extends AbstractConfigurationW
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblFocalResolution = new JLabel("Focal Resolution");
-        lblFocalResolution.setToolTipText("Finest step length to seek the best focus.");
+        lblFocalResolution = new JLabel(Translations.getString("AutoFocusProviderConfigurationWizard.lblFocalResolution.text")); //$NON-NLS-1$
+        lblFocalResolution.setToolTipText(Translations.getString("AutoFocusProviderConfigurationWizard.lblFocalResolution.toolTipText")); //$NON-NLS-1$
         panelGeneral.add(lblFocalResolution, "2, 2, right, default");
 
         focalResolution = new JTextField();
@@ -106,30 +106,30 @@ public class AutoFocusProviderConfigurationWizard extends AbstractConfigurationW
         btnTest = new JButton(testAutoFocusAction);
         panelGeneral.add(btnTest, "6, 2, 1, 7");
 
-        lblAveragedFrames = new JLabel("Averaged Frames");
-        lblAveragedFrames.setToolTipText("Number of camera frames captured and averaged to reduce camera noise and improve the auto focus.");
+        lblAveragedFrames = new JLabel(Translations.getString("AutoFocusProviderConfigurationWizard.lblAveragedFrames.text")); //$NON-NLS-1$
+        lblAveragedFrames.setToolTipText(Translations.getString("AutoFocusProviderConfigurationWizard.lblAveragedFrames.toolTipText")); //$NON-NLS-1$
         panelGeneral.add(lblAveragedFrames, "2, 4, right, default");
 
         averagedFrames = new JTextField();
         panelGeneral.add(averagedFrames, "4, 4, fill, default");
         averagedFrames.setColumns(10);
 
-        lblFocusSpeed = new JLabel("Focus Speed");
-        lblFocusSpeed.setToolTipText("Focus motion speed factor.");
+        lblFocusSpeed = new JLabel(Translations.getString("AutoFocusProviderConfigurationWizard.lblFocusSpeed.text")); //$NON-NLS-1$
+        lblFocusSpeed.setToolTipText(Translations.getString("AutoFocusProviderConfigurationWizard.lblFocusSpeed.toolTipText")); //$NON-NLS-1$
         panelGeneral.add(lblFocusSpeed, "2, 6, right, default");
 
         focusSpeed = new JTextField();
         panelGeneral.add(focusSpeed, "4, 6, fill, default");
         focusSpeed.setColumns(10);
 
-        lblShowDiagnostics = new JLabel("Show Diagnostics?");
-        lblShowDiagnostics.setToolTipText("Show detected edges and Auto Focus status text in the camera view.");
+        lblShowDiagnostics = new JLabel(Translations.getString("AutoFocusProviderConfigurationWizard.lblShowDiagnostics.text")); //$NON-NLS-1$
+        lblShowDiagnostics.setToolTipText(Translations.getString("AutoFocusProviderConfigurationWizard.lblShowDiagnostics.toolTipText")); //$NON-NLS-1$
         panelGeneral.add(lblShowDiagnostics, "2, 8, right, default");
 
         showDiagnostics = new JCheckBox("");
         panelGeneral.add(showDiagnostics, "4, 8");
 
-        lblLastFocusDistance = new JLabel("Last Focus Distance");
+        lblLastFocusDistance = new JLabel(Translations.getString("AutoFocusProviderConfigurationWizard.lblLastFocusDistance.text")); //$NON-NLS-1$
         panelGeneral.add(lblLastFocusDistance, "2, 12, right, default");
 
         txtLastFocusDistance = new JTextField();

@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.DoubleConverter;
@@ -48,7 +49,7 @@ public class ThermistorToLinearSensorActuatorTransforms extends AbstractConfigur
     private void createUi() {
         
         panel = new JPanel();
-        panel.setBorder(new TitledBorder(null, "Thermistor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel.setBorder(new TitledBorder(null, Translations.getString("ThermistorToLinearSensorActuatorTransforms.Thermistor.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panel);
         panel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -110,7 +111,7 @@ public class ThermistorToLinearSensorActuatorTransforms extends AbstractConfigur
         r2.setColumns(10);
         
         panel_1 = new JPanel();
-        panel_1.setBorder(new TitledBorder(null, "ADC", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_1.setBorder(new TitledBorder(null, Translations.getString("ThermistorToLinearSensorActuatorTransforms.ADC.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panel_1);
         panel_1.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -123,14 +124,14 @@ public class ThermistorToLinearSensorActuatorTransforms extends AbstractConfigur
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
         
-        lblNewLabel_5 = new JLabel("Maximum Value");
+        lblNewLabel_5 = new JLabel(Translations.getString("ThermistorToLinearSensorActuatorTransforms.MaximumValue.text")); //$NON-NLS-1$
         panel_1.add(lblNewLabel_5, "2, 2, right, default");
         
         adcMax = new JTextField();
         panel_1.add(adcMax, "4, 2, fill, default");
         adcMax.setColumns(10);
         
-        lblNewLabel_6 = new JLabel("Voltage Reference");
+        lblNewLabel_6 = new JLabel(Translations.getString("ThermistorToLinearSensorActuatorTransforms.VoltageReference.text")); //$NON-NLS-1$
         panel_1.add(lblNewLabel_6, "2, 4, right, default");
         
         vRef = new JTextField();
@@ -138,7 +139,7 @@ public class ThermistorToLinearSensorActuatorTransforms extends AbstractConfigur
         vRef.setColumns(10);
         
         panel_2 = new JPanel();
-        panel_2.setBorder(new TitledBorder(null, "Linear Transform", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_2.setBorder(new TitledBorder(null, Translations.getString("ThermistorToLinearSensorActuatorTransforms.LinearTransform.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panel_2);
         panel_2.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -151,14 +152,14 @@ public class ThermistorToLinearSensorActuatorTransforms extends AbstractConfigur
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
         
-        lblNewLabel_7 = new JLabel("Scale");
+        lblNewLabel_7 = new JLabel(Translations.getString("ThermistorToLinearSensorActuatorTransforms.Scale.text")); //$NON-NLS-1$
         panel_2.add(lblNewLabel_7, "2, 2, right, default");
         
         scale = new JTextField();
         panel_2.add(scale, "4, 2, fill, default");
         scale.setColumns(10);
         
-        lblNewLabel_8 = new JLabel("Offset");
+        lblNewLabel_8 = new JLabel(Translations.getString("ThermistorToLinearSensorActuatorTransforms.Offset.text")); //$NON-NLS-1$
         panel_2.add(lblNewLabel_8, "2, 4, right, default");
         
         offset = new JTextField();

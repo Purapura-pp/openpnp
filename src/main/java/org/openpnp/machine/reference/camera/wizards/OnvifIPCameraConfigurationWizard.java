@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.onvif.ver10.schema.VideoResolution;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.IntegerConverter;
@@ -51,7 +52,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         panelGeneral = new JPanel();
         contentPanel.add(panelGeneral);
         panelGeneral.setBorder(new TitledBorder(null,
-                "General", TitledBorder.LEADING, TitledBorder.TOP, null));
+                Translations.getString("OnvifIPCameraConfigurationWizard.panelGeneral.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelGeneral.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
                 FormSpecs.DEFAULT_COLSPEC,
@@ -73,7 +74,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblIP = new JLabel("Camera IP");
+        lblIP = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblIP.text")); //$NON-NLS-1$
         panelGeneral.add(lblIP, "2, 2, right, default");
 
         ipTextField = new JTextField();
@@ -83,7 +84,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         lbluseFor_ip = new JLabel("(IP:port)");
         panelGeneral.add(lbluseFor_ip, "6, 2");
 
-        lblUsername = new JLabel("Username");
+        lblUsername = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblUsername.text")); //$NON-NLS-1$
         panelGeneral.add(lblUsername, "2, 4, right, default");
 
         usernameTextField = new JTextField();
@@ -93,7 +94,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         lbluseFor_un = new JLabel("(normally required)");
         panelGeneral.add(lbluseFor_un, "6, 4");
 
-        lblPassword = new JLabel("Password");
+        lblPassword = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblPassword.text")); //$NON-NLS-1$
         panelGeneral.add(lblPassword, "2, 6, right, default");
 
         passwordTextField = new JTextField();
@@ -103,7 +104,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         lbluseFor_pw = new JLabel("(leave blank for none)");
         panelGeneral.add(lbluseFor_pw, "6, 6");
 
-        lblSupportedResolutions = new JLabel("Resolution");
+        lblSupportedResolutions = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblSupportedResolutions.text")); //$NON-NLS-1$
         panelGeneral.add(lblSupportedResolutions, "2, 8, right, default");
 
         cboSupportedResolutions = new JComboBox<String>();
@@ -113,7 +114,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         lbluseFor_res = new JLabel("(only supported resolutions shown)");
         panelGeneral.add(lbluseFor_res, "6, 8");
 
-        lblResizeWidth = new JLabel("Target Width");
+        lblResizeWidth = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblResizeWidth.text")); //$NON-NLS-1$
         panelGeneral.add(lblResizeWidth, "2, 10, right, default");
 
         resizeWidthTextField = new JTextField();
@@ -123,7 +124,7 @@ public class OnvifIPCameraConfigurationWizard extends AbstractConfigurationWizar
         lbluseFor_rw = new JLabel("(Use 0 for no resizing)");
         panelGeneral.add(lbluseFor_rw, "6, 10");
 
-        lblResizeHeight = new JLabel("Target Height");
+        lblResizeHeight = new JLabel(Translations.getString("OnvifIPCameraConfigurationWizard.lblResizeHeight.text")); //$NON-NLS-1$
         panelGeneral.add(lblResizeHeight, "2, 12, right, default");
 
         resizeHeightTextField = new JTextField();

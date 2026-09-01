@@ -33,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.components.LocationButtonsPanel;
 import org.openpnp.gui.support.IntegerConverter;
@@ -74,7 +75,7 @@ public class RapidFeederConfigurationWizard
     private void createUi() {
         
         panelRapidFeederConfig = new JPanel();
-        panelRapidFeederConfig.setBorder(new TitledBorder(null, "Rapid Feeder Config", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelRapidFeederConfig.setBorder(new TitledBorder(null, Translations.getString("RapidFeederConfigurationWizard.panelRapidFeederConfig.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelRapidFeederConfig);
         panelRapidFeederConfig.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -87,14 +88,14 @@ public class RapidFeederConfigurationWizard
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
         
-        lblNewLabel_5 = new JLabel("Address");
+        lblNewLabel_5 = new JLabel(Translations.getString("RapidFeederConfigurationWizard.Address.text")); //$NON-NLS-1$
         panelRapidFeederConfig.add(lblNewLabel_5, "2, 2, right, default");
         
         address = new JTextField();
         panelRapidFeederConfig.add(address, "4, 2");
         address.setColumns(32);
         
-        lblNewLabel_6 = new JLabel("Pitch");
+        lblNewLabel_6 = new JLabel(Translations.getString("RapidFeederConfigurationWizard.Pitch.text")); //$NON-NLS-1$
         panelRapidFeederConfig.add(lblNewLabel_6, "2, 4, right, default");
         
         pitch = new JTextField();
@@ -102,7 +103,7 @@ public class RapidFeederConfigurationWizard
         pitch.setColumns(10);
         
         JPanel panelRapidFeederScan = new JPanel();
-        panelRapidFeederScan.setBorder(new TitledBorder(null, "Rapid Feeder Scanning", TitledBorder.LEADING, TitledBorder.TOP, null));
+        panelRapidFeederScan.setBorder(new TitledBorder(null, Translations.getString("RapidFeederConfigurationWizard.panelRapidFeederScan.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         contentPanel.add(panelRapidFeederScan);
         panelRapidFeederScan.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -131,7 +132,7 @@ public class RapidFeederConfigurationWizard
         lblNewLabel_4 = new JLabel("Y");
         panelRapidFeederScan.add(lblNewLabel_4, "6, 2, center, default");
         
-        lblNewLabel = new JLabel("Scan Start Location");
+        lblNewLabel = new JLabel(Translations.getString("RapidFeederConfigurationWizard.ScanStartLocation.text")); //$NON-NLS-1$
         panelRapidFeederScan.add(lblNewLabel, "2, 4, right, default");
         
         startX = new JTextField();
@@ -145,7 +146,7 @@ public class RapidFeederConfigurationWizard
         scanStart = new LocationButtonsPanel(startX, startY, (JTextField) null, (JTextField) null);
         panelRapidFeederScan.add(scanStart, "8, 4");
         
-        lblNewLabel_1 = new JLabel("Scan End Location");
+        lblNewLabel_1 = new JLabel(Translations.getString("RapidFeederConfigurationWizard.ScanEndLocation.text")); //$NON-NLS-1$
         panelRapidFeederScan.add(lblNewLabel_1, "2, 6, right, default");
         
         endX = new JTextField();
@@ -159,7 +160,7 @@ public class RapidFeederConfigurationWizard
         scanEnd = new LocationButtonsPanel(endX, endY, (JTextField) null, (JTextField) null);
         panelRapidFeederScan.add(scanEnd, "8, 6, default, fill");
         
-        lblNewLabel_2 = new JLabel("Scan Increment");
+        lblNewLabel_2 = new JLabel(Translations.getString("RapidFeederConfigurationWizard.ScanIncrement.text")); //$NON-NLS-1$
         panelRapidFeederScan.add(lblNewLabel_2, "2, 8, right, default");
         
         inc = new JTextField();

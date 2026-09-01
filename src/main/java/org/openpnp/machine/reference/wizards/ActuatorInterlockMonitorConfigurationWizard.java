@@ -32,6 +32,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.ActuatorsComboBoxModel;
@@ -95,7 +96,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
 
     protected void createUi(AbstractMachine machine) {
         panelInterlock = new JPanel();
-        panelInterlock.setBorder(new TitledBorder(null, "Axis Interlock", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelInterlock.setBorder(new TitledBorder(null, Translations.getString("ActuatorInterlockMonitorConfigurationWizard.panelInterlock.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelInterlock);
         panelInterlock.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -126,7 +127,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
                 
-                lblFunction = new JLabel("Interlock Type");
+                lblFunction = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblFunction.text")); //$NON-NLS-1$
                 panelInterlock.add(lblFunction, "2, 2, right, default");
                 
                 interlockType = new JComboBox(ActuatorInterlockMonitor.InterlockType.values());
@@ -138,7 +139,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 });
                 panelInterlock.add(interlockType, "4, 2, 3, 1");
         
-                lblConfirmationGoodRange = new JLabel("Confirmation range");
+                lblConfirmationGoodRange = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationGoodRange.text")); //$NON-NLS-1$
                 lblConfirmationGoodRange.setToolTipText("<html>\r\nOn interlock the actuator will be read and the numeric value compared to this range <br/>\r\n(lower/upper limit). If the value is outside the range, the interlock fails, i.e. an error is raised.\r\n</html>");
                 panelInterlock.add(lblConfirmationGoodRange, "2, 4, right, default");
         
@@ -150,7 +151,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 panelInterlock.add(confirmationGoodMax, "6, 4, fill, default");
                 confirmationGoodMax.setColumns(10);
         
-                lblConfirmationPattern = new JLabel("Confirmation pattern");
+                lblConfirmationPattern = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationPattern.text")); //$NON-NLS-1$
                 lblConfirmationPattern.setToolTipText("<html>\r\nOn interlock the actuator will be read. The reading will be compared to the pattern.<br/>\r\nIf the reading does not match, the interlock fails, i.e. an error is raised. \r\n</html>");
                 panelInterlock.add(lblConfirmationPattern, "2, 6, right, default");
         
@@ -158,39 +159,39 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 panelInterlock.add(confirmationPattern, "4, 6, 3, 1, fill, default");
                 confirmationPattern.setColumns(10);
         
-                lblRegex = new JLabel("Regex?");
-                lblRegex.setToolTipText("Use a regular expression to match the pattern.");
+                lblRegex = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblRegex.text")); //$NON-NLS-1$
+                lblRegex.setToolTipText(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblRegex.toolTipText")); //$NON-NLS-1$
                 panelInterlock.add(lblRegex, "8, 6, right, default");
         
                 confirmationByRegex = new JCheckBox("");
                 panelInterlock.add(confirmationByRegex, "10, 6");
 
-        lblAxis1 = new JLabel("Axis 1");
+        lblAxis1 = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblAxis1.text")); //$NON-NLS-1$
         panelInterlock.add(lblAxis1, "2, 10, right, default");
 
         interlockAxis1 = new JComboBox(new AxesComboBoxModel(machine, CoordinateAxis.class, null, true));
         panelInterlock.add(interlockAxis1, "4, 10, 3, 1, fill, default");
 
-        lblAxis2 = new JLabel("Axis 2");
+        lblAxis2 = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblAxis2.text")); //$NON-NLS-1$
         panelInterlock.add(lblAxis2, "2, 12, right, default");
 
         interlockAxis2 = new JComboBox(new AxesComboBoxModel(machine, CoordinateAxis.class, null, true));
         panelInterlock.add(interlockAxis2, "4, 12, 3, 1, fill, default");
 
-        lblAxis = new JLabel("Axis 3");
+        lblAxis = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblAxis.text")); //$NON-NLS-1$
         panelInterlock.add(lblAxis, "2, 14, right, default");
 
         interlockAxis3 = new JComboBox(new AxesComboBoxModel(machine, CoordinateAxis.class, null, true));
         panelInterlock.add(interlockAxis3, "4, 14, 3, 1, fill, default");
 
-        lblAxis_1 = new JLabel("Axis 4");
+        lblAxis_1 = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblAxis_1.text")); //$NON-NLS-1$
         panelInterlock.add(lblAxis_1, "2, 16, right, default");
 
         interlockAxis4 = new JComboBox(new AxesComboBoxModel(machine, CoordinateAxis.class, null, true));
         panelInterlock.add(interlockAxis4, "4, 16, 3, 1, fill, default");
         
         panelCondition = new JPanel();
-        panelCondition.setBorder(new TitledBorder(null, "Interlock Conditions", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelCondition.setBorder(new TitledBorder(null, Translations.getString("ActuatorInterlockMonitorConfigurationWizard.panelCondition.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelCondition);
         panelCondition.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -209,8 +210,8 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
         
-        lblActuator = new JLabel("Boolean Actuator");
-        lblActuator.setToolTipText("The interlock is only active if this actuator has the chosen known or unknown state.");
+        lblActuator = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblActuator.text")); //$NON-NLS-1$
+        lblActuator.setToolTipText(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblActuator.toolTipText")); //$NON-NLS-1$
         panelCondition.add(lblActuator, "2, 2, right, default");
         
         conditionalActuator = new JComboBox(new ActuatorsComboBoxModel(actuator.getHead() != null ? actuator.getHead() : machine));
@@ -225,7 +226,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
         conditionalActuatorState = new JComboBox(ActuatorInterlockMonitor.ActuatorState.values());
         panelCondition.add(conditionalActuatorState, "8, 2, 3, 1, fill, default");
         
-        lblSpeed = new JLabel("Speed [%]");
+        lblSpeed = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblSpeed.text")); //$NON-NLS-1$
         lblSpeed.setToolTipText("<html>The interlock is only active if the effective speed factor is within this range.<br/>\r\nTypically used to allow slow movement even when the interlock confirmation failed.\r\n</html>");
         panelCondition.add(lblSpeed, "2, 4, right, default");
         

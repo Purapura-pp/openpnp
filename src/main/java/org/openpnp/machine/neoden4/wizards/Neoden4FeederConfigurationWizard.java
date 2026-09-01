@@ -97,7 +97,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         panelFields.setLayout(new BoxLayout(panelFields, BoxLayout.Y_AXIS));
 
         panelOther = new JPanel();
-        panelOther.setBorder(new TitledBorder(null, "Other", TitledBorder.LEADING,
+        panelOther.setBorder(new TitledBorder(null, Translations.getString("Neoden4FeederConfigurationWizard.panelOther.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         panelFields.add(panelOther);
@@ -112,21 +112,21 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
                         FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
                         FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblPartPitchInTape = new JLabel("Pitch In Tape [mm]");
+        lblPartPitchInTape = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblPartPitchInTape.text")); //$NON-NLS-1$
         panelOther.add(lblPartPitchInTape, "2, 2, right, default");
 
         textFieldPartPitchInTape = new JTextField();
         panelOther.add(textFieldPartPitchInTape, "4, 2");
         textFieldPartPitchInTape.setColumns(5);
 
-        lblPartRotationInTape = new JLabel("Rotation In Tape [deg]");
+        lblPartRotationInTape = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblPartRotationInTape.text")); //$NON-NLS-1$
         panelOther.add(lblPartRotationInTape, "6, 2, right, default");
 
         textFieldPartRotationInTape = new JTextField();
         panelOther.add(textFieldPartRotationInTape, "8, 2");
         textFieldPartRotationInTape.setColumns(5);
 
-        lblActuatorId = new JLabel("Actuator Name");
+        lblActuatorId = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblActuatorId.text")); //$NON-NLS-1$
         panelOther.add(lblActuatorId, "2, 4, right, default");
 
         textFieldActuatorId = new JTextField();
@@ -137,7 +137,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         panelOther.add(btnActuateFeeder, "6, 4");
         btnActuateFeeder.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblFeedCount = new JLabel("Feed Count");
+        JLabel lblFeedCount = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
         panelOther.add(lblFeedCount, "2, 6, right, default");
 
         textFieldFeedCount = new JTextField();
@@ -155,7 +155,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 
         //
         panelVision = new JPanel();
-        panelVision.setBorder(new TitledBorder(null, "Vision", TitledBorder.LEADING,
+        panelVision.setBorder(new TitledBorder(null, Translations.getString("Neoden4FeederConfigurationWizard.panelVision.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelFields.add(panelVision);
         panelVision.setLayout(new BoxLayout(panelVision, BoxLayout.Y_AXIS));
@@ -165,7 +165,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         fl_panelVisionEnabled.setAlignment(FlowLayout.LEFT);
         panelVision.add(panelVisionEnabled);
 
-        chckbxVisionEnabled = new JCheckBox("Vision Enabled?");
+        chckbxVisionEnabled = new JCheckBox(Translations.getString("Neoden4FeederConfigurationWizard.chckbxVisionEnabled.text")); //$NON-NLS-1$
         panelVisionEnabled.add(chckbxVisionEnabled);
 
         separator = new JSeparator();
@@ -180,7 +180,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
 
         panelTemplate = new JPanel();
         panelTemplate.setBorder(new TitledBorder(null,
-                "Template Image", TitledBorder.LEADING, TitledBorder.TOP, null,
+                Translations.getString("Neoden4FeederConfigurationWizard.panelTemplate.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, //$NON-NLS-1$
                 new Color(0, 0, 0)));
         panelVisionTemplateAndAoe.add(panelTemplate, "2, 2, center, fill");
         panelTemplate.setLayout(new BoxLayout(panelTemplate, BoxLayout.Y_AXIS));
@@ -206,7 +206,7 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         panel.add(btnCancelChangeTemplateImage);
 
         panelAoE = new JPanel();
-        panelAoE.setBorder(new TitledBorder(null, "Area of Interest", TitledBorder.LEADING,
+        panelAoE.setBorder(new TitledBorder(null, Translations.getString("Neoden4FeederConfigurationWizard.panelAoE.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelVisionTemplateAndAoe.add(panelAoE, "4, 2, fill, fill");
         panelAoE.setLayout(new FormLayout(
@@ -230,10 +230,10 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         lblY_1 = new JLabel("Y");
         panelAoE.add(lblY_1, "4, 2");
 
-        lblWidth = new JLabel("Width");
+        lblWidth = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblWidth.text")); //$NON-NLS-1$
         panelAoE.add(lblWidth, "6, 2");
 
-        lblHeight = new JLabel("Height");
+        lblHeight = new JLabel(Translations.getString("Neoden4FeederConfigurationWizard.lblHeight.text")); //$NON-NLS-1$
         panelAoE.add(lblHeight, "8, 2");
 
         textFieldAoiX = new JTextField();
@@ -252,18 +252,18 @@ public class Neoden4FeederConfigurationWizard extends AbstractReferenceFeederCon
         panelAoE.add(textFieldAoiHeight, "8, 4, fill, default");
         textFieldAoiHeight.setColumns(5);
 
-        btnChangeAoi = new JButton("Change");
+        btnChangeAoi = new JButton(Translations.getString("Neoden4FeederConfigurationWizard.btnChangeAoi.text")); //$NON-NLS-1$
         btnChangeAoi.setAction(selectAoiAction);
         panelAoE.add(btnChangeAoi, "10, 4");
 
-        btnCancelChangeAoi = new JButton("Cancel");
+        btnCancelChangeAoi = new JButton(Translations.getString("Neoden4FeederConfigurationWizard.btnCancelChangeAoi.text")); //$NON-NLS-1$
         btnCancelChangeAoi.setAction(cancelSelectAoiAction);
         panelAoE.add(btnCancelChangeAoi, "12, 4");
 
         cancelSelectTemplateImageAction.setEnabled(false);
         cancelSelectAoiAction.setEnabled(false);
 
-        btnResetVisionOffsets = new JButton("Reset offsets");
+        btnResetVisionOffsets = new JButton(Translations.getString("Neoden4FeederConfigurationWizard.btnResetVisionOffsets.text")); //$NON-NLS-1$
         btnResetVisionOffsets.setAction(resetVisionOffsets);
         panelAoE.add(btnResetVisionOffsets, "12, 10");
 

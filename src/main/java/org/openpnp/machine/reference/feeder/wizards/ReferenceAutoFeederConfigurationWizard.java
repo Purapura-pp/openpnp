@@ -106,7 +106,7 @@ public class ReferenceAutoFeederConfigurationWizard extends AbstractReferenceFee
 
         actuatorValue = new JTextField();
         panelActuator.add(actuatorValue, "6, 4");
-        actuatorValue.setToolTipText("For Boolean: 1 = True, 0 = False");
+        actuatorValue.setToolTipText(Translations.getString("ReferenceAutoFeederConfigurationWizard.actuatorValue.toolTipText")); //$NON-NLS-1$
         actuatorValue.setColumns(10);
 
         btnTestFeedActuator = new JButton(testFeedActuatorAction);

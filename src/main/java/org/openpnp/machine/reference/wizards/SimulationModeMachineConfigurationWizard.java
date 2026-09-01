@@ -34,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.DoubleConverter;
@@ -72,7 +73,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
 
         JPanel panelGeneral = new JPanel();
         contentPanel.add(panelGeneral);
-        panelGeneral.setBorder(new TitledBorder(null, "General", TitledBorder.LEADING,
+        panelGeneral.setBorder(new TitledBorder(null, Translations.getString("SimulationModeMachineConfigurationWizard.panelGeneral.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelGeneral.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -85,13 +86,13 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        JLabel lblSimulationMode = new JLabel("Simulation Mode");
+        JLabel lblSimulationMode = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblSimulationMode.text")); //$NON-NLS-1$
         panelGeneral.add(lblSimulationMode, "2, 2, right, default");
 
         simulationMode = new JComboBox(SimulationMode.values());
         panelGeneral.add(simulationMode, "4, 2, fill, default");
         
-        JLabel lblReplaceDrivers = new JLabel("Replace Drivers?");
+        JLabel lblReplaceDrivers = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblReplaceDrivers.text")); //$NON-NLS-1$
         lblReplaceDrivers.setToolTipText("<html>\nReplace driver connections with a built-in GcodeServer, simulating the real driver.<br/>\nWill only become effective when you disable/enable the machine.\n</html>");
         panelGeneral.add(lblReplaceDrivers, "2, 4, right, default");
         
@@ -99,7 +100,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         panelGeneral.add(replacingDrivers, "4, 4");
 
         JPanel panelLocations = new JPanel();
-        panelLocations.setBorder(new TitledBorder(null, "Simulated Imperfections", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("SimulationModeMachineConfigurationWizard.panelLocations.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         contentPanel.add(panelLocations);
         panelLocations.setLayout(new FormLayout(new ColumnSpec[] {
@@ -149,8 +150,8 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("default:grow"),}));
 
-        JLabel lblNozzleTipRunout = new JLabel("Nozzle Tip Runout");
-        lblNozzleTipRunout.setToolTipText("Simulates runout of that radius on all nozzle tips.");
+        JLabel lblNozzleTipRunout = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblNozzleTipRunout.text")); //$NON-NLS-1$
+        lblNozzleTipRunout.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblNozzleTipRunout.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblNozzleTipRunout, "2, 2, right, default");
 
         simulatedRunout = new JTextField();
@@ -160,36 +161,36 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         JLabel lblWarnRunout = new JLabel("<html>Be aware that runout will be apparent as an offset in the cross-hairs of the Down-looking Camera, whenever the the Nozzle is positioned. This also happens when watching a Job perform.<html>");
         panelLocations.add(lblWarnRunout, "6, 2, 3, 5, fill, top");
         
-        JLabel lblRunoutPhase = new JLabel("Runout Phase");
-        lblRunoutPhase.setToolTipText("Phase angle for the simulated runout.");
+        JLabel lblRunoutPhase = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblRunoutPhase.text")); //$NON-NLS-1$
+        lblRunoutPhase.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblRunoutPhase.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblRunoutPhase, "2, 4, right, default");
         
         simulatedRunoutPhase = new JTextField();
         panelLocations.add(simulatedRunoutPhase, "4, 4, fill, default");
         simulatedRunoutPhase.setColumns(10);
         
-                JLabel lblNonsquarenessFactor = new JLabel("Non-Squareness Factor");
-                lblNonsquarenessFactor.setToolTipText("Creates simulated Non-Squareness by that factor. ");
+                JLabel lblNonsquarenessFactor = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblNonsquarenessFactor.text")); //$NON-NLS-1$
+                lblNonsquarenessFactor.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblNonsquarenessFactor.toolTipText")); //$NON-NLS-1$
                 panelLocations.add(lblNonsquarenessFactor, "2, 8, right, default");
         
                 simulatedNonSquarenessFactor = new JTextField();
                 panelLocations.add(simulatedNonSquarenessFactor, "4, 8");
                 simulatedNonSquarenessFactor.setColumns(10);
         
-        JLabel lblPickPlace = new JLabel("Pick & Place Checking?");
+        JLabel lblPickPlace = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblPickPlace.text")); //$NON-NLS-1$
         panelLocations.add(lblPickPlace, "2, 12, right, default");
         
         pickAndPlaceChecking = new JCheckBox("");
         panelLocations.add(pickAndPlaceChecking, "4, 12");
         
-        JLabel lblCameraLags = new JLabel("Camera Lag [s]");
+        JLabel lblCameraLags = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblCameraLags.text")); //$NON-NLS-1$
         panelLocations.add(lblCameraLags, "2, 16, right, default");
         
         simulatedCameraLag = new JTextField();
         panelLocations.add(simulatedCameraLag, "4, 16, fill, default");
         simulatedCameraLag.setColumns(10);
         
-                JLabel lblCameraNoise = new JLabel("Camera Noise");
+                JLabel lblCameraNoise = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblCameraNoise.text")); //$NON-NLS-1$
                 lblCameraNoise.setToolTipText("<html>\r\nCreates simulated noise in the camera image (number of sparks) <br/>\r\nto satisfy Camera Settling that the frame has changed. \r\n</html>");
                 panelLocations.add(lblCameraNoise, "2, 18, right, default");
         
@@ -197,16 +198,16 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
                 panelLocations.add(simulatedCameraNoise, "4, 18");
                 simulatedCameraNoise.setColumns(10);
 
-        JLabel lblVibrationAmplitude = new JLabel("Vibration Amplitude");
-        lblVibrationAmplitude.setToolTipText("Simulates Vibration, the amplitude is given in relation to the past acceleration at Eigenfrequency (try 0.1 for a strong vibration).");
+        JLabel lblVibrationAmplitude = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.text")); //$NON-NLS-1$
+        lblVibrationAmplitude.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblVibrationAmplitude.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblVibrationAmplitude, "2, 20, right, default");
 
         simulatedVibrationAmplitude = new JTextField();
         panelLocations.add(simulatedVibrationAmplitude, "4, 20, fill, default");
         simulatedVibrationAmplitude.setColumns(10);
         
-        JLabel lblDuration = new JLabel("Vibration Duration [s]");
-        lblDuration.setToolTipText("Vibration duration in seconds (exponential decay to ~1%).");
+        JLabel lblDuration = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblDuration.text")); //$NON-NLS-1$
+        lblDuration.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblDuration.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblDuration, "2, 22, right, default");
         
         simulatedVibrationDuration = new JTextField();
@@ -221,7 +222,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         panelLocations.add(lblY, "6, 26");
         lblY.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel lblDiscardPoint = new JLabel("Homing Error");
+        JLabel lblDiscardPoint = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblDiscardPoint.text")); //$NON-NLS-1$
         lblDiscardPoint.setToolTipText("<html>\r\nSimulates an initial homing error by that offset. Used to test visial homing. <br/>\r\nSet the homing fiducial to the PCB fiducial in the lower left corner of the test image.<br/>\r\nUse coordinates 5.736, 6.112 to get original coordinates through Visual homing.\r\n</html>");
         panelLocations.add(lblDiscardPoint, "2, 28, right, default");
 
@@ -233,21 +234,21 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         panelLocations.add(homingErrorY, "6, 28");
         homingErrorY.setColumns(10);
         
-        JButton btnResetFeeders = new JButton("Reset Feeders");
+        JButton btnResetFeeders = new JButton(Translations.getString("SimulationModeMachineConfigurationWizard.btnResetFeeders.text")); //$NON-NLS-1$
         btnResetFeeders.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 machine.resetAllFeeders();
             }
         });
         
-        JLabel lblMachineTableZ = new JLabel("Machine Table Z");
+        JLabel lblMachineTableZ = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblMachineTableZ.text")); //$NON-NLS-1$
         panelLocations.add(lblMachineTableZ, "2, 30, right, default");
         
         machineTableZ = new JTextField();
         panelLocations.add(machineTableZ, "4, 30, fill, default");
         machineTableZ.setColumns(10);
         
-        JButton btnSetMachineTable = new JButton("Set Machine Table Z");
+        JButton btnSetMachineTable = new JButton(Translations.getString("SimulationModeMachineConfigurationWizard.btnSetMachineTable.text")); //$NON-NLS-1$
         btnSetMachineTable.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LengthConverter lengthConverter = new LengthConverter();

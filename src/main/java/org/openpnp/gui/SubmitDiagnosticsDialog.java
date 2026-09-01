@@ -122,7 +122,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
         fl_contentPanel.setColumnGroups(new int[][]{new int[]{4, 2}});
         contentPanel.setLayout(fl_contentPanel);
         {
-            lblSubmitAHelp = new JLabel("Submit Diagnostics");
+            lblSubmitAHelp = new JLabel(Translations.getString("SubmitDiagnosticsDialog.lblSubmitAHelp.text")); //$NON-NLS-1$
             lblSubmitAHelp.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
             contentPanel.add(lblSubmitAHelp, "2, 2, 3, 1");
         }
@@ -143,7 +143,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
             contentPanel.add(txtpnWarningIfYou, "2, 8, 3, 1, fill, fill");
         }
         {
-            JLabel lblComments = new JLabel("Please Describe The Issue");
+            JLabel lblComments = new JLabel(Translations.getString("SubmitDiagnosticsDialog.lblComments.text")); //$NON-NLS-1$
             lblComments.setFont(new Font("Lucida Grande", Font.BOLD, 14));
             contentPanel.add(lblComments, "2, 12");
         }
@@ -155,7 +155,7 @@ public class SubmitDiagnosticsDialog extends JDialog {
             contentPanel.add(descriptionTa, "2, 14, 3, 1, fill, fill");
         }
         {
-            JLabel lblInclude = new JLabel("Include");
+            JLabel lblInclude = new JLabel(Translations.getString("SubmitDiagnosticsDialog.lblInclude.text")); //$NON-NLS-1$
             lblInclude.setFont(new Font("Lucida Grande", Font.BOLD, 14));
             contentPanel.add(lblInclude, "2, 18");
         }
@@ -175,27 +175,27 @@ public class SubmitDiagnosticsDialog extends JDialog {
             contentPanel.add(includePackagesXmlChk, "2, 22");
         }
         {
-            includeLogChk = new JCheckBox("Latest Log File");
+            includeLogChk = new JCheckBox(Translations.getString("SubmitDiagnosticsDialog.includeLogChk.text")); //$NON-NLS-1$
             includeLogChk.setSelected(true);
             contentPanel.add(includeLogChk, "4, 22");
         }
         {
-            includeSystemInfoChk = new JCheckBox("Anonymous System Information");
+            includeSystemInfoChk = new JCheckBox(Translations.getString("SubmitDiagnosticsDialog.includeSystemInfoChk.text")); //$NON-NLS-1$
             includeSystemInfoChk.setSelected(true);
             contentPanel.add(includeSystemInfoChk, "2, 24");
         }
         {
-            includeJobChk = new JCheckBox("Current Job Data (Job Will Be Saved First)");
+            includeJobChk = new JCheckBox(Translations.getString("SubmitDiagnosticsDialog.includeJobChk.text")); //$NON-NLS-1$
             includeJobChk.setSelected(true);
             contentPanel.add(includeJobChk, "4, 24");
         }
         {
-            includeScreenShotChk = new JCheckBox("OpenPnP Window Screen Shot");
+            includeScreenShotChk = new JCheckBox(Translations.getString("SubmitDiagnosticsDialog.includeScreenShotChk.text")); //$NON-NLS-1$
             includeScreenShotChk.setSelected(true);
             contentPanel.add(includeScreenShotChk, "2, 26");
         }
         {
-            includeVisionChk = new JCheckBox("Vision Debug Images (10 Newest)");
+            includeVisionChk = new JCheckBox(Translations.getString("SubmitDiagnosticsDialog.includeVisionChk.text")); //$NON-NLS-1$
             includeVisionChk.setSelected(true);
             contentPanel.add(includeVisionChk, "4, 26");
         }

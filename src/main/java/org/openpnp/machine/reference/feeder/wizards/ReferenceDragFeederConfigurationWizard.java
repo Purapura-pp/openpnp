@@ -125,7 +125,7 @@ public class ReferenceDragFeederConfigurationWizard
         panelFields.setLayout(new BoxLayout(panelFields, BoxLayout.Y_AXIS));
 
         panelGeneral = new JPanel();
-        panelGeneral.setBorder(new TitledBorder(null, "General Settings", TitledBorder.LEADING,
+        panelGeneral.setBorder(new TitledBorder(null, Translations.getString("ReferenceDragFeederConfigurationWizard.panelGeneral.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
 
         panelFields.add(panelGeneral);
@@ -138,28 +138,28 @@ public class ReferenceDragFeederConfigurationWizard
                         FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
                         FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblPartPitch = new JLabel("Part Pitch");
+        lblPartPitch = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblPartPitch.text")); //$NON-NLS-1$
         panelGeneral.add(lblPartPitch, "2, 2, right, default");
 
         textFieldPartPitch = new JTextField();
         panelGeneral.add(textFieldPartPitch, "4, 2");
         textFieldPartPitch.setColumns(5);
 
-        lblFeedRate = new JLabel("Feed Speed %");
+        lblFeedRate = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblFeedRate.text")); //$NON-NLS-1$
         panelGeneral.add(lblFeedRate, "2, 4");
 
         textFieldFeedRate = new JTextField();
         panelGeneral.add(textFieldFeedRate, "4, 4");
         textFieldFeedRate.setColumns(5);
 
-        lblActuatorId = new JLabel("Actuator Name");
+        lblActuatorId = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblActuatorId.text")); //$NON-NLS-1$
         panelGeneral.add(lblActuatorId, "2, 6, right, default");
 
         textFieldActuatorId = new JTextField();
         panelGeneral.add(textFieldActuatorId, "4, 6");
         textFieldActuatorId.setColumns(5);
 
-        lblPeelOffActuatorId = new JLabel("Peel Off Actuator Name");
+        lblPeelOffActuatorId = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblPeelOffActuatorId.text")); //$NON-NLS-1$
         panelGeneral.add(lblPeelOffActuatorId, "6, 6, right, default");
 
         textFieldPeelOffActuatorId = new JTextField();
@@ -173,7 +173,7 @@ public class ReferenceDragFeederConfigurationWizard
 
         panelLocations = new JPanel();
         panelFields.add(panelLocations);
-        panelLocations.setBorder(new TitledBorder(null, "Locations", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("ReferenceDragFeederConfigurationWizard.panelLocations.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelLocations.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -207,7 +207,7 @@ public class ReferenceDragFeederConfigurationWizard
         JLabel lblZ = new JLabel("Z");
         panelLocations.add(lblZ, "8, 4");
 
-        JLabel lblFeedStartLocation = new JLabel("Feed Start Location");
+        JLabel lblFeedStartLocation = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblFeedStartLocation.text")); //$NON-NLS-1$
         panelLocations.add(lblFeedStartLocation, "2, 6, right, default");
 
         textFieldFeedStartX = new JTextField();
@@ -226,7 +226,7 @@ public class ReferenceDragFeederConfigurationWizard
                 textFieldFeedStartY, textFieldFeedStartZ, null);
         panelLocations.add(locationButtonsPanelFeedStart, "10, 6");
 
-        JLabel lblFeedEndLocation = new JLabel("Feed End Location");
+        JLabel lblFeedEndLocation = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblFeedEndLocation.text")); //$NON-NLS-1$
         panelLocations.add(lblFeedEndLocation, "2, 8, right, default");
 
         textFieldFeedEndX = new JTextField();
@@ -245,7 +245,7 @@ public class ReferenceDragFeederConfigurationWizard
                 textFieldFeedEndZ, null);
         panelLocations.add(locationButtonsPanelFeedEnd, "10, 8");
         
-        lblBackoffDistance = new JLabel("Backoff Distance");
+        lblBackoffDistance = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblBackoffDistance.text")); //$NON-NLS-1$
         panelLocations.add(lblBackoffDistance, "2, 10, right, default");
         
         backoffDistTf = new JTextField();
@@ -253,7 +253,7 @@ public class ReferenceDragFeederConfigurationWizard
         backoffDistTf.setColumns(10);
         //
         panelVision = new JPanel();
-        panelVision.setBorder(new TitledBorder(null, "Vision", TitledBorder.LEADING,
+        panelVision.setBorder(new TitledBorder(null, Translations.getString("ReferenceDragFeederConfigurationWizard.panelVision.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelFields.add(panelVision);
         panelVision.setLayout(new BoxLayout(panelVision, BoxLayout.Y_AXIS));
@@ -263,7 +263,7 @@ public class ReferenceDragFeederConfigurationWizard
         fl_panelVisionEnabled.setAlignment(FlowLayout.LEFT);
         panelVision.add(panelVisionEnabled);
 
-        chckbxVisionEnabled = new JCheckBox("Vision Enabled?");
+        chckbxVisionEnabled = new JCheckBox(Translations.getString("ReferenceDragFeederConfigurationWizard.chckbxVisionEnabled.text")); //$NON-NLS-1$
         panelVisionEnabled.add(chckbxVisionEnabled);
 
         separator = new JSeparator();
@@ -278,7 +278,7 @@ public class ReferenceDragFeederConfigurationWizard
 
         panelTemplate = new JPanel();
         panelTemplate.setBorder(new TitledBorder(null,
-                "Template Image", TitledBorder.LEADING, TitledBorder.TOP, null));
+                Translations.getString("ReferenceDragFeederConfigurationWizard.panelTemplate.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelVisionTemplateAndAoe.add(panelTemplate, "2, 2, center, fill");
         panelTemplate.setLayout(new BoxLayout(panelTemplate, BoxLayout.Y_AXIS));
 
@@ -303,7 +303,7 @@ public class ReferenceDragFeederConfigurationWizard
         panel.add(btnCancelChangeTemplateImage);
 
         panelAoE = new JPanel();
-        panelAoE.setBorder(new TitledBorder(null, "Area of Interest", TitledBorder.LEADING,
+        panelAoE.setBorder(new TitledBorder(null, Translations.getString("ReferenceDragFeederConfigurationWizard.panelAoE.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelVisionTemplateAndAoe.add(panelAoE, "4, 2, fill, fill");
         panelAoE.setLayout(new FormLayout(
@@ -327,10 +327,10 @@ public class ReferenceDragFeederConfigurationWizard
         lblY_1 = new JLabel("Y");
         panelAoE.add(lblY_1, "4, 2");
 
-        lblWidth = new JLabel("Width");
+        lblWidth = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblWidth.text")); //$NON-NLS-1$
         panelAoE.add(lblWidth, "6, 2");
 
-        lblHeight = new JLabel("Height");
+        lblHeight = new JLabel(Translations.getString("ReferenceDragFeederConfigurationWizard.lblHeight.text")); //$NON-NLS-1$
         panelAoE.add(lblHeight, "8, 2");
 
         textFieldAoiX = new JTextField();
@@ -349,18 +349,18 @@ public class ReferenceDragFeederConfigurationWizard
         panelAoE.add(textFieldAoiHeight, "8, 4, fill, default");
         textFieldAoiHeight.setColumns(5);
 
-        btnChangeAoi = new JButton("Change");
+        btnChangeAoi = new JButton(Translations.getString("ReferenceDragFeederConfigurationWizard.btnChangeAoi.text")); //$NON-NLS-1$
         btnChangeAoi.setAction(selectAoiAction);
         panelAoE.add(btnChangeAoi, "10, 4");
 
-        btnCancelChangeAoi = new JButton("Cancel");
+        btnCancelChangeAoi = new JButton(Translations.getString("ReferenceDragFeederConfigurationWizard.btnCancelChangeAoi.text")); //$NON-NLS-1$
         btnCancelChangeAoi.setAction(cancelSelectAoiAction);
         panelAoE.add(btnCancelChangeAoi, "12, 4");
 
         cancelSelectTemplateImageAction.setEnabled(false);
         cancelSelectAoiAction.setEnabled(false);
 
-        btnResetVisionOffsets = new JButton("Reset offsets");
+        btnResetVisionOffsets = new JButton(Translations.getString("ReferenceDragFeederConfigurationWizard.btnResetVisionOffsets.text")); //$NON-NLS-1$
         btnResetVisionOffsets.setAction(resetVisionOffsets);
         panelAoE.add(btnResetVisionOffsets, "12, 10");
 

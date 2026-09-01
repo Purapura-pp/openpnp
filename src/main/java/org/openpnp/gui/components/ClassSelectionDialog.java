@@ -73,7 +73,7 @@ public class ClassSelectionDialog<T> extends JDialog {
         panelActions.add(btnSelect);
 
         JLabel lblDescription =
-                new JLabel("Please select an implemention class from the list.");
+                new JLabel(Translations.getString("ClassSelectionDialog.lblDescription.text")); //$NON-NLS-1$
         lblDescription.setBorder(new EmptyBorder(4, 4, 8, 4));
         panel.add(lblDescription, BorderLayout.NORTH);
         lblDescription.setHorizontalAlignment(SwingConstants.LEFT);

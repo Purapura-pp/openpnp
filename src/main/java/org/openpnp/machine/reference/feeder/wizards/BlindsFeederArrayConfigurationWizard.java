@@ -115,7 +115,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
 
         panelArray = new JPanel();
         contentPanel.add(panelArray);
-        panelArray.setBorder(new TitledBorder(null, "Array", TitledBorder.LEADING,
+        panelArray.setBorder(new TitledBorder(null, Translations.getString("BlindsFeederArrayConfigurationWizard.panelArray.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelArray.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -134,7 +134,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         RowSpec.decode("max(16dlu;min)"),}));
 
-        lblGroupName = new JLabel("Feeder Group Name");
+        lblGroupName = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblGroupName.text")); //$NON-NLS-1$
         panelArray.add(lblGroupName, "2, 2, right, default");
         feederGroupName = new JComboBox(blindsFeederGroupNames.toArray());
         feederGroupName.setEditable(true);
@@ -149,7 +149,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
 
         panelLocations = new JPanel();
         contentPanel.add(panelLocations);
-        panelLocations.setBorder(new TitledBorder(null, "Locations", TitledBorder.LEADING,
+        panelLocations.setBorder(new TitledBorder(null, Translations.getString("BlindsFeederArrayConfigurationWizard.panelLocations.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         panelLocations.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -185,7 +185,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         JLabel lblY = new JLabel("Y");
         panelLocations.add(lblY, "6, 4, center, default");
 
-        JLabel lblFiducial1Location = new JLabel("Fiducial 1");
+        JLabel lblFiducial1Location = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFiducial1Location.text")); //$NON-NLS-1$
         lblFiducial1Location.setToolTipText(
                 "The location of the first diamond shaped fiducial (marked by a square besides it).");
         panelLocations.add(lblFiducial1Location, "2, 6, right, default");
@@ -203,7 +203,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                 textFieldFiducial1Y, null, null);
         panelLocations.add(locationButtonsPanelFiducial1, "10, 6");
 
-        JLabel lblFiducial2Location = new JLabel("Fiducial 2");
+        JLabel lblFiducial2Location = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFiducial2Location.text")); //$NON-NLS-1$
         lblFiducial2Location.setToolTipText(
                 "The location of the second diamond shaped fiducial counter-clockwise from the first.");
         panelLocations.add(lblFiducial2Location, "2, 8, right, default");
@@ -221,8 +221,8 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                 textFieldFiducial2Y, null, null);
         panelLocations.add(locationButtonsPanelFiducial2, "10, 8");
 
-        lblFiducial3Location = new JLabel("Fiducial 3");
-        lblFiducial3Location.setToolTipText("The location of the third diamond shaped fiducial counter-clockwise from the first.");
+        lblFiducial3Location = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFiducial3Location.text")); //$NON-NLS-1$
+        lblFiducial3Location.setToolTipText(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFiducial3Location.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblFiducial3Location, "2, 10, right, default");
 
         textFieldFiducial3X = new JTextField();
@@ -237,7 +237,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                 textFieldFiducial3Y, null, null);
         panelLocations.add(locationButtonsPanelFiducial3, "10, 10");
 
-        lblNormalize = new JLabel("Normalize");
+        lblNormalize = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblNormalize.text")); //$NON-NLS-1$
         lblNormalize.setToolTipText("<html>\r\nNormalize the fiducial distances and shear to the theoretically correct <br />\r\nvalues (whole millimeter square grid). This means you trust the mechanics  <br />\r\nof your machine and of your 3D printer over the computer vision fiducial fixes.  <br />\r\nOverall absolute position and angle are still determined by vision. \r\n</html>");
         panelLocations.add(lblNormalize, "2, 12, right, default");
 
@@ -249,7 +249,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         panelLocations.add(btnCalibrateFiducials, "10, 12");
 
         JPanel panelVision = new JPanel();
-        panelVision.setBorder(new TitledBorder(null, "Vision Settings", TitledBorder.LEADING, TitledBorder.TOP,
+        panelVision.setBorder(new TitledBorder(null, Translations.getString("BlindsFeederArrayConfigurationWizard.panelVision.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, //$NON-NLS-1$
                 null, null));
         contentPanel.add(panelVision);
         panelVision.setLayout(new FormLayout(new ColumnSpec[] {
@@ -279,7 +279,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblUseVision = new JLabel("Use Fiducial Vision?");
+        lblUseVision = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblUseVision.text")); //$NON-NLS-1$
         lblUseVision.setToolTipText("<html><p>Use vision for fiducial calibration when the feeder is first used. </p>\r\n<p>Even if fiducial vision is disabled, vision will still be used for setup and <br />\r\ncover open checking</p><html>");
         panelVision.add(lblUseVision, "2, 2, right, default");
 
@@ -288,7 +288,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         chckbxUseVision = new JCheckBox("");
         panelVision.add(chckbxUseVision, "4, 2");
 
-        lblOcrAction = new JLabel("OCR Action");
+        lblOcrAction = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrAction.text")); //$NON-NLS-1$
         panelVision.add(lblOcrAction, "2, 4, right, default");
 
         ocrAction = new JComboBox(BlindsFeeder.OcrAction.values());
@@ -307,26 +307,26 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         btnSetOcrSettings = new JButton(setOcrSettingsToAllAction);
         panelVision.add(btnSetOcrSettings, "8, 4");
 
-        lblOcrTextOrientation = new JLabel("OCR Text Orientation");
+        lblOcrTextOrientation = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrTextOrientation.text")); //$NON-NLS-1$
         panelVision.add(lblOcrTextOrientation, "2, 6, right, default");
 
         ocrTextOrientation = new JComboBox(BlindsFeeder.OcrTextOrientation.values());
         panelVision.add(ocrTextOrientation, "4, 6, fill, default");
 
-        lblOcrMargin = new JLabel("OCR Margin");
+        lblOcrMargin = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrMargin.text")); //$NON-NLS-1$
         lblOcrMargin.setToolTipText("<html>Size of the margin where the OCR/Barcode labels are attached.<br/>When a negative value is given, the labels are assumed to be located at the end of the feeder.");
         panelVision.add(lblOcrMargin, "6, 6, right, default");
 
         ocrMargin = new JTextField();
         panelVision.add(ocrMargin, "8, 6, fill, default");
         ocrMargin.setColumns(10);
-        lblOcrFontName = new JLabel("OCR Font");
+        lblOcrFontName = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrFontName.text")); //$NON-NLS-1$
         panelVision.add(lblOcrFontName, "2, 8, right, default");
         ocrFontName = new JComboBox(fontList.toArray());
         lblOcrFontName.setToolTipText("<html>Name of the OCR font to be recognized or [Barcode].<br/>\r\nMonospace fonts work much better, allow lower resolution and therefore faster <br/>\r\noperation. Use a font where all the used characters are easily distinguishable.<br/>\r\nFonts with clear separation between glyphs are much preferred.</html>");
         panelVision.add(ocrFontName, "4, 8, fill, default");
 
-        lblFontSizept = new JLabel("Font Size [pt]");
+        lblFontSizept = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFontSizept.text")); //$NON-NLS-1$
         panelVision.add(lblFontSizept, "6, 8, right, default");
 
         ocrFontSizePt = new JTextField();

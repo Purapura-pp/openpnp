@@ -143,7 +143,7 @@ public class ReferenceAdvancedMotionPlannerDiagnosticsWizard extends AbstractCon
         diagnosticsEnabled = new JCheckBox("");
         contentPanel.add(diagnosticsEnabled, "4, 2");
         
-        btnTest = new JButton("Test");
+        btnTest = new JButton(Translations.getString("ReferenceAdvancedMotionPlannerDiagnosticsWizard.btnTest.text")); //$NON-NLS-1$
         btnTest.setAction(testAction);
         contentPanel.add(btnTest, "6, 2");
         

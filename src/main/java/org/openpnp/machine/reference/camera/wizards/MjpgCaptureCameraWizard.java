@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.openpnp.Translations;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
 import org.openpnp.gui.support.IntegerConverter;
@@ -29,7 +30,7 @@ public class MjpgCaptureCameraWizard extends AbstractConfigurationWizard {
         panelGeneral = new JPanel();
         contentPanel.add(panelGeneral);
         panelGeneral.setBorder(new TitledBorder(null,
-                "General", TitledBorder.LEADING, TitledBorder.TOP, null));
+                Translations.getString("MjpgCaptureCameraWizard.panelGeneral.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null)); //$NON-NLS-1$
         panelGeneral.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
                 FormSpecs.DEFAULT_COLSPEC,
@@ -53,7 +54,7 @@ public class MjpgCaptureCameraWizard extends AbstractConfigurationWizard {
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblIP = new JLabel("Camera IP Address and Port Number");
+        lblIP = new JLabel(Translations.getString("MjpgCaptureCameraWizard.lblIP.text")); //$NON-NLS-1$
         panelGeneral.add(lblIP, "2, 2, right, default");
 
         ipTextField = new JTextField();
@@ -63,7 +64,7 @@ public class MjpgCaptureCameraWizard extends AbstractConfigurationWizard {
         lbluseFor_ip = new JLabel("(IP:port)");
         panelGeneral.add(lbluseFor_ip, "6, 2");
         
-        lblTimeout = new JLabel("Timeout [ms]");
+        lblTimeout = new JLabel(Translations.getString("MjpgCaptureCameraWizard.lblTimeout.text")); //$NON-NLS-1$
         panelGeneral.add(lblTimeout, "2, 4, right, default");
         
         timeout = new JTextField();

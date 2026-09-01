@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.AbstractConfigurationWizard;
@@ -71,7 +72,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
 
         panelPart = new JPanel();
         panelPart.setBorder(new TitledBorder(null,
-                "General Settings", TitledBorder.LEADING, TitledBorder.TOP, null,
+                Translations.getString("BlindsFeederConfigurationWizard.panelPart.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, //$NON-NLS-1$
                 new Color(0, 0, 0)));
         contentPanel.add(panelPart);
         panelPart.setLayout(new FormLayout(new ColumnSpec[] {
@@ -103,7 +104,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
                 FormSpecs.RELATED_GAP_ROWSPEC,
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblPart = new JLabel("Part");
+        lblPart = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPart.text")); //$NON-NLS-1$
         panelPart.add(lblPart, "2, 2, right, default");
 
         comboBoxPart = new JComboBox();
@@ -114,7 +115,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         btnOcrDetect = new JButton(performOcrAction);
         panelPart.add(btnOcrDetect, "14, 2");
 
-        lblRotationInTape = new JLabel("Rotation in Tape");
+        lblRotationInTape = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblRotationInTape.text")); //$NON-NLS-1$
         lblRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
         panelPart.add(lblRotationInTape, "2, 4, right, default");
 
@@ -122,8 +123,8 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelPart.add(textFieldLocationRotation, "4, 4, fill, default");
         textFieldLocationRotation.setColumns(4);
 
-        lblPartTopZ = new JLabel("Part Z");
-        lblPartTopZ.setToolTipText("Part pickup Z");
+        lblPartTopZ = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPartTopZ.text")); //$NON-NLS-1$
+        lblPartTopZ.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblPartTopZ.toolTipText")); //$NON-NLS-1$
         panelPart.add(lblPartTopZ, "8, 4, right, default");
 
         textFieldPartZ = new JTextField();
@@ -134,7 +135,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         btnCaptureToolZ.setHideActionText(true);
         panelPart.add(btnCaptureToolZ, "14, 4, left, default");
 
-        lblRetryCount = new JLabel("Retry Count");
+        lblRetryCount = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblRetryCount.text")); //$NON-NLS-1$
         panelPart.add(lblRetryCount, "2, 6, right, default");
 
         retryCountTf = new JTextField();
@@ -144,7 +145,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelTapeSettings = new JPanel();
         contentPanel.add(panelTapeSettings);
         panelTapeSettings.setBorder(new TitledBorder(
-                null, "Tape Settings",
+                null, Translations.getString("BlindsFeederConfigurationWizard.panelTapeSettings.Border.title"), //$NON-NLS-1$
                 TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         panelTapeSettings.setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.RELATED_GAP_COLSPEC,
@@ -176,8 +177,8 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblTapeLength = new JLabel("Tape Length");
-        lblTapeLength.setToolTipText("Length of the tape.");
+        lblTapeLength = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblTapeLength.text")); //$NON-NLS-1$
+        lblTapeLength.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblTapeLength.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblTapeLength, "2, 2, right, default");
 
         textFieldTapeLength = new JTextField();
@@ -185,8 +186,8 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         textFieldTapeLength.setColumns(10);
         panelTapeSettings.add(textFieldTapeLength, "4, 2");
 
-        lblFeederExtent = new JLabel("Feeder Extent");
-        lblFeederExtent.setToolTipText("Total feeder holder extent (all tapes).");
+        lblFeederExtent = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblFeederExtent.text")); //$NON-NLS-1$
+        lblFeederExtent.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblFeederExtent.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblFeederExtent, "8, 2, right, default");
 
         textFieldFeederExtent = new JTextField();
@@ -199,26 +200,26 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelTapeSettings.add(btnShowInfo, "14, 2");
 
         btnAutoSetup = new JButton(autoSetup);
-        btnAutoSetup.setToolTipText("Capture the pocket pitch, size and centerline from the current camera position.");
+        btnAutoSetup.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.btnAutoSetup.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(btnAutoSetup, "14, 4, 1, 3");
 
-        lblPocketPitch = new JLabel("Pocket Pitch");
-        lblPocketPitch.setToolTipText("Picth of the part pockets in the tape.");
+        lblPocketPitch = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPocketPitch.text")); //$NON-NLS-1$
+        lblPocketPitch.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblPocketPitch.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblPocketPitch, "2, 4, right, default");
 
         textFieldPocketPitch = new JTextField();
         panelTapeSettings.add(textFieldPocketPitch, "4, 4");
         textFieldPocketPitch.setColumns(5);
 
-        lblPartSize = new JLabel("Pocket Size");
-        lblPartSize.setToolTipText("Size of the pocket across the tape.");
+        lblPartSize = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPartSize.text")); //$NON-NLS-1$
+        lblPartSize.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblPartSize.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblPartSize, "8, 4, right, default");
 
         textFieldPocketSize = new JTextField();
         textFieldPocketSize.setColumns(5);
         panelTapeSettings.add(textFieldPocketSize, "10, 4");
 
-        lblPocketCount = new JLabel("Pocket Count");
+        lblPocketCount = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPocketCount.text")); //$NON-NLS-1$
         panelTapeSettings.add(lblPocketCount, "2, 6, right, default");
 
         textFieldPocketCount = new JTextField();
@@ -226,49 +227,49 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelTapeSettings.add(textFieldPocketCount, "4, 6");
         textFieldPocketCount.setColumns(10);
 
-        lblPocketCenterline = new JLabel("Pocket Centerline");
-        lblPocketCenterline.setToolTipText("Centerline of the pockets i.e. the perpendicular distance between the tape pocket centerline and fiducial 1.");
+        lblPocketCenterline = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPocketCenterline.text")); //$NON-NLS-1$
+        lblPocketCenterline.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblPocketCenterline.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblPocketCenterline, "8, 6, right, default");
 
         textFieldPocketCenterline = new JTextField();
         panelTapeSettings.add(textFieldPocketCenterline, "10, 6");
         textFieldPocketCenterline.setColumns(5);
 
-        lblFirstPocket = new JLabel("First Pocket");
-        lblFirstPocket.setToolTipText("First pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.");
+        lblFirstPocket = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblFirstPocket.text")); //$NON-NLS-1$
+        lblFirstPocket.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblFirstPocket.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblFirstPocket, "2, 8, right, default");
 
         textFieldFirstPocket = new JTextField();
         panelTapeSettings.add(textFieldFirstPocket, "4, 8, fill, default");
         textFieldFirstPocket.setColumns(10);
 
-        lblFeederNo = new JLabel("Feeder No.");
+        lblFeederNo = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblFeederNo.text")); //$NON-NLS-1$
         panelTapeSettings.add(lblFeederNo, "8, 8, right, default");
-        lblFeederNo.setToolTipText("Feeder lane number inside the same holder.");
+        lblFeederNo.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblFeederNo.toolTipText")); //$NON-NLS-1$
 
         textFieldFeederNo = new JTextField();
         panelTapeSettings.add(textFieldFeederNo, "10, 8");
         textFieldFeederNo.setEditable(false);
         textFieldFeederNo.setColumns(10);
 
-        lblLastPocket = new JLabel("Last Pocket");
-        lblLastPocket.setToolTipText("Last pocket of the tape that contains a part. Use the Show Features Button to indicate pocket numbers.");
+        lblLastPocket = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblLastPocket.text")); //$NON-NLS-1$
+        lblLastPocket.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblLastPocket.toolTipText")); //$NON-NLS-1$
         panelTapeSettings.add(lblLastPocket, "2, 10, right, default");
 
         textFieldLastPocket = new JTextField();
         panelTapeSettings.add(textFieldLastPocket, "4, 10");
         textFieldLastPocket.setColumns(5);
 
-        lblFeedersTotal = new JLabel("Feeders Total");
+        lblFeedersTotal = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblFeedersTotal.text")); //$NON-NLS-1$
         panelTapeSettings.add(lblFeedersTotal, "8, 10, right, default");
-        lblFeedersTotal.setToolTipText("Total number of feeder lanes in the same holder. ");
+        lblFeedersTotal.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblFeedersTotal.toolTipText")); //$NON-NLS-1$
 
         textFieldFeedersTotal = new JTextField();
         panelTapeSettings.add(textFieldFeedersTotal, "10, 10");
         textFieldFeedersTotal.setEditable(false);
         textFieldFeedersTotal.setColumns(5);
 
-        lblFeedCount = new JLabel("Feed Count");
+        lblFeedCount = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
         panelTapeSettings.add(lblFeedCount, "2, 12, right, default");
 
         textFieldFeedCount = new JTextField();
@@ -279,7 +280,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelTapeSettings.add(btnResetFeedCount, "14, 12");
 
         panelCover = new JPanel();
-        panelCover.setBorder(new TitledBorder(null, "Cover Settings", TitledBorder.LEADING,
+        panelCover.setBorder(new TitledBorder(null, Translations.getString("BlindsFeederConfigurationWizard.panelCover.Border.title"), TitledBorder.LEADING, //$NON-NLS-1$
                 TitledBorder.TOP, null, null));
         contentPanel.add(panelCover);
         panelCover.setLayout(new FormLayout(new ColumnSpec[] {
@@ -311,13 +312,13 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
                         FormSpecs.RELATED_GAP_ROWSPEC,
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
-        lblCoverType = new JLabel("Cover Type");
+        lblCoverType = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblCoverType.text")); //$NON-NLS-1$
         panelCover.add(lblCoverType, "2, 2, right, default");
 
         comboBoxCoverType = new JComboBox(BlindsFeeder.CoverType.values());
         panelCover.add(comboBoxCoverType, "4, 2, fill, default");
 
-        lblCoverOpenClose = new JLabel("Cover Open/Close");
+        lblCoverOpenClose = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblCoverOpenClose.text")); //$NON-NLS-1$
         panelCover.add(lblCoverOpenClose, "8, 2, right, default");
 
         comboBoxCoverActuation = new JComboBox(BlindsFeeder.CoverActuation.values());
@@ -326,15 +327,15 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         btnOpenCover = new JButton(openCover);
         panelCover.add(btnOpenCover, "14, 2");
 
-        lblPushSpeed = new JLabel("Push speed");
-        lblPushSpeed.setToolTipText("Speed factor when pushing the cover.");
+        lblPushSpeed = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPushSpeed.text")); //$NON-NLS-1$
+        lblPushSpeed.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblPushSpeed.toolTipText")); //$NON-NLS-1$
         panelCover.add(lblPushSpeed, "2, 4, right, default");
 
         textFieldPushSpeed = new JTextField();
         panelCover.add(textFieldPushSpeed, "4, 4");
         textFieldPushSpeed.setColumns(10);
 
-        lblPushZOffset = new JLabel("Push Z Offset");
+        lblPushZOffset = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblPushZOffset.text")); //$NON-NLS-1$
         panelCover.add(lblPushZOffset, "8, 4, right, default");
 
         textFieldPushZOffset = new JTextField();
@@ -350,19 +351,19 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
 
         btnCloseAll = new JButton(closeAllCovers);
         btnCloseAll.setText("Close all Covers");
-        btnCloseAll.setToolTipText("Close the opened covers of all the feeders of the machine (including those of enabled feeders where the cover state is unknown).");
+        btnCloseAll.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.btnCloseAll.toolTipText")); //$NON-NLS-1$
         panelCover.add(btnCloseAll, "14, 8");
 
-        lblEdgeBeginDistance = new JLabel("Edge Distance Open");
-        lblEdgeBeginDistance.setToolTipText("Distance from sprocket to the edge used for opening the cover (default: 2mm).");
+        lblEdgeBeginDistance = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblEdgeBeginDistance.text")); //$NON-NLS-1$
+        lblEdgeBeginDistance.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblEdgeBeginDistance.toolTipText")); //$NON-NLS-1$
         panelCover.add(lblEdgeBeginDistance, "2, 10, right, default");
 
         textFieldEdgeOpeningDistance = new JTextField();
         panelCover.add(textFieldEdgeOpeningDistance, "4, 10");
         textFieldEdgeOpeningDistance.setColumns(10);
 
-        lblEdgeEnd = new JLabel("Edge Distance Closed");
-        lblEdgeEnd.setToolTipText("Distance from sprocket to the edge used for closing the cover (default: 2mm).");
+        lblEdgeEnd = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblEdgeEnd.text")); //$NON-NLS-1$
+        lblEdgeEnd.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblEdgeEnd.toolTipText")); //$NON-NLS-1$
         panelCover.add(lblEdgeEnd, "8, 10, right, default");
 
         textFieldEdgeClosingDistance = new JTextField();

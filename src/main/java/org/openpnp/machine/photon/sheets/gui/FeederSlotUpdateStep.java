@@ -4,6 +4,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import org.openpnp.Translations;
 import org.openpnp.machine.photon.PhotonFeeder;
 import org.openpnp.machine.photon.PhotonProperties;
 import org.openpnp.machine.photon.protocol.PhotonBusInterface;
@@ -66,7 +67,7 @@ public class FeederSlotUpdateStep extends JPanel {
         instructionsText.setEditable(false);
         add(instructionsText, "2, 2, 5, 1, fill, fill");
 
-        JLabel lblNewLabel = new JLabel("Current Slot Address");
+        JLabel lblNewLabel = new JLabel(Translations.getString("FeederSlotUpdateStep.CurrentSlotAddress.text")); //$NON-NLS-1$
         add(lblNewLabel, "2, 4");
 
         feederAddressModal = new SpinnerNumberModel(254, 1, 254, 1);
