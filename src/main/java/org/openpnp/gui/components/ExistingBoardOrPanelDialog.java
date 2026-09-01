@@ -69,12 +69,16 @@ public class ExistingBoardOrPanelDialog extends JDialog {
         
         if (type == Board.class) {
             boardOrPanel = Translations.getString("ExistingBoardOrPanelDialog.boardOrPanel.Board"); //$NON-NLS-1$
+            // Not derived from the word above: that word is translated, and the extension is what
+            // the file on disk is actually called.
+            fileExtension = ".board.xml"; //$NON-NLS-1$
             for (Board board : configuration.getBoards()) {
                 existingList.add(board.getFile());
             }
         }
         else if (type == Panel.class) {
             boardOrPanel = Translations.getString("ExistingBoardOrPanelDialog.boardOrPanel.Panel"); //$NON-NLS-1$
+            fileExtension = ".panel.xml"; //$NON-NLS-1$
             for (Panel panel : configuration.getPanels()) {
                 existingList.add(panel.getFile());
             }
@@ -82,7 +86,6 @@ public class ExistingBoardOrPanelDialog extends JDialog {
         else {
             throw new UnsupportedOperationException("Unsupported operation for class " + type); //$NON-NLS-1$
         }
-        fileExtension = "." + boardOrPanel + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$
         setBounds(100, 100, 600, 400);
         setLocationRelativeTo(MainFrame.get());
 
