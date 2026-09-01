@@ -639,7 +639,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
         cloneFromNozzleTipAction.setEnabled(!isLocked);
         referenceZAction.setEnabled(isTemplate);
 
-        boolean zProbing = (ContactProbeNozzle.isConfigured());
+        boolean zProbing = (ContactProbeNozzle.isConfigured(getMachine()));
         lblTouchLocation.setVisible(zProbing);
         touchLocationX.setVisible(zProbing);
         touchLocationY.setVisible(zProbing);
@@ -920,7 +920,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
                     throw new Exception("Nozzle tip "+nozzleTip.getName()+" must at least have the First Location defined, "
                             + "before it can clone from the template. The displacement between the two changer slots must be known.");
                 }
-                ReferenceNozzleTip templateNozzleTip = ReferenceNozzleTip.getTemplateNozzleTip();
+                ReferenceNozzleTip templateNozzleTip = ReferenceNozzleTip.getTemplateNozzleTip(getMachine());
                 nozzleTip.assignNozzleTipChangerSettings(templateNozzleTip, 
                         cloneLocations.isSelected(), cloneZCalibration.isSelected(), cloneVisionCalibration.isSelected());
             });
@@ -960,7 +960,7 @@ public class ReferenceNozzleTipToolChangerWizard extends AbstractConfigurationWi
         public void actionPerformed(ActionEvent e) {
             applyAction.actionPerformed(e);
             UiUtils.submitUiMachineTask(() -> {
-                ContactProbeNozzle.referenceAllTouchLocationsZ();
+                ContactProbeNozzle.referenceAllTouchLocationsZ(getMachine());
             });
         }
     };

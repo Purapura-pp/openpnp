@@ -281,7 +281,7 @@ public abstract class AbstractBroadcastingCamera extends AbstractSettlingCamera 
     }
 
     protected synchronized boolean ensureOpen() {
-        if (Configuration.get().getMachine() == null) {
+        if (getMachine() == null) {
             // For some reason, in some test units, but only when run trough mvn test but not with the debugger, 
             // we get calls to internalCapture() with an uninitialized Machine. 
             return false;

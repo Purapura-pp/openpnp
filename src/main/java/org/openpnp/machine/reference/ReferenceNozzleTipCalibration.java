@@ -31,6 +31,7 @@ import org.openpnp.model.Point;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.CameraBatchOperation;
 import org.openpnp.spi.HeadMountable;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.NozzleTip;
 import org.openpnp.util.LogUtils;
@@ -886,9 +887,9 @@ public class ReferenceNozzleTipCalibration extends AbstractModelObject {
         return measureBaseLocation;
     }
 
-    public static void resetAllNozzleTips() {
+    public static void resetAllNozzleTips(Machine machine) {
         // Reset all nozzle tip calibrations, as they have become invalid due to some machine configuration change.
-        for (NozzleTip nt: Configuration.get().getMachine().getNozzleTips()) {
+        for (NozzleTip nt: machine.getNozzleTips()) {
             if (nt instanceof ReferenceNozzleTip) {
                 ((ReferenceNozzleTip)nt).getCalibration().resetAll();
             }

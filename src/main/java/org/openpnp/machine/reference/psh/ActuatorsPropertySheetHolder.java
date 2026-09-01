@@ -58,7 +58,7 @@ public class ActuatorsPropertySheetHolder extends SimplePropertySheetHolder {
                     head.addActuator(actuator);
                 }
                 else {
-                    Configuration.get().getMachine().addActuator(actuator);
+                    configuration.getMachine().addActuator(actuator);
                 }
             }
             catch (Exception e) {

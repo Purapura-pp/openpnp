@@ -29,7 +29,6 @@ import java.util.Map;
 import org.openpnp.machine.reference.ReferenceActuator;
 import org.openpnp.machine.reference.driver.GcodeDriver;
 import org.openpnp.machine.reference.driver.GcodeDriver.CommandType;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Solutions;
 import org.openpnp.model.Solutions.Milestone;
 import org.openpnp.model.Solutions.Severity;
@@ -37,6 +36,7 @@ import org.openpnp.model.Solutions.State;
 import org.openpnp.model.Solutions.Subject;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.TextUtils;
 import org.pmw.tinylog.Logger;
 
@@ -51,7 +51,7 @@ public class ActuatorSolutions implements Solutions.Subject {
 
     public ActuatorSolutions(Actuator actuator) {
         this.actuator = actuator;
-        this.machine = Configuration.get().getMachine();
+        this.machine = MachineElement.machineOf(actuator);
     }
 
     @Override

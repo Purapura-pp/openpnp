@@ -213,7 +213,7 @@ public class ReferenceHeapFeederConfigurationWizard
                 FormSpecs.RELATED_GAP_ROWSPEC,});
         dropBoxPanel.setLayout(fl_dropBoxPanel);
         
-        for (DropBox box : ReferenceHeapFeeder.getDropBoxes()) {
+        for (DropBox box : ReferenceHeapFeeder.getDropBoxes(getMachine())) {
             dropBoxCb.addItem(box);
         }
         
@@ -684,7 +684,7 @@ public class ReferenceHeapFeederConfigurationWizard
         @Override
         public void actionPerformed(ActionEvent e) {
             DropBox box = new DropBox();
-            ReferenceHeapFeeder.getDropBoxes().add(box);
+            ReferenceHeapFeeder.getDropBoxes(getMachine()).add(box);
             dropBoxCb.addItem(box);
             dropBoxCb.setSelectedItem(box);
             dropBoxNameTf.setText("New");
@@ -695,7 +695,7 @@ public class ReferenceHeapFeederConfigurationWizard
         @Override
         public void actionPerformed(ActionEvent e) {
             DropBox box = (DropBox) dropBoxCb.getSelectedItem();
-            if (ReferenceHeapFeeder.getDropBoxes().size() < 2) {
+            if (ReferenceHeapFeeder.getDropBoxes(getMachine()).size() < 2) {
                 MessageBoxes.errorBox(getTopLevelAncestor(),
                         Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString( //$NON-NLS-1$
@@ -713,7 +713,7 @@ public class ReferenceHeapFeederConfigurationWizard
                         Translations.getString( //$NON-NLS-1$
                                 "ReferenceHeapFeederConfigurationWizard.DeleteDropBox.InUse"));
             }
-            ReferenceHeapFeeder.getDropBoxes().remove(box);
+            ReferenceHeapFeeder.getDropBoxes(getMachine()).remove(box);
             dropBoxCb.removeItem(box);
         }
     };

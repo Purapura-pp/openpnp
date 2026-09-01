@@ -56,4 +56,24 @@ public interface MachineElement {
         }
         return attached;
     }
+
+    /**
+     * The machine something belongs to, when all that is known about it is its SPI interface.
+     * <p>
+     * A camera, an actuator or a driver reaches its caller as {@link org.openpnp.spi.Camera} and
+     * the like, and those interfaces say nothing about belonging to a machine - only the
+     * implementations do. Every implementation in the tree is one of these, so this is the same
+     * answer {@code getMachine()} would give, reached from a caller that cannot say so in a type.
+     * 
+     * @param element
+     * @return
+     */
+    static AbstractMachine machineOf(Object element) {
+        if (element instanceof MachineElement) {
+            return ((MachineElement) element).getMachine();
+        }
+        Logger.trace("{} does not belong to a machine, so the machine of the moment is used.",
+                element == null ? "null" : element.getClass().getSimpleName());
+        return (AbstractMachine) Configuration.get().getMachine();
+    }
 }

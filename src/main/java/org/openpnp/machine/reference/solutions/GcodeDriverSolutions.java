@@ -41,7 +41,6 @@ import org.openpnp.machine.reference.driver.GcodeDriver.CommandType;
 import org.openpnp.machine.reference.driver.NullDriver;
 import org.openpnp.machine.reference.driver.SerialPortCommunications.FlowControl;
 import org.openpnp.model.AxesLocation;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Solutions;
 import org.openpnp.model.Solutions.Milestone;
@@ -54,6 +53,7 @@ import org.openpnp.spi.Driver.MotionControlType;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.GcodeServer;
 import org.openpnp.util.UiUtils;
 import org.openpnp.util.XmlSerialize;
@@ -1232,7 +1232,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
      */
     public static void replaceDriver(Driver driver) throws Exception {
         // Disable the machine, so the driver isn't connected.
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = MachineElement.machineOf(driver);
         boolean wasEnabled = machine.isEnabled();
         if (wasEnabled) {
             machine.setEnabled(false);

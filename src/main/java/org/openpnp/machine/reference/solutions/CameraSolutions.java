@@ -41,7 +41,6 @@ import org.openpnp.machine.reference.camera.OpenPnpCaptureCamera;
 import org.openpnp.machine.reference.camera.OpenPnpCaptureCamera.CapturePropertyHolder;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
 import org.openpnp.machine.reference.camera.SwitcherCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.model.Solutions;
@@ -54,6 +53,7 @@ import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.MotionPlanner.CompletionType;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
 import org.openpnp.util.VisionUtils;
@@ -160,7 +160,7 @@ public class CameraSolutions implements Solutions.Subject  {
                     });
                 }
             }
-            Machine machine = Configuration.get().getMachine();
+            Machine machine = camera.getMachine();
             if (machine instanceof ReferenceMachine 
                     && (camera.getHead() == null || camera.getHead() instanceof ReferenceHead)) {
                 VisionSolutions visionSolutions = ((ReferenceMachine)machine).getVisionSolutions();
@@ -613,7 +613,7 @@ public class CameraSolutions implements Solutions.Subject  {
      */
     public static void replaceCamera(Camera camera) throws Exception {
         // Disable the machine, so the driver isn't connected.
-        Machine machine = Configuration.get().getMachine();
+        Machine machine = MachineElement.machineOf(camera);
         // Find the old driver with the same Id.
         Head cameraHead = camera.getHead();
         List<Camera> list = (cameraHead == null ? machine.getCameras() : cameraHead.getCameras());

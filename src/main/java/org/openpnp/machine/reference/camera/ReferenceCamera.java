@@ -350,7 +350,7 @@ public abstract class ReferenceCamera extends AbstractBroadcastingCamera impleme
     protected void viewHasChanged() {
         if (this.getLooking() == Looking.Up) {
             // Changing an up-looking camera view invalidates the nozzle tip calibration.
-            ReferenceNozzleTipCalibration.resetAllNozzleTips();
+            ReferenceNozzleTipCalibration.resetAllNozzleTips(getMachine());
         }
     }
 

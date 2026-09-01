@@ -61,7 +61,7 @@ public class AxisSolutions implements Solutions.Subject {
 
     public AxisSolutions(ReferenceControllerAxis axis) {
         this.axis = axis;
-        this.machine = Configuration.get().getMachine();
+        this.machine = axis.getMachine();
     }
 
     @Override

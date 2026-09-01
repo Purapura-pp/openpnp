@@ -32,6 +32,7 @@ import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Head;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.NozzleTip;
 import org.openpnp.spi.PropertySheetHolder;
@@ -1031,8 +1032,8 @@ public class ReferenceNozzleTip extends AbstractNozzleTip {
         return vacuumGraph;
     }
 
-    public static ReferenceNozzleTip getTemplateNozzleTip() throws Exception {
-        for (NozzleTip nt : Configuration.get().getMachine().getNozzleTips()) {
+    public static ReferenceNozzleTip getTemplateNozzleTip(Machine machine) throws Exception {
+        for (NozzleTip nt : machine.getNozzleTips()) {
             if (nt instanceof ReferenceNozzleTip
                     && ((ReferenceNozzleTip)nt).isTemplateNozzleTip()) {
                 return (ReferenceNozzleTip)nt;

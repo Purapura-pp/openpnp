@@ -12,6 +12,7 @@ import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.model.Named;
 import org.openpnp.model.Part;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.util.IdentifiableList;
 import org.simpleframework.xml.Attribute;
@@ -50,7 +51,7 @@ public class ReferenceSlotAutoFeeder extends ReferenceAutoFeeder {
             
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
-                setBank(getBanks().get(bankId));
+                setBank(getBanks(configuration.getMachine()).get(bankId));
                 setFeeder(getBank().getFeeder(feederId));
             }
         });
@@ -110,7 +111,8 @@ public class ReferenceSlotAutoFeeder extends ReferenceAutoFeeder {
 
     public Bank getBank() {
         if (bank == null) {
-            bank = getBanks().get(getBanks().size() - 1);
+            IdentifiableList<Bank> banks = getBanks(getMachine());
+            bank = banks.get(banks.size() - 1);
         }
         return bank;
     }
@@ -136,14 +138,14 @@ public class ReferenceSlotAutoFeeder extends ReferenceAutoFeeder {
         getBank().setFeeder(this, feeder);
     }
     
-    public static synchronized IdentifiableList<Bank> getBanks() {
-        BanksProperty bp = (BanksProperty) Configuration.get().getMachine().getProperty("ReferenceAutoFeederSlot.banks");
+    public static synchronized IdentifiableList<Bank> getBanks(Machine machine) {
+        BanksProperty bp = (BanksProperty) machine.getProperty("ReferenceAutoFeederSlot.banks");
         if (bp == null) {
             bp = new BanksProperty();
             Bank bank = new Bank();
             bank.setName("Default");
             bp.banks.add(bank);
-            Configuration.get().getMachine().setProperty("ReferenceAutoFeederSlot.banks", bp);
+            machine.setProperty("ReferenceAutoFeederSlot.banks", bp);
         }
         return bp.banks;
     }

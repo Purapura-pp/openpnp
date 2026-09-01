@@ -437,7 +437,7 @@ extends AbstractConfigurationWizard {
             statusActuatorAction.actionPerformed(null);
         }
 
-        for (Bank bank : SlotSchultzFeeder.getBanks()) {
+        for (Bank bank : SlotSchultzFeeder.getBanks(getMachine())) {
             bankCb.addItem(bank);
         }
         feederCb.addItem(null);
@@ -683,7 +683,7 @@ extends AbstractConfigurationWizard {
         @Override
         public void actionPerformed(ActionEvent e) {
             Bank bank = new Bank();
-            SlotSchultzFeeder.getBanks().add(bank);
+            SlotSchultzFeeder.getBanks(getMachine()).add(bank);
             bankCb.addItem(bank);
             bankCb.setSelectedItem(bank);
         }
@@ -693,13 +693,13 @@ extends AbstractConfigurationWizard {
         @Override
         public void actionPerformed(ActionEvent e) {
             Bank bank = (Bank) bankCb.getSelectedItem();
-            if (SlotSchultzFeeder.getBanks().size() < 2) {
+            if (SlotSchultzFeeder.getBanks(getMachine()).size() < 2) {
                 MessageBoxes.errorBox(getTopLevelAncestor(),
                         Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString("DialogMessages.DeleteBank.LastOne")); //$NON-NLS-1$
                 return;
             }
-            SlotSchultzFeeder.getBanks().remove(bank);
+            SlotSchultzFeeder.getBanks(getMachine()).remove(bank);
             bankCb.removeItem(bank);
         }
     };

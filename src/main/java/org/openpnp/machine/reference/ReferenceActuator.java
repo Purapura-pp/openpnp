@@ -85,7 +85,7 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
 
             @Override
             public void configurationLoaded(Configuration configuration) throws Exception {
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                configuration.getMachine().addListener(new MachineListener.Adapter() {
                     @Override
                     public void machineEnabled(Machine machine) {
                         actuateMachineState(machine, getEnabledActuation(), true);

@@ -1184,7 +1184,7 @@ public class CalibrationSolutions implements Solutions.Subject {
 
     private void advancedCameraCalibration(ReferenceCamera camera, HeadMountable movable, ReferenceHead head, Solutions.Issue issue)
             throws Exception {
-        if (!Configuration.get().getMachine().isHomed()) {
+        if (!camera.getMachine().isHomed()) {
             throw new Exception("Machine is not enabled and homed.");
         }
         AdvancedCalibration advCal = camera.getAdvancedCalibration();

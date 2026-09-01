@@ -47,6 +47,7 @@ import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.Cycles;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.UiUtils;
@@ -476,7 +477,7 @@ public class LocationButtonsPanel extends JPanel {
                     HeadMountable tool = getTool();
                     if (isContactProbeReference()) {
                         // Always use the probing default nozzle for reference probing.
-                        tool = ContactProbeNozzle.getDefaultNozzle();
+                        tool = ContactProbeNozzle.getDefaultNozzle(MachineElement.machineOf(tool));
                     }
                     if (! (tool instanceof ContactProbeNozzle)) {
                         throw new Exception("Nozzle "+tool.getName()+" is not a ContactProbeNozzle.");

@@ -178,7 +178,7 @@ public class ReferenceStripFeeder extends ReferenceFeeder {
         Configuration.get().addListener(new ConfigurationListener.Adapter() {
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
-                Configuration.get().getMachine().addListener(new MachineListener.Adapter() {
+                configuration.getMachine().addListener(new MachineListener.Adapter() {
 
                     @Override
                     public void machineHeadActivity(Machine machine, Head head) {

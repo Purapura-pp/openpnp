@@ -719,13 +719,13 @@ public class ContactProbeNozzle extends ReferenceNozzle {
     }
     }
 
-    public static void referenceAllTouchLocationsZ() throws Exception {
-        ReferenceNozzleTip templateNozzleTip = ReferenceNozzleTip.getTemplateNozzleTip();
+    public static void referenceAllTouchLocationsZ(Machine machine) throws Exception {
+        ReferenceNozzleTip templateNozzleTip = ReferenceNozzleTip.getTemplateNozzleTip(machine);
         if (templateNozzleTip == null) {
             throw new Exception("No nozzle tip is marked as Template.");
         }
         // Always use the default nozzle.
-        ContactProbeNozzle probeNozzle = ContactProbeNozzle.getDefaultNozzle();
+        ContactProbeNozzle probeNozzle = ContactProbeNozzle.getDefaultNozzle(machine);
         if (probeNozzle == null) {
             throw new Exception("No default ContactProbeNozzle found.");
         }
@@ -733,7 +733,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
             probeNozzle.loadNozzleTip(templateNozzleTip);
         }
         probeNozzle.calibrateZ(templateNozzleTip);
-        for (NozzleTip nt : Configuration.get().getMachine().getNozzleTips()) {
+        for (NozzleTip nt : machine.getNozzleTips()) {
             if (nt != templateNozzleTip 
                     && nt instanceof ReferenceNozzleTip) {
                 Location touchLocation = ((ReferenceNozzleTip) nt).getTouchLocation();
@@ -784,8 +784,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
         return true; 
     }
 
-    public static ContactProbeNozzle getDefaultNozzle() {
-        Machine machine = Configuration.get().getMachine();
+    public static ContactProbeNozzle getDefaultNozzle(Machine machine) {
         for (Head head : machine.getHeads()) {
             for (Nozzle nozzle : head.getNozzles()) {
                 if (nozzle instanceof ContactProbeNozzle) {
@@ -798,8 +797,8 @@ public class ContactProbeNozzle extends ReferenceNozzle {
         return null;
     }
 
-    public static boolean isConfigured() {
-        return getDefaultNozzle() != null;
+    public static boolean isConfigured(Machine machine) {
+        return getDefaultNozzle(machine) != null;
     }
 
     public void findIssues(Solutions solutions) {

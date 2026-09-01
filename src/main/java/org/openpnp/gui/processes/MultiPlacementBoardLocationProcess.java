@@ -31,13 +31,14 @@ import org.openpnp.gui.JobPanel;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.MessageBoxes;
 import org.openpnp.model.Abstract2DLocatable.Side;
-import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
 import org.openpnp.model.Placement;
 import org.openpnp.model.PlacementsHolderLocation;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.Machine;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.MovableUtils;
 import org.openpnp.util.TravellingSalesman;
 import org.openpnp.util.UiUtils;
@@ -118,13 +119,13 @@ public class MultiPlacementBoardLocationProcess {
         // to find the placements.
         boardLocation.setLocalToParentTransform(null);
 
-        props = (MultiPlacementBoardLocationProperties) Configuration.get().getMachine().
+        Machine machine = MachineElement.machineOf(camera);
+        props = (MultiPlacementBoardLocationProperties) machine.
                     getProperty("MultiPlacementBoardLocationProperties");
         
         if (props == null) {
             props = new MultiPlacementBoardLocationProperties();
-            Configuration.get().getMachine().
-                setProperty("MultiPlacementBoardLocationProperties", props);
+            machine.setProperty("MultiPlacementBoardLocationProperties", props);
         }
         
         autoMove = props.autoMoveForAllPlacements;

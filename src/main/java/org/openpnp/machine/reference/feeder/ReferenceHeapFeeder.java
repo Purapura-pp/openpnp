@@ -23,6 +23,7 @@ import org.openpnp.model.Named;
 import org.openpnp.model.Part;
 import org.openpnp.spi.Actuator;
 import org.openpnp.spi.Camera;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.MotionPlanner.CompletionType;
 import org.openpnp.spi.Nozzle;
 import org.openpnp.spi.NozzleTip;
@@ -134,7 +135,7 @@ public class ReferenceHeapFeeder extends ReferenceFeeder {
         Configuration.get().addListener(new ConfigurationListener() {
             @Override
             public void configurationComplete(Configuration configuration) throws Exception {
-                setDropBox(getDropBoxes().get(dropBoxId));
+                setDropBox(getDropBoxes(configuration.getMachine()).get(dropBoxId));
             }
 
             @Override
@@ -156,14 +157,14 @@ public class ReferenceHeapFeeder extends ReferenceFeeder {
      * Get all defined DropBoxes.
      * @return List of DropBoxes
      */
-    public static synchronized IdentifiableList<DropBox> getDropBoxes() {
-        DropBoxProperty dropBoxProperty = (DropBoxProperty) Configuration.get().getMachine().getProperty("ReferenceHeapFeeder.dropBoxes");
+    public static synchronized IdentifiableList<DropBox> getDropBoxes(Machine machine) {
+        DropBoxProperty dropBoxProperty = (DropBoxProperty) machine.getProperty("ReferenceHeapFeeder.dropBoxes");
         if (dropBoxProperty == null) {
             dropBoxProperty = new DropBoxProperty();
             DropBox dropBox = new DropBox();
             dropBox.setName("Green");
             dropBoxProperty.boxes.add(dropBox);
-            Configuration.get().getMachine().setProperty("ReferenceHeapFeeder.dropBoxes", dropBoxProperty);
+            machine.setProperty("ReferenceHeapFeeder.dropBoxes", dropBoxProperty);
         }
         return dropBoxProperty.boxes;
     }
@@ -614,7 +615,8 @@ public class ReferenceHeapFeeder extends ReferenceFeeder {
     }
     public DropBox getDropBox() {
         if (dropBox == null) {
-            dropBox = getDropBoxes().get(getDropBoxes().size() - 1);
+            IdentifiableList<DropBox> dropBoxes = getDropBoxes(getMachine());
+            dropBox = dropBoxes.get(dropBoxes.size() - 1);
         }
         return dropBox;
     }
@@ -808,7 +810,7 @@ public class ReferenceHeapFeeder extends ReferenceFeeder {
                     nozzle.loadNozzleTip(dummyPartForUnknown.getPackage().getCompatibleNozzleTips().toArray(new NozzleTip[0])[0]);
                 }
                 pickPart(nozzle, partLocation, dummyPartForUnknown);
-                HeapFeederHelper.dropPart(nozzle, Configuration.get().getMachine().getDiscardLocation());
+                HeapFeederHelper.dropPart(nozzle, nozzle.getHead().getMachine().getDiscardLocation());
             } else {    // known origin, not wasting parts
                 if ( !lastHeap.getPart().getPackage().getCompatibleNozzleTips().contains(nozzle.getNozzleTip())) {
                     nozzle.loadNozzleTip(lastHeap.getPart().getPackage().getCompatibleNozzleTips().toArray(new NozzleTip[0])[0]);

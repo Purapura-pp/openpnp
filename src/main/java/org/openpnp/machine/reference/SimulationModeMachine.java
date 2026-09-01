@@ -55,6 +55,7 @@ import org.openpnp.spi.HeadMountable;
 import org.openpnp.spi.Locatable.LocationOption;
 import org.openpnp.spi.Machine;
 import org.openpnp.spi.Nozzle;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.Collect;
 import org.openpnp.util.GcodeServer;
 import org.openpnp.util.NanosecondTime;
@@ -337,9 +338,7 @@ public class SimulationModeMachine extends ReferenceMachine {
         }
     }
 
-    public static SimulationModeMachine getSimulationModeMachine() {
-        Machine machine = Configuration.get()
-                .getMachine();
+    public static SimulationModeMachine getSimulationModeMachine(Machine machine) {
         if (machine instanceof SimulationModeMachine) {
             return (SimulationModeMachine) machine;
         }
@@ -357,7 +356,7 @@ public class SimulationModeMachine extends ReferenceMachine {
      * @throws Exception
      */
     public static void simulateActuate(Actuator actuator, Object value, boolean realtime) throws Exception {
-        SimulationModeMachine machine = getSimulationModeMachine();
+        SimulationModeMachine machine = getSimulationModeMachine(MachineElement.machineOf(actuator));
         if (machine != null 
                 && machine.getSimulationMode() != SimulationMode.Off) {
             if (value instanceof Boolean) {
@@ -427,13 +426,13 @@ public class SimulationModeMachine extends ReferenceMachine {
     public static Location getSimulatedPhysicalLocation(HeadMountable hm, Looking looking, boolean partRotation) {
         // Use ideal location as a default, used in case this fails (not a place to throw).
         Location location = hm.getLocation().convertToUnits(AxesLocation.getUnits());
-        Machine plainMachine = Configuration.get().getMachine();
+        Machine plainMachine = MachineElement.machineOf(hm);
         if (plainMachine == null) {
             // Uninitialized (Unit Test). 
             return location;
         }
         // Try to get a simulated physical location.
-        SimulationModeMachine machine = getSimulationModeMachine();
+        SimulationModeMachine machine = getSimulationModeMachine(plainMachine);
         if (machine == null || machine.getSimulationMode() == SimulationMode.Off) {
             // Not a simulation machine. Just take the momentary nominal location.
             if (plainMachine instanceof ReferenceMachine) {
@@ -639,7 +638,7 @@ public class SimulationModeMachine extends ReferenceMachine {
     }
 
     public static void simulateCameraExposure(Camera camera, Graphics2D gFrame, int width, int height) {
-        SimulationModeMachine machine = getSimulationModeMachine();
+        SimulationModeMachine machine = getSimulationModeMachine(MachineElement.machineOf(camera));
         if (machine != null 
                 && machine.getSimulationMode().isDynamicallyImperfectMachine()) {
             Actuator lightActuator = camera.getLightActuator();

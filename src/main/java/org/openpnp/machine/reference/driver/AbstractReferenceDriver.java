@@ -202,7 +202,7 @@ public abstract class AbstractReferenceDriver extends AbstractDriver {
     }
 
     public boolean isInSimulationMode() {
-        SimulationModeMachine machine = SimulationModeMachine.getSimulationModeMachine();
+        SimulationModeMachine machine = SimulationModeMachine.getSimulationModeMachine(getMachine());
         return (machine != null && machine.getSimulationMode() != SimulationMode.Off && machine.isReplacingDrivers());
     }
 

@@ -129,8 +129,7 @@ public class SimulatedUpCamera extends ReferenceCamera {
                 location.getY() - phyHeight, phyWidth*2, phyHeight*2);
 
         // determine if there are any nozzles within our bounds and if so render them
-        Machine machine = Configuration.get()
-                .getMachine();
+        Machine machine = getMachine();
         if (machine != null) {
             try {
                 for (Head head :  machine.getHeads()) {

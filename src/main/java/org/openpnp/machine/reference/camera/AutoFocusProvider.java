@@ -33,6 +33,7 @@ import org.openpnp.model.Location;
 import org.openpnp.spi.Camera;
 import org.openpnp.spi.FocusProvider;
 import org.openpnp.spi.HeadMountable;
+import org.openpnp.spi.base.MachineElement;
 import org.openpnp.util.ImageUtils;
 import org.openpnp.util.MovableUtils;
 import org.pmw.tinylog.Logger;
@@ -97,7 +98,7 @@ public class AutoFocusProvider implements FocusProvider {
         diameter = Math.min(Math.min(diameter, camera.getHeight()-50), camera.getWidth()-50);
         diameter &= ~1; // Must be an even number.
 
-        double speed = Configuration.get().getMachine().getSpeed();
+        double speed = MachineElement.machineOf(camera).getSpeed();
         // Try to start from a 1mm retract location to get rid of any backlash that may not be compensated (typical in Z axes).
         Location retract = location1.convertToUnits(LengthUnit.Millimeters).unitVectorTo(location0).multiply(1.0);
         Location retractedLocation = location0.add(retract);

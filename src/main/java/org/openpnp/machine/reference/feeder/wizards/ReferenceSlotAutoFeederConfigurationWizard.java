@@ -318,7 +318,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
             // in WindowBuilder but doesn't happen during normal run.
         }
         
-        for (Bank bank : ReferenceSlotAutoFeeder.getBanks()) {
+        for (Bank bank : ReferenceSlotAutoFeeder.getBanks(getMachine())) {
             bankCb.addItem(bank);
         }
         feederCb.addItem(null);
@@ -510,7 +510,7 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         @Override
         public void actionPerformed(ActionEvent e) {
             Bank bank = new Bank();
-            ReferenceSlotAutoFeeder.getBanks().add(bank);
+            ReferenceSlotAutoFeeder.getBanks(getMachine()).add(bank);
             bankCb.addItem(bank);
             bankCb.setSelectedItem(bank);
         }
@@ -520,13 +520,13 @@ public class ReferenceSlotAutoFeederConfigurationWizard
         @Override
         public void actionPerformed(ActionEvent e) {
             Bank bank = (Bank) bankCb.getSelectedItem();
-            if (ReferenceSlotAutoFeeder.getBanks().size() < 2) {
+            if (ReferenceSlotAutoFeeder.getBanks(getMachine()).size() < 2) {
                 MessageBoxes.errorBox(getTopLevelAncestor(),
                         Translations.getString("General.Error"), //$NON-NLS-1$
                         Translations.getString("DialogMessages.DeleteBank.LastOne")); //$NON-NLS-1$
                 return;
             }
-            ReferenceSlotAutoFeeder.getBanks().remove(bank);
+            ReferenceSlotAutoFeeder.getBanks(getMachine()).remove(bank);
             bankCb.removeItem(bank);
         }
     };

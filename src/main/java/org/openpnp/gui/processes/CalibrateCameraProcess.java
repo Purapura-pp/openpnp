@@ -203,8 +203,8 @@ public abstract class CalibrateCameraProcess {
         initialMaskDiameter = (int) (props.initialMaskDiameterFraction * Math.min(pixelsX, pixelsY));
         maskDiameter = initialMaskDiameter;
         
-        savedAutoToolSelect = Configuration.get().getMachine().isAutoToolSelect();
-        ((ReferenceMachine) Configuration.get().getMachine()).setAutoToolSelect(false);
+        savedAutoToolSelect = machine.isAutoToolSelect();
+        ((ReferenceMachine) machine).setAutoToolSelect(false);
         
         SwingUtilities.invokeLater(() -> {
             MainFrame.get().getCameraViews().ensureCameraVisible(camera);
@@ -1098,8 +1098,7 @@ public abstract class CalibrateCameraProcess {
             //Ok - may be already hidden
         }
         
-        ((ReferenceMachine) Configuration.get().getMachine()).
-            setAutoToolSelect(savedAutoToolSelect);
+        ((ReferenceMachine) machine).setAutoToolSelect(savedAutoToolSelect);
     }
 
     /**

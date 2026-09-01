@@ -251,7 +251,7 @@ public class ReferenceNozzle extends AbstractNozzle implements HeadMountable {
         Location offsetsDiff = headOffsetsNew.subtract(headOffsetsOld).convertToUnits(LengthUnit.Millimeters);
         if (offsetsDiff.getLinearDistanceTo(Location.origin) > 0.01) {
             // Changing a X, Y head offset invalidates the nozzle tip calibration. Just changing Z leaves it intact. 
-            ReferenceNozzleTipCalibration.resetAllNozzleTips();
+            ReferenceNozzleTipCalibration.resetAllNozzleTips(getMachine());
         }
         if (offsetsDiff.isInitialized() && headOffsetsNew.isInitialized() && head != null) {
             if (manualNozzleTipChangeLocation.isInitialized()) {
