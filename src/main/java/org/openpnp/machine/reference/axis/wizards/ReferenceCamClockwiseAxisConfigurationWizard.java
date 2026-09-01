@@ -32,7 +32,6 @@ import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.axis.ReferenceCamCounterClockwiseAxis;
 import org.openpnp.machine.reference.axis.ReferenceCamClockwiseAxis;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.base.AbstractMachine;
 
@@ -49,8 +48,12 @@ public class ReferenceCamClockwiseAxisConfigurationWizard extends AbstractAxisCo
     private JComboBox inputAxis;
     private AxesComboBoxModel inputAxisModel;
 
+    /** The machine the axis belongs to, as the axis handed it to the constructor. */
+    private final AbstractMachine machine;
+
     public ReferenceCamClockwiseAxisConfigurationWizard(AbstractMachine machine, ReferenceCamClockwiseAxis axis) {
         super(axis);
+        this.machine = machine;
         panelTransformation = new JPanel();
         panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceCamClockwiseAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
@@ -96,8 +99,6 @@ public class ReferenceCamClockwiseAxisConfigurationWizard extends AbstractAxisCo
     @Override
     public void createBindings() {
         super.createBindings();
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
-
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
 
         bind(UpdateStrategy.READ, type, "selectedItem", inputAxisModel, "axisType");

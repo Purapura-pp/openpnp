@@ -17,7 +17,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.camera.ReferenceCamera;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.base.AbstractAxis;
 import org.openpnp.spi.base.AbstractMachine;
@@ -58,8 +57,11 @@ public class ReferenceCameraPositionConfigurationWizard extends AbstractConfigur
     private JLabel lblRoamingRadius;
     private JTextField roamingRadius;
 
+    /** The machine the camera belongs to, as the camera handed it to the constructor. */
+    private final AbstractMachine machine;
 
     public ReferenceCameraPositionConfigurationWizard(AbstractMachine machine, ReferenceCamera referenceCamera) {
+        this.machine = machine;
         this.referenceCamera = referenceCamera;
 
         panelOffsets = new JPanel();
@@ -235,9 +237,8 @@ public class ReferenceCameraPositionConfigurationWizard extends AbstractConfigur
 
     @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         DoubleConverter doubleConverter =
-                new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         LengthConverter lengthConverter = new LengthConverter();
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
 

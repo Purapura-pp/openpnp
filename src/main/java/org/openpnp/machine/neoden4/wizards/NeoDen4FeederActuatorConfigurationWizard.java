@@ -37,7 +37,6 @@ import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.neoden4.NeoDen4Driver;
 import org.openpnp.machine.neoden4.NeoDen4FeederActuator;
 import org.openpnp.machine.reference.wizards.AbstractActuatorConfigurationWizard;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Driver;
 import org.openpnp.spi.base.AbstractMachine;
 import org.openpnp.util.UiUtils;
@@ -229,7 +228,7 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
         super.createBindings();
         
         IntegerConverter intConverter = new IntegerConverter();
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         NamedConverter<Driver> driverConverter = new NamedConverter<>(machine.getDrivers()); 
         
         addWrappedBinding(actuator, "driver", driver, "selectedItem", driverConverter);
@@ -247,7 +246,7 @@ public class NeoDen4FeederActuatorConfigurationWizard extends AbstractActuatorCo
     private NeoDen4Driver getNeoden4Driver() {
         NeoDen4Driver driver = null;
 
-        for (Driver d : Configuration.get().getMachine().getDrivers()) {
+        for (Driver d : getMachine().getDrivers()) {
             if (d instanceof NeoDen4Driver) {
                 driver = (NeoDen4Driver) d;
                 break;

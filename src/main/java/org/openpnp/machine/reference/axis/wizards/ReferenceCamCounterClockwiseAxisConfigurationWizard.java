@@ -38,7 +38,6 @@ import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.axis.ReferenceCamCounterClockwiseAxis;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.base.AbstractControllerAxis;
 import org.openpnp.spi.base.AbstractMachine;
@@ -67,8 +66,12 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
     private JTextField camArmsAngle;
     private JLabel lblDeprecated2;
 
+    /** The machine the axis belongs to, as the axis handed it to the constructor. */
+    private final AbstractMachine machine;
+
     public ReferenceCamCounterClockwiseAxisConfigurationWizard(AbstractMachine machine, ReferenceCamCounterClockwiseAxis axis) {
         super(axis);
+        this.machine = machine;
         panelTransformation = new JPanel();
         panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceCamCounterClockwiseAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
@@ -153,10 +156,9 @@ public class ReferenceCamCounterClockwiseAxisConfigurationWizard extends Abstrac
     @Override
     public void createBindings() {
         super.createBindings();
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
-        
         LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
         
         bind(UpdateStrategy.READ, type, "selectedItem", inputAxisModel, "axisType");

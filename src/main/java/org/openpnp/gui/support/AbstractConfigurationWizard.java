@@ -39,6 +39,7 @@ import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.JBindings.WrappedBinding;
 import org.openpnp.model.Configuration;
+import org.openpnp.model.DisplayPreferences;
 import org.openpnp.model.Identifiable;
 import org.openpnp.util.BeanUtils;
 
@@ -183,12 +184,26 @@ public abstract class AbstractConfigurationWizard extends JPanel implements Wiza
         return binding;
     }
 
+    /**
+     * The units and formats the fields of this wizard are shown in.
+     * <p>
+     * A wizard needs these to build its converters, and nothing else about the configuration. Going
+     * through here rather than reaching for the singleton in each createBindings() puts every
+     * wizard's answer in one place, so that a wizard can eventually be shown values other than the
+     * ones the running application happens to hold.
+     * 
+     * @return
+     */
+    protected DisplayPreferences getDisplayPreferences() {
+        return Configuration.get();
+    }
+
     @Override
     public void setWizardContainer(WizardContainer wizardContainer) {
         this.wizardContainer = wizardContainer;
         if (listener == null) { //only allow bindings to be created the first time
             scrollPane.getVerticalScrollBar()
-                    .setUnitIncrement(Configuration.get().getVerticalScrollUnitIncrement());
+                    .setUnitIncrement(getDisplayPreferences().getVerticalScrollUnitIncrement());
             listener = new ApplyResetBindingListener(applyAction, resetAction);
             createBindings();
             if (wrappedBindings.isEmpty() && !forceApplyResetButtonsVisible) {

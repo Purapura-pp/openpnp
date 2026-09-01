@@ -87,8 +87,12 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
     private JLabel lblFunction;
     private JComboBox interlockType;
 
+    /** The machine the actuator belongs to, as the monitor handed it to the constructor. */
+    private final AbstractMachine machine;
+
     public ActuatorInterlockMonitorConfigurationWizard(AbstractMachine machine, AbstractActuator actuator, ActuatorInterlockMonitor monitor) {
         super();
+        this.machine = machine;
         this.monitor = monitor;
         this.actuator = actuator;
         createUi(machine);
@@ -258,7 +262,6 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
 
     @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         DoubleConverter doubleConverter =
                 new DoubleConverter("%f");//Configuration.get().getLengthDisplayFormat());
         PercentConverter percentConverter =

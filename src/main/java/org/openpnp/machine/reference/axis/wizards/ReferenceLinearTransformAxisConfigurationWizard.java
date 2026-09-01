@@ -77,8 +77,12 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
     private JLabel lblCompensation;
     private JCheckBox compensation;
 
+    /** The machine the axis belongs to, as the axis handed it to the constructor. */
+    private final AbstractMachine machine;
+
     public ReferenceLinearTransformAxisConfigurationWizard(AbstractMachine machine, AbstractTransformedAxis axis) {
         super(axis);
+        this.machine = machine;
 
         panelTransformation = new JPanel();
         panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
@@ -214,7 +218,6 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
     @Override
     public void createBindings() {
         super.createBindings();
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         LengthConverter lengthConverter = new LengthConverter();
         DoubleConverter doubleConverter =
                 new DoubleConverter("%f");//Configuration.get().getLengthDisplayFormat());

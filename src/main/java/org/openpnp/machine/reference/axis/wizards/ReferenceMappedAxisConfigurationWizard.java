@@ -34,7 +34,6 @@ import org.openpnp.gui.support.AxesComboBoxModel;
 import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.axis.ReferenceMappedAxis;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.base.AbstractControllerAxis;
 import org.openpnp.spi.base.AbstractMachine;
@@ -61,8 +60,12 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
     private JLabel label;
     private JLabel label_1;
 
+    /** The machine the axis belongs to, as the axis handed it to the constructor. */
+    private final AbstractMachine machine;
+
     public ReferenceMappedAxisConfigurationWizard(AbstractMachine machine, ReferenceMappedAxis axis) {
         super(axis);
+        this.machine = machine;
         panelTransformation = new JPanel();
         panelTransformation.setBorder(new TitledBorder(null, Translations.getString("ReferenceMappedAxisConfigurationWizard.panelTransformation.Border.title"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
         contentPanel.add(panelTransformation);
@@ -135,7 +138,6 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
     @Override
     public void createBindings() {
         super.createBindings();
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
         LengthConverter lengthConverter = new LengthConverter();
         

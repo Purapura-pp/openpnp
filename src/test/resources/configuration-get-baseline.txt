@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 627 calls in 211 files.
+# 611 calls in 201 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/BoardsPanel.java	5
@@ -40,7 +40,7 @@ org/openpnp/gui/processes/MultiPlacementBoardLocationProcess.java	2
 org/openpnp/gui/support/AbstractConfigurationWizard.java	1
 org/openpnp/gui/support/AreaConverter.java	3
 org/openpnp/gui/support/Helpers.java	5
-org/openpnp/gui/support/LengthConverter.java	3
+org/openpnp/gui/support/LengthConverter.java	2
 org/openpnp/gui/support/MutableLocationProxy.java	1
 org/openpnp/gui/support/NamedComboBoxModel.java	2
 org/openpnp/gui/support/PackagesComboBoxModel.java	1
@@ -63,7 +63,6 @@ org/openpnp/gui/wizards/PackageCompositingWizard.java	2
 org/openpnp/gui/wizards/PackageNozzleTipsWizard.java	1
 org/openpnp/gui/wizards/PackageVisionWizard.java	3
 org/openpnp/machine/neoden4/Neoden4Feeder.java	3
-org/openpnp/machine/neoden4/wizards/NeoDen4FeederActuatorConfigurationWizard.java	2
 org/openpnp/machine/neoden4/wizards/Neoden4FeederConfigurationWizard.java	2
 org/openpnp/machine/neoden4/wizards/Neoden4SwitcherCameraConfigurationWizard.java	1
 org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	3
@@ -88,11 +87,7 @@ org/openpnp/machine/reference/ScriptActuator.java	1
 org/openpnp/machine/reference/SimulationModeMachine.java	2
 org/openpnp/machine/reference/axis/ReferenceLinearTransformAxis.java	1
 org/openpnp/machine/reference/axis/wizards/BacklashCompensationConfigurationWizard.java	2
-org/openpnp/machine/reference/axis/wizards/ReferenceCamClockwiseAxisConfigurationWizard.java	1
-org/openpnp/machine/reference/axis/wizards/ReferenceCamCounterClockwiseAxisConfigurationWizard.java	2
 org/openpnp/machine/reference/axis/wizards/ReferenceControllerAxisConfigurationWizard.java	2
-org/openpnp/machine/reference/axis/wizards/ReferenceLinearTransformAxisConfigurationWizard.java	1
-org/openpnp/machine/reference/axis/wizards/ReferenceMappedAxisConfigurationWizard.java	1
 org/openpnp/machine/reference/camera/AbstractBroadcastingCamera.java	3
 org/openpnp/machine/reference/camera/AbstractSettlingCamera.java	3
 org/openpnp/machine/reference/camera/AutoFocusProvider.java	1
@@ -159,17 +154,12 @@ org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	4
 org/openpnp/machine/reference/vision/wizards/BottomVisionSettingsConfigurationWizard.java	6
 org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	5
 org/openpnp/machine/reference/vision/wizards/ReferenceBottomVisionConfigurationWizard.java	1
-org/openpnp/machine/reference/wizards/AbstractActuatorConfigurationWizard.java	2
-org/openpnp/machine/reference/wizards/ActuatorInterlockMonitorConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ContactProbeNozzleWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceActuatorConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceActuatorProfilesWizard.java	2
 org/openpnp/machine/reference/wizards/ReferenceCameraCalibrationWizard.java	4
-org/openpnp/machine/reference/wizards/ReferenceCameraPositionConfigurationWizard.java	2
 org/openpnp/machine/reference/wizards/ReferenceCameraTransformsConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceMachineConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceNozzleCompatibleNozzleTipsWizard.java	1
-org/openpnp/machine/reference/wizards/ReferenceNozzleConfigurationWizard.java	2
 org/openpnp/machine/reference/wizards/ReferenceNozzleTipCalibrationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceNozzleTipConfigurationWizard.java	1
 org/openpnp/machine/reference/wizards/ReferenceNozzleTipPartDetectionWizard.java	1

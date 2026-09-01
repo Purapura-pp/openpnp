@@ -23,28 +23,49 @@ import java.util.Locale;
 
 import org.jdesktop.beansbinding.Converter;
 import org.openpnp.model.Configuration;
+import org.openpnp.model.DisplayPreferences;
 import org.openpnp.model.Length;
 
 public class LengthConverter extends Converter<Length, String> {
+    /**
+     * Where the units come from. Left null by the constructors that predate it, and then resolved
+     * to the shared configuration on first use rather than in the constructor: a wizard holds its
+     * converter in a field that is built before there is a configuration to ask.
+     */
+    private final DisplayPreferences preferences;
+
     final String format;
-    
+
     public LengthConverter() {
-        this(Configuration.get().getLengthDisplayFormat());
+        this(Configuration.get());
     }
-    
+
+    public LengthConverter(DisplayPreferences preferences) {
+        this(preferences, preferences.getLengthDisplayFormat());
+    }
+
     public LengthConverter(String format) {
+        this(null, format);
+    }
+
+    public LengthConverter(DisplayPreferences preferences, String format) {
+        this.preferences = preferences;
         this.format = format;
     }
-    
+
+    private DisplayPreferences preferences() {
+        return (preferences != null ? preferences : Configuration.get());
+    }
+
     @Override
     public String convertForward(Length length) {
-        length = length.convertToUnits(Configuration.get().getSystemUnits());
+        length = length.convertToUnits(preferences().getSystemUnits());
         return String.format(Locale.US, format, length.getValue());
     }
 
     @Override
     public Length convertReverse(String s) {
-        Length length = Length.parseWithDefaultUnits(s, Configuration.get().getSystemUnits());
+        Length length = Length.parseWithDefaultUnits(s, preferences().getSystemUnits());
         if (length == null) {
             throw new RuntimeException("Unable to parse " + s);
         }

@@ -109,9 +109,23 @@ public abstract class AbstractActuatorConfigurationWizard extends AbstractConfig
     private JLabel lblMachineStateActuation;
     private JLabel lblMachineState;
 
+    private final AbstractMachine machine;
+
     public AbstractActuatorConfigurationWizard(AbstractMachine machine, ReferenceActuator actuator) {
+        this.machine = machine;
         this.actuator = actuator;
         createUi(machine);
+    }
+
+    /**
+     * The machine the actuator being configured belongs to, as the actuator handed it to the
+     * constructor. createBindings used to ask Configuration for the machine again, which answers
+     * with the same object only for as long as there is one machine in the process.
+     * 
+     * @return
+     */
+    protected AbstractMachine getMachine() {
+        return machine;
     }
     
     protected void createUi(AbstractMachine machine) {
@@ -432,9 +446,10 @@ public abstract class AbstractActuatorConfigurationWizard extends AbstractConfig
 
     @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
-        LengthConverter lengthConverter = new LengthConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        AbstractMachine machine = getMachine();
+        LengthConverter lengthConverter = new LengthConverter(getDisplayPreferences());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         IntegerConverter intConverter = new IntegerConverter();
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
 

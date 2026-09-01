@@ -66,7 +66,7 @@ import org.simpleframework.xml.stream.Style;
 
 import com.google.common.eventbus.EventBus;
 
-public class Configuration extends AbstractModelObject {
+public class Configuration extends AbstractModelObject implements DisplayPreferences {
     private static Configuration instance;
 
     private static final String PREF_LOCALE_LANG = "Configuration.locale.lang";
@@ -159,6 +159,7 @@ public class Configuration extends AbstractModelObject {
         instance.setLengthDisplayFormatWithUnits(PREF_LENGTH_DISPLAY_FORMAT_WITH_UNITS_DEF);
     }
 
+    
     private Configuration(File configurationDirectory) {
         this.configurationDirectory = configurationDirectory;
         this.prefs = Preferences.userNodeForPackage(Configuration.class);

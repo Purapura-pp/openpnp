@@ -30,7 +30,6 @@ import org.openpnp.gui.components.ComponentDecorators;
 import org.openpnp.gui.support.DriversComboBoxModel;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.ReferenceActuator;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Driver;
 import org.openpnp.spi.base.AbstractMachine;
 
@@ -91,7 +90,7 @@ public class ReferenceActuatorConfigurationWizard extends AbstractActuatorConfig
     public void createBindings() {
         super.createBindings();
         
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
+        AbstractMachine machine = getMachine();
         NamedConverter<Driver> driverConverter = new NamedConverter<>(machine.getDrivers()); 
         
         addWrappedBinding(actuator, "driver", driver, "selectedItem", driverConverter);

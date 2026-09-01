@@ -38,7 +38,6 @@ import org.openpnp.gui.support.LengthConverter;
 import org.openpnp.gui.support.MutableLocationProxy;
 import org.openpnp.gui.support.NamedConverter;
 import org.openpnp.machine.reference.ReferenceNozzle;
-import org.openpnp.model.Configuration;
 import org.openpnp.spi.Axis;
 import org.openpnp.spi.Nozzle.RotationMode;
 import org.openpnp.spi.base.AbstractAxis;
@@ -53,6 +52,9 @@ import com.jgoodies.forms.layout.RowSpec;
 @SuppressWarnings("serial")
 public class ReferenceNozzleConfigurationWizard extends AbstractConfigurationWizard {
     private final ReferenceNozzle nozzle;
+
+    /** The machine the nozzle belongs to, as the nozzle handed it to the constructor. */
+    private final AbstractMachine machine;
 
     private JTextField locationX;
     private JTextField locationY;
@@ -84,6 +86,7 @@ public class ReferenceNozzleConfigurationWizard extends AbstractConfigurationWiz
     private JCheckBox aligningRotationMode;
 
     public ReferenceNozzleConfigurationWizard(AbstractMachine machine, ReferenceNozzle nozzle) {
+        this.machine = machine;
         this.nozzle = nozzle;
         
         panelProperties = new JPanel();
@@ -289,10 +292,10 @@ public class ReferenceNozzleConfigurationWizard extends AbstractConfigurationWiz
 
     @Override
     public void createBindings() {
-        AbstractMachine machine = (AbstractMachine) Configuration.get().getMachine();
         LengthConverter lengthConverter = new LengthConverter();
         IntegerConverter intConverter = new IntegerConverter();
-        DoubleConverter doubleConverter = new DoubleConverter(Configuration.get().getLengthDisplayFormat());
+        DoubleConverter doubleConverter =
+                new DoubleConverter(getDisplayPreferences().getLengthDisplayFormat());
         NamedConverter<Axis> axisConverter = new NamedConverter<>(machine.getAxes()); 
 
         addWrappedBinding(nozzle, "name", nameTf, "text"); 
