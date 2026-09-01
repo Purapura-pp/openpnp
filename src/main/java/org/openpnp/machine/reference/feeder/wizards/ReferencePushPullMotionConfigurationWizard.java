@@ -269,7 +269,7 @@ extends AbstractConfigurationWizard {
         panelPushPull.add(lblPush, "12, 8, center, default");
 
         lblMulti = new JLabel("↑↓");
-        lblMulti.setToolTipText("<html>Locations that are included, when actuating multiple times.<br/>\r\nThe combination with the push ↓ and pull ↑ switch is taken.</html>");
+        lblMulti.setToolTipText(Translations.getString("ReferencePushPullMotionConfigurationWizard.lblMulti.toolTipText")); //$NON-NLS-1$
         panelPushPull.add(lblMulti, "14, 8, 3, 1, center, default");
 
         lblPull = new JLabel("↑");
@@ -292,7 +292,7 @@ extends AbstractConfigurationWizard {
                 resetRotation();
             }
         });
-        additiveRotation.setToolTipText("<html>Before the feed is performed, the current coordinate of the Rotation axis is taken.<br/>\nRotations stated below are then added to that base angle.<br/>\nThis is typically used for peeling axes, creating a continuous cover tape spool wind-up.\n</html>");
+        additiveRotation.setToolTipText(Translations.getString("ReferencePushPullMotionConfigurationWizard.additiveRotation.toolTipText")); //$NON-NLS-1$
         panelPushPull.add(additiveRotation, "10, 10, center, default");
 
         JLabel lblFeedStartLocation = new JLabel(Translations.getString("ReferencePushPullMotionConfigurationWizard.lblFeedStartLocation.text")); //$NON-NLS-1$

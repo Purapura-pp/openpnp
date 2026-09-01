@@ -93,7 +93,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         panelGeneral.add(simulationMode, "4, 2, fill, default");
         
         JLabel lblReplaceDrivers = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblReplaceDrivers.text")); //$NON-NLS-1$
-        lblReplaceDrivers.setToolTipText("<html>\nReplace driver connections with a built-in GcodeServer, simulating the real driver.<br/>\nWill only become effective when you disable/enable the machine.\n</html>");
+        lblReplaceDrivers.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblReplaceDrivers.toolTipText")); //$NON-NLS-1$
         panelGeneral.add(lblReplaceDrivers, "2, 4, right, default");
         
         replacingDrivers = new JCheckBox("");
@@ -191,7 +191,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         simulatedCameraLag.setColumns(10);
         
                 JLabel lblCameraNoise = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblCameraNoise.text")); //$NON-NLS-1$
-                lblCameraNoise.setToolTipText("<html>\r\nCreates simulated noise in the camera image (number of sparks) <br/>\r\nto satisfy Camera Settling that the frame has changed. \r\n</html>");
+                lblCameraNoise.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblCameraNoise.toolTipText")); //$NON-NLS-1$
                 panelLocations.add(lblCameraNoise, "2, 18, right, default");
         
                 simulatedCameraNoise = new JTextField();
@@ -223,7 +223,7 @@ public class SimulationModeMachineConfigurationWizard extends AbstractConfigurat
         lblY.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel lblDiscardPoint = new JLabel(Translations.getString("SimulationModeMachineConfigurationWizard.lblDiscardPoint.text")); //$NON-NLS-1$
-        lblDiscardPoint.setToolTipText("<html>\r\nSimulates an initial homing error by that offset. Used to test visial homing. <br/>\r\nSet the homing fiducial to the PCB fiducial in the lower left corner of the test image.<br/>\r\nUse coordinates 5.736, 6.112 to get original coordinates through Visual homing.\r\n</html>");
+        lblDiscardPoint.setToolTipText(Translations.getString("SimulationModeMachineConfigurationWizard.lblDiscardPoint.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblDiscardPoint, "2, 28, right, default");
 
         homingErrorX = new JTextField();

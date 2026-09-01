@@ -818,7 +818,7 @@ WIDGET_PATTERNS = {
     "JLabel": re.compile(r'new JLabel\("([A-Za-z][^"]{3,})"\)'),
     "JButton": re.compile(r'new JButton\("([A-Za-z][^"]{3,})"\)'),
     "JCheckBox": re.compile(r'new JCheckBox\("([A-Za-z][^"]{3,})"\)'),
-    "setToolTip": re.compile(r'setToolTipText\("([A-Za-z][^"]*\s[^"]*)"\)'),
+    "setToolTip": re.compile(r'setToolTipText\("([A-Za-z<][^"]*\s[^"]*)"\)'),
     "TitledBorder": re.compile(r'TitledBorder\([^;]*?"([A-Za-z][^"]*\s[^"]*)"', re.S),
     "errorBox": re.compile(r'MessageBoxes\.errorBox\s*\([^;]*?"([A-Za-z][^"]*\s[^"]*)"', re.S),
     "JOptionPane": re.compile(r'JOptionPane\.show[A-Za-z]*Dialog\s*\([^;]*?"([A-Za-z][^"]*\s[^"]*)"', re.S),
@@ -903,8 +903,10 @@ NOT_TRANSLATABLE = (
 EXTERNALIZE_PATTERNS = (
     ("text", re.compile(r'(?P<lead>(?:(?P<var>\w+)\s*=\s*)?new (?:JLabel|JButton|JCheckBox)\()'
                         r'"(?P<text>[A-Za-z][^"]{2,})"\)')),
+    # A tooltip may open with <html>, and the long explanatory ones usually do, so the first
+    # character cannot be required to be a letter the way a label's can.
     ("toolTipText", re.compile(r'(?P<lead>(?P<var>\w+)\.setToolTipText\()'
-                               r'"(?P<text>[A-Za-z][^"]*\s[^"]*)"\)')),
+                               r'"(?P<text>[A-Za-z<](?:[^"\\]|\\.)*\s(?:[^"\\]|\\.)*)"\)')),
     # The title is the second argument, and the panel it belongs to names the key, which is the
     # convention the existing Border.title keys follow.
     ("Border.title", re.compile(r'(?P<lead>(?P<var>\w+)\.setBorder\(new TitledBorder\(\s*[^,]*,\s*)'
@@ -994,7 +996,10 @@ def cmd_externalize(args):
         for prop, pattern in EXTERNALIZE_PATTERNS:
             def replace(match):
                 nonlocal edits
-                body = match.group("text")
+                # The source form still carries Java's escapes; the bundle needs the characters
+                # they stand for, so that save_convert can escape them the way Java's Properties
+                # does. Storing "\\r\\n" verbatim would put a literal backslash in the tooltip.
+                body = load_java_literal(match.group("text"))
                 reason = why_not_translatable(body)
                 if reason:
                     skipped.append((path.name, body, reason))

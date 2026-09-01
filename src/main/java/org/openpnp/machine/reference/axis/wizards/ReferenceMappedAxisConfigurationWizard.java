@@ -103,7 +103,7 @@ public class ReferenceMappedAxisConfigurationWizard extends AbstractAxisConfigur
         panelTransformation.add(lblTo, "8, 4, center, default");
         
         lblMapPointA = new JLabel(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblMapPointA.text")); //$NON-NLS-1$
-        lblMapPointA.setToolTipText("<html>Choose two exemplary points on the axis that you like to map.<br/>\r\nSet the desired Input and Output to create an Offset, Scaling, Negating (etc.).<br/>\r\nNote, the range will not be limited to these points they are just examples.\r\n</html>");
+        lblMapPointA.setToolTipText(Translations.getString("ReferenceMappedAxisConfigurationWizard.lblMapPointA.toolTipText")); //$NON-NLS-1$
         panelTransformation.add(lblMapPointA, "2, 6, right, default");
         
         mapInput0 = new JTextField();

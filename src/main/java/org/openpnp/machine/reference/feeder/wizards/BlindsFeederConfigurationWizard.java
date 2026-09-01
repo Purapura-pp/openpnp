@@ -116,7 +116,7 @@ public class BlindsFeederConfigurationWizard extends AbstractConfigurationWizard
         panelPart.add(btnOcrDetect, "14, 2");
 
         lblRotationInTape = new JLabel(Translations.getString("BlindsFeederConfigurationWizard.lblRotationInTape.text")); //$NON-NLS-1$
-        lblRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
+        lblRotationInTape.setToolTipText(Translations.getString("BlindsFeederConfigurationWizard.lblRotationInTape.toolTipText")); //$NON-NLS-1$
         panelPart.add(lblRotationInTape, "2, 4, right, default");
 
         textFieldLocationRotation = new JTextField();

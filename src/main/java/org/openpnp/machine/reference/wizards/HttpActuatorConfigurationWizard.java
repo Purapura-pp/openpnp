@@ -109,7 +109,7 @@ public class HttpActuatorConfigurationWizard extends AbstractActuatorConfigurati
         offUrlTf.setColumns(40);
 
         lblParametricUrl = new JLabel(Translations.getString("HttpActuatorConfigurationWizard.lblParametricUrl.text")); //$NON-NLS-1$
-        lblParametricUrl.setToolTipText("<html>\r\nUse a parametric template to encode non-boolean actuation values into the URL.<br/>\r\nThe {val} placeholder can be used. <br/>\r\nFormatting is possible in the form of {val:%f} etc.<br/>\r\n<br/>\r\n<strong>Note:</strong> no escaping is performed. If using String actuation values, <br/>\r\nyou can use complex URI fragments e.g. drive multiple parameters. \r\n</html>");
+        lblParametricUrl.setToolTipText(Translations.getString("HttpActuatorConfigurationWizard.lblParametricUrl.toolTipText")); //$NON-NLS-1$
         panelProperties.add(lblParametricUrl, "2, 8, right, default");
 
         paramUrl = new JTextField();

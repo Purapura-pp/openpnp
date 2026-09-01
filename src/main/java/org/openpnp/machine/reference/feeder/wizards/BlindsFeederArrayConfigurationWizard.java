@@ -238,7 +238,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         panelLocations.add(locationButtonsPanelFiducial3, "10, 10");
 
         lblNormalize = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblNormalize.text")); //$NON-NLS-1$
-        lblNormalize.setToolTipText("<html>\r\nNormalize the fiducial distances and shear to the theoretically correct <br />\r\nvalues (whole millimeter square grid). This means you trust the mechanics  <br />\r\nof your machine and of your 3D printer over the computer vision fiducial fixes.  <br />\r\nOverall absolute position and angle are still determined by vision. \r\n</html>");
+        lblNormalize.setToolTipText(Translations.getString("BlindsFeederArrayConfigurationWizard.lblNormalize.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblNormalize, "2, 12, right, default");
 
         chckbxNormalize = new JCheckBox("");
@@ -280,7 +280,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
                         FormSpecs.DEFAULT_ROWSPEC,}));
 
         lblUseVision = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblUseVision.text")); //$NON-NLS-1$
-        lblUseVision.setToolTipText("<html><p>Use vision for fiducial calibration when the feeder is first used. </p>\r\n<p>Even if fiducial vision is disabled, vision will still be used for setup and <br />\r\ncover open checking</p><html>");
+        lblUseVision.setToolTipText(Translations.getString("BlindsFeederArrayConfigurationWizard.lblUseVision.toolTipText")); //$NON-NLS-1$
         panelVision.add(lblUseVision, "2, 2, right, default");
 
         JButton btnEditPipeline = new JButton(editPipelineAction);
@@ -314,7 +314,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         panelVision.add(ocrTextOrientation, "4, 6, fill, default");
 
         lblOcrMargin = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrMargin.text")); //$NON-NLS-1$
-        lblOcrMargin.setToolTipText("<html>Size of the margin where the OCR/Barcode labels are attached.<br/>When a negative value is given, the labels are assumed to be located at the end of the feeder.");
+        lblOcrMargin.setToolTipText(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrMargin.toolTipText")); //$NON-NLS-1$
         panelVision.add(lblOcrMargin, "6, 6, right, default");
 
         ocrMargin = new JTextField();
@@ -323,7 +323,7 @@ public class BlindsFeederArrayConfigurationWizard extends AbstractConfigurationW
         lblOcrFontName = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrFontName.text")); //$NON-NLS-1$
         panelVision.add(lblOcrFontName, "2, 8, right, default");
         ocrFontName = new JComboBox(fontList.toArray());
-        lblOcrFontName.setToolTipText("<html>Name of the OCR font to be recognized or [Barcode].<br/>\r\nMonospace fonts work much better, allow lower resolution and therefore faster <br/>\r\noperation. Use a font where all the used characters are easily distinguishable.<br/>\r\nFonts with clear separation between glyphs are much preferred.</html>");
+        lblOcrFontName.setToolTipText(Translations.getString("BlindsFeederArrayConfigurationWizard.lblOcrFontName.toolTipText")); //$NON-NLS-1$
         panelVision.add(ocrFontName, "4, 8, fill, default");
 
         lblFontSizept = new JLabel(Translations.getString("BlindsFeederArrayConfigurationWizard.lblFontSizept.text")); //$NON-NLS-1$

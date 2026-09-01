@@ -124,16 +124,16 @@ extends AbstractReferenceFeederConfigurationWizard {
         textFieldFeedPitch.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldFeedPitch.toolTipText")); //$NON-NLS-1$
 
         btnDiscardParts = new JButton(discardPartsAction);
-        btnDiscardParts.setToolTipText("<html>Discard parts left over in the (multi-part) feed cycle.<br/>\r\nStarts with a fresh feed cycle including vision calibration (if enabled). \r\n</html>");
+        btnDiscardParts.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.btnDiscardParts.toolTipText")); //$NON-NLS-1$
         panelTape.add(btnDiscardParts, "10, 2");
 
         lblRotation = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
         panelTape.add(lblRotation, "2, 4, right, default");
-        lblRotation.setToolTipText("<html>Rotation of the part inside the tape as seen when the sprocket holes <br/>\r\nare on top. Your E-CAD part orientation is the reference.<br/>\r\nSee also: \r\n<ul>\r\n<li>EIA-481</li>\r\n<li>Component Zero Orientations for CAD Libraries</li>\r\n</ul>\r\n</html>");
+        lblRotation.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblRotation.toolTipText")); //$NON-NLS-1$
 
         textFieldRotationInTape = new JTextField();
         panelTape.add(textFieldRotationInTape, "4, 4");
-        textFieldRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
+        textFieldRotationInTape.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.textFieldRotationInTape.toolTipText")); //$NON-NLS-1$
         textFieldRotationInTape.setColumns(10);
 
         lblFeedCount = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
@@ -203,7 +203,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelLocations.add(lblZ_1, "8, 4, center, default");
 
         lblPickLocation = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPickLocation.text")); //$NON-NLS-1$
-        lblPickLocation.setToolTipText("<html>Pick Location of the part. If multiple are produced by a feed operation<br/>\r\nthis must be the last one picked i.e. the one closest to the the tape reel.</html>");
+        lblPickLocation.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPickLocation.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblPickLocation, "2, 6, right, default");
 
         textFieldPickLocationX = new JTextField();
@@ -222,7 +222,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelLocations.add(locationButtonsPanelFirstPick, "10, 6");
 
         lblHole1Location = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole1Location.text")); //$NON-NLS-1$
-        lblHole1Location.setToolTipText("<html>Choose Hole 1 closer to the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
+        lblHole1Location.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole1Location.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblHole1Location, "2, 8, right, default");
 
         textFieldHole1LocationX = new JTextField();
@@ -237,7 +237,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelLocations.add(locationButtonsPanelHole1, "10, 8");
 
         lblHole2Location = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole2Location.text")); //$NON-NLS-1$
-        lblHole2Location.setToolTipText("<html>Choose Hole 2 further away from the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
+        lblHole2Location.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblHole2Location.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblHole2Location, "2, 10, right, default");
 
         textFieldHole2LocationX = new JTextField();
@@ -307,7 +307,7 @@ extends AbstractReferenceFeederConfigurationWizard {
                 FormSpecs.DEFAULT_ROWSPEC,}));
 
         lblVisionType = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblVisionType.text")); //$NON-NLS-1$
-        lblVisionType.setToolTipText("<html>\r\n<p>Choose the vision type, then press <strong>Reset Pipeline</strong> to assign the<br/>\r\ndefault pipeline of that type. Sprocket holes are detected as follows:</p>\r\n<ul>\r\n<li><strong>ColorKeyed</strong>: the background under the holes must be of a vivid color<br/>\r\n(green by default).</li>\r\n<li><strong>CircularSymmetry</strong>: the shape of the holes must be circular, their<br/>\r\ninside/outside must be plain.</li>\r\n</ul>\r\n<p>Both types of pipeline will further assess detected holes by size, alignment, pitch<br/>\r\nand expected distance.</p>\r\n</html>");
+        lblVisionType.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblVisionType.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblVisionType, "2, 2, right, default");
 
         pipelineType = new JComboBox(PipelineType.values());
@@ -419,27 +419,27 @@ extends AbstractReferenceFeederConfigurationWizard {
         feedActuatorValue = new JTextField();
         panelActuator.add(feedActuatorValue, "6, 4");
         feedActuatorValue.setColumns(10);
-        feedActuatorValue.setToolTipText("<html>\r\n<p>For Duble: numerical value<br/>\r\nFor Boolean: 1 = True, 0 = False</p></html>");
+        feedActuatorValue.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.feedActuatorValue.toolTipText")); //$NON-NLS-1$
 
         btnTestFeedActuator = new JButton(testFeedActuatorAction);
-        btnTestFeedActuator.setToolTipText("<html>Do atomic feed, i.e. not full feed based on <i>Part&Feed pitch</i>.</html>");
+        btnTestFeedActuator.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.btnTestFeedActuator.toolTipText")); //$NON-NLS-1$
         panelActuator.add(btnTestFeedActuator, "8, 4");
 
         lblPostPick = new JLabel(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPostPick.text")); //$NON-NLS-1$
         panelActuator.add(lblPostPick, "2, 6, right, default");
-        lblPostPick.setToolTipText("<html>\r\n<p>Select the actuator for the post pick action<br/>\r\nThis is optional: blank selection will skip the post pick operation\r\n</p></html>");
+        lblPostPick.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.lblPostPick.toolTipText")); //$NON-NLS-1$
 
 
         comboBoxPostPickActuator = new JComboBox();
         comboBoxPostPickActuator.setModel(new ActuatorsComboBoxModel(Configuration.get().getMachine()));
         panelActuator.add(comboBoxPostPickActuator, "4, 6, fill, default");
-        comboBoxPostPickActuator.setToolTipText("<html>\r\n<p>Select the actuator for the post pick action<br/>\r\nThis is optional: blank selection will skip the post pick operation\r\n</p></html>");
+        comboBoxPostPickActuator.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.comboBoxPostPickActuator.toolTipText")); //$NON-NLS-1$
 
 
         postPickActuatorValue = new JTextField();
         postPickActuatorValue.setColumns(10);
         panelActuator.add(postPickActuatorValue, "6, 6");
-        postPickActuatorValue.setToolTipText("<html>\r\n<p>For Duble: numerical value<br/>\r\nFor Boolean: 1 = True, 0 = False</p></html>");
+        postPickActuatorValue.setToolTipText(Translations.getString("BambooFeederAutoVisionConfigurationWizard.postPickActuatorValue.toolTipText")); //$NON-NLS-1$
 
 
         btnTestPostPickActuator = new JButton(testPostPickActuatorAction);

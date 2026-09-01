@@ -140,7 +140,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelLocations.add(lblZ_1, "8, 4");
 
         lblPickLocation = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPickLocation.text")); //$NON-NLS-1$
-        lblPickLocation.setToolTipText("<html>Pick Location of the part. If multiple are produced by a feed operation<br/>\r\nthis must be the last one picked i.e. the one closest to the the tape reel.</html>");
+        lblPickLocation.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblPickLocation.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblPickLocation, "2, 6, right, default");
 
         textFieldPickLocationX = new JTextField();
@@ -167,7 +167,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         checkBoxNormalizePickLocation.setSelected(true);
 
         lblHole1Location = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole1Location.text")); //$NON-NLS-1$
-        lblHole1Location.setToolTipText("<html>Choose Hole 1 closer to the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
+        lblHole1Location.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole1Location.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblHole1Location, "2, 10, right, default");
 
         textFieldHole1LocationX = new JTextField();
@@ -182,7 +182,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelLocations.add(locationButtonsPanelHole1, "10, 10");
 
         lblHole2Location = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole2Location.text")); //$NON-NLS-1$
-        lblHole2Location.setToolTipText("<html>Choose Hole 2 further away from the tape reel.<br/>\r\nIf possible choose two holes that bracket the part(s) to be picked.\r\n</html>");
+        lblHole2Location.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblHole2Location.toolTipText")); //$NON-NLS-1$
         panelLocations.add(lblHole2Location, "2, 12, right, default");
 
         textFieldHole2LocationX = new JTextField();
@@ -240,11 +240,11 @@ extends AbstractReferenceFeederConfigurationWizard {
 
         lblRotation = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblRotation.text")); //$NON-NLS-1$
         panelTape.add(lblRotation, "6, 2, right, default");
-        lblRotation.setToolTipText("<html>Rotation of the part inside the tape as seen when the sprocket holes <br/>\r\nare on top. Your E-CAD part orientation is the reference.<br/>\r\nSee also: \r\n<ul>\r\n<li>EIA-481</li>\r\n<li>Component Zero Orientations for CAD Libraries</li>\r\n</ul>\r\n</html>");
+        lblRotation.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblRotation.toolTipText")); //$NON-NLS-1$
 
         textFieldRotationInTape = new JTextField();
         panelTape.add(textFieldRotationInTape, "8, 2");
-        textFieldRotationInTape.setToolTipText("<html>\n<p>The <strong>Rotation in Tape</strong> setting must be interpreted relative to the tape's orientation, <br/>\nregardless of how the feeder/tape is oriented on the machine. </p>\n<ol>\n<li>\n<p>Look at the <strong>neutral</strong> upright orientation of the part package/footprint <br/>\nas drawn inside your E-CAD <strong>library</strong>.</p>\n</li>\n<li>\n<p>Note how pin 1, polarity, cathode etc. are oriented.  <br/>\nThis is your 0° for the part.</p>\n</li>\n<li>\n<p>Look at the tape so that the sprocket holes are at the top. <br/>\nThis is your 0° tape orientation (per EIA-481 industry standard).</p>\n</li>\n<li>\n<p>Determine how the part is rotated inside the tape pocket, <em>relative</em> from  <br/>\nits upright orientation in (1).  Positive rotation goes counter-clockwise.<br/>\nThis is your <strong>Rotation in Tape</strong>.</p>\n</li>\n</ol>\n</html>");
+        textFieldRotationInTape.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.textFieldRotationInTape.toolTipText")); //$NON-NLS-1$
         textFieldRotationInTape.setColumns(10);
 
         lblFeedPitch = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedPitch.text")); //$NON-NLS-1$
@@ -266,7 +266,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         textFieldFeedMultiplier.setColumns(10);
 
         btnDiscardParts = new JButton(discardPartsAction);
-        btnDiscardParts.setToolTipText("<html>Discard parts left over in the (multi-part) feed cycle.<br/>\r\nStarts with a fresh feed cycle including vision calibration (if enabled). \r\n</html>");
+        btnDiscardParts.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.btnDiscardParts.toolTipText")); //$NON-NLS-1$
         panelTape.add(btnDiscardParts, "10, 4");
 
         lblFeedCount = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblFeedCount.text")); //$NON-NLS-1$
@@ -377,7 +377,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnResetStatistics, "12, 4, 3, 1");
 
         lblOcrWrongPart = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrWrongPart.text")); //$NON-NLS-1$
-        lblOcrWrongPart.setToolTipText("<html>Determines what action should be taken when OCR detects the wrong Part ID in the feeder.<br/> \r\n<ul>\r\n<li>\r\n<strong>None</strong>: Use this setting if you don't want to use OCR.</li>\r\n<li>\r\n<strong>SwapFeeders</strong>: If a wrong part is detected but the right part is selected<br/>\r\nin a different ReferencePushPullFeeder, the locations of the two feeders are swapped. The<br/>\r\nswapped-in feeder will be enabled. This will happen, if you unload/reload/rearrange your<br/>\r\nfeeders on the machine.</li>\r\n<li>\r\n<strong>SwapOrCreate</strong>: Works like <strong>SwapFeeders</strong>, but if no<br/>\r\nother feeder with the right part is found, a new one will be created and swapped-in at the<br/>\r\ncurrent feeder's location. The current feeder is then disabled in turn (they are now sitting at<br/>\r\nthe same location and only one must be enabled).</li>\r\n<li>\r\n<strong>ChangePart</strong>: The part in the current feeder is changed. This will only<br/>\r\nwork correctly, if the tape settings etc. remain the same between the parts i.e. if you restrict<br/>\r\nany reloading/rearranging to groups of feeders with the same settings.</li>\r\n<li>\r\n<strong>ChangePartAndClone</strong>: The part in the current feeder is changed but<br/>\r\nsettings are cloned from a template feeder.</li>\r\n</ul>\r\n</html>\r\n");
+        lblOcrWrongPart.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrWrongPart.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblOcrWrongPart, "2, 8, right, default");
 
         comboBoxWrongPartAction = new JComboBox(ReferencePushPullFeeder.OcrWrongPartAction.values());
@@ -386,7 +386,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         List<String> fontList = OcrUtils.createFontSelectionList(feeder.getOcrFontName(), true);
 
         lblOcrFontName = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrFontName.text")); //$NON-NLS-1$
-        lblOcrFontName.setToolTipText("<html>Name of the OCR font to be recognized or [Barcode].<br/>\r\nMonospace fonts work much better, allow lower resolution and therefore faster <br/>\r\noperation. Use a font where all the used characters are easily distinguishable.<br/>\r\nFonts with clear separation between glyphs are much preferred.</html>");
+        lblOcrFontName.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblOcrFontName.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblOcrFontName, "8, 8, right, default");
         comboBoxFontName = new JComboBox(fontList.toArray());
         panelVisionEnabled.add(comboBoxFontName, "10, 8");
@@ -418,7 +418,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnSetPartByOcr, "12, 10, 3, 1");
 
         lblDiscoverOnJobStart = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblDiscoverOnJobStart.text")); //$NON-NLS-1$
-        lblDiscoverOnJobStart.setToolTipText("<html>On Job Start, check that the correct parts are selected in OCR-enabled feeders at their locations. <br/>\r\nOtherwise the Job is stopped.<br/>\r\nThis will also vision-calibrate the feeders' locations, if calibration is enabled.</html>");
+        lblDiscoverOnJobStart.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblDiscoverOnJobStart.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblDiscoverOnJobStart, "2, 12, right, default");
 
         checkBoxDiscoverOnJobStart = new JCheckBox("");
@@ -429,7 +429,7 @@ extends AbstractReferenceFeederConfigurationWizard {
         panelVisionEnabled.add(btnEditPipeline, "2, 16");
 
         lblVisionType = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblVisionType.text")); //$NON-NLS-1$
-        lblVisionType.setToolTipText("<html>\r\n<p>Choose the vision type, then press <strong>Reset Pipeline</strong> to assign the<br/>\r\ndefault pipeline of that type. Sprocket holes are detected as follows:</p>\r\n<ul>\r\n<li><strong>ColorKeyed</strong>: the background under the holes must be of a vivid color<br/>\r\n(green by default).</li>\r\n<li><strong>CircularSymmetry</strong>: the shape of the holes must be circular, their<br/>\r\ninside/outside must be plain.</li>\r\n</ul>\r\n<p>Both types of pipeline will further assess detected holes by size, alignment, pitch<br/>\r\nand expected distance.</p>\r\n</html>");
+        lblVisionType.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblVisionType.toolTipText")); //$NON-NLS-1$
         panelVisionEnabled.add(lblVisionType, "8, 16, right, default");
 
         pipelineType = new JComboBox(PipelineType.values());
@@ -469,10 +469,10 @@ extends AbstractReferenceFeederConfigurationWizard {
 
         lblUsedAsTemplate = new JLabel(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblUsedAsTemplate.text")); //$NON-NLS-1$
         panelCloning.add(lblUsedAsTemplate, "2, 2, right, default");
-        lblUsedAsTemplate.setToolTipText("<html>Use this feeder as a template for cloning settings to other feeders. <br/>\r\nThe templates are matched by tape & reel specification or package of the parts <br/>\r\nloaded in feeders. <br/>\r\nWhen no template matches formally, the feeder \nwith the greatest similarities <br/>\r\nis taken (feed pitch, tape width, proximity, etc.).</html>");
+        lblUsedAsTemplate.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.lblUsedAsTemplate.toolTipText")); //$NON-NLS-1$
 
         checkBoxUsedAsTemplate = new JCheckBox("");
-        checkBoxUsedAsTemplate.setToolTipText("<html>Use this feeder as a template for cloning settings to other feeders. <br/>\r\nThe templates are matched by tape & reel specification or package of the parts <br/>\r\nloaded in feeders. <br/>\r\nWhen no template matches formally, the feeder \nwith the greatest similarities <br/>\r\nis taken (feed pitch, tape width, proximity, etc.).</html>");
+        checkBoxUsedAsTemplate.setToolTipText(Translations.getString("ReferencePushPullFeederConfigurationWizard.checkBoxUsedAsTemplate.toolTipText")); //$NON-NLS-1$
         checkBoxUsedAsTemplate.addActionListener(new ActionListener() {
 
             @Override

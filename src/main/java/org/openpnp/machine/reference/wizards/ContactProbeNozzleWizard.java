@@ -129,7 +129,7 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
         panel.add(comboBoxContactProbeActuator, "4, 4, default, top");
         
         lblProbeSpeed = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblProbeSpeed.text")); //$NON-NLS-1$
-        lblProbeSpeed.setToolTipText("<html>Probing speed factor.<br/>\r\n<strong>NOTE:</strong> this setting will only become effective, once you<br/>\r\naccept the Issues & Solutions G-code suggestion.</html>");
+        lblProbeSpeed.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblProbeSpeed.toolTipText")); //$NON-NLS-1$
         panel.add(lblProbeSpeed, "2, 6, right, default");
         
         contactProbeSpeed = new JTextField();
@@ -137,7 +137,7 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
         contactProbeSpeed.setColumns(10);
 
         lblStartOffset = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblStartOffset.text")); //$NON-NLS-1$
-        lblStartOffset.setToolTipText("<html>Contact probing start offset in Z above the nominal location.<br/>\r\nNote: for part height probing, the maximum part height on the NozzleTip <br/>\r\nis used instead, if the part height is not yet known. \r\n</html>");
+        lblStartOffset.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblStartOffset.toolTipText")); //$NON-NLS-1$
         panel.add(lblStartOffset, "2, 8, right, default");
 
         contactProbeStartOffsetZ = new JTextField();
@@ -153,7 +153,7 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
         contactProbeDepthZ.setColumns(10);
 
         lblSniffleIncrement = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblSniffleIncrement.text")); //$NON-NLS-1$
-        lblSniffleIncrement.setToolTipText("Vacuum sensing \"sniffle\" increment in Z. ");
+        lblSniffleIncrement.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblSniffleIncrement.toolTipText")); //$NON-NLS-1$
         panel.add(lblSniffleIncrement, "2, 12, right, default");
 
         sniffleIncrementZ = new JTextField();
@@ -168,7 +168,7 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
         sniffleDwellTime.setColumns(10);
 
         lblFinalAdjustment = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblFinalAdjustment.text")); //$NON-NLS-1$
-        lblFinalAdjustment.setToolTipText("<html>\r\nContact probing final adjustment in Z (positive values point upwards in Z).<br/>\r\n<ul>\r\n<li>Use positive values to compensate probing overshoot.</li>\r\n<li>Use negative values to add additional nozzle tip spring tensioning.</li>\r\n</ul>\r\n</html>");
+        lblFinalAdjustment.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblFinalAdjustment.toolTipText")); //$NON-NLS-1$
         panel.add(lblFinalAdjustment, "2, 16, right, default");
 
         contactProbeAdjustZ = new JTextField();
@@ -176,21 +176,21 @@ public class ContactProbeNozzleWizard extends AbstractConfigurationWizard {
         contactProbeAdjustZ.setColumns(10);
 
         lblFeederHeightProbing = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblFeederHeightProbing.text")); //$NON-NLS-1$
-        lblFeederHeightProbing.setToolTipText("<html>Probe for feeder heights. On some feeder types, this can probe for the <strong>Part Height</strong>, when it is unknown.</html>");
+        lblFeederHeightProbing.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblFeederHeightProbing.toolTipText")); //$NON-NLS-1$
         panel.add(lblFeederHeightProbing, "2, 20, right, default");
 
         feederHeightProbing = new JComboBox(ContactProbeTrigger.values());
         panel.add(feederHeightProbing, "4, 20, fill, default");
 
         lblPartHeightProbing = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblPartHeightProbing.text")); //$NON-NLS-1$
-        lblPartHeightProbing.setToolTipText("<html>Probe for placement heights. Includes probing for <strong>Part Height</strong>, when it is unknown.</html>");
+        lblPartHeightProbing.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblPartHeightProbing.toolTipText")); //$NON-NLS-1$
         panel.add(lblPartHeightProbing, "2, 22, right, default");
 
         partHeightProbing = new JComboBox(ContactProbeTrigger.values());
         panel.add(partHeightProbing, "4, 22, fill, default");
         
         lblDiscardProbing = new JLabel(Translations.getString("ContactProbeNozzleWizard.lblDiscardProbing.text")); //$NON-NLS-1$
-        lblDiscardProbing.setToolTipText("<html>Enable contact probing for discard. There must be a surface that the nozzle<br/>\r\ncan probe into that is likely to brush/tilt off a part from the nozzle, like a (ESD safe) soft<br/>\r\nmaterial or a slanted surface. \r\n</html>");
+        lblDiscardProbing.setToolTipText(Translations.getString("ContactProbeNozzleWizard.lblDiscardProbing.toolTipText")); //$NON-NLS-1$
         panel.add(lblDiscardProbing, "2, 24, right, default");
 
         discardProbing = new JCheckBox("");

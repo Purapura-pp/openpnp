@@ -204,7 +204,7 @@ public class ReferenceLinearTransformAxisConfigurationWizard extends AbstractAxi
         offset.setColumns(10);
 
         lblCompensation = new JLabel(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblCompensation.text")); //$NON-NLS-1$
-        lblCompensation.setToolTipText("<html>Determines, whether this transformation is a compensation transformation e.g. Non-Squareness Compensation.<br/>\r\nThis can be used by OpenPnP to optimize some motion where precision is not needed. Initial calibration <br/>and simulation are other applications. \r\n</html>");
+        lblCompensation.setToolTipText(Translations.getString("ReferenceLinearTransformAxisConfigurationWizard.lblCompensation.toolTipText")); //$NON-NLS-1$
         panelTransformation.add(lblCompensation, "2, 24, right, default");
 
         compensation = new JCheckBox("");

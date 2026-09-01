@@ -140,7 +140,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 panelInterlock.add(interlockType, "4, 2, 3, 1");
         
                 lblConfirmationGoodRange = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationGoodRange.text")); //$NON-NLS-1$
-                lblConfirmationGoodRange.setToolTipText("<html>\r\nOn interlock the actuator will be read and the numeric value compared to this range <br/>\r\n(lower/upper limit). If the value is outside the range, the interlock fails, i.e. an error is raised.\r\n</html>");
+                lblConfirmationGoodRange.setToolTipText(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationGoodRange.toolTipText")); //$NON-NLS-1$
                 panelInterlock.add(lblConfirmationGoodRange, "2, 4, right, default");
         
                 confirmationGoodMin = new JTextField();
@@ -152,7 +152,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
                 confirmationGoodMax.setColumns(10);
         
                 lblConfirmationPattern = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationPattern.text")); //$NON-NLS-1$
-                lblConfirmationPattern.setToolTipText("<html>\r\nOn interlock the actuator will be read. The reading will be compared to the pattern.<br/>\r\nIf the reading does not match, the interlock fails, i.e. an error is raised. \r\n</html>");
+                lblConfirmationPattern.setToolTipText(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblConfirmationPattern.toolTipText")); //$NON-NLS-1$
                 panelInterlock.add(lblConfirmationPattern, "2, 6, right, default");
         
                 confirmationPattern = new JTextField();
@@ -227,7 +227,7 @@ public class ActuatorInterlockMonitorConfigurationWizard extends AbstractConfigu
         panelCondition.add(conditionalActuatorState, "8, 2, 3, 1, fill, default");
         
         lblSpeed = new JLabel(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblSpeed.text")); //$NON-NLS-1$
-        lblSpeed.setToolTipText("<html>The interlock is only active if the effective speed factor is within this range.<br/>\r\nTypically used to allow slow movement even when the interlock confirmation failed.\r\n</html>");
+        lblSpeed.setToolTipText(Translations.getString("ActuatorInterlockMonitorConfigurationWizard.lblSpeed.toolTipText")); //$NON-NLS-1$
         panelCondition.add(lblSpeed, "2, 4, right, default");
         
         conditionalSpeedPercentMin = new JTextField();
