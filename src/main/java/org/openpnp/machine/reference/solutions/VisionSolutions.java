@@ -460,7 +460,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>Camera calibration can be performed automatically by looking at fiducials while moving the "
                             + "camera around in a certain pattern. This solution determines the X, Y position of the primary "
@@ -543,7 +543,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>Camera calibration also requires looking at a secondary fiducial at different "
                             + "Z level. This will provide the calibration algorithm with the needed 3D/spacial information to "
@@ -627,7 +627,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>Once the calibration primary fiducial is captured you can use it to capture the camera head "
                             + "offsets (first approximation).</p><br/>"
@@ -720,7 +720,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>Up-looking camera calibration can be performed automatically by looking at a nozzle tip while moving the "
                             + "nozzle around in a certain pattern. This solution determines the X, Y position of the camera "
@@ -871,7 +871,7 @@ public class VisionSolutions implements Solutions.Subject {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html>"
                                 + "<p>Once the calibration "+qualifier+" fiducial is captured in X, Y you can use it to capture the nozzle head "
                                 + "offsets (first approximation).</p><br/>"
@@ -1068,7 +1068,7 @@ public class VisionSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>Mount a permanent fiducial to your machine table. Choose a mounting point that is mechanically coupled to the "
                             + "most important parts of your machine table. Make sure it is very unlikely you will ever need to change this new "

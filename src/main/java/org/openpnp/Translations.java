@@ -173,7 +173,15 @@ public class Translations {
         if (PROSE_PATTERNS.isEmpty()) {
             return english;
         }
-        return PROSE_CACHE.computeIfAbsent(english, Translations::translateByTemplate);
+        // Deliberately not computeIfAbsent: a template may hand a captured fragment back here, and
+        // ConcurrentHashMap refuses to be updated from inside its own mapping function.
+        String cached = PROSE_CACHE.get(english);
+        if (cached != null) {
+            return cached;
+        }
+        String translated = translateByTemplate(english);
+        PROSE_CACHE.put(english, translated);
+        return translated;
     }
 
     private static String translateByTemplate(String english) {
@@ -258,9 +266,12 @@ public class Translations {
             Object[] values = new Object[placeholders];
             for (int i = 0; i < placeholders; i++) {
                 String value = match.group(i + 1);
-                // A role the source names in English is translated; a name the user chose is not
-                // in the vocabulary and so passes through as they wrote it.
-                values[i] = vocabulary.getOrDefault(value, value);
+                String word = vocabulary.get(value);
+                // A role the source names in English is translated. Otherwise the captured text
+                // goes back through the whole chain, because some of these sentences are built
+                // around a clause rather than a name, and a clause may be translatable in its own
+                // right. A name the user chose matches nothing and arrives as they wrote it.
+                values[i] = word != null ? word : translateText(value);
             }
             return format(values);
         }

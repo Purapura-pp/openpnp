@@ -150,7 +150,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html><span color=\"red\">CAUTION:</span>  This is a troubleshooting option offered to remove the GcodeAsyncDriver "
                                 + "if it causes problems, or if you don't want it after all. Going back to the plain GcodeDriver will lose you all the "
                                 + "advanced configuration.</html>";
@@ -556,7 +556,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
                                 }
 
                                 @Override 
-                                public String getExtendedDescription() {
+                                protected String extendedDescription() {
                                     return "<html><span color=\"red\">CAUTION:</span> This is a troubleshooting option, you should only choose "
                                             + newMotionControlType.name()+" if the current "+oldMotionControlType.name()+" causes problems and you "
                                             + "want to try a simpler setting.</html>";
@@ -623,7 +623,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
                                 }
 
                                 @Override 
-                                public String getExtendedDescription() {
+                                protected String extendedDescription() {
                                     return "<html><span color=\"red\">CAUTION:</span> This is a troubleshooting option, you should "
                                             + "only disable G-code compression if it causes problems.</html>";
                                 }
@@ -650,7 +650,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
                                 }
 
                                 @Override 
-                                public String getExtendedDescription() {
+                                protected String extendedDescription() {
                                     return "<html><span color=\"red\">CAUTION:</span> This is a troubleshooting option, you should "
                                             + "only keep G-code comments if removing them causes problems.</html>";
                                 }
@@ -1113,7 +1113,7 @@ public class GcodeDriverSolutions implements Solutions.Subject {
                     super.setState(state);
                 }
                 @Override
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     String r = "<html>\n";
                     if (rationale!=null && !rationale.isEmpty()) {
                         r += "<p><strong>"+rationale+"</strong></p>\n";

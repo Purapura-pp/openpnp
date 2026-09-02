@@ -35,7 +35,7 @@ public class ScriptingSolutions implements Solutions.Subject {
                     }
 
                     @Override
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html>By default, every time a script should be executed, a new instance of the appropriate script engine is created.<br><br>"
                                 + "By enabling script engine pooling, a new instance of any script engine is only created if the pool doesn't contain an available instance of the appropriate type. "
                                 + "Following executions re-use the already initialized script engines, lowering execution time for scripting hooks."

@@ -268,7 +268,7 @@ public class AxisSolutions implements Solutions.Subject {
 
 
                                         @Override 
-                                        public String getExtendedDescription() {
+                                        protected String extendedDescription() {
                                             return "<html><p>Switch vision settings pre-rotate usage from <strong>"+PreRotateUsage.AlwaysOff+"</strong> "
                                                     + "to <strong>"+PreRotateUsage.Default+"</strong> on these parts:</p>"
                                                     + "<ol><li>"

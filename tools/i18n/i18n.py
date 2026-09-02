@@ -472,6 +472,43 @@ def whole_literals(expression):
     return []
 
 
+# The longer explanation shown under a solution. It is not a constructor argument but the return
+# of an overridden method, so it has to be gathered separately from the descriptions beside it.
+EXTENDED_DESCRIPTION = re.compile(
+    r"protected\s+String\s+extendedDescription\s*\(\s*\)\s*\{\s*return\b")
+
+
+def extended_descriptions(text):
+    """The expressions the extendedDescription() overrides in one file return."""
+    found = []
+    for match in EXTENDED_DESCRIPTION.finditer(text):
+        start = match.end()
+        depth = 0
+        in_string = False
+        escaped = False
+        i = start
+        while i < len(text):
+            c = text[i]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif c == "\\":
+                    escaped = True
+                elif c == '"':
+                    in_string = False
+            elif c == '"':
+                in_string = True
+            elif c in "([{":
+                depth += 1
+            elif c in ")]}":
+                depth -= 1
+            elif c == ";" and depth == 0:
+                break
+            i += 1
+        found.append(text[start:i])
+    return found
+
+
 def solutions_literals():
     """The English prose that reaches Translations.translateText, which is what texts_* is keyed by.
 
@@ -488,6 +525,12 @@ def solutions_literals():
         # inside these very constructions, so without this the keys of the first mechanism get
         # collected as if they were text for the second.
         text = re.sub(r'Translations\.getString\(\s*"[^"]*"', "KEY(", text)
+
+        for expression in extended_descriptions(text):
+            for literal in whole_literals(expression):
+                if len(literal) < 3:
+                    continue
+                found.setdefault(load_java_literal(literal), path.name)
 
         for match in CONSTRUCTION.finditer(text):
             start = match.end()
@@ -1089,6 +1132,10 @@ PATTERN_PLACEHOLDER = re.compile(r"%(?:\d+\$)?s")
 # match far more than it was written for, so the runtime refuses to load one.
 MINIMUM_LITERAL_RUN = 6
 
+# How much of a template's longest literal run has to still be in the sources for it to count as
+# live. Enough to be unique, short enough not to run into the next branch of whatever assembled it.
+DISTINCTIVE_PREFIX = 40
+
 
 def template_regex(english):
     """The matcher Translations builds for a template, and the literal text it rests on."""
@@ -1137,18 +1184,26 @@ def cmd_patterns(args):
         compiled.append((key, template, matcher, sum(len(l) for l in literals)))
     compiled.sort(key=lambda entry: -entry[3])
 
-    # A template whose English no longer appears in the sources cannot fire. Comparing against the
-    # assembled prose is not possible from here, so the literal runs are looked for instead: every
-    # one of them has to survive somewhere in the Java.
+    # A template whose English no longer appears in the sources cannot fire, silently. What the
+    # sources assemble cannot be reconstructed from here, so the template's most distinctive run of
+    # literal text is looked for instead. Two things have to be undone first: these descriptions are
+    # written as a literal per source line, and their quotes are escaped for Java.
     if not args.against:
         source = "\n".join(p.read_text(encoding="utf-8", errors="replace")
                            for p in SOURCES.rglob("*.java"))
+        source = re.sub(r'"\s*\+\s*"', "", source).replace('\\"', '"')
         for key, template, _, _ in compiled:
             _, literals = template_regex(template)
-            missing = [l for l in literals if len(l) >= MINIMUM_LITERAL_RUN and l not in source]
-            if missing:
+            # Any run long enough to be distinctive will do, and only its opening. A run reaches
+            # past a branch in the source as often as not, where the text stops being contiguous
+            # through no fault of the template, and the run that does so is frequently the longest
+            # one. This says the wording is still there; --against says the template still reaches
+            # it, which is the question that actually matters.
+            candidates = sorted((l for l in literals if len(l) >= MINIMUM_LITERAL_RUN),
+                                key=len, reverse=True)
+            if candidates and not any(l[:DISTINCTIVE_PREFIX] in source for l in candidates):
                 print("{}: no source builds this any more, the wording {!r} is gone"
-                      .format(key, missing[0][:60]))
+                      .format(key, candidates[0][:60]))
                 problems += 1
         for word, key in sorted(vocabulary.items()):
             if '"{}"'.format(word) not in source:

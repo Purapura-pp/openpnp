@@ -505,7 +505,23 @@ public class Solutions {
         public void activate() throws Exception {
         }
 
-        public String getExtendedDescription() {
+        /**
+         * The longer explanation the panel shows under the solution, in the display language.
+         * <p>
+         * Final, and paired with {@link #extendedDescription()} for subclasses to override,
+         * because this one has to translate what they return. getIssue and getSolution translate
+         * the fields they were handed; an overridable getter here would quietly bypass that, which
+         * is how this panel came to be the one part of the feature that was never translated in
+         * any language.
+         */
+        public final String getExtendedDescription() {
+            return Translations.translateText(extendedDescription());
+        }
+
+        /**
+         * Override to explain the solution at length, in English. Null for no explanation.
+         */
+        protected String extendedDescription() {
             return null;
         }
 

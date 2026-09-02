@@ -93,7 +93,7 @@ public class NozzleTipSolutions implements Solutions.Subject  {
                                 }
 
                                 @Override 
-                                public String getExtendedDescription() {
+                                protected String extendedDescription() {
                                     return "<html>"
                                             + "<p>Jog "+nozzle.getName()+" to a suitable location where you can manually exchange the nozzle tips.</p><br/>"
                                             + "<p>Even if you (plan to) use an automatic nozzle tip changer, it is useful to have this location "
@@ -183,7 +183,7 @@ public class NozzleTipSolutions implements Solutions.Subject  {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>It is recommended to enable nozzle tip calibration for run-out and precision camera offsets. "
                             + "For more information, press the blue Info button (below) to open the Wiki.</p><br/>"
@@ -313,7 +313,7 @@ public class NozzleTipSolutions implements Solutions.Subject  {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html>"
                                 + "<p>Select the proper background calibration.</p><br/>"
                                 + "<p><strong color=\"red\">CAUTION</strong>: Nozzle "+nozzle.getName()+" will move over camera "

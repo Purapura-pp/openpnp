@@ -76,7 +76,7 @@ public class KinematicSolutions implements Solutions.Subject {
                         "https://github.com/openpnp/openpnp/wiki/User-Manual#machine-controls") {
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html>"
                                 + "<p>You must be sure that your machine supports the homing command with the "
                                 + "proper axis end-switches wired and configured.</p><br/>"
@@ -230,7 +230,7 @@ public class KinematicSolutions implements Solutions.Subject {
                                             }
 
                                             @Override 
-                                            public String getExtendedDescription() {
+                                            protected String extendedDescription() {
                                                 return "<html>"
                                                         + "<p>Jog "+hm.getName()+" over the tallest obstacle on your machine, "
                                                                 + "including the the tallest parts that may be placed on the PCB.</p><br/>"
@@ -343,7 +343,7 @@ public class KinematicSolutions implements Solutions.Subject {
                                 "https://github.com/openpnp/openpnp/wiki/Transformed-Axes#referencecamcounterclockwiseaxis") {
 
                             @Override 
-                            public String getExtendedDescription() {
+                            protected String extendedDescription() {
                                 return "<html>"
                                         + "<p>The cam transform on axis "+cam1Axis.getName()+" with non-zero "
                                                 + (oldCamWheelRadius.getValue() != 0 ? "wheel radius, " : "")
@@ -443,7 +443,7 @@ public class KinematicSolutions implements Solutions.Subject {
                                     }
 
                                     @Override 
-                                    public String getExtendedDescription() {
+                                    protected String extendedDescription() {
                                         return "<html>"
                                                 + "<p>Move axis "+controllerAxis.getName()+" to the "+qualifier+" soft limit.</p><br/>"
                                                 + "<p>Jog "+controllerAxis.getType().getDefaultLetter()+" of "
@@ -521,7 +521,7 @@ public class KinematicSolutions implements Solutions.Subject {
                                 "https://github.com/openpnp/openpnp/wiki/Kinematic-Solutions#dynamic-safe-z-zone") {
 
                                     @Override
-                                    public String getExtendedDescription() {
+                                    protected String extendedDescription() {
                                         return "<html>"
                                                 + "<p>With <strong>Dynamic Safe Z</strong> enabled, the nozzle needs a head-room, the so-called Safe Z Zone "
                                                 + "to lift the nozzle higher with taller parts. The maximum expected part height is specified on the "
@@ -564,7 +564,7 @@ public class KinematicSolutions implements Solutions.Subject {
                                         "https://github.com/openpnp/openpnp/wiki/Kinematic-Solutions#dynamic-safe-z-zone") {
 
                                     @Override
-                                    public String getExtendedDescription() {
+                                    protected String extendedDescription() {
                                         return "<html>"
                                                 + "<p>With <strong>Dynamic Safe Z</strong> enabled, the nozzles need a head-room, the so-called Safe Z Zone to lift "
                                                 + "the nozzles higher with taller parts. On nozzles with shared Z axes the part heights compete for the same head-room. "

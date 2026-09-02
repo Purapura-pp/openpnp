@@ -189,7 +189,13 @@ templates, lifts out whatever the placeholders covered, and formats them into th
 fingerprint is untouched by any of this: `getFingerprint` reads the raw fields, and only
 `getIssue`, `getSolution` and `Choice.getDescription` translate.
 
-Four things are worth knowing before adding a template:
+The longer explanation shown under the solution reaches the same place. It used to reach nowhere:
+`getExtendedDescription()` was a plain overridable getter, so it returned whatever English the
+subclass wrote and no bundle was ever consulted. It is final now, translating what the subclass
+returns from the `extendedDescription()` hook, the way `getIssue` translates the field it was
+handed. That was the one part of the feature no language had ever translated.
+
+Five things are worth knowing before adding a template:
 
 - **The English side must read exactly as the source assembles it.** Reword the source and the
   template stops matching, silently. `i18n.py patterns` checks each template's literal runs are
@@ -203,6 +209,10 @@ Four things are worth knowing before adding a template:
   `pump control`, `primary` - as opposed to the names a user gave their own nozzles and cameras,
   which have no entry and so pass through untouched. `i18n.py patterns` reports an actuator role
   the sources use that has no `Word.` entry.
+- **What a template captures goes back through the whole chain.** Some of the longer explanations
+  are built around a clause rather than a name, and a clause needs a template of its own or it
+  sits in English in the middle of a translated paragraph. Watch for this: a string like that has
+  Chinese in it, so anything that merely looks for Chinese will pass it.
 
 When two templates describe the same string, the one resting on more literal text wins, so
 `The %s actuator %s has no driver assigned.` beats `The %s actuator %s has no %s assigned.` and the

@@ -201,7 +201,7 @@ public class CameraSolutions implements Solutions.Subject  {
                             }
 
                             @Override 
-                            public String getExtendedDescription() {
+                            protected String extendedDescription() {
                                 return "<html>"
                                         + "<p>For precision in computer vision it is very important that the camera image has settled down "
                                         + "after the machine has moved the camera or the subject. Some cameras exhibit a slight lag, where the "
@@ -350,7 +350,7 @@ public class CameraSolutions implements Solutions.Subject  {
                         }
 
                         @Override 
-                        public String getExtendedDescription() {
+                        protected String extendedDescription() {
                             return "<html>"
                                     + (_propertiesOK ? "" : "<p><strong color=\"red\">WARNING:</strong> make sure the device properties are set as recommended "
                                             + "by Issues & Solutions. Press <strong>Find Issues & Solutions</strong> to check for the latest status. "

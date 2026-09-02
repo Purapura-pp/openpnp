@@ -223,7 +223,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                             }
 
                             @Override 
-                            public String getExtendedDescription() {
+                            protected String extendedDescription() {
                                 return "<html>"
                                         + "<p>Backlash compensation is used to avoid the effects of any looseness or play in the mechanical "
                                         + "linkages of machine axes. More information can be found in the Wiki (press the blue Info button below).</p><br/>"
@@ -329,7 +329,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html>"
                                 + "<p>You already performed the preliminary camera calibration earlier, now it is time for the "
                                 + "<strong>Advanced Camera Calibration</strong> that includes compensating lens distortion and camera mounting tilt. "
@@ -383,7 +383,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                 private Location oldNozzleOffsets = null;
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>To calibrate precision camera ↔ nozzle offsets, we let the nozzle pick, rotate and place a small "
                             + "test object and then measure the resulting offsets using the camera.</p><br/>"
@@ -487,7 +487,7 @@ public class CalibrationSolutions implements Solutions.Subject {
                 }
 
                 @Override 
-                public String getExtendedDescription() {
+                protected String extendedDescription() {
                     return "<html>"
                             + "<p>You already performed the preliminary camera calibration earlier, now it is time for the "
                             + "<strong>Advanced Camera Calibration</strong> that includes compensating lens distortion and camera mounting tilt. "

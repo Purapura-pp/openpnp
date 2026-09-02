@@ -701,7 +701,7 @@ public class ReferenceMachine extends AbstractMachine {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html><span color=\"red\">CAUTION:</span> This is a troubleshooting option, offered to remove the ReferenceAdvancedMotionPlanner "
                                 + "if it causes problems, or if you don't want it after all. Going back to the plain NullPlanner will lose you all the "
                                 + "advanced configuration.</html>";

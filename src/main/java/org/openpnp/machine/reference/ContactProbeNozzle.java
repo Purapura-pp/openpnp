@@ -993,7 +993,7 @@ public class ContactProbeNozzle extends ReferenceNozzle {
                     }
 
                     @Override 
-                    public String getExtendedDescription() {
+                    protected String extendedDescription() {
                         return "<html><span color=\"red\">CAUTION:</span> This is a troubleshooting option offered to remove the ContactProbeNozzle "
                                 + "if it causes problems, or if you don't want it after all. Going back to the plain ReferenceNozzle will lose you all the "
                                 + "configuration for contact and Z probing and calibration.</html>";

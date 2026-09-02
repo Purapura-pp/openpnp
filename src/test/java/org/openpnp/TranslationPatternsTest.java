@@ -128,6 +128,26 @@ public class TranslationPatternsTest {
         }
     }
 
+    /**
+     * Some of these sentences are built around a clause rather than a name, and the clause is
+     * assembled too. A template hands what it captured back through the whole chain so that a
+     * clause with a template of its own is translated as well, rather than sitting in English in
+     * the middle of a translated paragraph.
+     */
+    @Test
+    public void aCapturedClauseIsTranslatedInItsOwnRight() {
+        ProsePattern frame = ProsePattern.of("frame",
+                "Once the fiducial is captured you can use it.%sJog nozzle %s over it.",
+                "\u91c7\u96c6\u5b8c\u57fa\u51c6\u70b9\u540e\u5c31\u80fd\u7528\u5b83\u3002%1$s\u628a\u5439\u5634 %2$s \u70b9\u52a8\u5230\u5b83\u4e0a\u65b9\u3002");
+        assertNotNull(frame);
+        String translated = frame.apply(
+                "Once the fiducial is captured you can use it.This also equalises Z.Jog nozzle N2 over it.",
+                Map.of("This also equalises Z.", "\u8fd9\u4e5f\u4f1a\u5bf9\u9f50 Z\u3002"));
+        assertEquals("\u91c7\u96c6\u5b8c\u57fa\u51c6\u70b9\u540e\u5c31\u80fd\u7528\u5b83\u3002"
+                + "\u8fd9\u4e5f\u4f1a\u5bf9\u9f50 Z\u3002\u628a\u5439\u5634 N2 \u70b9\u52a8\u5230\u5b83\u4e0a\u65b9\u3002",
+                translated, "the captured clause should have been translated too");
+    }
+
     /** Every word a template may lift out has to be spelled the same in both files. */
     @Test
     public void everyVocabularyWordIsTranslated() throws IOException {
