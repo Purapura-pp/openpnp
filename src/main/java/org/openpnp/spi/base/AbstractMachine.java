@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 
 import javax.swing.Icon;
 
+import org.openpnp.ConfigurationListener;
 import org.openpnp.model.AbstractModelObject;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
@@ -108,6 +109,8 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
 
     private ScriptEvents scripting;
 
+    private Configuration configuration;
+
     protected AbstractMachine() {}
 
     /**
@@ -132,6 +135,76 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
         this.scripting = scripting;
     }
 
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    /**
+     * Tell the elements that the configuration has been read, so that the ids they were
+     * deserialized with can be turned into references.
+     * <p>
+     * Configuration calls this once, as the last thing in its own loaded round. The machine is the
+     * last file it reads, so its elements were the last to sign themselves up for the round they
+     * are now told about directly, and they are still told last.
+     * 
+     * @param configuration
+     * @throws Exception
+     */
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        for (ConfigurationListener element : getConfigurationLifecycle()) {
+            element.configurationLoaded(configuration);
+        }
+    }
+
+    /**
+     * Tell the elements that the configuration is resolved and can be used.
+     * 
+     * @param configuration
+     * @throws Exception
+     */
+    public void configurationComplete(Configuration configuration) throws Exception {
+        for (ConfigurationListener element : getConfigurationLifecycle()) {
+            element.configurationComplete(configuration);
+        }
+    }
+
+    /**
+     * Everything hanging off this machine that wants to hear about the configuration, in the order
+     * it is told.
+     * <p>
+     * The order only has to be an order: an element resolves its own ids against lists that
+     * deserialization has already filled, never against what another element resolved. Axes and
+     * drivers come first anyway, since they are what the rest name.
+     * 
+     * @return
+     */
+    protected List<ConfigurationListener> getConfigurationLifecycle() {
+        List<ConfigurationListener> told = new ArrayList<>();
+        collectAll(told, axes, drivers);
+        for (Head head : heads) {
+            collect(told, head);
+            collectAll(told, head.getNozzles(), head.getCameras(), head.getActuators());
+        }
+        collectAll(told, signalers, feeders, cameras, actuators, nozzleTips, partAlignments);
+        return told;
+    }
+
+    protected void collect(List<ConfigurationListener> told, Object... elements) {
+        for (Object element : elements) {
+            if (element instanceof ConfigurationListener) {
+                told.add((ConfigurationListener) element);
+            }
+        }
+    }
+
+    private void collectAll(List<ConfigurationListener> told, Iterable<?>... groups) {
+        for (Iterable<?> group : groups) {
+            for (Object element : group) {
+                collect(told, element);
+            }
+        }
+    }
+
     @SuppressWarnings("unused")
     @Commit
     protected void commit() {
@@ -152,12 +225,21 @@ public abstract class AbstractMachine extends AbstractModelObject implements Mac
      * <p>
      * An implementation that is not a {@link MachineElement} is left alone. It has nowhere to keep
      * the reference and goes on asking Configuration, which is what everything did before.
+     * <p>
+     * An element that arrives after the configuration was read - one the user just created - has
+     * missed the round of {@link #configurationLoaded}, and is told here instead. That is the same
+     * moment at which it would have been told back when it signed itself up, give or take the
+     * distance between its constructor and this call.
      * 
      * @param element
      */
     protected void attach(Object element) {
         if (element instanceof MachineElement) {
             ((MachineElement) element).setMachine(this);
+        }
+        if (configuration != null && configuration.isLoaded()
+                && element instanceof ConfigurationListener) {
+            configuration.notifyLoadedAndComplete((ConfigurationListener) element);
         }
     }
 

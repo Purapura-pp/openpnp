@@ -19,6 +19,7 @@
 
 package org.openpnp.spi.base;
 
+import org.openpnp.ConfigurationListener;
 import org.openpnp.model.Configuration;
 import org.pmw.tinylog.Logger;
 
@@ -30,11 +31,24 @@ import org.pmw.tinylog.Logger;
  * feeder does, but their class hierarchies are elsewhere, so they keep their own. What
  * {@link AbstractMachine#attach} looks for is this interface: belonging to a machine is a matter of
  * being able to hold the reference, not of descending from one particular class.
+ * <p>
+ * Belonging to a machine is also how an element learns that the configuration has finished
+ * loading, which is when the ids it was deserialized with can be turned into references. It used
+ * to sign itself up with Configuration for that, from its own constructor; now its machine tells
+ * it, and an element with nothing to resolve says nothing.
  */
-public interface MachineElement {
+public interface MachineElement extends ConfigurationListener {
     AbstractMachine getMachine();
 
     void setMachine(AbstractMachine machine);
+
+    @Override
+    default void configurationLoaded(Configuration configuration) throws Exception {
+    }
+
+    @Override
+    default void configurationComplete(Configuration configuration) throws Exception {
+    }
 
     /**
      * The machine an element holding {@code attached} should answer with.

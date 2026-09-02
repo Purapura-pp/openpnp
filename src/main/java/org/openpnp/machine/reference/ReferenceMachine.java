@@ -186,6 +186,13 @@ public class ReferenceMachine extends AbstractMachine {
         attach(fiducialLocator);
     }
 
+    @Override
+    protected List<ConfigurationListener> getConfigurationLifecycle() {
+        List<ConfigurationListener> told = super.getConfigurationLifecycle();
+        collect(told, motionPlanner, pnpJobProcessor, fiducialLocator);
+        return told;
+    }
+
     public Driver getDefaultDriver() {
         // If this is a brand new Machine, create a NullDriver.
         if (drivers.isEmpty()) {

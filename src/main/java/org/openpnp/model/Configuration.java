@@ -200,6 +200,8 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
             // The machine hands this on to its elements, so that a nozzle firing a pick event does
             // not have to come back here for the scripting service.
             ((AbstractMachine) machine).setScripting(scripting);
+            // And it needs to know which configuration to tell its elements about.
+            ((AbstractMachine) machine).setConfiguration(this);
         }
     }
     
@@ -442,24 +444,39 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
             // singleton for the rest of the session, including after the user deletes it again.
             // Listeners registered while loading are retained, since they are the ones the load
             // notifies when it completes.
-            if(!listenersLocked) {
-                // Call these methods immediately
-                try {
-                    listener.configurationLoaded(this);
-                    listener.configurationComplete(this);
-                }
-                catch (Exception e) {
-                    // TODO: Need to find a way to raise this to the GUI
-                    throw new Error(e);
-                }
-            }
-            else {
-                // Listeners are locked; we are making a batch change. Dont call them yet
-                pendingListeners.add(listener);
-            }
+            notifyLoadedAndComplete(listener);
             return;
         }
         listeners.add(listener);
+    }
+
+    /**
+     * Tell a listener both rounds now, because it arrived after the load was over and there will
+     * not be another one.
+     * <p>
+     * The machine calls this for an element the user just created, which missed the rounds its
+     * siblings were told about while loading.
+     * 
+     * @param listener
+     */
+    public void notifyLoadedAndComplete(ConfigurationListener listener) {
+        if (listenersLocked) {
+            // Listeners are locked; we are making a batch change. Dont call them yet
+            pendingListeners.add(listener);
+            return;
+        }
+        try {
+            listener.configurationLoaded(this);
+            listener.configurationComplete(this);
+        }
+        catch (Exception e) {
+            // TODO: Need to find a way to raise this to the GUI
+            throw new Error(e);
+        }
+    }
+
+    public boolean isLoaded() {
+        return loaded;
     }
 
     public void lockListeners() {
@@ -628,6 +645,11 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
         for (ConfigurationListener listener : new ArrayList<>(listeners)) {
             listener.configurationLoaded(this);
         }
+        // The machine is the last file read, so its elements were the last to sign themselves up.
+        // Those that no longer do are told here, in the same place in the order.
+        if (machine instanceof AbstractMachine) {
+            ((AbstractMachine) machine).configurationLoaded(this);
+        }
 
         if (forceSave) {
             Logger.info("Defaults were loaded. Saving to configuration directory.");
@@ -637,6 +659,9 @@ public class Configuration extends AbstractModelObject implements DisplayPrefere
 
         for (ConfigurationListener listener : listeners) {
             listener.configurationComplete(this);
+        }
+        if (machine instanceof AbstractMachine) {
+            ((AbstractMachine) machine).configurationComplete(this);
         }
     }
 
