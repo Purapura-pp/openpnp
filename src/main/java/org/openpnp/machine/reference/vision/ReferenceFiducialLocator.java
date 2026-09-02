@@ -16,7 +16,6 @@ import javax.swing.Icon;
 
 import org.apache.commons.io.IOUtils;
 import org.opencv.core.KeyPoint;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.components.CameraView;
 import org.openpnp.gui.support.LengthConverter;
@@ -117,21 +116,20 @@ public class ReferenceFiducialLocator extends AbstractPartSettingsHolder
     }
 
     public ReferenceFiducialLocator() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                migratePartSettings(configuration);
-                if (fiducialVisionSettings == null) {
-                    // Recovery mode, take any setting.
-                    for (AbstractVisionSettings settings : configuration.getVisionSettings()) {
-                        if (settings instanceof FiducialVisionSettings) {
-                            fiducialVisionSettings = (FiducialVisionSettings) settings;
-                            break;
-                        }
-                    }
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        migratePartSettings(configuration);
+        if (fiducialVisionSettings == null) {
+            // Recovery mode, take any setting.
+            for (AbstractVisionSettings settings : configuration.getVisionSettings()) {
+                if (settings instanceof FiducialVisionSettings) {
+                    fiducialVisionSettings = (FiducialVisionSettings) settings;
+                    break;
                 }
             }
-        });
+        }
     }
 
     /**

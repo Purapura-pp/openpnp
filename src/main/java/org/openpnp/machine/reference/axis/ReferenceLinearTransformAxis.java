@@ -23,7 +23,6 @@ package org.openpnp.machine.reference.axis;
 
 import java.util.Arrays;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.axis.wizards.ReferenceLinearTransformAxisConfigurationWizard;
 import org.openpnp.model.AxesLocation;
@@ -77,16 +76,16 @@ public class ReferenceLinearTransformAxis extends AbstractTransformedAxis implem
     private boolean compensation = false;
 
     public ReferenceLinearTransformAxis() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                inputAxisX = (AbstractAxis) configuration.getMachine().getAxis(inputAxisXId);
-                inputAxisY = (AbstractAxis) configuration.getMachine().getAxis(inputAxisYId);
-                inputAxisZ = (AbstractAxis) configuration.getMachine().getAxis(inputAxisZId);
-                inputAxisRotation = (AbstractAxis) configuration.getMachine().getAxis(inputAxisRotationId);
-            }
-        });
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        Machine machine = configuration.getMachine();
+        inputAxisX = (AbstractAxis) machine.getAxis(inputAxisXId);
+        inputAxisY = (AbstractAxis) machine.getAxis(inputAxisYId);
+        inputAxisZ = (AbstractAxis) machine.getAxis(inputAxisZId);
+        inputAxisRotation = (AbstractAxis) machine.getAxis(inputAxisRotationId);
     }
 
     @Override

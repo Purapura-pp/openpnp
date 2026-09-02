@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 182 calls in 112 files.
+# 171 calls in 104 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/JobPlacementsPanel.java	1
@@ -40,20 +40,13 @@ org/openpnp/machine/neoden4/Neoden4Feeder.java	2
 org/openpnp/machine/photon/PhotonFeeder.java	2
 org/openpnp/machine/photon/sheets/gui/FeederSlotUpdateStep.java	1
 org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	1
-org/openpnp/machine/reference/ActuatorInterlockMonitor.java	1
 org/openpnp/machine/reference/ContactProbeNozzle.java	2
-org/openpnp/machine/reference/ReferenceActuator.java	1
-org/openpnp/machine/reference/ReferenceActuatorProfiles.java	1
 org/openpnp/machine/reference/ReferenceHead.java	1
-org/openpnp/machine/reference/ReferenceMachine.java	1
-org/openpnp/machine/reference/ReferenceNozzleTip.java	6
+org/openpnp/machine/reference/ReferenceNozzleTip.java	5
 org/openpnp/machine/reference/ReferenceNozzleTipCalibration.java	1
 org/openpnp/machine/reference/ReferencePnpJobProcessor.java	1
 org/openpnp/machine/reference/ScriptActuator.java	1
-org/openpnp/machine/reference/axis/ReferenceLinearTransformAxis.java	1
-org/openpnp/machine/reference/camera/AbstractBroadcastingCamera.java	1
 org/openpnp/machine/reference/camera/AbstractSettlingCamera.java	1
-org/openpnp/machine/reference/camera/ReferenceCamera.java	1
 org/openpnp/machine/reference/driver/AbstractMotionPlanner.java	3
 org/openpnp/machine/reference/driver/GcodeDriver.java	1
 org/openpnp/machine/reference/feeder/BlindsFeeder.java	1
@@ -73,14 +66,13 @@ org/openpnp/machine/reference/psh/DriversPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/NozzleTipsPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/NozzlesPropertySheetHolder.java	1
 org/openpnp/machine/reference/psh/SignalersPropertySheetHolder.java	1
-org/openpnp/machine/reference/signaler/ActuatorSignaler.java	1
 org/openpnp/machine/reference/signaler/SoundSignaler.java	1
 org/openpnp/machine/reference/solutions/AxisSolutions.java	1
 org/openpnp/machine/reference/solutions/CalibrationSolutions.java	2
 org/openpnp/machine/reference/solutions/HeadSolutions.java	5
 org/openpnp/machine/reference/solutions/VisionSolutions.java	4
-org/openpnp/machine/reference/vision/ReferenceBottomVision.java	3
-org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	2
+org/openpnp/machine/reference/vision/ReferenceBottomVision.java	2
+org/openpnp/machine/reference/vision/ReferenceFiducialLocator.java	1
 org/openpnp/machine/reference/vision/wizards/BottomVisionSettingsConfigurationWizard.java	3
 org/openpnp/machine/reference/vision/wizards/FiducialVisionSettingsConfigurationWizard.java	3
 org/openpnp/model/AbstractPartSettingsHolder.java	6

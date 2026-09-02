@@ -21,7 +21,6 @@
 
 package org.openpnp.machine.reference;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.wizards.ActuatorInterlockMonitorConfigurationWizard;
 import org.openpnp.model.AbstractModelObject;
@@ -33,6 +32,7 @@ import org.openpnp.spi.Axis.Type;
 import org.openpnp.spi.CoordinateAxis;
 import org.openpnp.spi.Head;
 import org.openpnp.spi.HeadMountable;
+import org.openpnp.spi.Machine;
 import org.openpnp.spi.base.AbstractActuator;
 import org.pmw.tinylog.Logger;
 import org.simpleframework.xml.Attribute;
@@ -129,25 +129,30 @@ public class ActuatorInterlockMonitor extends AbstractModelObject implements Act
     }
 
     public ActuatorInterlockMonitor() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                interlockAxis1 = (CoordinateAxis) configuration.getMachine().getAxis(interlockAxis1Id);
-                interlockAxis2 = (CoordinateAxis) configuration.getMachine().getAxis(interlockAxis2Id);
-                interlockAxis3 = (CoordinateAxis) configuration.getMachine().getAxis(interlockAxis3Id);
-                interlockAxis4 = (CoordinateAxis) configuration.getMachine().getAxis(interlockAxis4Id);
-                // We don't have access to the head here. So we need to scan them all. 
-                // I'm sure there is a better solution.
-                for (Head head : configuration.getMachine().getHeads()) {
-                    conditionalActuator = head.getActuator(conditionalActuatorId);
-                    if (conditionalActuator != null) {
-                        conditionalActuatorLastState = conditionalActuator.isActuated();
-                        break;
-                    }
-                }
+    /**
+     * Resolve the axes to watch and the actuator the interlock is conditional on.
+     * <p>
+     * The monitor is an element of the actuator it guards, so that actuator passes the round on,
+     * along with itself: the head to look in is the one it sits on.
+     * 
+     * @param configuration
+     * @param monitoredActuator
+     */
+    public void configurationLoaded(Configuration configuration, Actuator monitoredActuator) {
+        Machine machine = configuration.getMachine();
+        interlockAxis1 = (CoordinateAxis) machine.getAxis(interlockAxis1Id);
+        interlockAxis2 = (CoordinateAxis) machine.getAxis(interlockAxis2Id);
+        interlockAxis3 = (CoordinateAxis) machine.getAxis(interlockAxis3Id);
+        interlockAxis4 = (CoordinateAxis) machine.getAxis(interlockAxis4Id);
+        Head head = monitoredActuator.getHead();
+        if (head != null) {
+            conditionalActuator = head.getActuator(conditionalActuatorId);
+            if (conditionalActuator != null) {
+                conditionalActuatorLastState = conditionalActuator.isActuated();
             }
-        });
+        }
     }
 
     public InterlockType getInterlockType() {

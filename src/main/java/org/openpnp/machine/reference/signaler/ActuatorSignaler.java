@@ -1,6 +1,5 @@
 package org.openpnp.machine.reference.signaler;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.signaler.wizards.ActuatorSignalerConfigurationWizard;
 import org.openpnp.model.Configuration;
@@ -26,13 +25,13 @@ public class ActuatorSignaler extends AbstractSignaler {
     protected AbstractJobProcessor.State jobState;
 
     public ActuatorSignaler() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                Machine machine = configuration.getMachine();
-                actuator = machine.getActuator(actuatorId);
-            }
-        });
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        Machine machine = configuration.getMachine();
+        actuator = machine.getActuator(actuatorId);
     }
     
     @Persist

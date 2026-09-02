@@ -40,7 +40,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.RotatedRect;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
@@ -197,21 +196,19 @@ public abstract class ReferenceCamera extends AbstractBroadcastingCamera impleme
 
     public ReferenceCamera() {
         super();
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                // We don't have access to machine or head here. So we need to scan them all. 
-                // I'm sure there is a better solution.
-                Machine machine = configuration.getMachine();
-                lightActuator = machine.getActuator(lightActuatorId);
-                for (Head head : machine.getHeads()) {
-                    if (lightActuator == null) {
-                        lightActuator = head.getActuator(lightActuatorId);
-                    }
-                }
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        // The light actuator may sit on the machine or on any head, and all this knows is its id.
+        Machine machine = getMachine();
+        lightActuator = machine.getActuator(lightActuatorId);
+        for (Head head : machine.getHeads()) {
+            if (lightActuator == null) {
+                lightActuator = head.getActuator(lightActuatorId);
             }
-        });
+        }
     }
     
     /**

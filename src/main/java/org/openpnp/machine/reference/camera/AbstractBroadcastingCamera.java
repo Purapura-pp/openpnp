@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.openpnp.CameraListener;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.LengthUnit;
 import org.openpnp.model.Location;
@@ -73,64 +72,65 @@ public abstract class AbstractBroadcastingCamera extends AbstractSettlingCamera 
     volatile private boolean cameraViewDirty;
 
     AbstractBroadcastingCamera() {
-        if (isBroadcasting()) {
-            Configuration.get().addListener(new ConfigurationListener.Adapter() {
-                @Override
-                public void configurationComplete(Configuration configuration) throws Exception {
-                    getMachine().addListener(new MachineListener.Adapter() {
-                        @Override
-                        public void machineHeadActivity(Machine machine, Head head) {
-                            if (!isPreviewSuspended()) {
-                                notifyCapture();
-                            }
-                        }
+    }
 
-                        @Override 
-                        public void machineEnabled(Machine machine) {
-                            notifyCapture();
-                        }
-
-                        @Override 
-                        public void machineBusy(Machine machine, boolean busy) {
-                            if (!busy) {
-                                if (cameraViewDirty) {
-                                    captureCameraView();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void machineTargetedUserAction(Machine machine, HeadMountable hm, boolean jogging) {
-                            // Find the nearest camera.
-                            Camera nearestCamera = null;
-                            if (hm instanceof Camera) {
-                                // That's easy.
-                                nearestCamera = (Camera) hm;
-                            }
-                            else if (hm != null) {
-                                // This is not a Camera but it may be a camera subject. Get the nearest camera looking at it.   
-                                Location location = hm.getLocation().convertToUnits(LengthUnit.Millimeters);
-                                double nearestDistance = Double.POSITIVE_INFINITY;
-                                for (Camera camera : machine.getCameras()) {
-                                    double distance = location.getLinearDistanceTo(camera.getLocation());
-                                    if (distance < 50) {
-                                        // Roughly in view of the camera (50mm radius).
-                                        if (distance < nearestDistance) {
-                                            nearestDistance = distance;
-                                            nearestCamera = camera;
-                                        }
-                                    }
-                                }
-                            }
-                            if (nearestCamera == AbstractBroadcastingCamera.this) {
-                                // The nearest is our camera. That's an updated view, then. 
-                                cameraViewHasChanged(hm.getLocation());
-                            }
-                        }
-                    });
-                }
-            });
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        if (!isBroadcasting()) {
+            return;
         }
+        getMachine().addListener(new MachineListener.Adapter() {
+            @Override
+            public void machineHeadActivity(Machine machine, Head head) {
+                if (!isPreviewSuspended()) {
+                    notifyCapture();
+                }
+            }
+
+            @Override 
+            public void machineEnabled(Machine machine) {
+                notifyCapture();
+            }
+
+            @Override 
+            public void machineBusy(Machine machine, boolean busy) {
+                if (!busy) {
+                    if (cameraViewDirty) {
+                        captureCameraView();
+                    }
+                }
+            }
+
+            @Override
+            public void machineTargetedUserAction(Machine machine, HeadMountable hm, boolean jogging) {
+                // Find the nearest camera.
+                Camera nearestCamera = null;
+                if (hm instanceof Camera) {
+                    // That's easy.
+                    nearestCamera = (Camera) hm;
+                }
+                else if (hm != null) {
+                    // This is not a Camera but it may be a camera subject. Get the nearest camera looking at it.   
+                    Location location = hm.getLocation().convertToUnits(LengthUnit.Millimeters);
+                    double nearestDistance = Double.POSITIVE_INFINITY;
+                    for (Camera camera : machine.getCameras()) {
+                        double distance = location.getLinearDistanceTo(camera.getLocation());
+                        if (distance < 50) {
+                            // Roughly in view of the camera (50mm radius).
+                            if (distance < nearestDistance) {
+                                nearestDistance = distance;
+                                nearestCamera = camera;
+                            }
+                        }
+                    }
+                }
+                if (nearestCamera == AbstractBroadcastingCamera.this) {
+                    // The nearest is our camera. That's an updated view, then. 
+                    cameraViewHasChanged(hm.getLocation());
+                }
+            }
+        });
     }
 
     protected boolean isBroadcasting() {

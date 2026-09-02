@@ -26,7 +26,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.Translations;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
@@ -81,28 +80,35 @@ public class ReferenceActuator extends AbstractActuator implements HeadMountable
     protected Object lastActuationValue;
     
     public ReferenceActuator() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        configuration.getMachine().addListener(new MachineListener.Adapter() {
             @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                configuration.getMachine().addListener(new MachineListener.Adapter() {
-                    @Override
-                    public void machineEnabled(Machine machine) {
-                        actuateMachineState(machine, getEnabledActuation(), true);
-                    }
-                    @Override
-                    public void machineHomed(Machine machine, boolean isHomed) {
-                        if (isHomed) {
-                            actuateMachineState(machine, getHomedActuation(), true);
-                        }
-                    }
-                    @Override
-                    public void machineAboutToBeDisabled(Machine machine, String reason) {
-                        actuateMachineState(machine, getDisabledActuation(), false);
-                    }
-                });
+            public void machineEnabled(Machine machine) {
+                actuateMachineState(machine, getEnabledActuation(), true);
+            }
+            @Override
+            public void machineHomed(Machine machine, boolean isHomed) {
+                if (isHomed) {
+                    actuateMachineState(machine, getHomedActuation(), true);
+                }
+            }
+            @Override
+            public void machineAboutToBeDisabled(Machine machine, String reason) {
+                actuateMachineState(machine, getDisabledActuation(), false);
             }
         });
+        // These two hang off this actuator rather than off the machine, so they are told here.
+        if (actuatorProfiles != null) {
+            actuatorProfiles.configurationLoaded(this);
+        }
+        if (getInterlockMonitor() instanceof ActuatorInterlockMonitor) {
+            ((ActuatorInterlockMonitor) getInterlockMonitor()).configurationLoaded(configuration,
+                    this);
+        }
     }
 
     @Override

@@ -56,7 +56,8 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
 
-public class ReferenceBottomVision extends AbstractPartAlignment {
+public class ReferenceBottomVision extends AbstractPartAlignment
+        implements ConfigurationListener {
 
     @Deprecated
     @Element(required = false)
@@ -89,21 +90,24 @@ public class ReferenceBottomVision extends AbstractPartAlignment {
     protected Map<String, PartSettings> partSettingsByPartId = null;
 
     public ReferenceBottomVision() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                migratePartSettings(configuration);
-                if (bottomVisionSettings == null) {
-                    // Recovery mode, take any setting.
-                    for (AbstractVisionSettings settings : configuration.getVisionSettings()) {
-                        if (settings instanceof BottomVisionSettings) {
-                            bottomVisionSettings = (BottomVisionSettings) settings;
-                            break;
-                        }
-                    }
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        migratePartSettings(configuration);
+        if (bottomVisionSettings == null) {
+            // Recovery mode, take any setting.
+            for (AbstractVisionSettings settings : configuration.getVisionSettings()) {
+                if (settings instanceof BottomVisionSettings) {
+                    bottomVisionSettings = (BottomVisionSettings) settings;
+                    break;
                 }
             }
-        });
+        }
     }
 
     @Override

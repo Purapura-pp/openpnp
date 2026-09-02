@@ -26,7 +26,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.wizards.ReferenceActuatorProfilesWizard;
 import org.openpnp.model.AbstractModelObject;
@@ -74,41 +73,44 @@ public class ReferenceActuatorProfiles extends AbstractTableModel {
     private ReferenceActuator containingActuator; 
 
     public ReferenceActuatorProfiles() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                // We don't have access to machine/actuator and head here. So we need to scan them all. 
-                // I'm sure there is a better solution.
-                Machine machine = configuration.getMachine();
-                actuator1 = machine.getActuator(actuator1Id);
-                actuator2 = machine.getActuator(actuator2Id);
-                actuator3 = machine.getActuator(actuator3Id);
-                actuator4 = machine.getActuator(actuator4Id);
-                actuator5 = machine.getActuator(actuator5Id);
-                actuator6 = machine.getActuator(actuator6Id);
-                for (Head head : machine.getHeads()) {
-                    if (actuator1 == null) {
-                        actuator1 = head.getActuator(actuator1Id);
-                    }
-                    if (actuator2 == null) {
-                        actuator2 = head.getActuator(actuator2Id);
-                    }
-                    if (actuator3 == null) {
-                        actuator3 = head.getActuator(actuator3Id);
-                    }
-                    if (actuator4 == null) {
-                        actuator4 = head.getActuator(actuator4Id);
-                    }
-                    if (actuator5 == null) {
-                        actuator5 = head.getActuator(actuator5Id);
-                    }
-                    if (actuator6 == null) {
-                        actuator6 = head.getActuator(actuator6Id);
-                    }
-                }
+    /**
+     * Resolve the profiled actuators, which the machine or any of its heads may own.
+     * <p>
+     * The profiles are an element of the actuator they belong to, so that actuator passes the
+     * round on, along with itself: the machine to look in is the one it belongs to.
+     * 
+     * @param containingActuator
+     */
+    public void configurationLoaded(ReferenceActuator containingActuator) {
+        Machine machine = containingActuator.getMachine();
+        actuator1 = machine.getActuator(actuator1Id);
+        actuator2 = machine.getActuator(actuator2Id);
+        actuator3 = machine.getActuator(actuator3Id);
+        actuator4 = machine.getActuator(actuator4Id);
+        actuator5 = machine.getActuator(actuator5Id);
+        actuator6 = machine.getActuator(actuator6Id);
+        for (Head head : machine.getHeads()) {
+            if (actuator1 == null) {
+                actuator1 = head.getActuator(actuator1Id);
             }
-        });
+            if (actuator2 == null) {
+                actuator2 = head.getActuator(actuator2Id);
+            }
+            if (actuator3 == null) {
+                actuator3 = head.getActuator(actuator3Id);
+            }
+            if (actuator4 == null) {
+                actuator4 = head.getActuator(actuator4Id);
+            }
+            if (actuator5 == null) {
+                actuator5 = head.getActuator(actuator5Id);
+            }
+            if (actuator6 == null) {
+                actuator6 = head.getActuator(actuator6Id);
+            }
+        }
     }
 
     public String getActuator1Id() {

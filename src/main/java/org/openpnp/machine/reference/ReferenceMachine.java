@@ -202,24 +202,26 @@ public class ReferenceMachine extends AbstractMachine {
     }
 
     public ReferenceMachine() {
-        Configuration.get()
-                     .addListener(new ConfigurationListener.Adapter() {
+    }
 
-                         @Override
-                         public void configurationLoaded(Configuration configuration)
-                                 throws Exception {
-                             if (partAlignments.isEmpty()) {
-                                 partAlignments.add(new ReferenceBottomVision());
-                             }
-                             // Migrate the driver.
-                             if (driver != null && driver instanceof AbstractDriver) {
-                                 // Note, the migrated driver will add itself to the machine driver list 
-                                 // and for GcodeDrivers it will recurse into the sub-drivers.
-                                 ((AbstractDriver)driver).migrateDriver(ReferenceMachine.this);
-                                 driver = null;
-                             }
-                         }
-                     });
+    /**
+     * The machine's own share of the round, which has to happen before the elements get theirs:
+     * a part alignment added here and drivers moved out of the pre-1.0 single-driver slot are
+     * what those elements go on to resolve their ids against.
+     */
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        if (partAlignments.isEmpty()) {
+            partAlignments.add(new ReferenceBottomVision());
+        }
+        // Migrate the driver.
+        if (driver != null && driver instanceof AbstractDriver) {
+            // Note, the migrated driver will add itself to the machine driver list 
+            // and for GcodeDrivers it will recurse into the sub-drivers.
+            ((AbstractDriver)driver).migrateDriver(ReferenceMachine.this);
+            driver = null;
+        }
+        super.configurationLoaded(configuration);
     }
 
     @Override
