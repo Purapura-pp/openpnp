@@ -143,6 +143,67 @@ public class TranslationBundlesTest {
         assertEquals("", Translations.translateText(""));
     }
 
+    /**
+     * The bundles that sit next to the translations are not languages.
+     * <p>
+     * {@code texts_ru.properties} and {@code patterns_zh_CN.properties} live in the same package
+     * and are named the same way, so a scan that looked for any suffixed properties file would
+     * offer "texts" and "patterns" in the language menu. What keeps them out is the
+     * {@code translations_} in the pattern Translations scans with, and nothing else, so it is
+     * worth a test: the sibling families are the kind of thing that gets added later, as patterns
+     * was.
+     */
+    @Test
+    public void theSiblingBundleFamiliesAreNotOfferedAsLanguages() {
+        for (Locale locale : Translations.getAvailableLocales()) {
+            assertFalse(locale.getLanguage().equals("texts") || locale.getLanguage().equals("patterns"),
+                    "the language menu offers " + locale + ", which came from a sibling bundle "
+                            + "family rather than from a translation");
+        }
+        for (String family : new String[] {"texts", "patterns"}) {
+            Pattern pattern = Pattern.compile(".*/" + family + "_(.+)\\.properties");
+            for (String suffix : bundleSuffixes(pattern)) {
+                Locale locale = Locale.forLanguageTag(suffix.replace('_', '-'));
+                assertTrue(Translations.getAvailableLocales().contains(locale),
+                        family + "_" + suffix + ".properties is there for a locale the language "
+                                + "menu does not offer, so nothing can ever read it");
+            }
+        }
+    }
+
+    /**
+     * What the application shows someone who has never picked a language.
+     * <p>
+     * Read before {@link Locale#setDefault} has been given the configured value, so what it sees
+     * is the system locale, and the answer has to be one of the bundles that exist rather than
+     * whatever the system happens to say.
+     */
+    @Test
+    public void theSystemLocaleIsMatchedToABundleThatExists() {
+        Locale saved = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
+            assertEquals(Locale.SIMPLIFIED_CHINESE, Translations.matchSystemLocale(),
+                    "an exact match should be taken as it is");
+
+            Locale.setDefault(new Locale("de", "AT"));
+            assertEquals(new Locale("de"), Translations.matchSystemLocale(),
+                    "an Austrian should be shown the German bundle rather than English");
+
+            Locale.setDefault(new Locale("ja", "JP"));
+            assertEquals(Locale.US, Translations.matchSystemLocale(),
+                    "a language nobody has translated should fall back to English");
+
+            Locale.setDefault(Locale.US);
+            assertEquals(Locale.US, Translations.matchSystemLocale(),
+                    "the answer has to be stable once it has been applied, since it is read again "
+                            + "after Locale.setDefault");
+        }
+        finally {
+            Locale.setDefault(saved);
+        }
+    }
+
     private static List<Locale> translated(List<Locale> locales) {
         List<Locale> result = new ArrayList<>(locales);
         result.remove(Locale.US);

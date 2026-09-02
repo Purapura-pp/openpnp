@@ -403,6 +403,21 @@ And if your machine's default language is not English, a test that asserts on En
 text will fail for you. The known ones use `Solutions.Issue.getUntranslatedIssue()`; anything new
 of that kind should do the same.
 
+## When the English is what is wrong
+
+A translator reading a panel finds things no comparison of the two languages can: a spelling
+mistake, a tooltip attached to the wrong label, a button that reads the same before and after it
+is pressed. Those are defects an English user sees too, and they are not the translator's to fix -
+editing `translations.properties` while batches are out in other branches changes the English
+column those batches were generated from, and `import` rejects a batch whose English moved.
+
+So they get reported and the integrator fixes them once the branches are back.
+[tools/i18n/english-defects.md](tools/i18n/english-defects.md) is the record from the first round,
+including what is still open. Read the reasoning before adding to it: rewording a string that
+belongs to the Issues and Solutions prose also changes `Solutions.Issue.getFingerprint`, which
+invalidates the dismissals users have stored in their machine.xml and silently kills every
+language's translation of it.
+
 ## Where the work stands
 
 `python tools/i18n/i18n.py gap --lang <code>` is the current answer for any language. All six -

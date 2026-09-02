@@ -36,6 +36,44 @@ keeps diffs small.
 `hardcoded` counts the English still baked into the Java sources, which no bundle can reach.
 That is work for the externalisation role, not for a translator.
 
+## The probes, and why they are not tests
+
+`probes/` holds three programs that read wording off an OpenPnP that has actually started, which is
+the only way to see the sentences the sources assemble rather than store. They are not part of the
+build: they use `sun.misc.Unsafe` to get a `MainFrame` without a display, and they run against the
+packaged jar. Compile them against a `package` build:
+
+```
+mvn -o package -DskipTests
+javac -nowarn -cp "target/openpnp-gui-0.0.1-alpha-SNAPSHOT.jar;target/lib/*" \
+      -d build/probes tools/i18n/probes/*.java
+```
+
+and run with the same `--add-opens` flags `openpnp.bat` uses, with `build/probes` first on the
+class path.
+
+`IssuesProbe <machine.xml> [out]` walks every milestone of Issues and Solutions for that machine
+and lists the strings that came back with no CJK in them, i.e. that nothing translated. Its output
+is what `patterns --against` wants:
+
+```
+java ... -Duser.language=zh -Duser.country=CN IssuesProbe src/main/resources/config/machine.xml build/probes/issues-zh.txt
+python tools/i18n/i18n.py patterns --against build/probes/issues-zh.txt
+```
+
+Which checks a machine runs depends on what that machine has, so `patterns` on its own can only
+speak for the templates against the sources. Feeding it a real run is how you find out what a
+configuration actually surfaces.
+
+`ShowIssues <machine.xml> <out>` dumps all the rows as the panel would show them, translated ones
+included. `IssuesProbe` answers "what is still English"; this answers "what does it actually say",
+which is what a review pass reads. Run it once per locale and read the two files side by side.
+
+`ReleaseCheck` runs against a packaged jar and checks that the dependency closure the manifest
+declares really resolves and that the bundles got into the archive. It deliberately asserts no
+particular rendering: an expected translation written into a probe is a snapshot that goes stale
+the next time someone improves the wording, and then reports a failure that is not one.
+
 ## Two things that are easy to get wrong
 
 **A dotted key is not display text.** `MessageBoxes.errorBox(this, Translations.getString("JobPanel.SaveJob.Error"), ...)`
