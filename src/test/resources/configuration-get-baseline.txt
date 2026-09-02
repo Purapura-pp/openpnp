@@ -3,7 +3,7 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
-# 195 calls in 117 files.
+# 182 calls in 112 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1
 org/openpnp/gui/JobPlacementsPanel.java	1
@@ -36,9 +36,7 @@ org/openpnp/gui/support/VolumeConverter.java	2
 org/openpnp/gui/tablemodel/FeedersTableModel.java	1
 org/openpnp/gui/tablemodel/FootprintTableModel.java	2
 org/openpnp/gui/tablemodel/HeadsTableModel.java	1
-org/openpnp/machine/neoden4/Neoden4Feeder.java	3
-org/openpnp/machine/pandaplacer/AbstractPandaplacerVisionFeeder.java	1
-org/openpnp/machine/pandaplacer/BambooFeederAutoVision.java	1
+org/openpnp/machine/neoden4/Neoden4Feeder.java	2
 org/openpnp/machine/photon/PhotonFeeder.java	2
 org/openpnp/machine/photon/sheets/gui/FeederSlotUpdateStep.java	1
 org/openpnp/machine/rapidplacer/RapidFeederConfigurationWizard.java	1
@@ -58,16 +56,13 @@ org/openpnp/machine/reference/camera/AbstractSettlingCamera.java	1
 org/openpnp/machine/reference/camera/ReferenceCamera.java	1
 org/openpnp/machine/reference/driver/AbstractMotionPlanner.java	3
 org/openpnp/machine/reference/driver/GcodeDriver.java	1
-org/openpnp/machine/reference/feeder/BlindsFeeder.java	2
-org/openpnp/machine/reference/feeder/ReferenceAutoFeeder.java	1
-org/openpnp/machine/reference/feeder/ReferenceDragFeeder.java	3
-org/openpnp/machine/reference/feeder/ReferenceHeapFeeder.java	3
-org/openpnp/machine/reference/feeder/ReferenceLeverFeeder.java	3
-org/openpnp/machine/reference/feeder/ReferencePushPullFeeder.java	2
-org/openpnp/machine/reference/feeder/ReferenceSlotAutoFeeder.java	2
-org/openpnp/machine/reference/feeder/ReferenceStripFeeder.java	1
-org/openpnp/machine/reference/feeder/SchultzFeeder.java	1
-org/openpnp/machine/reference/feeder/SlotSchultzFeeder.java	3
+org/openpnp/machine/reference/feeder/BlindsFeeder.java	1
+org/openpnp/machine/reference/feeder/ReferenceDragFeeder.java	2
+org/openpnp/machine/reference/feeder/ReferenceHeapFeeder.java	2
+org/openpnp/machine/reference/feeder/ReferenceLeverFeeder.java	2
+org/openpnp/machine/reference/feeder/ReferencePushPullFeeder.java	1
+org/openpnp/machine/reference/feeder/ReferenceSlotAutoFeeder.java	1
+org/openpnp/machine/reference/feeder/SlotSchultzFeeder.java	2
 org/openpnp/machine/reference/feeder/wizards/ReferenceHeapFeederConfigurationWizard.java	2
 org/openpnp/machine/reference/feeder/wizards/ReferencePushPullFeederConfigurationWizard.java	1
 org/openpnp/machine/reference/feeder/wizards/ReferenceStripFeederConfigurationWizard.java	1

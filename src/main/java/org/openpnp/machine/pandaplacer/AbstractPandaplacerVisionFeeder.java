@@ -23,7 +23,6 @@
 
 package org.openpnp.machine.pandaplacer;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.machine.reference.ReferenceFeeder;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -133,24 +132,24 @@ public abstract class AbstractPandaplacerVisionFeeder extends ReferenceFeeder {
     }
 
     public AbstractPandaplacerVisionFeeder() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        // Listen to the machine become unhomed to invalidate feeder calibration.
+        // Note that home()  first switches the machine isHomed() state off, then on again,
+        // so we also catch re-homing.
+        getMachine().addListener(new MachineListener.Adapter() {
+
             @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                // Listen to the machine become unhomed to invalidate feeder calibration.
-                // Note that home()  first switches the machine isHomed() state off, then on again,
-                // so we also catch re-homing.
-                getMachine().addListener(new MachineListener.Adapter() {
+            public void machineHeadActivity(Machine machine, Head head) {
+                checkHomedState(machine);
+            }
 
-                    @Override
-                    public void machineHeadActivity(Machine machine, Head head) {
-                        checkHomedState(machine);
-                    }
-
-                    @Override
-                    public void machineEnabled(Machine machine) {
-                        checkHomedState(machine);
-                    }
-                });
+            @Override
+            public void machineEnabled(Machine machine) {
+                checkHomedState(machine);
             }
         });
     }

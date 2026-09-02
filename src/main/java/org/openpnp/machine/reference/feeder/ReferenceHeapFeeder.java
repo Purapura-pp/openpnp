@@ -129,20 +129,16 @@ public class ReferenceHeapFeeder extends ReferenceFeeder {
 
     /**
      * After loading the configuration, set the dropBox with the stored id.
+     * <p>
+     * A feeder the user just created has no stored id, and picks its drop box on first use
+     * instead.
      */
-    @Commit
-    public void commit() {
-        Configuration.get().addListener(new ConfigurationListener() {
-            @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                setDropBox(getDropBoxes(configuration.getMachine()).get(dropBoxId));
-            }
-
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                // do nothing
-            }
-        });
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        if (dropBoxId != null) {
+            setDropBox(getDropBoxes(configuration.getMachine()).get(dropBoxId));
+        }
     }
 
     /**

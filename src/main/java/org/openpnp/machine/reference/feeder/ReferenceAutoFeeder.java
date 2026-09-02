@@ -21,7 +21,6 @@ package org.openpnp.machine.reference.feeder;
 
 import javax.swing.Action;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
 import org.openpnp.machine.reference.feeder.wizards.ReferenceAutoFeederConfigurationWizard;
@@ -68,22 +67,22 @@ public class ReferenceAutoFeeder extends ReferenceFeeder {
     }
 
     public ReferenceAutoFeeder() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                // Migrate actuator value types.
-                if (actuatorType != null) { 
-                    Actuator actuator = configuration.getMachine().getActuatorByName(actuatorName);
-                    AbstractActuator.suggestValueType(actuator, actuatorType);
-                    actuatorType = null;
-                }
-                if (postPickActuatorType != null) {
-                    Actuator actuator = configuration.getMachine().getActuatorByName(postPickActuatorName);
-                    AbstractActuator.suggestValueType(actuator, postPickActuatorType);
-                    postPickActuatorType = null;
-                }
-            }
-        });
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        // Migrate actuator value types.
+        if (actuatorType != null) { 
+            Actuator actuator = configuration.getMachine().getActuatorByName(actuatorName);
+            AbstractActuator.suggestValueType(actuator, actuatorType);
+            actuatorType = null;
+        }
+        if (postPickActuatorType != null) {
+            Actuator actuator = configuration.getMachine().getActuatorByName(postPickActuatorName);
+            AbstractActuator.suggestValueType(actuator, postPickActuatorType);
+            postPickActuatorType = null;
+        }
     }
 
     @Override

@@ -55,6 +55,11 @@ public class PhotonFeeder extends ReferenceFeeder {
     protected boolean moveWhileFeeding = true;
 
     public PhotonFeeder() {
+        // This one stays on Configuration rather than moving to the machine's round, because it
+        // is not resolving anything of its own: it makes sure the machine has an RS-485 actuator
+        // and a bus behind it. findAllFeeders builds feeders, gives them a slot address and only
+        // then adds them to the machine, so by the time the machine could tell them anything they
+        // have already needed the properties this sets up.
         Configuration.get().addListener(new ConfigurationListener.Adapter() {
             @Override
             public void configurationLoaded(Configuration configuration) {

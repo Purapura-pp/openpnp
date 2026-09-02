@@ -21,7 +21,6 @@ package org.openpnp.machine.reference.feeder;
 
 import javax.swing.Action;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
 import org.openpnp.machine.reference.feeder.wizards.SchultzFeederConfigurationWizard;
@@ -105,37 +104,37 @@ public class SchultzFeeder extends ReferenceFeeder {
     }
 
     public SchultzFeeder() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                // Migrate actuator value types.
-                if (actuatorType != null) { 
-                    Actuator actuator = configuration.getMachine().getActuatorByName(actuatorName);
-                    AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
-                    actuatorType = null;
-                }
-                if (postPickActuatorType != null) {
-                    Actuator actuator = configuration.getMachine().getActuatorByName(postPickActuatorName);
-                    AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
-                    postPickActuatorType = null;
-                }
-                if (clearCountActuatorType != null) {
-                    Actuator actuator = configuration.getMachine().getActuatorByName(clearCountActuatorName);
-                    AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
-                    clearCountActuatorType = null;
-                }
-                if (togglePitchActuatorType != null) {
-                    Actuator actuator = configuration.getMachine().getActuatorByName(togglePitchActuatorName);
-                    AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
-                    togglePitchActuatorType = null;
-                }
-                // NOTE: all the other actuator types are actually read only, no need to migrate.
-                feedCountActuatorType = null;
-                pitchActuatorType = null;
-                statusActuatorType = null;
-                idActuatorType = null;
-            }
-        });
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        // Migrate actuator value types.
+        if (actuatorType != null) { 
+            Actuator actuator = configuration.getMachine().getActuatorByName(actuatorName);
+            AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
+            actuatorType = null;
+        }
+        if (postPickActuatorType != null) {
+            Actuator actuator = configuration.getMachine().getActuatorByName(postPickActuatorName);
+            AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
+            postPickActuatorType = null;
+        }
+        if (clearCountActuatorType != null) {
+            Actuator actuator = configuration.getMachine().getActuatorByName(clearCountActuatorName);
+            AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
+            clearCountActuatorType = null;
+        }
+        if (togglePitchActuatorType != null) {
+            Actuator actuator = configuration.getMachine().getActuatorByName(togglePitchActuatorName);
+            AbstractActuator.suggestValueType(actuator, Actuator.ActuatorValueType.Double);
+            togglePitchActuatorType = null;
+        }
+        // NOTE: all the other actuator types are actually read only, no need to migrate.
+        feedCountActuatorType = null;
+        pitchActuatorType = null;
+        statusActuatorType = null;
+        idActuatorType = null;
     }
 
     @Override

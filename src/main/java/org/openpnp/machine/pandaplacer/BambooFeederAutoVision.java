@@ -24,7 +24,6 @@
 package org.openpnp.machine.pandaplacer;
 
 import javax.swing.Action;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.model.Configuration;
@@ -120,42 +119,40 @@ public class BambooFeederAutoVision extends AbstractPandaplacerVisionFeeder {
 
 
     public BambooFeederAutoVision() {
+    }
 
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        // Resolve the actuators by name (legacy way).
+        Machine machine = getMachine();
+        try {
+            feedActuator = machine.getActuatorByName(feedActuatorName);
+        }
+        catch (Exception e) {
+            Logger.debug(e, "Feeder {} could not resolve its feed actuator {}.", getName(), feedActuatorName);
+        }
+        try {
+          postPickActuator = machine.getActuatorByName(postPickActuatorName);
+        }
+        catch (Exception e) {
+            Logger.debug(e, "Feeder {} could not resolve its post pick actuator {}.", getName(), postPickActuatorName);
+        }
+        // Listen to the machine become unhomed to invalidate feeder calibration.
+        // Note that home()  first switches the machine isHomed() state off, then on again,
+        // so we also catch re-homing.
+        machine.addListener(new MachineListener.Adapter() {
+
             @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                // Resolve the actuators by name (legacy way).
-                Machine machine = getMachine();
-                try {
-                    feedActuator = machine.getActuatorByName(feedActuatorName);
-                }
-                catch (Exception e) {
-                    Logger.debug(e, "Feeder {} could not resolve its feed actuator {}.", getName(), feedActuatorName);
-                }
-                try {
-                  postPickActuator = machine.getActuatorByName(postPickActuatorName);
-                }
-                catch (Exception e) {
-                    Logger.debug(e, "Feeder {} could not resolve its post pick actuator {}.", getName(), postPickActuatorName);
-                }
-                // Listen to the machine become unhomed to invalidate feeder calibration.
-                // Note that home()  first switches the machine isHomed() state off, then on again,
-                // so we also catch re-homing.
-                getMachine().addListener(new MachineListener.Adapter() {
+            public void machineHeadActivity(Machine machine, Head head) {
+                checkHomedState(machine);
+            }
 
-                    @Override
-                    public void machineHeadActivity(Machine machine, Head head) {
-                        checkHomedState(machine);
-                    }
-
-                    @Override
-                    public void machineEnabled(Machine machine) {
-                        checkHomedState(machine);
-                    }
-                });
+            @Override
+            public void machineEnabled(Machine machine) {
+                checkHomedState(machine);
             }
         });
-
     }
 
     @Persist

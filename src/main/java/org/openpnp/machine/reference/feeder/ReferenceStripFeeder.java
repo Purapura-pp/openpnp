@@ -26,7 +26,6 @@ import java.util.List;
 import javax.swing.Action;
 
 import org.apache.commons.io.IOUtils;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
@@ -172,24 +171,24 @@ public class ReferenceStripFeeder extends ReferenceFeeder {
     }
 
     public ReferenceStripFeeder() {
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
         // Listen to the machine become unhomed to invalidate feeder calibration.
         // Note that home()  first switches the machine isHomed() state off, then on again,
         // so we also catch re-homing.
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+        configuration.getMachine().addListener(new MachineListener.Adapter() {
+
             @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                configuration.getMachine().addListener(new MachineListener.Adapter() {
+            public void machineHeadActivity(Machine machine, Head head) {
+                checkHomedState(machine);
+            }
 
-                    @Override
-                    public void machineHeadActivity(Machine machine, Head head) {
-                        checkHomedState(machine);
-                    }
-
-                    @Override
-                    public void machineEnabled(Machine machine) {
-                        checkHomedState(machine);
-                    }
-                });
+            @Override
+            public void machineEnabled(Machine machine) {
+                checkHomedState(machine);
             }
         });
     }

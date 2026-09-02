@@ -29,7 +29,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Action;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
 import org.openpnp.machine.reference.feeder.wizards.ReferenceDragFeederConfigurationWizard;
@@ -101,6 +100,12 @@ public class ReferenceDragFeeder extends ReferenceFeeder {
      */
     protected Location visionOffset;
     protected Location partPick;
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        vision.configurationComplete(configuration);
+    }
 
     @Override
     public Location getPickLocation() throws Exception {
@@ -471,16 +476,23 @@ public class ReferenceDragFeeder extends ReferenceFeeder {
         private boolean templateImageDirty;
 
         public Vision() {
-            Configuration.get().addListener(new ConfigurationListener.Adapter() {
-                @Override
-                public void configurationComplete(Configuration configuration) throws Exception {
-                    if (templateImageName != null) {
-                        File file = configuration.getResourceFile(Vision.this.getClass(),
-                                templateImageName);
-                        templateImage = ImageIO.read(file);
-                    }
-                }
-            });
+        }
+
+        /**
+         * Read back the template image the feeder was saved with.
+         * <p>
+         * The vision settings are an element of the feeder rather than of the machine, so the
+         * feeder passes this on.
+         * 
+         * @param configuration
+         * @throws Exception
+         */
+        public void configurationComplete(Configuration configuration) throws Exception {
+            if (templateImageName != null) {
+                File file = configuration.getResourceFile(Vision.this.getClass(),
+                        templateImageName);
+                templateImage = ImageIO.read(file);
+            }
         }
 
         @SuppressWarnings("unused")

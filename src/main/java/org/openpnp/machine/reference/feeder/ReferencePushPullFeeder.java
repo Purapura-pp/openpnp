@@ -30,7 +30,6 @@ import java.util.List;
 import javax.swing.Action;
 
 import org.apache.commons.io.IOUtils;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
 import org.openpnp.gui.support.Wizard;
 import org.openpnp.machine.reference.ReferenceFeeder;
@@ -277,38 +276,38 @@ public class ReferencePushPullFeeder extends ReferenceFeeder {
     }
 
     public ReferencePushPullFeeder() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        // Resolve the actuators by name (legacy way).
+        Head head = getMachine().getDefaultHead();
+        try {
+            actuator = head.getActuatorByName(actuatorName);
+        }
+        catch (Exception e) {
+            Logger.debug(e, "Feeder {} could not resolve its actuator {}.", getName(), actuatorName);
+        }
+        try {
+            actuator2 = head.getActuatorByName(peelOffActuatorName);
+        }
+        catch (Exception e) {
+            Logger.debug(e, "Feeder {} could not resolve its peel off actuator {}.", getName(), peelOffActuatorName);
+        }
+        // Listen to the machine become unhomed to invalidate feeder calibration.
+        // Note that home()  first switches the machine isHomed() state off, then on again, 
+        // so we also catch re-homing.
+        getMachine().addListener(new MachineListener.Adapter() {
+
             @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                // Resolve the actuators by name (legacy way).
-                Head head = getMachine().getDefaultHead();
-                try {
-                    actuator = head.getActuatorByName(actuatorName);
-                }
-                catch (Exception e) {
-                    Logger.debug(e, "Feeder {} could not resolve its actuator {}.", getName(), actuatorName);
-                }
-                try {
-                    actuator2 = head.getActuatorByName(peelOffActuatorName);
-                }
-                catch (Exception e) {
-                    Logger.debug(e, "Feeder {} could not resolve its peel off actuator {}.", getName(), peelOffActuatorName);
-                }
-                // Listen to the machine become unhomed to invalidate feeder calibration.
-                // Note that home()  first switches the machine isHomed() state off, then on again, 
-                // so we also catch re-homing.
-                getMachine().addListener(new MachineListener.Adapter() {
+            public void machineHeadActivity(Machine machine, Head head) {
+                checkHomedState(machine);
+            }
 
-                    @Override
-                    public void machineHeadActivity(Machine machine, Head head) {
-                        checkHomedState(machine);
-                    }
-
-                    @Override
-                    public void machineEnabled(Machine machine) {
-                        checkHomedState(machine);
-                    }
-                });
+            @Override
+            public void machineEnabled(Machine machine) {
+                checkHomedState(machine);
             }
         });
     }

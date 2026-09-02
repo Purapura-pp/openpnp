@@ -42,19 +42,19 @@ public class SlotSchultzFeeder extends SchultzFeeder {
         partId = "";
     }
     
-    @Commit
-    public void commit() {
-        Configuration.get().addListener(new ConfigurationListener() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-            }
-            
-            @Override
-            public void configurationComplete(Configuration configuration) throws Exception {
-                setBank(getBanks(configuration.getMachine()).get(bankId));
-                setFeeder(getBank().getFeeder(feederId));
-            }
-        });
+    /**
+     * After loading the configuration, take the bank and the slot feeder the stored ids name.
+     * <p>
+     * A slot the user just created has no stored ids, and takes the last bank on first use
+     * instead.
+     */
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
+        super.configurationComplete(configuration);
+        if (bankId != null) {
+            setBank(getBanks(configuration.getMachine()).get(bankId));
+            setFeeder(getBank().getFeeder(feederId));
+        }
     }
 
     @Persist
