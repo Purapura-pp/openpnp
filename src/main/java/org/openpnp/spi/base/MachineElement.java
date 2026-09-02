@@ -32,11 +32,16 @@ import org.pmw.tinylog.Logger;
  * {@link AbstractMachine#attach} looks for is this interface: belonging to a machine is a matter of
  * being able to hold the reference, not of descending from one particular class.
  * <p>
- * Belonging to a machine is also how an element learns that the configuration has finished
- * loading, which is when the ids it was deserialized with can be turned into references. It used
- * to sign itself up with Configuration for that, from its own constructor; now its machine tells
- * it, and an element with nothing to resolve says nothing.
- */
+     * Belonging to a machine is also how an element learns that the configuration has finished
+     * loading, which is when the ids it was deserialized with can be turned into references. It used
+     * to sign itself up with Configuration for that, from its own constructor; now its machine tells
+     * it, and an element with nothing to resolve says nothing.
+     * <p>
+     * An override of either round must call the one it overrides. A class used to sign up a
+     * listener of its own and its superclass another, and both were called; an override that
+     * forgets its super silently drops whatever the superclass resolved - the axes of a camera, for
+     * one - and what breaks is a coordinate somewhere far away.
+     */
 public interface MachineElement extends ConfigurationListener {
     AbstractMachine getMachine();
 

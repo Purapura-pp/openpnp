@@ -8,7 +8,6 @@ import javax.swing.Icon;
 import javax.swing.SwingUtilities;
 
 import org.openpnp.CameraListener;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.gui.MainFrame;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.model.Configuration;
@@ -120,14 +119,14 @@ public abstract class AbstractCamera extends AbstractHeadMountable implements Ca
     public AbstractCamera() {
         this.id = Configuration.createId("CAM");
         this.name = getClass().getSimpleName();
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                if (visionProvider != null) {
-                    visionProvider.setCamera(AbstractCamera.this);
-                }
-            }
-        });
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        if (visionProvider != null) {
+            visionProvider.setCamera(this);
+        }
     }
 
     @Override

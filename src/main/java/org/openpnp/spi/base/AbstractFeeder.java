@@ -2,7 +2,6 @@ package org.openpnp.spi.base;
 
 import javax.swing.Icon;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.Translations;
 import org.openpnp.gui.support.Icons;
 import org.openpnp.gui.support.PropertySheetWizardAdapter;
@@ -58,19 +57,19 @@ public abstract class AbstractFeeder extends AbstractMachineElement implements F
     public AbstractFeeder() {
         this.id = Configuration.createId("FDR");
         this.name = getClass().getSimpleName();
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                part = configuration.getPart(partId);
-                
-                if (version == 1.0) {
-                    feedRetryCount = retryCount;
-                    retryCount = null;
-                    pickRetryCount = 0;
-                    version = 1.1;
-                }
-            }
-        });
+    }
+
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        part = configuration.getPart(partId);
+
+        if (version == 1.0) {
+            feedRetryCount = retryCount;
+            retryCount = null;
+            pickRetryCount = 0;
+            version = 1.1;
+        }
     }
 
     @Override

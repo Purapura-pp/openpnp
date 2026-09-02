@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.openpnp.ConfigurationListener;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
@@ -38,13 +37,12 @@ public abstract class AbstractHeadMountable extends AbstractMachineElement imple
     private String axisRotationId;
 
     public AbstractHeadMountable() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                applyConfiguration(configuration);
-            }
-        });
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        applyConfiguration(configuration);
     }
 
     public void applyConfiguration(Configuration configuration) {

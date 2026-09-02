@@ -28,7 +28,8 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.core.Commit;
 import org.simpleframework.xml.core.Persist;
 
-public abstract class AbstractHead extends AbstractModelObject implements Head {
+public abstract class AbstractHead extends AbstractModelObject
+        implements Head, ConfigurationListener {
     @Attribute
     protected String id;
 
@@ -126,31 +127,33 @@ public abstract class AbstractHead extends AbstractModelObject implements Head {
     public AbstractHead() {
         this.id = Configuration.createId("HED");
         this.name = getClass().getSimpleName();
+    }
 
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        zProbeActuator = getActuatorByName(zProbeActuatorName);
+        pumpActuator = getActuatorByName(pumpActuatorName);
+
+        configuration.getMachine().addListener(new MachineListener.Adapter() {
+
             @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                zProbeActuator = getActuatorByName(zProbeActuatorName);
-                pumpActuator = getActuatorByName(pumpActuatorName);
+            public void machineAboutToBeDisabled(Machine machine, String reason) {
+                // Machine no longer busy, might need to switch off the pump.
+                delayedPumpOffRequest(true);
+            }
 
-                configuration.getMachine().addListener(new MachineListener.Adapter() {
-
-                    @Override
-                    public void machineAboutToBeDisabled(Machine machine, String reason) {
-                        // Machine no longer busy, might need to switch off the pump.
-                        delayedPumpOffRequest(true);
-                    }
-
-                    @Override 
-                    public void machineBusy(Machine machine, boolean busy) {
-                        if (!busy) {
-                            // Machine no longer busy, might need to switch off the pump.
-                            delayedPumpOffRequest(false);
-                        }
-                    }
-                });
+            @Override 
+            public void machineBusy(Machine machine, boolean busy) {
+                if (!busy) {
+                    // Machine no longer busy, might need to switch off the pump.
+                    delayedPumpOffRequest(false);
+                }
             }
         });
+    }
+
+    @Override
+    public void configurationComplete(Configuration configuration) throws Exception {
     }
 
     @SuppressWarnings("unused")

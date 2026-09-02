@@ -21,7 +21,6 @@
 
 package org.openpnp.spi.base;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.model.AxesLocation;
 import org.openpnp.model.Configuration;
 import org.openpnp.spi.LinearInputAxis;
@@ -36,13 +35,12 @@ public abstract class AbstractSingleTransformedAxis extends AbstractTransformedA
     private String inputAxisId;
 
     protected AbstractSingleTransformedAxis() {
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                inputAxis = (AbstractAxis) configuration.getMachine().getAxis(inputAxisId);
-            }
-        });
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        inputAxis = (AbstractAxis) configuration.getMachine().getAxis(inputAxisId);
     }
 
     @Override

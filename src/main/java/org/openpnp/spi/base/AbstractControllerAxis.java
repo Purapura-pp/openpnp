@@ -21,7 +21,6 @@
 
 package org.openpnp.spi.base;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Length;
 import org.openpnp.model.LengthUnit;
@@ -48,18 +47,13 @@ public abstract class AbstractControllerAxis extends AbstractCoordinateAxis impl
 
     protected AbstractControllerAxis () {
         super();
-        if (Configuration.isInstanceInitialized()) { // Allow unit tests without Configuration initialized.
-            Configuration.get()
-            .addListener(new ConfigurationListener.Adapter() {
+    }
 
-                @Override
-                public void configurationLoaded(Configuration configuration)
-                        throws Exception {
-                    driver = configuration.getMachine()
-                            .getDriver(driverId);
-                }
-            });
-        }
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        driver = configuration.getMachine()
+                .getDriver(driverId);
     }
 
     @Override

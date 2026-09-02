@@ -2,7 +2,6 @@ package org.openpnp.spi.base;
 
 import javax.swing.Icon;
 
-import org.openpnp.ConfigurationListener;
 import org.openpnp.model.Configuration;
 import org.openpnp.model.Location;
 import org.openpnp.spi.Actuator;
@@ -93,21 +92,20 @@ public abstract class AbstractActuator extends AbstractHeadMountable implements 
     public AbstractActuator() {
         this.id = Configuration.createId("ACT");
         this.name = getClass().getSimpleName();
-        Configuration.get().addListener(new ConfigurationListener.Adapter() {
+    }
 
-            @Override
-            public void configurationLoaded(Configuration configuration) throws Exception {
-                driver = configuration.getMachine().getDriver(driverId);
-                
-                // if version is < 1.1, upgrade binary coordination configuration to enum style
-                if (version < 1.1) {
-                    setCoordinatedBeforeActuateEnum(coordinatedBeforeActuate ? ActuatorCoordinationEnumType.WaitForStillstand : ActuatorCoordinationEnumType.None);
-                    setCoordinatedAfterActuateEnum(coordinatedAfterActuate ? ActuatorCoordinationEnumType.WaitForUnconditionalCoordination : ActuatorCoordinationEnumType.None);
-                    setCoordinatedBeforeReadEnum(coordinatedBeforeRead ? ActuatorCoordinationEnumType.WaitForStillstand : ActuatorCoordinationEnumType.None);
-                    version = 1.1;
-                }
-            }
-        });
+    @Override
+    public void configurationLoaded(Configuration configuration) throws Exception {
+        super.configurationLoaded(configuration);
+        driver = configuration.getMachine().getDriver(driverId);
+
+        // if version is < 1.1, upgrade binary coordination configuration to enum style
+        if (version < 1.1) {
+            setCoordinatedBeforeActuateEnum(coordinatedBeforeActuate ? ActuatorCoordinationEnumType.WaitForStillstand : ActuatorCoordinationEnumType.None);
+            setCoordinatedAfterActuateEnum(coordinatedAfterActuate ? ActuatorCoordinationEnumType.WaitForUnconditionalCoordination : ActuatorCoordinationEnumType.None);
+            setCoordinatedBeforeReadEnum(coordinatedBeforeRead ? ActuatorCoordinationEnumType.WaitForStillstand : ActuatorCoordinationEnumType.None);
+            version = 1.1;
+        }
     }
 
     @Override
