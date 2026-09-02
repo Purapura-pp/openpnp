@@ -3,6 +3,9 @@
 # bounds: a file may call it fewer times than it says here, never more, and a
 # file that is not listed may not call it at all.
 #
+# These are the calls that were left on purpose, not a list of work waiting to
+# be done. Read the test's own comment before adding to them.
+#
 # 171 calls in 104 files.
 org/openpnp/Main.java	2
 org/openpnp/gui/BoardPlacementsPanel.java	1

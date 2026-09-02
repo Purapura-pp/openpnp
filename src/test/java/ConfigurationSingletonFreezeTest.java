@@ -29,9 +29,16 @@ import org.junit.jupiter.api.Test;
  * that wants to supply its own. And because the instance is static and never cleared, tests sharing
  * a JVM see whatever the class that ran before them left behind.
  * <p>
- * Removing the calls in one change is not possible, so this freezes the count instead. The baseline
- * file records how many calls each file is allowed to make. Refactoring lowers a number; nothing
- * raises one.
+ * Removing the calls in one change was not possible, so this froze the count instead, and the count
+ * came down from 695 to what the baseline says now. What is left is not more of the same work
+ * waiting to be done. It is the places where Configuration is the right answer: the resource
+ * directory and the part, package, board and vision settings registries, which is what a
+ * Configuration is; the constructor hooks of the few objects that are not part of a machine and so
+ * have nothing nearer to ask; and a handful of dialogs and pipeline stages that are handed no
+ * context at all. Every remaining call was looked at and left on purpose.
+ * <p>
+ * So read the baseline as a limit rather than as a tally of work outstanding. Refactoring may still
+ * lower a number, and should; nothing raises one without a reason that survives being written down.
  * <p>
  * Comments and string literals do not count, because the numbers are meant to be the calls the
  * program really makes: commenting a call out is progress, and naming one in a comment - as the
@@ -70,13 +77,18 @@ public class ConfigurationSingletonFreezeTest {
             message.append(line).append("\n");
         }
         message.append("\nA call reaches process-wide mutable state, so it is a dependency the "
-                + "constructor does not declare and a test cannot replace. Three ways out, in the "
+                + "constructor does not declare and a test cannot replace. Four ways out, in the "
                 + "order they usually apply:\n"
                 + "  - a machine element - nozzle, camera, axis, feeder, driver, signaler - reaches "
                 + "its machine through its own references, either getHead().getMachine() or the "
-                + "getMachine() that AbstractMachine fills in while loading;\n"
-                + "  - a ConfigurationListener callback is handed the configuration as its "
-                + "argument, so take it from there rather than from the singleton;\n"
+                + "getMachine() that AbstractMachine fills in while loading, and from there its "
+                + "scripting service and everything else the machine offers;\n"
+                + "  - resolving the ids an element was deserialized with belongs in its "
+                + "configurationLoaded or configurationComplete, which the machine calls and hands "
+                + "the configuration to. An element of an element - a Vision, an interlock monitor - "
+                + "is passed the round by the element it hangs off;\n"
+                + "  - a static helper takes the machine, or the element to work it out from, as a "
+                + "parameter. Its callers are holding one;\n"
                 + "  - a GUI class takes what it needs through its constructor. MainFrame is built "
                 + "with the Configuration and hands it to the panels it creates.\n");
         message.append(regenerated(counted,
@@ -188,6 +200,9 @@ public class ConfigurationSingletonFreezeTest {
         text.append("# times it is allowed to. ConfigurationSingletonFreezeTest reads these as upper\n");
         text.append("# bounds: a file may call it fewer times than it says here, never more, and a\n");
         text.append("# file that is not listed may not call it at all.\n");
+        text.append("#\n");
+        text.append("# These are the calls that were left on purpose, not a list of work waiting to\n");
+        text.append("# be done. Read the test's own comment before adding to them.\n");
         text.append("#\n");
         text.append("# ").append(total).append(" calls in ").append(counts.size()).append(" files.\n");
         for (Map.Entry<String, Integer> file : counts.entrySet()) {
